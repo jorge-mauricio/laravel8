@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ApiCategoriesController extends Controller
+// Custom models.
+use App\Models\CategoriesListing;
+
+
+class ApiCategoriesListingController extends Controller
 {
     // Properties.
     // ----------------------
-    /*
     private array|null $arrReturn = array('returnStatus' => false);
     private string $configAPIKey = '';
 
@@ -33,9 +36,30 @@ class ApiCategoriesController extends Controller
 
     private float|null $terminal = 0;
     private string $apiKey = '';
-    */
     // ----------------------
     // NOTE: maybe, delete this controller
 
+
+
+    //public function getCategoriesListing(float|string $idTbCategories = null): string //TODO: change to the right type
+    public function getCategoriesListing(float|string $idParent = null): string //TODO: change to the right type
+    {
+        // Variables.
+        // ----------------------
+        // float|string $idParent = null;
+        // ----------------------
+
+        // Value definition.
+        // ----------------------
+        $this->idParent = $idParent;
+        // ----------------------
+
+        //$adminCategoriesListing = CategoriesListing::all();
+        $clAdmin = new CategoriesListing($this->idParent);
+
+        $adminCategoriesListing = $clAdmin->cphBodyBuild();
+        
+        return $adminCategoriesListing;
+    }
 
 }

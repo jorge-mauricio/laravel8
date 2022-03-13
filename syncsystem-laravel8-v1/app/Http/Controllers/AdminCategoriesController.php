@@ -11,8 +11,19 @@ use App\Models\CategoriesListing;
 class AdminCategoriesController extends Controller
 {
     // Properties.
+    // ----------------------
+    private float|string|null $idParent = null;
+    private float|null $pageNumber = null;
+    private string|null $masterPageSelect = 'layout-backend-main';
+
+    private array $cookiesData;
     private array $templateData;
 
+    private string|null $messageSuccess = '';
+    private string|null $messageError = '';
+    private string|null $messageAlert = '';
+    private float|null $nRecords = null;
+    // ----------------------
 
     // Admin Categories Listing Controller.
     public function adminCategoriesListing(float|string $idTbCategories = null): string //TODO: change to the right type
@@ -38,10 +49,21 @@ class AdminCategoriesController extends Controller
     }
 
 
-    public function getCategoriesListing(float|string $idTbCategories = null): string //TODO: change to the right type
+    //public function getCategoriesListing(float|string $idTbCategories = null): string //TODO: change to the right type
+    public function getCategoriesListing(float|string $idParent = null): string //TODO: change to the right type
     {
+        // Variables.
+        // ----------------------
+        // float|string $idParent = null;
+        // ----------------------
+
+        // Value definition.
+        // ----------------------
+        $this->idParent = $idParent;
+        // ----------------------
+
         //$adminCategoriesListing = CategoriesListing::all();
-        $clAdmin = new CategoriesListing();
+        $clAdmin = new CategoriesListing($this->idParent);
 
         $adminCategoriesListing = $clAdmin->cphBodyBuild();
         

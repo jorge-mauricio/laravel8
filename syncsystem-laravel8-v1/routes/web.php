@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Controllers.
 use App\Http\Controllers\AdminCategoriesController;
 use App\Http\Controllers\FrontendCategoriesListingController;
 
@@ -40,6 +41,6 @@ Route::get('/categories/{idTbCategories?}',[FrontendCategoriesListingController:
 // Admin - Categories - listing - GET.
 // **************************************************************************************
 // Debug: http://127.0.0.1:8000/admin/categories/123
-// Route::get('/admin/categories/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
-Route::get('/admin/categories/{idTbCategories?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
+//Route::get('/admin/categories/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
 // **************************************************************************************
