@@ -11,6 +11,7 @@ class ObjectCategoriesListing
     private array|null $arrSpecialParameters = null;
 
     private array|null $resultsCategoriesListing = null;
+    //private mixed $resultsCategoriesListing = null;
     // ----------------------
     
     // Constructor.
@@ -63,6 +64,7 @@ class ObjectCategoriesListing
      */
     public function recordsListingGet(float $terminal = 0, float $returnType = 1): array|null
     {
+        //
         // terminal: 0 - backend | 1 - frontend
         // returnType: 1 - array | 3 - Json Object | 10 - html
 

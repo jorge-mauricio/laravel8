@@ -27,6 +27,10 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // DB - set for associative array.
+        //Event::listen(StatementPrepared::class, function($event) {
+            ///** @var StatementPrepared $event */
+            //$event->statement->setFetchMode(\PDO::FETCH_ASSOC);
+        //});
     }
 }
