@@ -4,3 +4,9 @@
 [11-Mar-2022 13:44:17 America/Sao_Paulo] PHP Notice:  Undefined index: LOCAL_ADDR in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\phpcheck.php on line 4
 [11-Mar-2022 13:45:34 America/Sao_Paulo] PHP Warning:  Undefined array key "SERVER_ADDR" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\phpcheck.php on line 3
 [11-Mar-2022 13:45:34 America/Sao_Paulo] PHP Warning:  Undefined array key "LOCAL_ADDR" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\phpcheck.php on line 4
+[13-Mar-2022 10:26:13 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Application" not found in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\bootstrap\app.php:14
+Stack trace:
+#0 K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\index.php(48): require_once()
+#1 K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\server.php(21): require_once('...')
+#2 {main}
+  thrown in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\bootstrap\app.php on line 14

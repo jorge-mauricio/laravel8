@@ -31,6 +31,7 @@ class CategoriesListing extends Model
 
     public function cphBodyBuild(): string
     {
+
         // ref: https://youtu.be/_CjKZ9FwEpQ?list=PLz_YkiqIHesvWMGfavV8JFDQRJycfHUvD&t=239
         // create eloquent fetch
 
@@ -41,10 +42,26 @@ class CategoriesListing extends Model
         // CRUD API
 
 
-        // ObjectCategoriesListing
-        $oclRecords = new \SyncSystemNS\ObjectCategoriesListing();
-        //$oclRecords = new ObjectCategoriesListing();
+        // Variables.
+        // ----------------------
+        (array) $arrReturn = ['returnStatus' => false];
 
+        // ----------------------
+
+
+        // Parameters build - listing.
+        (array)$oclRecordsParameters = [
+            '_arrSearchParameters' => [],
+            '_configSortOrder' => $GLOBALS['configCategoriesSort'],
+            '_strNRecords' => '',
+            '_arrSpecialParameters' => ['returnType' => 1],
+        ];
+
+
+        // ObjectCategoriesListing
+        $oclRecords = new \SyncSystemNS\ObjectCategoriesListing($oclRecordsParameters);
+        $arrReturn['oclRecords'] = $oclRecords->recordsListingGet(0, 3);
+        //$oclRecords = new ObjectCategoriesListing();
         
 
         return 'content inside model: ' . $this->_idParent;
