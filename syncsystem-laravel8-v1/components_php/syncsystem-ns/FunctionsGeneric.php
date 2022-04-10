@@ -1,0 +1,1116 @@
+<?php
+namespace SyncSystemNS;
+
+class FunctionsGeneric
+{
+    //Return the label in the right terminal.
+    //**************************************************************************************
+    /**
+     * Return the label in the right terminal.
+     * @static
+     * @param {object} objAppLabels 
+     * @param {string} labelName 
+     * @return {string}
+     * @example
+     * SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "labelName")
+     */
+    static function appLabelsGet($objAppLabels, string $labelName): string
+    {
+        //Variables.
+        //----------------------
+        $strReturn = "";
+        //----------------------
+
+
+
+        //Debug.
+        $strReturn = "testing";
+
+
+        return $strReturn;
+    }
+    //**************************************************************************************
+
+    // Data treatment for displaying information.
+    // **************************************************************************************
+    /**
+     * Data treatment for displaying information.
+     * @static
+     * @param string strContent
+     * @param string specialInstructions db | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
+     * @return string
+     * @example
+     *
+     */
+    static function contentMaskRead(string $strContent, string $specialInstructions = ''): string
+    {
+        // specialInstructions: db | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
+
+        // Variables.
+        // ----------------------
+        $strReturn = $strContent;
+        // ----------------------
+
+        // Data treatment.
+        // ----------------------
+        if ($strReturn === null) {
+            $strReturn = '';
+        }
+        // ----------------------
+
+        // Logic.
+        // ----------------------
+        if ($specialInstructions) {
+            // Detect edit field type.
+            // ----------------------
+            /*
+            if (specialInstructions.includes('editTextBox=17') === true || specialInstructions.includes('editTextBox=18') === true) {
+                specialInstructions += ', db'; // include especial instruction
+            }
+            */
+            // ----------------------
+
+            // DB data.
+            // ----------------------
+            if (strpos($specialInstructions, "db") !== false) {
+                //if ($strReturn) {
+                    $strReturn = stripslashes($strReturn);
+                    $strReturn = preg_replace('/(?:\r\n|\r|\n)/g', '<br />', $strReturn);
+
+                    // strReturn = strContent;
+
+                    // Convert line breaks to html br tags.
+                    // ref: https:// stackoverflow.com/questions/784539/how-do-i-replace-all-line-breaks-in-a-string-with-br-tags
+                    // strReturn = strContent.replace(/(?:\r\n|\r|\n)/g, "<br />");
+                    //$strReturn = strReturn.replace(/(?:\r\n|\r|\n)/g, '<br />');
+                //}
+            }
+            // ----------------------
+
+            // Apply link style.
+            // ----------------------
+            /*
+            if (specialInstructions.includes('linkStyle') == true) {
+                // Variables.
+                let arrSpecialInstructions = specialInstructions.split(',');
+                let styleApply;
+
+                // Value definition.
+                arrSpecialInstructions.filter((array) => {
+                if (array.includes('linkStyle')) {
+                    styleApply = array;
+                }
+                });
+
+                // Data treatment.
+                styleApply = styleApply.replace('linkStyle=', '');
+
+                // Logic.
+                // strReturn = strReturn.replace('target="_blank"', 'target="_blank" class="' + styleApply + '"');
+                strReturn = strReturn.replace('href="', 'class="' + styleApply + '" href="');
+
+                // Debug.
+                // console.log("arrSpecialInstructions[1]=", arrSpecialInstructions[1]);
+                // console.log("styleApply=", styleApply);
+            }
+            */
+            // ----------------------
+
+            // config-application
+            // ----------------------
+            /*
+            // if(specialInstructions == "config-application")
+            if (specialInstructions.includes('config-application') === true) {
+                // strReturn = strContent;
+                strReturn = strReturn;
+            }
+            */
+            // ----------------------
+
+            // env (.env - environment variables)
+            // ----------------------
+            /*
+            if (specialInstructions.includes('env') === true) {
+                // strReturn = strContent;
+                strReturn = strReturn;
+            }
+            */
+            // ----------------------
+
+            // URL data.
+            // ----------------------
+            /*
+            // TODO: check and correct url links.
+            if (specialInstructions.includes('url') === true) {
+                // strReturn = strContent;
+                strReturn = strReturn;
+            }
+            */
+            // ----------------------
+        }
+        return $strReturn;
+    }
+    // **************************************************************************************
+
+
+    // Data treatment for writing content.
+    // **************************************************************************************
+    /**
+     * Data treatment for writing content.
+     * @static
+     * @param string strContent
+     * @param string specialInstructions db_write_text | db_sanitize | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode)
+     * @return string
+     * @example
+     * \SyncSystemNS\FunctionsGeneric::contentMaskWrite('testing contentMaskWrite', 'db_sanitize');
+     */
+    static function contentMaskWrite(string $strContent, string $specialInstructions = ''): string
+    {
+        // specialInstructions: db_write_text | db_sanitize | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode)
+
+        // Variables.
+        // ----------------------
+        (string) $strReturn = $strContent;
+        // ----------------------
+
+        // if(strReturn !== null && typeof(strReturn) !== 'undefined')
+        if ($strReturn) {
+            // db_write_text
+            // ----------------------
+            /*
+            if (specialInstructions == 'db_write_text') {
+            // TODO: substitute condition with search in string.
+            strReturn = strReturn;
+            }
+            */
+            // ----------------------
+
+            // db_sanitize
+            // ----------------------
+            if ($specialInstructions === 'db_sanitize') {
+                $strReturn = $strReturn;
+            }
+            // ----------------------
+
+            // env (.env - environment variables)
+            // ----------------------
+            /*
+            if (specialInstructions == 'env') {
+            strReturn = strReturn;
+            }
+            */
+            // ----------------------
+        } else {
+            $strReturn = '';
+        }
+
+        return $strReturn;
+
+        // Usage.
+        // ----------------------
+        // \SyncSystemNS\FunctionsGeneric::contentMaskWrite('testing contentMaskWrite', 'db_sanitize');
+        // ----------------------
+    }
+    // **************************************************************************************
+
+
+
+    // Function to help build the SQL queries.
+    // **************************************************************************************
+    /**
+     * Function to help build the SQL queries.
+     * @param string strTable categories (configSystemDBTableCategories) | files (configSystemDBTableFiles) | content (configSystemDBTableContent) | forms | filters_generic (configSystemDBTableFiltersGeneric) | filters_generic_binding (configSystemDBTableFiltersGenericBinding)
+     * @param string buildType all | backend_optimized | frontend_optimized
+     * @param string returnMethod array | string (separated by commas)
+     * @return array|string
+     */
+    static function tableFieldsQueryBuild01(string $strTable, string $buildType, string $returnMethod): array|string
+    {
+        // buildType: all | files
+        // returnMethod: array | string (separated by commas)
+
+        // Variables.
+        // ----------------------
+        $strReturn = null;
+        $arrTableFieldsQueryBuild = [];
+        // ----------------------
+
+        // Buid the field search array (to be converted to string).
+
+        // Categories.
+        // ----------------------
+        // if(strTable == "categories")
+        if ($strTable === $GLOBALS['configSystemDBTableCategories']) {
+            if ($buildType === 'all') {
+                $arrTableFieldsQueryBuild = ['id', 'id_parent'];
+                $GLOBALS['enableCategoriesSortOrder'] === 1 ? array_push($arrTableFieldsQueryBuild, 'sort_order') : '';
+                array_push($arrTableFieldsQueryBuild, 'category_type', 'date_creation', 'date_timezone', 'date_edit');
+                $GLOBALS['enableCategoriesBindRegisterUser'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register_user') : '';
+                $GLOBALS['enableCategoriesBindRegister1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register1') : '';
+                $GLOBALS['enableCategoriesBindRegister2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register2') : '';
+                $GLOBALS['enableCategoriesBindRegister3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register3') : '';
+                $GLOBALS['enableCategoriesBindRegister4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register4') : '';
+                $GLOBALS['enableCategoriesBindRegister5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register5') : '';
+                array_push($arrTableFieldsQueryBuild, 'title', 'url_alias', 'keywords_tags', 'meta_description', 'meta_title', 'meta_info');
+
+                $GLOBALS['enableCategoriesDescription'] === 1 ? array_push($arrTableFieldsQueryBuild, 'description') : '';
+                $GLOBALS['enableCategoriesInfo1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info1') : '';
+                $GLOBALS['enableCategoriesInfo2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info2') : '';
+                $GLOBALS['enableCategoriesInfo3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info3') : '';
+                $GLOBALS['enableCategoriesInfo4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info4') : '';
+                $GLOBALS['enableCategoriesInfo5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info5') : '';
+                $GLOBALS['enableCategoriesInfo6'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info6') : '';
+                $GLOBALS['enableCategoriesInfo7'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info7') : '';
+                $GLOBALS['enableCategoriesInfo8'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info8') : '';
+                $GLOBALS['enableCategoriesInfo9'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info9') : '';
+                $GLOBALS['enableCategoriesInfo10'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
+                
+                $GLOBALS['enableCategoriesInfoS1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small1') : '';
+                $GLOBALS['enableCategoriesInfoS2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small2') : '';
+                $GLOBALS['enableCategoriesInfoS3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small3') : '';
+                $GLOBALS['enableCategoriesInfoS4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small4') : '';
+                $GLOBALS['enableCategoriesInfoS5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small5') : '';
+                
+                $GLOBALS['enableCategoriesNumber1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number1') : '';
+                $GLOBALS['enableCategoriesNumber2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number2') : '';
+                $GLOBALS['enableCategoriesNumber3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number3') : '';
+                $GLOBALS['enableCategoriesNumber4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number4') : '';
+                $GLOBALS['enableCategoriesNumber5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number5') : '';
+
+                $GLOBALS['enableCategoriesNumberS1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small1') : '';
+                $GLOBALS['enableCategoriesNumberS2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small2') : '';
+                $GLOBALS['enableCategoriesNumberS3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small3') : '';
+                $GLOBALS['enableCategoriesNumberS4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small4') : '';
+                $GLOBALS['enableCategoriesNumberS5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small5') : '';
+                
+                $GLOBALS['enableCategoriesDate1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date1') : '';
+                $GLOBALS['enableCategoriesDate2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date2') : '';
+                $GLOBALS['enableCategoriesDate3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date3') : '';
+                $GLOBALS['enableCategoriesDate4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date4') : '';
+                $GLOBALS['enableCategoriesDate5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date5') : '';
+                
+                // arrTableFieldsQueryBuild.push("image_main");
+                $GLOBALS['enableCategoriesImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+
+                $GLOBALS['enableCategoriesFile1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file1') : '';
+                $GLOBALS['enableCategoriesFile2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file2') : '';
+                $GLOBALS['enableCategoriesFile3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file3') : '';
+                $GLOBALS['enableCategoriesFile4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file4') : '';
+                $GLOBALS['enableCategoriesFile5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file5') : '';
+                
+                array_push($arrTableFieldsQueryBuild, 'activation');
+                $GLOBALS['enableCategoriesActivation1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
+                $GLOBALS['enableCategoriesActivation2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
+                $GLOBALS['enableCategoriesActivation3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
+                $GLOBALS['enableCategoriesActivation4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
+                $GLOBALS['enableCategoriesActivation5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
+                
+                $GLOBALS['enableCategoriesStatus'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
+                $GLOBALS['enableCategoriesRestrictedAccess'] === 1 ? array_push($arrTableFieldsQueryBuild, 'restricted_access') : '';
+                $GLOBALS['enableCategoriesNotes'] === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
+            }
+
+            // File fields.
+            if ($buildType === 'files') {
+                $GLOBALS['enableCategoriesImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+                $GLOBALS['enableCategoriesFile1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file1') : '';
+                $GLOBALS['enableCategoriesFile2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file2') : '';
+                $GLOBALS['enableCategoriesFile3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file3') : '';
+                $GLOBALS['enableCategoriesFile4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file4') : '';
+                $GLOBALS['enableCategoriesFile5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file5') : '';
+            }
+        }
+        // ----------------------
+        /*
+        // Files.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableFiles) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enableFilesSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            // arrTableFieldsQueryBuild.push("file_type", "file_config", "date_creation", "date_timezone", "date_edit");
+            arrTableFieldsQueryBuild.push('file_type', 'file_config', 'date_creation', 'date_edit');
+            gSystemConfig.enableFilesTitle == 1 ? arrTableFieldsQueryBuild.push('title') : '';
+            arrTableFieldsQueryBuild.push('caption');
+            gSystemConfig.enableFilesDescription == 1 ? arrTableFieldsQueryBuild.push('description') : '';
+            gSystemConfig.enableFilesHTMLCode == 1 ? arrTableFieldsQueryBuild.push('html_code') : '';
+            arrTableFieldsQueryBuild.push('url_alias', 'keywords_tags', 'meta_description', 'meta_title', 'meta_info');
+            gSystemConfig.enableFilesInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
+            gSystemConfig.enableFilesInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
+            gSystemConfig.enableFilesInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
+            gSystemConfig.enableFilesInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
+            gSystemConfig.enableFilesInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
+            gSystemConfig.enableFilesInfoS1 == 1 ? arrTableFieldsQueryBuild.push('info_small1') : '';
+            gSystemConfig.enableFilesInfoS2 == 1 ? arrTableFieldsQueryBuild.push('info_small2') : '';
+            gSystemConfig.enableFilesInfoS3 == 1 ? arrTableFieldsQueryBuild.push('info_small3') : '';
+            gSystemConfig.enableFilesInfoS4 == 1 ? arrTableFieldsQueryBuild.push('info_small4') : '';
+            gSystemConfig.enableFilesInfoS5 == 1 ? arrTableFieldsQueryBuild.push('info_small5') : '';
+            gSystemConfig.enableFilesNumber1 == 1 ? arrTableFieldsQueryBuild.push('number1') : '';
+            gSystemConfig.enableFilesNumber2 == 1 ? arrTableFieldsQueryBuild.push('number2') : '';
+            gSystemConfig.enableFilesNumber3 == 1 ? arrTableFieldsQueryBuild.push('number3') : '';
+            gSystemConfig.enableFilesNumber4 == 1 ? arrTableFieldsQueryBuild.push('number4') : '';
+            gSystemConfig.enableFilesNumber5 == 1 ? arrTableFieldsQueryBuild.push('number5') : '';
+            gSystemConfig.enableFilesNumberS1 == 1 ? arrTableFieldsQueryBuild.push('number_small1') : '';
+            gSystemConfig.enableFilesNumberS2 == 1 ? arrTableFieldsQueryBuild.push('number_small2') : '';
+            gSystemConfig.enableFilesNumberS3 == 1 ? arrTableFieldsQueryBuild.push('number_small3') : '';
+            gSystemConfig.enableFilesNumberS4 == 1 ? arrTableFieldsQueryBuild.push('number_small4') : '';
+            gSystemConfig.enableFilesNumberS5 == 1 ? arrTableFieldsQueryBuild.push('number_small5') : '';
+            gSystemConfig.enableFilesDate1 == 1 ? arrTableFieldsQueryBuild.push('date1') : '';
+            gSystemConfig.enableFilesDate2 == 1 ? arrTableFieldsQueryBuild.push('date2') : '';
+            gSystemConfig.enableFilesDate3 == 1 ? arrTableFieldsQueryBuild.push('date3') : '';
+            gSystemConfig.enableFilesDate4 == 1 ? arrTableFieldsQueryBuild.push('date4') : '';
+            gSystemConfig.enableFilesDate5 == 1 ? arrTableFieldsQueryBuild.push('date5') : '';
+
+            arrTableFieldsQueryBuild.push('file');
+            gSystemConfig.enableFilesThumbnails == 1 ? arrTableFieldsQueryBuild.push('file_thumbnail') : '';
+            arrTableFieldsQueryBuild.push('file_size', 'file_duration', 'file_dimensions', 'file_original_name');
+
+            gSystemConfig.enableFilesFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enableFilesFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enableFilesFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enableFilesFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enableFilesFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableFilesActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
+            gSystemConfig.enableFilesActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
+            gSystemConfig.enableFilesActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
+            gSystemConfig.enableFilesActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
+            gSystemConfig.enableFilesActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
+            gSystemConfig.enableFilesNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            arrTableFieldsQueryBuild.push('file');
+            gSystemConfig.enableFilesThumbnails == 1 ? arrTableFieldsQueryBuild.push('file_thumbnail') : '';
+            gSystemConfig.enableFilesFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enableFilesFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enableFilesFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enableFilesFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enableFilesFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+        }
+        }
+        // ----------------------
+
+        // Content.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableContent) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enableContentSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            // arrTableFieldsQueryBuild.push("date_creation", "date_timezone", "date_edit");
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit');
+            gSystemConfig.enableContentBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push('id_register_user') : '';
+            arrTableFieldsQueryBuild.push('content_type');
+            gSystemConfig.enableContentColumns == 1 ? arrTableFieldsQueryBuild.push('content_columns') : '';
+            arrTableFieldsQueryBuild.push('align_text', 'align_image', 'content_text');
+            gSystemConfig.enableContentURL == 1 ? arrTableFieldsQueryBuild.push('content_url') : '';
+            arrTableFieldsQueryBuild.push('caption', 'file', 'file_size', 'file_duration', 'file_dimensions', 'file_original_name', 'file_config');
+            gSystemConfig.enableContentFileThumbnail == 1 ? arrTableFieldsQueryBuild.push('file_thumbnail') : '';
+            arrTableFieldsQueryBuild.push('activation');
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            arrTableFieldsQueryBuild.push('file');
+            gSystemConfig.enableContentFileThumbnail == 1 ? arrTableFieldsQueryBuild.push('file_thumbnail') : '';
+        }
+        }
+        // ----------------------
+
+        // Products.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableProducts) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enableProductsSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            gSystemConfig.enableProductsType == 1 ? arrTableFieldsQueryBuild.push('id_type') : '';
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit');
+            gSystemConfig.enableProductsCode == 1 ? arrTableFieldsQueryBuild.push('code') : '';
+
+            gSystemConfig.enableProductsBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push('id_register_user') : '';
+            gSystemConfig.enableProductsBindRegister1 == 1 ? arrTableFieldsQueryBuild.push('id_register1') : '';
+            gSystemConfig.enableProductsBindRegister2 == 1 ? arrTableFieldsQueryBuild.push('id_register2') : '';
+            gSystemConfig.enableProductsBindRegister3 == 1 ? arrTableFieldsQueryBuild.push('id_register3') : '';
+            gSystemConfig.enableProductsBindRegister4 == 1 ? arrTableFieldsQueryBuild.push('id_register4') : '';
+            gSystemConfig.enableProductsBindRegister5 == 1 ? arrTableFieldsQueryBuild.push('id_register5') : '';
+
+            // arrTableFieldsQueryBuild.push("code", "title");
+            arrTableFieldsQueryBuild.push('title');
+            gSystemConfig.enableProductsDescription == 1 ? arrTableFieldsQueryBuild.push('description') : '';
+            arrTableFieldsQueryBuild.push('url_alias', 'keywords_tags', 'meta_description', 'meta_title', 'meta_info');
+
+            gSystemConfig.enableProductsInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
+            gSystemConfig.enableProductsInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
+            gSystemConfig.enableProductsInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
+            gSystemConfig.enableProductsInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
+            gSystemConfig.enableProductsInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
+            gSystemConfig.enableProductsInfo6 == 1 ? arrTableFieldsQueryBuild.push('info6') : '';
+            gSystemConfig.enableProductsInfo7 == 1 ? arrTableFieldsQueryBuild.push('info7') : '';
+            gSystemConfig.enableProductsInfo8 == 1 ? arrTableFieldsQueryBuild.push('info8') : '';
+            gSystemConfig.enableProductsInfo9 == 1 ? arrTableFieldsQueryBuild.push('info9') : '';
+            gSystemConfig.enableProductsInfo10 == 1 ? arrTableFieldsQueryBuild.push('info10') : '';
+            gSystemConfig.enableProductsInfo11 == 1 ? arrTableFieldsQueryBuild.push('info11') : '';
+            gSystemConfig.enableProductsInfo12 == 1 ? arrTableFieldsQueryBuild.push('info12') : '';
+            gSystemConfig.enableProductsInfo13 == 1 ? arrTableFieldsQueryBuild.push('info13') : '';
+            gSystemConfig.enableProductsInfo14 == 1 ? arrTableFieldsQueryBuild.push('info14') : '';
+            gSystemConfig.enableProductsInfo15 == 1 ? arrTableFieldsQueryBuild.push('info15') : '';
+            gSystemConfig.enableProductsInfo16 == 1 ? arrTableFieldsQueryBuild.push('info16') : '';
+            gSystemConfig.enableProductsInfo17 == 1 ? arrTableFieldsQueryBuild.push('info17') : '';
+            gSystemConfig.enableProductsInfo18 == 1 ? arrTableFieldsQueryBuild.push('info18') : '';
+            gSystemConfig.enableProductsInfo19 == 1 ? arrTableFieldsQueryBuild.push('info19') : '';
+            gSystemConfig.enableProductsInfo20 == 1 ? arrTableFieldsQueryBuild.push('info20') : '';
+
+            gSystemConfig.enableProductsInfoS1 == 1 ? arrTableFieldsQueryBuild.push('info_small1') : '';
+            gSystemConfig.enableProductsInfoS2 == 1 ? arrTableFieldsQueryBuild.push('info_small2') : '';
+            gSystemConfig.enableProductsInfoS3 == 1 ? arrTableFieldsQueryBuild.push('info_small3') : '';
+            gSystemConfig.enableProductsInfoS4 == 1 ? arrTableFieldsQueryBuild.push('info_small4') : '';
+            gSystemConfig.enableProductsInfoS5 == 1 ? arrTableFieldsQueryBuild.push('info_small5') : '';
+            gSystemConfig.enableProductsInfoS6 == 1 ? arrTableFieldsQueryBuild.push('info_small6') : '';
+            gSystemConfig.enableProductsInfoS7 == 1 ? arrTableFieldsQueryBuild.push('info_small7') : '';
+            gSystemConfig.enableProductsInfoS8 == 1 ? arrTableFieldsQueryBuild.push('info_small8') : '';
+            gSystemConfig.enableProductsInfoS9 == 1 ? arrTableFieldsQueryBuild.push('info_small9') : '';
+            gSystemConfig.enableProductsInfoS10 == 1 ? arrTableFieldsQueryBuild.push('info_small10') : '';
+            gSystemConfig.enableProductsInfoS11 == 1 ? arrTableFieldsQueryBuild.push('info_small11') : '';
+            gSystemConfig.enableProductsInfoS12 == 1 ? arrTableFieldsQueryBuild.push('info_small12') : '';
+            gSystemConfig.enableProductsInfoS13 == 1 ? arrTableFieldsQueryBuild.push('info_small13') : '';
+            gSystemConfig.enableProductsInfoS14 == 1 ? arrTableFieldsQueryBuild.push('info_small14') : '';
+            gSystemConfig.enableProductsInfoS15 == 1 ? arrTableFieldsQueryBuild.push('info_small15') : '';
+            gSystemConfig.enableProductsInfoS16 == 1 ? arrTableFieldsQueryBuild.push('info_small16') : '';
+            gSystemConfig.enableProductsInfoS17 == 1 ? arrTableFieldsQueryBuild.push('info_small17') : '';
+            gSystemConfig.enableProductsInfoS18 == 1 ? arrTableFieldsQueryBuild.push('info_small18') : '';
+            gSystemConfig.enableProductsInfoS19 == 1 ? arrTableFieldsQueryBuild.push('info_small19') : '';
+            gSystemConfig.enableProductsInfoS20 == 1 ? arrTableFieldsQueryBuild.push('info_small20') : '';
+            gSystemConfig.enableProductsInfoS21 == 1 ? arrTableFieldsQueryBuild.push('info_small21') : '';
+            gSystemConfig.enableProductsInfoS22 == 1 ? arrTableFieldsQueryBuild.push('info_small22') : '';
+            gSystemConfig.enableProductsInfoS23 == 1 ? arrTableFieldsQueryBuild.push('info_small23') : '';
+            gSystemConfig.enableProductsInfoS24 == 1 ? arrTableFieldsQueryBuild.push('info_small24') : '';
+            gSystemConfig.enableProductsInfoS25 == 1 ? arrTableFieldsQueryBuild.push('info_small25') : '';
+            gSystemConfig.enableProductsInfoS26 == 1 ? arrTableFieldsQueryBuild.push('info_small26') : '';
+            gSystemConfig.enableProductsInfoS27 == 1 ? arrTableFieldsQueryBuild.push('info_small27') : '';
+            gSystemConfig.enableProductsInfoS28 == 1 ? arrTableFieldsQueryBuild.push('info_small28') : '';
+            gSystemConfig.enableProductsInfoS29 == 1 ? arrTableFieldsQueryBuild.push('info_small29') : '';
+            gSystemConfig.enableProductsInfoS30 == 1 ? arrTableFieldsQueryBuild.push('info_small30') : '';
+
+            gSystemConfig.enableProductsValue == 1 ? arrTableFieldsQueryBuild.push('value') : '';
+            gSystemConfig.enableProductsValue1 == 1 ? arrTableFieldsQueryBuild.push('value1') : '';
+            gSystemConfig.enableProductsValue2 == 1 ? arrTableFieldsQueryBuild.push('value2') : '';
+            gSystemConfig.enableProductsWeight == 1 ? arrTableFieldsQueryBuild.push('weight') : '';
+            gSystemConfig.enableProductsCoefficient == 1 ? arrTableFieldsQueryBuild.push('coefficient') : '';
+
+            gSystemConfig.enableProductsNumber1 == 1 ? arrTableFieldsQueryBuild.push('number1') : '';
+            gSystemConfig.enableProductsNumber2 == 1 ? arrTableFieldsQueryBuild.push('number2') : '';
+            gSystemConfig.enableProductsNumber3 == 1 ? arrTableFieldsQueryBuild.push('number3') : '';
+            gSystemConfig.enableProductsNumber4 == 1 ? arrTableFieldsQueryBuild.push('number4') : '';
+            gSystemConfig.enableProductsNumber5 == 1 ? arrTableFieldsQueryBuild.push('number5') : '';
+
+            gSystemConfig.enableProductsNumberS1 == 1 ? arrTableFieldsQueryBuild.push('number_small1') : '';
+            gSystemConfig.enableProductsNumberS2 == 1 ? arrTableFieldsQueryBuild.push('number_small2') : '';
+            gSystemConfig.enableProductsNumberS3 == 1 ? arrTableFieldsQueryBuild.push('number_small3') : '';
+            gSystemConfig.enableProductsNumberS4 == 1 ? arrTableFieldsQueryBuild.push('number_small4') : '';
+            gSystemConfig.enableProductsNumberS5 == 1 ? arrTableFieldsQueryBuild.push('number_small5') : '';
+
+            gSystemConfig.enableProductsURL1 != 0 ? arrTableFieldsQueryBuild.push('url1') : '';
+            gSystemConfig.enableProductsURL2 != 0 ? arrTableFieldsQueryBuild.push('url2') : '';
+            gSystemConfig.enableProductsURL3 != 0 ? arrTableFieldsQueryBuild.push('url3') : '';
+            gSystemConfig.enableProductsURL4 != 0 ? arrTableFieldsQueryBuild.push('url4') : '';
+            gSystemConfig.enableProductsURL5 != 0 ? arrTableFieldsQueryBuild.push('url5') : '';
+
+            gSystemConfig.enableProductsDate1 == 1 ? arrTableFieldsQueryBuild.push('date1') : '';
+            gSystemConfig.enableProductsDate2 == 1 ? arrTableFieldsQueryBuild.push('date2') : '';
+            gSystemConfig.enableProductsDate3 == 1 ? arrTableFieldsQueryBuild.push('date3') : '';
+            gSystemConfig.enableProductsDate4 == 1 ? arrTableFieldsQueryBuild.push('date4') : '';
+            gSystemConfig.enableProductsDate5 == 1 ? arrTableFieldsQueryBuild.push('date5') : '';
+
+            gSystemConfig.enableProductsImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enableProductsImageMainCaption == 1 ? arrTableFieldsQueryBuild.push('image_main_caption') : '';
+
+            gSystemConfig.enableProductsFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enableProductsFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enableProductsFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enableProductsFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enableProductsFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableProductsActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
+            gSystemConfig.enableProductsActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
+            gSystemConfig.enableProductsActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
+            gSystemConfig.enableProductsActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
+            gSystemConfig.enableProductsActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
+            gSystemConfig.enableProductsStatus == 1 ? arrTableFieldsQueryBuild.push('id_status') : '';
+            gSystemConfig.enableProductsRestrictedAccess == 1 ? arrTableFieldsQueryBuild.push('restricted_access') : '';
+            gSystemConfig.enableProductsNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            gSystemConfig.enableProductsImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enableProductsFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enableProductsFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enableProductsFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enableProductsFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enableProductsFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+        }
+        }
+        // ----------------------
+
+        // Publications.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTablePublications) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enablePublicationsSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            arrTableFieldsQueryBuild.push('id_type', 'date_creation', 'date_edit');
+            gSystemConfig.enablePublicationsBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push('id_register_user') : '';
+            gSystemConfig.enablePublicationsBindRegister1 == 1 ? arrTableFieldsQueryBuild.push('id_register1') : '';
+            gSystemConfig.enablePublicationsBindRegister2 == 1 ? arrTableFieldsQueryBuild.push('id_register2') : '';
+            gSystemConfig.enablePublicationsBindRegister3 == 1 ? arrTableFieldsQueryBuild.push('id_register3') : '';
+            gSystemConfig.enablePublicationsBindRegister4 == 1 ? arrTableFieldsQueryBuild.push('id_register4') : '';
+            gSystemConfig.enablePublicationsBindRegister5 == 1 ? arrTableFieldsQueryBuild.push('id_register5') : '';
+
+            gSystemConfig.enablePublicationsDateStart == 1 ? arrTableFieldsQueryBuild.push('date_start') : '';
+            gSystemConfig.enablePublicationsDateEnd == 1 ? arrTableFieldsQueryBuild.push('date_end') : '';
+
+            arrTableFieldsQueryBuild.push('title');
+            gSystemConfig.enablePublicationsDescription == 1 ? arrTableFieldsQueryBuild.push('description') : '';
+            arrTableFieldsQueryBuild.push('url_alias', 'keywords_tags', 'meta_description', 'meta_title', 'meta_info');
+
+            gSystemConfig.enablePublicationsInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
+            gSystemConfig.enablePublicationsInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
+            gSystemConfig.enablePublicationsInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
+            gSystemConfig.enablePublicationsInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
+            gSystemConfig.enablePublicationsInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
+            gSystemConfig.enablePublicationsInfo6 == 1 ? arrTableFieldsQueryBuild.push('info6') : '';
+            gSystemConfig.enablePublicationsInfo7 == 1 ? arrTableFieldsQueryBuild.push('info7') : '';
+            gSystemConfig.enablePublicationsInfo8 == 1 ? arrTableFieldsQueryBuild.push('info8') : '';
+            gSystemConfig.enablePublicationsInfo9 == 1 ? arrTableFieldsQueryBuild.push('info9') : '';
+            gSystemConfig.enablePublicationsInfo10 == 1 ? arrTableFieldsQueryBuild.push('info10') : '';
+
+            gSystemConfig.enablePublicationsSource == 1 ? arrTableFieldsQueryBuild.push('source') : '';
+            gSystemConfig.enablePublicationsSourceURL == 1 ? arrTableFieldsQueryBuild.push('source_url') : '';
+
+            gSystemConfig.enablePublicationsNumber1 == 1 ? arrTableFieldsQueryBuild.push('number1') : '';
+            gSystemConfig.enablePublicationsNumber2 == 1 ? arrTableFieldsQueryBuild.push('number2') : '';
+            gSystemConfig.enablePublicationsNumber3 == 1 ? arrTableFieldsQueryBuild.push('number3') : '';
+            gSystemConfig.enablePublicationsNumber4 == 1 ? arrTableFieldsQueryBuild.push('number4') : '';
+            gSystemConfig.enablePublicationsNumber5 == 1 ? arrTableFieldsQueryBuild.push('number5') : '';
+
+            gSystemConfig.enablePublicationsURL1 != 0 ? arrTableFieldsQueryBuild.push('url1') : '';
+            gSystemConfig.enablePublicationsURL2 != 0 ? arrTableFieldsQueryBuild.push('url2') : '';
+            gSystemConfig.enablePublicationsURL3 != 0 ? arrTableFieldsQueryBuild.push('url3') : '';
+            gSystemConfig.enablePublicationsURL4 != 0 ? arrTableFieldsQueryBuild.push('url4') : '';
+            gSystemConfig.enablePublicationsURL5 != 0 ? arrTableFieldsQueryBuild.push('url5') : '';
+
+            gSystemConfig.enablePublicationsDate1 == 1 ? arrTableFieldsQueryBuild.push('date1') : '';
+            gSystemConfig.enablePublicationsDate2 == 1 ? arrTableFieldsQueryBuild.push('date2') : '';
+            gSystemConfig.enablePublicationsDate3 == 1 ? arrTableFieldsQueryBuild.push('date3') : '';
+            gSystemConfig.enablePublicationsDate4 == 1 ? arrTableFieldsQueryBuild.push('date4') : '';
+            gSystemConfig.enablePublicationsDate5 == 1 ? arrTableFieldsQueryBuild.push('date5') : '';
+
+            gSystemConfig.enablePublicationsImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enablePublicationsImageMainCaption == 1 ? arrTableFieldsQueryBuild.push('image_main_caption') : '';
+
+            gSystemConfig.enablePublicationsFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enablePublicationsFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enablePublicationsFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enablePublicationsFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enablePublicationsFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enablePublicationsActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
+            gSystemConfig.enablePublicationsActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
+            gSystemConfig.enablePublicationsActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
+            gSystemConfig.enablePublicationsActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
+            gSystemConfig.enablePublicationsActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
+            gSystemConfig.enablePublicationsStatus == 1 ? arrTableFieldsQueryBuild.push('id_status') : '';
+            gSystemConfig.enablePublicationsRestrictedAccess == 1 ? arrTableFieldsQueryBuild.push('restricted_access') : '';
+            gSystemConfig.enablePublicationsNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            gSystemConfig.enablePublicationsImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enablePublicationsFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enablePublicationsFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enablePublicationsFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enablePublicationsFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enablePublicationsFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+        }
+        }
+        // ----------------------
+
+        // Registers.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableRegisters) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enableRegistersSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            // gSystemConfig.enableRegistersType == 1 ? arrTableFieldsQueryBuild.push("id_type") : '';
+            arrTableFieldsQueryBuild.push('date_creation', 'date_timezone', 'date_edit', 'id_type');
+            gSystemConfig.enableRegistersActivity == 1 ? arrTableFieldsQueryBuild.push('id_activity') : '';
+
+            gSystemConfig.enableRegistersBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push('id_register_user') : '';
+            gSystemConfig.enableRegistersBindRegister1 == 1 ? arrTableFieldsQueryBuild.push('id_register1') : '';
+            gSystemConfig.enableRegistersBindRegister2 == 1 ? arrTableFieldsQueryBuild.push('id_register2') : '';
+            gSystemConfig.enableRegistersBindRegister3 == 1 ? arrTableFieldsQueryBuild.push('id_register3') : '';
+            gSystemConfig.enableRegistersBindRegister4 == 1 ? arrTableFieldsQueryBuild.push('id_register4') : '';
+            gSystemConfig.enableRegistersBindRegister5 == 1 ? arrTableFieldsQueryBuild.push('id_register5') : '';
+
+            gSystemConfig.enableRegistersRegisterType == 1 ? arrTableFieldsQueryBuild.push('register_type') : '';
+
+            gSystemConfig.enableRegistersNameTitle == 1 ? arrTableFieldsQueryBuild.push('name_title') : '';
+            gSystemConfig.enableRegistersNameFull == 1 ? arrTableFieldsQueryBuild.push('name_full') : '';
+            gSystemConfig.enableRegistersNameFirst == 1 ? arrTableFieldsQueryBuild.push('name_first') : '';
+            gSystemConfig.enableRegistersNameLast == 1 ? arrTableFieldsQueryBuild.push('name_last') : '';
+            gSystemConfig.enableRegistersCompanyNameLegal == 1 ? arrTableFieldsQueryBuild.push('company_name_legal') : '';
+            gSystemConfig.enableRegistersCompanyNameAlias == 1 ? arrTableFieldsQueryBuild.push('company_name_alias') : '';
+            gSystemConfig.enableRegistersDescription == 1 ? arrTableFieldsQueryBuild.push('description') : '';
+
+            arrTableFieldsQueryBuild.push('url_alias', 'keywords_tags', 'meta_description', 'meta_title', 'meta_info'); // 27
+
+            gSystemConfig.enableRegistersDateBirth != 0 ? arrTableFieldsQueryBuild.push('date_birth') : '';
+            gSystemConfig.enableRegistersGender == 1 ? arrTableFieldsQueryBuild.push('gender') : '';
+            gSystemConfig.enableRegistersHeight == 1 ? arrTableFieldsQueryBuild.push('height') : '';
+            gSystemConfig.enableRegistersWeight == 1 ? arrTableFieldsQueryBuild.push('weight') : '';
+
+            gSystemConfig.enableRegistersDocumentType == 1 ? arrTableFieldsQueryBuild.push('document_type') : '';
+            gSystemConfig.enableRegistersDocument == 1 ? arrTableFieldsQueryBuild.push('document') : '';
+            gSystemConfig.enableRegistersDocument1Type == 1 ? arrTableFieldsQueryBuild.push('document1_type') : '';
+            gSystemConfig.enableRegistersDocument1 == 1 ? arrTableFieldsQueryBuild.push('document1') : '';
+            gSystemConfig.enableRegistersDocument2Type == 1 ? arrTableFieldsQueryBuild.push('document2_type') : '';
+            gSystemConfig.enableRegistersDocument2 == 1 ? arrTableFieldsQueryBuild.push('document2') : '';
+
+            gSystemConfig.enableRegistersDocumentCompanyType == 1 ? arrTableFieldsQueryBuild.push('document_company_type') : '';
+            gSystemConfig.enableRegistersDocumentCompany == 1 ? arrTableFieldsQueryBuild.push('document_company') : '';
+            gSystemConfig.enableRegistersDocumentCompany1Type == 1 ? arrTableFieldsQueryBuild.push('document_company1_type') : '';
+            gSystemConfig.enableRegistersDocumentCompany1 == 1 ? arrTableFieldsQueryBuild.push('document_company1') : '';
+            gSystemConfig.enableRegistersDocumentCompany2Type == 1 ? arrTableFieldsQueryBuild.push('document_company2_type') : '';
+            gSystemConfig.enableRegistersDocumentCompany2 == 1 ? arrTableFieldsQueryBuild.push('document_company2') : '';
+
+            gSystemConfig.enableRegistersZIPCode == 1 ? arrTableFieldsQueryBuild.push('zip_code') : '';
+            gSystemConfig.enableRegistersAddressStreet == 1 ? arrTableFieldsQueryBuild.push('address_street') : '';
+            gSystemConfig.enableRegistersAddressNumber == 1 ? arrTableFieldsQueryBuild.push('address_number') : '';
+            gSystemConfig.enableRegistersAddressComplement == 1 ? arrTableFieldsQueryBuild.push('address_complement') : '';
+            gSystemConfig.enableRegistersNeighborhood == 1 ? arrTableFieldsQueryBuild.push('neighborhood') : '';
+            gSystemConfig.enableRegistersDistrict == 1 ? arrTableFieldsQueryBuild.push('district') : '';
+            gSystemConfig.enableRegistersCounty == 1 ? arrTableFieldsQueryBuild.push('county') : '';
+            gSystemConfig.enableRegistersCity == 1 ? arrTableFieldsQueryBuild.push('city') : '';
+            gSystemConfig.enableRegistersState == 1 ? arrTableFieldsQueryBuild.push('state') : '';
+            gSystemConfig.enableRegistersCountry == 1 ? arrTableFieldsQueryBuild.push('country') : '';
+            arrTableFieldsQueryBuild.push('id_street', 'id_neighborhood', 'id_district', 'id_county', 'id_city', 'id_state', 'id_country');
+
+            gSystemConfig.enableRegistersLocationReference == 1 ? arrTableFieldsQueryBuild.push('location_reference') : '';
+            gSystemConfig.enableRegistersLocationMap != 0 ? arrTableFieldsQueryBuild.push('location_map') : ''; // 62
+
+            gSystemConfig.enableRegistersPhone1 == 1 ? arrTableFieldsQueryBuild.push('phone1_international_code', 'phone1_area_code', 'phone1') : '';
+            gSystemConfig.enableRegistersPhone2 == 1 ? arrTableFieldsQueryBuild.push('phone2_international_code', 'phone2_area_code', 'phone2') : '';
+            gSystemConfig.enableRegistersPhone3 == 1 ? arrTableFieldsQueryBuild.push('phone3_international_code', 'phone3_area_code', 'phone3') : '';
+            gSystemConfig.enableRegistersWebsite == 1 ? arrTableFieldsQueryBuild.push('website') : '';
+
+            gSystemConfig.enableRegistersUsername == 1 ? arrTableFieldsQueryBuild.push('username') : '';
+            gSystemConfig.enableRegistersEmail == 1 ? arrTableFieldsQueryBuild.push('email') : '';
+            // arrTableFieldsQueryBuild.push("password", "password_hint", "password_length");
+            gSystemConfig.configRegistersPassword == 1 ? arrTableFieldsQueryBuild.push('password', 'password_hint', 'password_length') : ''; // 78
+
+            gSystemConfig.enableRegistersInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
+            gSystemConfig.enableRegistersInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
+            gSystemConfig.enableRegistersInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
+            gSystemConfig.enableRegistersInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
+            gSystemConfig.enableRegistersInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
+            gSystemConfig.enableRegistersInfo6 == 1 ? arrTableFieldsQueryBuild.push('info6') : '';
+            gSystemConfig.enableRegistersInfo7 == 1 ? arrTableFieldsQueryBuild.push('info7') : '';
+            gSystemConfig.enableRegistersInfo8 == 1 ? arrTableFieldsQueryBuild.push('info8') : '';
+            gSystemConfig.enableRegistersInfo9 == 1 ? arrTableFieldsQueryBuild.push('info9') : '';
+            gSystemConfig.enableRegistersInfo10 == 1 ? arrTableFieldsQueryBuild.push('info10') : '';
+            gSystemConfig.enableRegistersInfo11 == 1 ? arrTableFieldsQueryBuild.push('info11') : '';
+            gSystemConfig.enableRegistersInfo12 == 1 ? arrTableFieldsQueryBuild.push('info12') : '';
+            gSystemConfig.enableRegistersInfo13 == 1 ? arrTableFieldsQueryBuild.push('info13') : '';
+            gSystemConfig.enableRegistersInfo14 == 1 ? arrTableFieldsQueryBuild.push('info14') : '';
+            gSystemConfig.enableRegistersInfo15 == 1 ? arrTableFieldsQueryBuild.push('info15') : '';
+            gSystemConfig.enableRegistersInfo16 == 1 ? arrTableFieldsQueryBuild.push('info16') : '';
+            gSystemConfig.enableRegistersInfo17 == 1 ? arrTableFieldsQueryBuild.push('info17') : '';
+            gSystemConfig.enableRegistersInfo18 == 1 ? arrTableFieldsQueryBuild.push('info18') : '';
+            gSystemConfig.enableRegistersInfo19 == 1 ? arrTableFieldsQueryBuild.push('info19') : '';
+            gSystemConfig.enableRegistersInfo20 == 1 ? arrTableFieldsQueryBuild.push('info20') : '';
+
+            gSystemConfig.enableRegistersInfoS1 == 1 ? arrTableFieldsQueryBuild.push('info_small1') : '';
+            gSystemConfig.enableRegistersInfoS2 == 1 ? arrTableFieldsQueryBuild.push('info_small2') : '';
+            gSystemConfig.enableRegistersInfoS3 == 1 ? arrTableFieldsQueryBuild.push('info_small3') : '';
+            gSystemConfig.enableRegistersInfoS4 == 1 ? arrTableFieldsQueryBuild.push('info_small4') : '';
+            gSystemConfig.enableRegistersInfoS5 == 1 ? arrTableFieldsQueryBuild.push('info_small5') : '';
+            gSystemConfig.enableRegistersInfoS6 == 1 ? arrTableFieldsQueryBuild.push('info_small6') : '';
+            gSystemConfig.enableRegistersInfoS7 == 1 ? arrTableFieldsQueryBuild.push('info_small7') : '';
+            gSystemConfig.enableRegistersInfoS8 == 1 ? arrTableFieldsQueryBuild.push('info_small8') : '';
+            gSystemConfig.enableRegistersInfoS9 == 1 ? arrTableFieldsQueryBuild.push('info_small9') : '';
+            gSystemConfig.enableRegistersInfoS10 == 1 ? arrTableFieldsQueryBuild.push('info_small10') : '';
+            gSystemConfig.enableRegistersInfoS11 == 1 ? arrTableFieldsQueryBuild.push('info_small11') : '';
+            gSystemConfig.enableRegistersInfoS12 == 1 ? arrTableFieldsQueryBuild.push('info_small12') : '';
+            gSystemConfig.enableRegistersInfoS13 == 1 ? arrTableFieldsQueryBuild.push('info_small13') : '';
+            gSystemConfig.enableRegistersInfoS14 == 1 ? arrTableFieldsQueryBuild.push('info_small14') : '';
+            gSystemConfig.enableRegistersInfoS15 == 1 ? arrTableFieldsQueryBuild.push('info_small15') : '';
+            gSystemConfig.enableRegistersInfoS16 == 1 ? arrTableFieldsQueryBuild.push('info_small16') : '';
+            gSystemConfig.enableRegistersInfoS17 == 1 ? arrTableFieldsQueryBuild.push('info_small17') : '';
+            gSystemConfig.enableRegistersInfoS18 == 1 ? arrTableFieldsQueryBuild.push('info_small18') : '';
+            gSystemConfig.enableRegistersInfoS19 == 1 ? arrTableFieldsQueryBuild.push('info_small19') : '';
+            gSystemConfig.enableRegistersInfoS20 == 1 ? arrTableFieldsQueryBuild.push('info_small20') : '';
+            gSystemConfig.enableRegistersInfoS21 == 1 ? arrTableFieldsQueryBuild.push('info_small21') : '';
+            gSystemConfig.enableRegistersInfoS22 == 1 ? arrTableFieldsQueryBuild.push('info_small22') : '';
+            gSystemConfig.enableRegistersInfoS23 == 1 ? arrTableFieldsQueryBuild.push('info_small23') : '';
+            gSystemConfig.enableRegistersInfoS24 == 1 ? arrTableFieldsQueryBuild.push('info_small24') : '';
+            gSystemConfig.enableRegistersInfoS25 == 1 ? arrTableFieldsQueryBuild.push('info_small25') : '';
+            gSystemConfig.enableRegistersInfoS26 == 1 ? arrTableFieldsQueryBuild.push('info_small26') : '';
+            gSystemConfig.enableRegistersInfoS27 == 1 ? arrTableFieldsQueryBuild.push('info_small27') : '';
+            gSystemConfig.enableRegistersInfoS28 == 1 ? arrTableFieldsQueryBuild.push('info_small28') : '';
+            gSystemConfig.enableRegistersInfoS29 == 1 ? arrTableFieldsQueryBuild.push('info_small29') : '';
+            gSystemConfig.enableRegistersInfoS30 == 1 ? arrTableFieldsQueryBuild.push('info_small30') : ''; // 127
+
+            gSystemConfig.enableRegistersNumber1 == 1 ? arrTableFieldsQueryBuild.push('number1') : '';
+            gSystemConfig.enableRegistersNumber2 == 1 ? arrTableFieldsQueryBuild.push('number2') : '';
+            gSystemConfig.enableRegistersNumber3 == 1 ? arrTableFieldsQueryBuild.push('number3') : '';
+            gSystemConfig.enableRegistersNumber4 == 1 ? arrTableFieldsQueryBuild.push('number4') : '';
+            gSystemConfig.enableRegistersNumber5 == 1 ? arrTableFieldsQueryBuild.push('number5') : '';
+
+            gSystemConfig.enableRegistersNumberS1 == 1 ? arrTableFieldsQueryBuild.push('number_small1') : '';
+            gSystemConfig.enableRegistersNumberS2 == 1 ? arrTableFieldsQueryBuild.push('number_small2') : '';
+            gSystemConfig.enableRegistersNumberS3 == 1 ? arrTableFieldsQueryBuild.push('number_small3') : '';
+            gSystemConfig.enableRegistersNumberS4 == 1 ? arrTableFieldsQueryBuild.push('number_small4') : '';
+            gSystemConfig.enableRegistersNumberS5 == 1 ? arrTableFieldsQueryBuild.push('number_small5') : '';
+
+            gSystemConfig.enableRegistersURL1 != 0 ? arrTableFieldsQueryBuild.push('url1') : '';
+            gSystemConfig.enableRegistersURL2 != 0 ? arrTableFieldsQueryBuild.push('url2') : '';
+            gSystemConfig.enableRegistersURL3 != 0 ? arrTableFieldsQueryBuild.push('url3') : '';
+            gSystemConfig.enableRegistersURL4 != 0 ? arrTableFieldsQueryBuild.push('url4') : '';
+            gSystemConfig.enableRegistersURL5 != 0 ? arrTableFieldsQueryBuild.push('url5') : '';
+
+            gSystemConfig.enableRegistersDate1 == 1 ? arrTableFieldsQueryBuild.push('date1') : '';
+            gSystemConfig.enableRegistersDate2 == 1 ? arrTableFieldsQueryBuild.push('date2') : '';
+            gSystemConfig.enableRegistersDate3 == 1 ? arrTableFieldsQueryBuild.push('date3') : '';
+            gSystemConfig.enableRegistersDate4 == 1 ? arrTableFieldsQueryBuild.push('date4') : '';
+            gSystemConfig.enableRegistersDate5 == 1 ? arrTableFieldsQueryBuild.push('date5') : '';
+            gSystemConfig.enableRegistersDate6 == 1 ? arrTableFieldsQueryBuild.push('date6') : '';
+            gSystemConfig.enableRegistersDate7 == 1 ? arrTableFieldsQueryBuild.push('date7') : '';
+            gSystemConfig.enableRegistersDate8 == 1 ? arrTableFieldsQueryBuild.push('date8') : '';
+            gSystemConfig.enableRegistersDate9 == 1 ? arrTableFieldsQueryBuild.push('date9') : '';
+            gSystemConfig.enableRegistersDate10 == 1 ? arrTableFieldsQueryBuild.push('date10') : ''; // 152
+
+            gSystemConfig.enableRegistersImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enableRegistersImageMainCaption == 1 ? arrTableFieldsQueryBuild.push('image_main_caption') : '';
+            gSystemConfig.enableRegistersImageLogo == 1 ? arrTableFieldsQueryBuild.push('image_logo') : '';
+            gSystemConfig.enableRegistersImageBanner == 1 ? arrTableFieldsQueryBuild.push('image_banner') : '';
+
+            gSystemConfig.enableRegistersFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enableRegistersFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enableRegistersFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enableRegistersFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enableRegistersFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableRegistersActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
+            gSystemConfig.enableRegistersActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
+            gSystemConfig.enableRegistersActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
+            gSystemConfig.enableRegistersActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
+            gSystemConfig.enableRegistersActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
+            gSystemConfig.enableRegistersStatus == 1 ? arrTableFieldsQueryBuild.push('id_status') : '';
+            gSystemConfig.enableRegistersRestrictedAccess == 1 ? arrTableFieldsQueryBuild.push('restricted_access') : '';
+            gSystemConfig.enableRegistersNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            gSystemConfig.enableRegistersImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enableRegistersImageMainCaption == 1 ? arrTableFieldsQueryBuild.push('image_main_caption') : '';
+            gSystemConfig.enableRegistersImageLogo == 1 ? arrTableFieldsQueryBuild.push('image_logo') : '';
+            gSystemConfig.enableRegistersImageBanner == 1 ? arrTableFieldsQueryBuild.push('image_banner') : '';
+            gSystemConfig.enableRegistersFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enableRegistersFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enableRegistersFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enableRegistersFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enableRegistersFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+        }
+        }
+        // ----------------------
+
+        // Quizzes.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableQuizzes) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enableQuizzesSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit', 'id_type');
+            gSystemConfig.enableQuizzesBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push('id_register_user') : '';
+
+            arrTableFieldsQueryBuild.push('title');
+            gSystemConfig.enableQuizzesDescription == 1 ? arrTableFieldsQueryBuild.push('description') : '';
+            arrTableFieldsQueryBuild.push('url_alias', 'keywords_tags', 'meta_description', 'meta_title', 'meta_info');
+
+            gSystemConfig.enableQuizzesInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
+            gSystemConfig.enableQuizzesInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
+            gSystemConfig.enableQuizzesInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
+            gSystemConfig.enableQuizzesInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
+            gSystemConfig.enableQuizzesInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
+
+            gSystemConfig.enableQuizzesNumber1 == 1 ? arrTableFieldsQueryBuild.push('number1') : '';
+            gSystemConfig.enableQuizzesNumber2 == 1 ? arrTableFieldsQueryBuild.push('number2') : '';
+            gSystemConfig.enableQuizzesNumber3 == 1 ? arrTableFieldsQueryBuild.push('number3') : '';
+            gSystemConfig.enableQuizzesNumber4 == 1 ? arrTableFieldsQueryBuild.push('number4') : '';
+            gSystemConfig.enableQuizzesNumber5 == 1 ? arrTableFieldsQueryBuild.push('number5') : '';
+
+            gSystemConfig.enableQuizzesImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enableQuizzesImageMainCaption == 1 ? arrTableFieldsQueryBuild.push('image_main_caption') : '';
+
+            gSystemConfig.enableQuizzesFile1 == 1 ? arrTableFieldsQueryBuild.push('file1') : '';
+            gSystemConfig.enableQuizzesFile2 == 1 ? arrTableFieldsQueryBuild.push('file2') : '';
+            gSystemConfig.enableQuizzesFile3 == 1 ? arrTableFieldsQueryBuild.push('file3') : '';
+            gSystemConfig.enableQuizzesFile4 == 1 ? arrTableFieldsQueryBuild.push('file4') : '';
+            gSystemConfig.enableQuizzesFile5 == 1 ? arrTableFieldsQueryBuild.push('file5') : '';
+
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableQuizzesActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
+            gSystemConfig.enableQuizzesActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
+            gSystemConfig.enableQuizzesActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
+            gSystemConfig.enableQuizzesActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
+            gSystemConfig.enableQuizzesActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
+            gSystemConfig.enableQuizzesStatus == 1 ? arrTableFieldsQueryBuild.push('id_status') : '';
+            arrTableFieldsQueryBuild.push('id_quizzes_options_answer');
+            gSystemConfig.enableQuizzesNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            gSystemConfig.enableQuizzesImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            // gSystemConfig.enableQuizzesFile1 == 1 ? arrTableFieldsQueryBuild.push("file1") : '';
+            // gSystemConfig.enableQuizzesFile2 == 1 ? arrTableFieldsQueryBuild.push("file2") : '';
+            // gSystemConfig.enableQuizzesFile3 == 1 ? arrTableFieldsQueryBuild.push("file3") : '';
+            // gSystemConfig.enableQuizzesFile4 == 1 ? arrTableFieldsQueryBuild.push("file4") : '';
+            // gSystemConfig.enableQuizzesFile5 == 1 ? arrTableFieldsQueryBuild.push("file5") : '';
+        }
+        }
+        // ----------------------
+
+        // Quizzes Options.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableQuizzesOptions) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_quizzes'];
+            gSystemConfig.enableQuizzesOptionsSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit', 'title');
+            // gSystemConfig.enableQuizzesOptionsDescription == 1 ? arrTableFieldsQueryBuild.push("description") : '';
+
+            gSystemConfig.enableQuizzesOptionsInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
+            gSystemConfig.enableQuizzesOptionsInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
+            gSystemConfig.enableQuizzesOptionsInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
+            gSystemConfig.enableQuizzesOptionsInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
+            gSystemConfig.enableQuizzesOptionsInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
+
+            gSystemConfig.enableQuizzesOptionsNumber1 == 1 ? arrTableFieldsQueryBuild.push('number1') : '';
+            gSystemConfig.enableQuizzesOptionsNumber2 == 1 ? arrTableFieldsQueryBuild.push('number2') : '';
+            gSystemConfig.enableQuizzesOptionsNumber3 == 1 ? arrTableFieldsQueryBuild.push('number3') : '';
+            gSystemConfig.enableQuizzesOptionsNumber4 == 1 ? arrTableFieldsQueryBuild.push('number4') : '';
+            gSystemConfig.enableQuizzesOptionsNumber5 == 1 ? arrTableFieldsQueryBuild.push('number5') : '';
+
+            gSystemConfig.enableQuizzesOptionsImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enableQuizzesOptionsImageMainCaption == 1 ? arrTableFieldsQueryBuild.push('image_main_caption') : '';
+
+            arrTableFieldsQueryBuild.push('activation');
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            gSystemConfig.enableQuizzesOptionsImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+        }
+        }
+        // ----------------------
+
+        // Forms.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableForms) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enableFormsSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            // arrTableFieldsQueryBuild.push("date_creation", "date_timezone", "date_edit");
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit');
+            gSystemConfig.enableFormBindRegisterUser == 1 ? arrTableFieldsQueryBuild.push('id_register_user') : '';
+            arrTableFieldsQueryBuild.push('form_title', 'form_subject', 'recipient_name', 'recipient_email');
+            gSystemConfig.enableFormsRecipientEmailCopy == 1 ? arrTableFieldsQueryBuild.push('recipient_email_copy') : '';
+            gSystemConfig.enableFormsSender == 1 ? arrTableFieldsQueryBuild.push('sender_name', 'sender_email') : '';
+            gSystemConfig.enableFormsSenderConfig == 1 ? arrTableFieldsQueryBuild.push('sender_config') : '';
+            gSystemConfig.enableFormsEmailFormat == 1 ? arrTableFieldsQueryBuild.push('email_format') : '';
+            gSystemConfig.enableFormsMessageSuccess == 1 ? arrTableFieldsQueryBuild.push('message_success') : '';
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableFormsNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+        }
+        // ----------------------
+
+        // Forms Fields.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableFormsFields) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_forms'];
+            gSystemConfig.enableFormsFieldsSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            // arrTableFieldsQueryBuild.push("date_creation", "date_timezone", "date_edit", "field_type", "field_name", "field_name_formatted");
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit', 'field_type', 'field_name', 'field_name_formatted');
+            gSystemConfig.enableFormsFieldsInstructions == 1 ? arrTableFieldsQueryBuild.push('field_instructions') : '';
+            arrTableFieldsQueryBuild.push('field_size', 'field_height');
+            gSystemConfig.enableFormsFieldsFieldFilter == 1 ? arrTableFieldsQueryBuild.push('field_filter') : '';
+            gSystemConfig.enableFormsFieldsInfoS1 == 1 ? arrTableFieldsQueryBuild.push('info_small1') : '';
+            gSystemConfig.enableFormsFieldsInfoS2 == 1 ? arrTableFieldsQueryBuild.push('info_small2') : '';
+            gSystemConfig.enableFormsFieldsInfoS3 == 1 ? arrTableFieldsQueryBuild.push('info_small3') : '';
+            gSystemConfig.enableFormsFieldsInfoS4 == 1 ? arrTableFieldsQueryBuild.push('info_small4') : '';
+            gSystemConfig.enableFormsFieldsInfoS5 == 1 ? arrTableFieldsQueryBuild.push('info_small5') : '';
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableFormsFieldsRequired == 1 ? arrTableFieldsQueryBuild.push('required') : '';
+        }
+        }
+        // ----------------------
+
+        // Forms Fields Options.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableFormsFieldsOptions) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_forms_fields'];
+            gSystemConfig.enableFormsFieldsOptionsSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            // arrTableFieldsQueryBuild.push("date_creation", "date_timezone", "date_edit", "option_name", "option_name_formatted");
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit', 'option_name', 'option_name_formatted');
+            gSystemConfig.enableFormsFieldsOptionsConfigSelection == 1 ? arrTableFieldsQueryBuild.push('config_selection ') : '';
+            gSystemConfig.enableFormsFieldsOptionsInfoS1 == 1 ? arrTableFieldsQueryBuild.push('info_small1') : '';
+            gSystemConfig.enableFormsFieldsOptionsInfoS2 == 1 ? arrTableFieldsQueryBuild.push('info_small2') : '';
+            gSystemConfig.enableFormsFieldsOptionsInfoS3 == 1 ? arrTableFieldsQueryBuild.push('info_small3') : '';
+            gSystemConfig.enableFormsFieldsOptionsInfoS4 == 1 ? arrTableFieldsQueryBuild.push('info_small4') : '';
+            gSystemConfig.enableFormsFieldsOptionsInfoS5 == 1 ? arrTableFieldsQueryBuild.push('info_small5') : '';
+            gSystemConfig.enableFormsFieldsOptionsImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            arrTableFieldsQueryBuild.push('activation');
+        }
+        }
+        // ----------------------
+
+        // Filters generic.
+        // ----------------------
+        // if(strTable == "filters_generic")
+        if (strTable == gSystemConfig.configSystemDBTableFiltersGeneric) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id'];
+            gSystemConfig.enableFiltersGenericSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            arrTableFieldsQueryBuild.push('date_creation', 'date_edit', 'filter_index', 'table_name', 'title');
+            gSystemConfig.enableFiltersGenericDescription == 1 ? arrTableFieldsQueryBuild.push('description') : '';
+            gSystemConfig.configFiltersGenericURLAlias == 1 ? arrTableFieldsQueryBuild.push('url_alias') : '';
+            gSystemConfig.enableFiltersGenericKeywordsTags == 1 ? arrTableFieldsQueryBuild.push('keywords_tags') : '';
+            gSystemConfig.enableFiltersGenericMetaDescription == 1 ? arrTableFieldsQueryBuild.push('meta_description') : '';
+            gSystemConfig.enableFiltersGenericMetaTitle == 1 ? arrTableFieldsQueryBuild.push('meta_title') : '';
+            arrTableFieldsQueryBuild.push('meta_info');
+            gSystemConfig.enableFiltersGenericInfoS1 == 1 ? arrTableFieldsQueryBuild.push('info_small1') : '';
+            gSystemConfig.enableFiltersGenericInfoS2 == 1 ? arrTableFieldsQueryBuild.push('info_small2') : '';
+            gSystemConfig.enableFiltersGenericInfoS3 == 1 ? arrTableFieldsQueryBuild.push('info_small3') : '';
+            gSystemConfig.enableFiltersGenericInfoS4 == 1 ? arrTableFieldsQueryBuild.push('info_small4') : '';
+            gSystemConfig.enableFiltersGenericInfoS5 == 1 ? arrTableFieldsQueryBuild.push('info_small5') : '';
+            gSystemConfig.enableFiltersGenericNumberS1 == 1 ? arrTableFieldsQueryBuild.push('number_small1') : '';
+            gSystemConfig.enableFiltersGenericNumberS2 == 1 ? arrTableFieldsQueryBuild.push('number_small2') : '';
+            gSystemConfig.enableFiltersGenericNumberS3 == 1 ? arrTableFieldsQueryBuild.push('number_small3') : '';
+            gSystemConfig.enableFiltersGenericNumberS4 == 1 ? arrTableFieldsQueryBuild.push('number_small4') : '';
+            gSystemConfig.enableFiltersGenericNumberS5 == 1 ? arrTableFieldsQueryBuild.push('number_small5') : '';
+            gSystemConfig.enableFiltersGenericImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+            gSystemConfig.enableFiltersGenericConfigSelection == 1 ? arrTableFieldsQueryBuild.push('config_selection') : '';
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableFiltersGenericActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
+            gSystemConfig.enableFiltersGenericActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
+            gSystemConfig.enableFiltersGenericActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
+            gSystemConfig.enableFiltersGenericActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
+            gSystemConfig.enableFiltersGenericActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
+            gSystemConfig.enableFiltersGenericNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            gSystemConfig.enableFiltersGenericImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+        }
+        }
+        // ----------------------
+
+        // Filters generic binding.
+        // ----------------------
+        // if(strTable == "filters_generic_binding")
+        if (strTable == gSystemConfig.configSystemDBTableFiltersGenericBinding) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'sort_order', 'date_creation', 'date_edit', 'id_filters_generic', 'id_filter_index', 'id_record', 'notes'];
+        }
+        }
+        // ----------------------
+
+        // Users.
+        // ----------------------
+        if (strTable == gSystemConfig.configSystemDBTableUsers) {
+        if (buildType == 'all') {
+            arrTableFieldsQueryBuild = ['id', 'id_parent'];
+            gSystemConfig.enableUsersSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
+            arrTableFieldsQueryBuild.push('date_creation', 'date_timezone', 'date_edit');
+            gSystemConfig.enableUsersType == 1 ? arrTableFieldsQueryBuild.push('id_type') : '';
+
+            gSystemConfig.enableUsersNameTitle == 1 ? arrTableFieldsQueryBuild.push('name_title') : '';
+            gSystemConfig.enableUsersNameFull == 1 ? arrTableFieldsQueryBuild.push('name_full') : '';
+            gSystemConfig.enableUsersNameFirst == 1 ? arrTableFieldsQueryBuild.push('name_first') : '';
+            gSystemConfig.enableUsersNameLast == 1 ? arrTableFieldsQueryBuild.push('name_last') : '';
+            gSystemConfig.enableUsersDateBirth != 0 ? arrTableFieldsQueryBuild.push('date_birth') : '';
+            gSystemConfig.enableUsersGender == 1 ? arrTableFieldsQueryBuild.push('gender') : '';
+            gSystemConfig.enableUsersDocument == 1 ? arrTableFieldsQueryBuild.push('document') : '';
+            gSystemConfig.enableUsersAddress == 1 ? arrTableFieldsQueryBuild.push('address_street', 'address_number', 'address_complement', 'neighborhood', 'district', 'county', 'city', 'state', 'country', 'zip_code') : '';
+            gSystemConfig.enableUsersPhone1 == 1 ? arrTableFieldsQueryBuild.push('phone1_international_code', 'phone1_area_code', 'phone1') : '';
+            gSystemConfig.enableUsersPhone2 == 1 ? arrTableFieldsQueryBuild.push('phone2_international_code', 'phone2_area_code', 'phone2') : '';
+            gSystemConfig.enableUsersPhone3 == 1 ? arrTableFieldsQueryBuild.push('phone3_international_code', 'phone3_area_code', 'phone3') : '';
+            gSystemConfig.enableUsersUsername == 1 ? arrTableFieldsQueryBuild.push('username') : '';
+            gSystemConfig.enableUsersEmail == 1 ? arrTableFieldsQueryBuild.push('email') : '';
+
+            arrTableFieldsQueryBuild.push('password', 'password_hint', 'password_length');
+
+            gSystemConfig.enableUsersInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
+            gSystemConfig.enableUsersInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
+            gSystemConfig.enableUsersInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
+            gSystemConfig.enableUsersInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
+            gSystemConfig.enableUsersInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
+            gSystemConfig.enableUsersInfo6 == 1 ? arrTableFieldsQueryBuild.push('info6') : '';
+            gSystemConfig.enableUsersInfo7 == 1 ? arrTableFieldsQueryBuild.push('info7') : '';
+            gSystemConfig.enableUsersInfo8 == 1 ? arrTableFieldsQueryBuild.push('info8') : '';
+            gSystemConfig.enableUsersInfo9 == 1 ? arrTableFieldsQueryBuild.push('info9') : '';
+            gSystemConfig.enableUsersInfo10 == 1 ? arrTableFieldsQueryBuild.push('info10') : '';
+
+            gSystemConfig.enableUsersImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+
+            arrTableFieldsQueryBuild.push('activation');
+            gSystemConfig.enableUsersActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
+            gSystemConfig.enableUsersActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
+            gSystemConfig.enableUsersActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
+            gSystemConfig.enableUsersActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
+            gSystemConfig.enableUsersActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
+            gSystemConfig.enableUsersStatus == 1 ? arrTableFieldsQueryBuild.push('id_status') : '';
+            gSystemConfig.enableUsersNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+        }
+
+        // File fields.
+        if (buildType == 'files') {
+            // arrTableFieldsQueryBuild.push("image_main");
+            gSystemConfig.enableUsersImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
+        }
+        }
+        // ----------------------
+        */
+        // Data treatment.
+        // ----------------------
+        if ($returnMethod === 'array') {
+            $strReturn = $arrTableFieldsQueryBuild;
+        }
+        if ($returnMethod === 'string') {
+            $strReturn = implode(',', $arrTableFieldsQueryBuild);
+        }
+        // ----------------------
+
+        return $strReturn;
+
+        // Usage.
+        // ----------------------
+        // FunctionsGeneric.tableFieldsQueryBuild01("categories", "all", "string");
+        // FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableFiles, "all", "string");
+        // ----------------------
+    }
+    // **************************************************************************************
+    
+}
+?>

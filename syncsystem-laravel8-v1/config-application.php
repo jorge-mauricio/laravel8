@@ -10,6 +10,9 @@
 //Coding style reference: https://www.php-fig.org/psr/psr-12/
 //declare(strict_types=1); //causing error somewhere in this code
 
+// Type hinting.
+//declare(strict_types=1);
+
 $configDebug = true; // true (debug mode) | false (production mode)
 
 //Error handling / displaying.
@@ -91,11 +94,13 @@ $configCategoriesSort = "title"; //options: id | sort_order | date_creation esc 
 $enableCategoriesSortCustom = 0; //0 - disable | 1 - enable
 
 //Basic resources.
-$enableCategoriesImageMain = 1; //0 - disable | 1 - enable
-$enableCategoriesDescription = 1; //0 - disable | 1 - enable
-$enableCategoriesSortOrder = 1; //0 - disable | 1 - enable
-$enableCategoriesRestrictedAccess = 1; //0 - disable | 1 - enable
-$enableCategoriesIdParentEdit = 1; //0 - disable | 1 - enable
+$enableCategoriesImageMain = 1; // 0 - disable | 1 - enable
+$enableCategoriesDescription = 1; // 0 - disable | 1 - enable
+$enableCategoriesSortOrder = 1; // 0 - disable | 1 - enable
+$enableCategoriesRestrictedAccess = 1; // 0 - disable | 1 - enable
+$enableCategoriesIdParentEdit = 1; // 0 - disable | 1 - enable
+$enableCategoriesStatus = 1; // 0 - disable | 1 - enable
+$enableCategoriesNotes = 1; // 0 - disable | 1 - enable
 
 $configCategoriesURLAlias = 1; //0 - disable | 1 - automatic | 2 - custom
 $enableCategoriesKeywordsTags = 1; //0 - disable | 1 - enable

@@ -25,6 +25,7 @@ class ObjectCategoriesListing
         $this->arrSpecialParameters = array_key_exists('_arrSpecialParameters', $arrParameters) ? $arrParameters['_arrSpecialParameters'] : [];
 
         // Debug.
+        /*
         echo 'Testing arquitecture (ObjectCategoriesListing)' . '<br />';
         echo 'configSystemClientName=' . $GLOBALS['configSystemClientName'] . '<br />';
 
@@ -51,6 +52,7 @@ class ObjectCategoriesListing
         echo 'resultsCategoriesListing=<pre>';
         var_dump($this->resultsCategoriesListing);
         echo '</pre><br />';
+        */
     }
     // **************************************************************************************
 
@@ -64,9 +66,13 @@ class ObjectCategoriesListing
      */
     public function recordsListingGet(float $terminal = 0, float $returnType = 1): array|null
     {
-        //
         // terminal: 0 - backend | 1 - frontend
         // returnType: 1 - array | 3 - Json Object | 10 - html
+
+        // Variables.
+        // ----------------------
+        $arrReturn = ['returnStatus' => false];
+        // ----------------------
 
         // Logic.
         try {
@@ -76,16 +82,24 @@ class ObjectCategoriesListing
                 $this->configSortOrder,
                 $this->strNRecords,
                 // FunctionsGeneric.tableFieldsQueryBuild01("categories", "all", "string"),
-                // FunctionsGeneric.tableFieldsQueryBuild01(gSystemConfig.configSystemDBTableCategories, 'all', 'string'),
-                ['id', 'title', 'description'],
+                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01($GLOBALS['configSystemDBTableCategories'], 'all', 'string'),
+                // 'id,title,description', // debug
                 1,
                 $this->arrSpecialParameters
             );
 
+            if ($this->resultsCategoriesListing['returnStatus'] === true) {
+                // $arrReturn = ['returnStatus' => true, ...$this->resultsCategoriesListing]; // error - research
+                $arrReturn = array_merge(['returnStatus' => true], $this->resultsCategoriesListing);
+            }
+
             // Debug.
-            echo 'resultsCategoriesListing(inside recordsListingGet)=<pre>';
-            var_dump($this->resultsCategoriesListing);
-            echo '</pre><br />';
+            //echo 'resultsCategoriesListing(inside recordsListingGet)=<pre>';
+            //var_dump($this->resultsCategoriesListing);
+            //echo '</pre><br />';
+
+            //return $this->resultsCategoriesListing;
+            return $arrReturn;
         } catch (Error $recordsListingGetError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('recordsListingGetError: ' . $recordsListingGetError->message());
@@ -93,9 +107,6 @@ class ObjectCategoriesListing
         } finally {
 
         }
-
-        return $this->resultsCategoriesListing;
-
     }
     // **************************************************************************************
 }
