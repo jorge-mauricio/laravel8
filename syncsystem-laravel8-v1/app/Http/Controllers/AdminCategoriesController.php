@@ -103,5 +103,4 @@ class AdminCategoriesController extends Controller
         
         return $adminCategoriesListing;
     }
-
 }

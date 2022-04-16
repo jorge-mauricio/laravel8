@@ -10,3 +10,5 @@ Stack trace:
 #1 K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\server.php(21): require_once('...')
 #2 {main}
   thrown in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\bootstrap\app.php on line 14
+[10-Apr-2022 16:30:14 America/Sao_Paulo] PHP Warning:  Undefined array key "SERVER_ADDR" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\phpcheck.php on line 3
+[10-Apr-2022 16:30:14 America/Sao_Paulo] PHP Warning:  Undefined array key "LOCAL_ADDR" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\phpcheck.php on line 4

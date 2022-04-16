@@ -75,7 +75,8 @@ class FunctionsGeneric
             if (strpos($specialInstructions, "db") !== false) {
                 //if ($strReturn) {
                     $strReturn = stripslashes($strReturn);
-                    $strReturn = preg_replace('/(?:\r\n|\r|\n)/g', '<br />', $strReturn);
+                    //$strReturn = preg_replace('/(?:\r\n|\r|\n)/g', '<br />', $strReturn);
+                    $strReturn = preg_replace('/(?:\r\n|\r|\n)/', '<br />', $strReturn); // g is implicit
 
                     // strReturn = strContent;
 
@@ -213,6 +214,93 @@ class FunctionsGeneric
     }
     // **************************************************************************************
 
+
+    // Data treatment to read values.
+    // **************************************************************************************
+    /**
+     * Data treatment to read values.
+     * @static
+     * @param string valueData
+     * @param string configCurrency '$' | 'R$'
+     * @param int valueType 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency (with decimals)
+     * @param array|null specialInstructions
+     * @return float
+     * @example
+     * SyncSystemNS.FunctionsGeneric.valueMaskRead(1000, '$', 2)
+     */
+    //static function valueMaskRead($valueData, $configCurrency = '$', $valueType = 2, $specialInstructions = null): float
+    static function valueMaskRead($valueData, $configCurrency = '$', $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, $specialInstructions = null): float
+    {
+        // Variables.
+        // ----------------------
+        $strReturn = '';
+        $strValue = strval($valueData);
+        // ----------------------
+
+        // Logic.
+        // ----------------------
+        if ($valueData !== null) {
+            // Generic number.
+            if ($valueType === SS_VALUE_TYPE_GENERAL_NUMBER) {
+                $strReturn = $valueData;
+            }
+
+            // System currency.
+            if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY) {
+                if(strlen($strValue) < 3)
+                {
+                    $strValue = '00' . $strValue;
+                }
+                
+                $strDecimal = substr($strValue, (strlen($strValue) - 2), strlen($strValue));
+                $strValue = substr($strValue, 0, strlen($strValue) - 2) . '.' . $strDecimal;
+                
+                // R$ (Real)
+                if($configCurrency === 'R$')
+                {
+                    $strReturn = number_format($strValue, 2, ',', '.');
+                }
+                
+                // $ (dolar)
+                if($configCurrency === '$')
+                {
+                    $strReturn = number_format($strValue, 2, '.', ',');
+                }
+                
+                // PagSeguro.
+                if($configCurrency === 'pagseguro')
+                {
+                    $strReturn = number_format($strValue, 2, '.', ',');
+                }
+        
+                // Paypal.
+                if($configCurrency === 'paypal')
+                {
+                    $strReturn = number_format($strValue, 2, '.', '');
+                }
+                
+                // Mercado Pago.
+                if($configCurrency === 'mercadopago')
+                {
+                    $strReturn = number_format($strValue, 2, '.', '');
+                }
+            }
+
+            // Decimals.
+            if ($valueType === SS_VALUE_TYPE_DECIMAL) {
+                $strReturn = $valueData;
+            }
+
+            // System currency.
+            if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL) {
+                // TODO
+            }
+        }
+        // ----------------------
+
+        return $strReturn;
+    }
+    // **************************************************************************************
 
 
     // Function to help build the SQL queries.
@@ -1113,4 +1201,5 @@ class FunctionsGeneric
     // **************************************************************************************
     
 }
+
 ?>

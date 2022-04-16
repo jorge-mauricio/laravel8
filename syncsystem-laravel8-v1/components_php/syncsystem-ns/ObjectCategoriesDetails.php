@@ -274,10 +274,111 @@ class ObjectCategoriesDetails
                 // Define values.
                 //$this->tblCategoriesID = $this->resultsCategoryDetails[0]['id'];
                 $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
+                $this->tblCategoriesIdParent = $this->resultsCategoryDetails[0]->id_parent;
+
+                $this->tblCategoriesSortOrder = $this->resultsCategoryDetails[0]->sort_order;
+                $this->tblCategoriesSortOrder_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesSortOrder, $GLOBALS['configSystemCurrency'], SS_VALUE_TYPE_DECIMAL);
+                
+                $this->tblCategoriesCategoryType = $this->resultsCategoryDetails[0]->category_type;
+
+                $this->tblCategoriesDateCreation = $this->resultsCategoryDetails[0]->date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
+                $this->tblCategoriesDateTimezone = $this->resultsCategoryDetails[0]->date_timezone;
+                $this->tblCategoriesDateEdit = $this->resultsCategoryDetails[0]->date_edit;
+
+                $this->tblCategoriesIdRegisterUser = $this->resultsCategoryDetails[0]->id_register_user;
+                if ($this->tblCategoriesIdRegisterUser !== 0) {
+                    $this->tblCategoriesIdRegisterUser_print = '';
+                }
+                $this->tblCategoriesIdRegister1 = $this->resultsCategoryDetails[0]->id_register1;
+                if ($this->tblCategoriesIdRegister1 !== 0) {
+                    $this->tblCategoriesIdRegister1_print = '';
+                }
+                $this->tblCategoriesIdRegister2 = $this->resultsCategoryDetails[0]->id_register2;
+                if ($this->tblCategoriesIdRegister2 !== 0) {
+                    $this->tblCategoriesIdRegister2_print = '';
+                }
+                $this->tblCategoriesIdRegister3 = $this->resultsCategoryDetails[0]->id_register3;
+                if ($this->tblCategoriesIdRegister3 !== 0) {
+                    $this->tblCategoriesIdRegister3_print = '';
+                }
+                $this->tblCategoriesIdRegister4 = $this->resultsCategoryDetails[0]->id_register4;
+                if ($this->tblCategoriesIdRegister4 !== 0) {
+                    $this->tblCategoriesIdRegister4_print = '';
+                }
+                $this->tblCategoriesIdRegister5 = $this->resultsCategoryDetails[0]->id_register5;
+                if ($this->tblCategoriesIdRegister5 !== 0) {
+                    $this->tblCategoriesIdRegister5_print = '';
+                }
+
+                $this->tblCategoriesTitle = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->title, 'db');
+                $this->tblCategoriesDescription = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->description, 'db');
+                $this->tblCategoriesDescription_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->description, 'editTextBox=' + $GLOBALS['configBackendTextBox']);
+                $this->tblCategoriesURLAlias = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->url_alias, 'db');
+                $this->tblCategoriesKeywordsTags = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->keywords_tags, 'db');
+                $this->tblCategoriesMetaDescription = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->meta_description, 'db');
+                $this->tblCategoriesMetaDescription_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->meta_description, 'db');
+                $this->tblCategoriesMetaTitle = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->meta_title, 'db');
+                $this->tblCategoriesMetaInfo = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->meta_info, 'db');
+
+                if ($GLOBALS['enableCategoriesInfo1'] === 1) {
+                    if ($configCategoriesInfo1FieldType === SS_FIELD_TYPE_SINGLE_LINE || $configCategoriesInfo1FieldType === SS_FIELD_TYPE_MULTILINE) {
+                        $this->tblCategoriesInfo1 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db');
+                        $this->tblCategoriesInfo1_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db');
+                    }
+
+                    if ($configCategoriesInfo1FieldType === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $configCategoriesInfo1FieldType === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                        $this->tblCategoriesInfo1 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db'), SS_ENCRYPT_METHOD_DATA);
+                        $this->tblCategoriesInfo1_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db'), SS_ENCRYPT_METHOD_DATA);
+                    }
+                }
+
+                                
+                $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
+                $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
+
+                $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
+                $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
+
+                $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
+                $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
 
 
                 // Build return array.
                 $arrReturn['tblCategoriesID'] = (float)$this->tblCategoriesID;
+                $arrReturn['tblCategoriesIdParent'] = (float)$this->tblCategoriesIdParent;
+
+                $arrReturn['tblCategoriesSortOrder'] = (float)$this->tblCategoriesSortOrder;
+                $arrReturn['tblCategoriesSortOrder_print'] = (float)$this->tblCategoriesSortOrder_print;
+
+                $arrReturn['tblCategoriesCategoryType'] = (float)$this->tblCategoriesCategoryType;
+
+                $arrReturn['tblCategoriesDateCreation'] = $this->tblCategoriesDateCreation;
+                $arrReturn['tblCategoriesDateTimezone'] = $this->tblCategoriesDateTimezone;
+                $arrReturn['tblCategoriesDateEdit'] = $this->tblCategoriesDateEdit;
+
+                $arrReturn['tblCategoriesIdRegisterUser'] = (float)$this->tblCategoriesIdRegisterUser;
+                $arrReturn['tblCategoriesIdRegisterUser_print'] = $this->tblCategoriesIdRegisterUser_print;
+                $arrReturn['tblCategoriesIdRegister1'] = (float)$this->tblCategoriesIdRegister1;
+                $arrReturn['tblCategoriesIdRegister1_print'] = $this->tblCategoriesIdRegister1_print;
+                $arrReturn['tblCategoriesIdRegister2'] = (float)$this->tblCategoriesIdRegister2;
+                $arrReturn['tblCategoriesIdRegister2_print'] = $this->tblCategoriesIdRegister1_print;
+                $arrReturn['tblCategoriesIdRegister3'] = (float)$this->tblCategoriesIdRegister3;
+                $arrReturn['tblCategoriesIdRegister3_print'] = $this->tblCategoriesIdRegister1_print;
+                $arrReturn['tblCategoriesIdRegister4'] = (float)$this->tblCategoriesIdRegister4;
+                $arrReturn['tblCategoriesIdRegister4_print'] = $this->tblCategoriesIdRegister1_print;
+                $arrReturn['tblCategoriesIdRegister5'] = (float)$this->tblCategoriesIdRegister5;
+                $arrReturn['tblCategoriesIdRegister5_print'] = $this->tblCategoriesIdRegister1_print;
+
+                $arrReturn['tblCategoriesTitle'] = $this->tblCategoriesTitle;
+                $arrReturn['tblCategoriesDescription'] = $this->tblCategoriesDescription;
+                $arrReturn['tblCategoriesDescription_edit'] = $this->tblCategoriesDescription_edit;
+                $arrReturn['tblCategoriesURLAlias'] = $this->tblCategoriesURLAlias;
+                $arrReturn['tblCategoriesKeywordsTags'] = $this->tblCategoriesKeywordsTags;
+                $arrReturn['tblCategoriesMetaDescription'] = $this->tblCategoriesMetaDescription;
+                $arrReturn['tblCategoriesMetaDescription_edit'] = $this->tblCategoriesMetaDescription_edit;
+                $arrReturn['tblCategoriesMetaTitle'] = $this->tblCategoriesMetaTitle;
+                $arrReturn['tblCategoriesMetaInfo'] = $this->tblCategoriesMetaInfo;
+                
             }
 
             // Debug.
