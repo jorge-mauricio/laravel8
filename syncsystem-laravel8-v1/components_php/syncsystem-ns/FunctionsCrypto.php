@@ -16,7 +16,7 @@ class FunctionsCrypto
      * @example
      * \SyncSystemNS\FunctionsCrypto::encryptValue("testing encryption", SS_ENCRYPT_METHOD_DATA)
      */
-    static function encryptValue($strValue, $encryptMethod = SS_ENCRYPT_METHOD_DATA)
+    static function encryptValue($strValue, $encryptMethod = SS_ENCRYPT_METHOD_DATA): string
     {
         // encryptMethod: 0 - none | 1 - hash | 2 - data
         // Variables.
@@ -82,7 +82,7 @@ class FunctionsCrypto
      * @example
      * \SyncSystemNS\FunctionsCrypto::MCryptEncrypt('testing encryption', $GLOBALS['configCryptKey32Byte'])
      */
-	static function MCryptEncrypt($encrypt, $key)
+	static function MCryptEncrypt($encrypt, $key): string
 	{
 		$encrypt = serialize($encrypt);
 		$iv = mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC), MCRYPT_DEV_URANDOM); //windows or php 5.3
@@ -104,7 +104,7 @@ class FunctionsCrypto
      * @example
      * \SyncSystemNS\FunctionsCrypto::MCryptDecrypt("testing encryption", "")
      */
-	static function MCryptDecrypt($decrypt, $key)
+	static function MCryptDecrypt($decrypt, $key): string
 	{
 		$decrypt = explode('|', $decrypt.'|');
 		$decoded = base64_decode($decrypt[0]);
@@ -127,29 +127,29 @@ class FunctionsCrypto
 	//**************************************************************************************
 	
 	
-	//Defuse php-encryption.
+	// Defuse php-encryption.
 	//**************************************************************************************
     /**
      * Encrypt data (Defuse).
      * @static
-     * @param string encrypt
-     * @param string key
-     * @param float key
+     * @param string strData
+     * @param string strKey
+     * @param float cryptographyType 1 = data + system default key
      * @return string
      * @example
      * \SyncSystemNS\FunctionsCrypto::DefuseEncrypt('testing encryption', $GLOBALS['configCryptChaveDefusePHPEncryptionRandomKey'])
      */
-	static function DefuseEncrypt($strData, $strKey, $cryptographyType = 1)
+	static function DefuseEncrypt($strData, $strKey, $cryptographyType = 1): string
 	{
-		//$cryptographyType: 1 = data + system default key
+		// $cryptographyType: 1 = data + system default key
 		$strReturn = "";
 		
 		
-		//Data + system default key.
+		// Data + system default key.
 		if($cryptographyType == 1)
 		{
-			$defuseChavePadrao = \Defuse\Crypto\Key::loadFromAsciiSafeString($strKey);
-			$strReturn = \Defuse\Crypto\Crypto::encrypt($strData, $defuseChavePadrao);
+			$defuseKeyDefault = \Defuse\Crypto\Key::loadFromAsciiSafeString($strKey);
+			$strReturn = \Defuse\Crypto\Crypto::encrypt($strData, $defuseKeyDefault);
 		}
 		
 		return $strReturn;
@@ -157,25 +157,35 @@ class FunctionsCrypto
 	//**************************************************************************************
 	
 	
-	//Defuse php-encryption (decriptografar).
-	//**************************************************************************************
-	//Encrypt Function
-	static function DefuseDecrypt($strCipher, $strChave, $tipoCriptografia = 1)
+	// Defuse php-encryption (decrypt).
+	// **************************************************************************************
+	// Defuse php-encryption (decrypt).
+    /**
+     *Defuse php-encryption (decrypt).
+     * @static
+     * @param string strCipher
+     * @param string strChave
+     * @param float cryptographyType 1 = data + system default key
+     * @return string
+     * @example
+     * \SyncSystemNS\FunctionsCrypto::DefuseEncrypt('testing encryption', $GLOBALS['configCryptChaveDefusePHPEncryptionRandomKey'])
+     */
+	static function DefuseDecrypt($strCipher, $strKey, $cryptographyType = 1): string
 	{
-		//$tipoCriptografia: 1 = dados + chave padrão do sistema
-		$strRetorno = "";
+		//$cryptographyType: 1 = data + system default key
+		$strReturn = "";
 		
 		if($strCipher <> "")
 		{
-			//Dados + chave padrão do sistema.
-			if($tipoCriptografia == 1)
+			// Data + system default key.
+			if($cryptographyType == 1)
 			{
-				$defuseChavePadrao = \Defuse\Crypto\Key::loadFromAsciiSafeString($strChave);
-				$strRetorno = \Defuse\Crypto\Crypto::decrypt($strCipher, $defuseChavePadrao);
+				$defuseKeyDefault = \Defuse\Crypto\Key::loadFromAsciiSafeString($strKey);
+				$strReturn = \Defuse\Crypto\Crypto::decrypt($strCipher, $defuseKeyDefault);
 			}
 		}
 		
-		return $strRetorno;
+		return $strReturn;
 	}
 	//**************************************************************************************
 }

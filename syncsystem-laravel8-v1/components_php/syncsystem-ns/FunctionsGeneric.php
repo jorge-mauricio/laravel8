@@ -3,8 +3,8 @@ namespace SyncSystemNS;
 
 class FunctionsGeneric
 {
-    //Return the label in the right terminal.
-    //**************************************************************************************
+    // Return the label in the right terminal.
+    // **************************************************************************************
     /**
      * Return the label in the right terminal.
      * @static
@@ -12,7 +12,7 @@ class FunctionsGeneric
      * @param {string} labelName 
      * @return {string}
      * @example
-     * SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "labelName")
+     * \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend->appLabels'], 'labelName')
      */
     static function appLabelsGet($objAppLabels, string $labelName): string
     {
@@ -29,7 +29,113 @@ class FunctionsGeneric
 
         return $strReturn;
     }
-    //**************************************************************************************
+    // **************************************************************************************
+
+    // Function to return formatted date.
+    // **************************************************************************************
+    /**
+     * Function to return formatted date.
+     * @static
+     * @param string strDate 14/01/2016 | 01/14/2016
+     * @param int configDateFormat 1 - PT | 2 - UK | configBackendDateFormat | configFrontendDateFormat
+     * @param int dateFormatReturn 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
+     * @param int dateType null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+     * @return string
+     */
+    static function dateRead01($strDate, $configDateFormat, $dateFormatReturn, $dateType = null):string 
+    {
+        // configDateFormat: 1 - pt | 2 uk | configBackendDateFormat | configFrontendDateFormat
+        // dateFormatReturn: 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
+        // dateType: null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+        // Variables.
+        // ----------------------
+        $strReturn = '';
+        // $dateObj = new Date();
+        $dateObj;
+        $dateYear;
+        $dateDay;
+        $dateMonth;
+        $dateHour;
+        $dateMinute;
+        $dateSecond;
+        // ----------------------
+
+        if ($strDate) {
+            // Variable value.
+            // dateObj = strDate; // worked with node, but didn´t work with react
+            $dateObj = new \DateTime($strDate); // Y-m-d H:i:s
+
+            $dateYear = $dateObj->format('Y');
+            $dateDay = $dateObj->format('d');
+            $dateMonth = $dateObj->format('m');
+
+            $dateHour = $dateObj->format('H');
+
+            $dateMinute = $dateObj->format('i');
+
+            $dateSecond = $dateObj->format('s');
+
+            // Automatic define dateFormatReturn.
+            if ($dateType) {
+                if ($dateType === 1 || $dateType === 4) {
+                    $dateFormatReturn = 1;
+                } else {
+                    $dateFormatReturn = 2;
+                }
+            }
+
+            // 1 - (dd/mm/yyyy | mm/dd/yyyy)
+            if ($dateFormatReturn === 1) {
+                // 1 - pt
+                if ($configDateFormat === 1) {
+                    // $strReturn = $dateDay + '/' + $dateMonth + '/' + $dateYear;
+                    $strReturn = $dateObj->format('d/m/Y');
+                }
+
+                // 2 uk
+                if ($configDateFormat === 2) {
+                    // $strReturn = $dateMonth + '/' + $dateDay + '/' + $dateYear;
+                    $strReturn = $dateObj->format('m/d/Y');
+                }
+            }
+
+            // 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss)
+            if ($dateFormatReturn === 2) {
+                // 1 - pt
+                if ($configDateFormat === 1) {
+                    // $strReturn = $dateDay + '/' + $dateMonth + '/' + $dateYear + ' ' + $dateHour + ':' + $dateMinute + ':' + $dateSecond;
+                    $strReturn =  $dateObj->format('d/m/Y H:i:s');
+                }
+
+                // 2 uk
+                if ($configDateFormat === 2) {
+                    // $strReturn = $dateMonth + '/' + $dateDay + '/' + $dateYear + ' ' + $dateHour + ':' + $dateMinute + ':' + $dateSecond;
+                    $strReturn =  $dateObj->format('m/d/Y H:i:s');
+                }
+            }
+
+            // 3 - yyyy-mm-dd hh:mm:ss
+            if ($dateFormatReturn === 3) {
+                // $strReturn = $dateYear + '-' + $dateMonth + '-' + $dateDay + ' ' + $dateHour + ':' + $dateMinute + ':' + $dateSecond;
+                $strReturn =  $dateObj->format('Y-m-d H:i:s');
+            }
+        }
+
+        return $strReturn;
+
+        // Usage.
+        // ----------------------
+        /*
+            \SyncSystemNS\FunctionsGeneric::dateRead01(categoriesRow['date1'], 
+                                                    gSystemConfig.configBackendDateFormat, 
+                                                    0, 
+                                                    $GLOBALS['configCategoriesDate1Type']);
+            */
+        // ----------------------
+    }
+    // **************************************************************************************
+
 
     // Data treatment for displaying information.
     // **************************************************************************************
