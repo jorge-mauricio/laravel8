@@ -195,6 +195,7 @@ class ApiCategoriesListingController extends Controller
             //var_dump(Route::current()->getParameter('idTbCategories'));
             //echo '</pre><br />'; // ref: https://stackoverflow.com/questions/40647661/laravel-route-get-controllers-construct-without-method
             
+            
             return $backendCategoriesListing; // debug
             // return response()->json();
             // return Response::json($backendCategoriesListing); // worked - needs to change method´s return type to mixed

@@ -14,6 +14,7 @@
 //declare(strict_types=1);
 
 $configDebug = true; // true (debug mode) | false (production mode)
+$configCache = true; // false (no chache) | true (cache)
 
 // Error handling / displaying.
 //----------------------
@@ -104,6 +105,131 @@ $configSystemDBTableFiltersGenericBinding = "filters_generic_binding";
 $configSystemDBTableUsers = "users";
 //----------------------
 
+// Directories configuration.
+// ----------------------
+$configPhysicalPathRoot = dirname(__FILE__);
+
+// $configDirectoryRootPhysical = __dirname;
+/**/
+$configDirectoryAdmin = 'admin_node';
+// $configDirectorySystem = 'backend_node'; // trash
+$configDirectoryBackend = 'backend_node';
+// $configDirectorySystemRoute = "system"; // trash
+$configDirectoryComponents = 'components_node';
+
+$configDirectoryFilesVisualization = 'app_files_public';
+$configDirectoryFiles = 'app_files_public';
+$configDirectoryFilesLayout = 'app_files_layout';
+$configDirectoryFonts = 'app_fonts';
+$configDirectoryResources = 'app_resources';
+$configDirectoryStyles = 'app_styles';
+$configDirectoryViews = 'app_views';
+$configDirectoryDist = 'dist'; // webpack distribution folder files (production / minifying)
+$configDirectoryBuildReact = 'build'; // webpack distribution folder files - react (production / minifying)
+$configDirectoryBuildReactClient = 'public'; // webpack distribution folder files - react client (production / minifying)
+$configDirectoryJS = 'app_js';
+
+// Upload directories.
+$configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
+// $configDirectoryFilesUpload = $configPhysicalPathRoot + "\\" + $configDirectoryFilesVisualization;
+// ----------------------
+
+// Static directories configuration (public alias).
+// ----------------------
+$configFrontendDefaultViewSD = 'frontend';
+$configDirectorySystemSD = 'backend';
+$configDirectoryAdminSD = 'admin';
+
+// $configDirectoryFilesSD = ""; // "" - when using remote file storage
+$configDirectoryFilesSD = 'files'; // "" - when using remote
+$configDirectoryFilesLayoutSD = 'files-layout';
+$configDirectoryFontsSD = 'fonts';
+$configDirectoryStylesSD = 'css';
+$configDirectoryJSSD = 'js';
+$configDirectoryDistSD = 'dist';
+$configDirectoryBuildReactSD = 'build'; // TODO: Maybe change to frontend_react
+$configDirectoryBuildReactClientSD = 'public';
+// ----------------------
+
+// Routes configuration.
+// ----------------------
+$configRouteAPI = 'api';
+$configRouteAPIActionEdit = 'edit';
+$configRouteAPIActionSend = 'send';
+$configRouteAPIActionLog = 'log';
+$configRouteAPIDetails = 'details';
+$configRouteAPIRecords = 'records';
+
+$configRouteAPICategories = 'categories';
+$configRouteAPIFiles = 'files';
+$configRouteAPIContent = 'content';
+$configRouteAPIProducts = 'products';
+$configRouteAPIPublications = 'publications';
+$configRouteAPIRegisters = 'registers';
+$configRouteAPIQuizzes = 'quizzes';
+$configRouteAPIQuizzesOptions = 'quizzes-options';
+$configRouteAPIForms = 'forms';
+$configRouteAPIFormsFields = 'forms-fields';
+$configRouteAPIFormsFieldsOptions = 'forms-fields-options';
+$configRouteAPIFiltersGeneric = 'filters-generic';
+$configRouteAPIUsers = 'users';
+$configRouteAPIAuthentication = 'authentication';
+$configRouteAPILogin = 'login';
+
+$configRouteBackend = 'system';
+$configRouteBackendLogin = 'login';
+$configRouteBackendLogOff = 'logoff'; // TODO: change to logoff.
+$configRouteBackendLoginUsers = 'login-users';
+// $configRouteBackendLogOffUsers = "logoff-users";
+$configRouteBackendLogOffUsersRoot = 'logoff-users-root'; // TODO: change to logoff.
+$configRouteBackendDashboard = 'dashboard'; // main
+
+$configRouteBackendActionEdit = 'edit';
+$configRouteBackendDetails = 'details';
+$configRouteBackendRecords = 'records';
+$configRouteBackendCategories = 'categories';
+$configRouteBackendFiles = 'files';
+$configRouteBackendContent = 'content';
+$configRouteBackendProducts = 'products';
+$configRouteBackendPublications = 'publications';
+$configRouteBackendRegisters = 'registers';
+$configRouteBackendQuizzes = 'quizzes';
+$configRouteBackendQuizzesOptions = 'quizzes-options';
+$configRouteBackendForms = 'forms';
+$configRouteBackendFormsFields = 'forms-fields';
+$configRouteBackendFormsFieldsOptions = 'forms-fields-options';
+$configRouteBackendFiltersGeneric = 'filters-generic';
+$configRouteBackendUsers = 'users';
+
+$configRouteFrontend = 'en'; // (blank) - root | en
+$configRouteFrontendMobile = 'en-mobile'; // (blank) - responsive |  // NOTE: only in use if layout not responsive
+
+$configRouteFrontendActionEdit = 'edit';
+$configRouteFrontendActionSend = 'send';
+$configRouteFrontendDetails = 'details';
+$configRouteFrontendRecords = 'records';
+
+$configRouteFrontendCategories = 'categories';
+$configRouteFrontendFiles = 'files';
+$configRouteFrontendContent = 'content';
+$configRouteFrontendForms = 'forms';
+$configRouteFrontendProducts = 'products';
+$configRouteFrontendPublications = 'publications';
+$configRouteFrontendRegisters = 'registers';
+$configRouteFrontendQuizzes = 'quizzes';
+$configRouteFrontendLogin = 'login';
+$configRouteFrontendLogoff = 'logoff';
+
+$configRouteFrontendDashboard = 'dashboard';
+$configRouteFrontendDashboardCategories = 'dashboard-categories';
+$configRouteFrontendDashboardFiles = 'dashboard-files';
+$configRouteFrontendDashboardContent = 'dashboard-content';
+$configRouteFrontendDashboardProducts = 'dashboard-products';
+$configRouteFrontendDashboardPublications = 'dashboard-publications';
+$configRouteFrontendDashboardRegisters = 'dashboard-registers';
+$configRouteFrontendDashboardQuizzes = 'dashboard-quizzes';
+// ----------------------
+
 // Cryptography.
 // ----------------------
 $configCryptType = 2; // 0 - no cryptography | 1 - hash (doesn´t allow decryptography) | 2 - Data (allows decryptography)
@@ -151,6 +277,26 @@ $configSystemWeight2 = 'kg'; // kg | Pounds (453.6 grams)
 $configSystemHeight = 'ft'; // ft | m
 $configSystemMetric = 'm²'; // m² | ft²
 $configSystemMetricDistance = 'KM'; // KM | MI
+// **************************************************************************************
+
+// Languages.
+// **************************************************************************************
+// Debug.
+//echo '__FILE__=<pre>';
+//var_dump(dirname(__FILE__));
+//echo '</pre><br />';
+
+//$configLanguageFrontend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
+// $configLanguageFrontend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
+$configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+//echo 'configLanguageFrontend=<pre>';
+//var_dump(dirname($configLanguageFrontend));
+////var_dump(dirname(json_decode($configLanguageFrontend)));
+//echo '</pre><br />';
+
+//$configLanguageBackend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
+//$configLanguageBackend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
+$configLanguageBackend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
 // **************************************************************************************
 
 //Categories - configuration and resources.

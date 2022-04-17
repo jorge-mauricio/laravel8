@@ -113,25 +113,25 @@ class ObjectCategoriesDetails
 
     private string|null $tblCategoriesDate2 = null;
     private string $tblCategoriesDate2_print = '';
-    //private DateTime $tblCategoriesDate2DateObj = new DateTime();
+    private object|null $tblCategoriesDate2DateObj = null;
     private string|null $tblCategoriesDate2DateYear, $tblCategoriesDate2DateDay, $tblCategoriesDate2DateMonth;
     private string|null $tblCategoriesDate2DateHour, $tblCategoriesDate2DateHour_print, $tblCategoriesDate2DateMinute, $tblCategoriesDate2DateMinute_print, $tblCategoriesDate2DateSecond, $tblCategoriesDate2DateSecond_print;
 
     private string|null $tblCategoriesDate3 = null;
     private string $tblCategoriesDate3_print = '';
-    //private DateTime $tblCategoriesDate3DateObj = new DateTime();
+    private object|null $tblCategoriesDate3DateObj = null;
     private string|null $tblCategoriesDate3DateYear, $tblCategoriesDate3DateDay, $tblCategoriesDate3DateMonth;
     private string|null $tblCategoriesDate3DateHour, $tblCategoriesDate3DateHour_print, $tblCategoriesDate3DateMinute, $tblCategoriesDate3DateMinute_print, $tblCategoriesDate3DateSecond, $tblCategoriesDate3DateSecond_print;
 
     private string|null $tblCategoriesDate4 = null;
     private string $tblCategoriesDate4_print = '';
-    //private DateTime $tblCategoriesDate4DateObj = new DateTime();
+    private object|null $tblCategoriesDate4DateObj = null;
     private string|null $tblCategoriesDate4DateYear, $tblCategoriesDate4DateDay, $tblCategoriesDate4DateMonth;
     private string|null $tblCategoriesDate4DateHour, $tblCategoriesDate4DateHour_print, $tblCategoriesDate4DateMinute, $tblCategoriesDate4DateMinute_print, $tblCategoriesDate4DateSecond, $tblCategoriesDate4DateSecond_print;
 
     private string|null $tblCategoriesDate5 = null;
     private string $tblCategoriesDate5_print = '';
-    //private DateTime $tblCategoriesDate5DateObj = new DateTime();
+    private object|null $tblCategoriesDate5DateObj = null;
     private string|null $tblCategoriesDate5DateYear, $tblCategoriesDate5DateDay, $tblCategoriesDate5DateMonth;
     private string|null $tblCategoriesDate5DateHour, $tblCategoriesDate5DateHour_print, $tblCategoriesDate5DateMinute, $tblCategoriesDate5DateMinute_print, $tblCategoriesDate5DateSecond, $tblCategoriesDate5DateSecond_print;
 
@@ -494,31 +494,84 @@ class ObjectCategoriesDetails
                     $this->tblCategoriesDate1DateSecond = $this->tblCategoriesDate1DateObj->format('s');
                     $this->tblCategoriesDate1DateSecond_print = $this->tblCategoriesDate1DateSecond;
             
-                    // $this->tblCategoriesDate1_print = $this->tblCategoriesDate1;
                     $this->tblCategoriesDate1_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate1, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate1Type']);
-                  }
-
-                /*
-                this.tblCategoriesDate1 = this.resultsCategoryDetails[0].date1;
-                if (this.tblCategoriesDate1) {
-                  this.tblCategoriesDate1DateObj = this.tblCategoriesDate1;
-                  this.tblCategoriesDate1DateYear = this.tblCategoriesDate1DateObj.getFullYear();
-                  this.tblCategoriesDate1DateDay = this.tblCategoriesDate1DateObj.getDate();
-                  this.tblCategoriesDate1DateMonth = this.tblCategoriesDate1DateObj.getMonth() + 1;
-          
-                  this.tblCategoriesDate1DateHour = this.tblCategoriesDate1DateObj.getHours();
-                  this.tblCategoriesDate1DateHour_print = ('0' + this.tblCategoriesDate1DateObj.getHours()).slice(-2);
-          
-                  this.tblCategoriesDate1DateMinute = this.tblCategoriesDate1DateObj.getMinutes();
-                  this.tblCategoriesDate1DateMinute_print = ('0' + this.tblCategoriesDate1DateObj.getMinutes()).slice(-2);
-          
-                  this.tblCategoriesDate1DateSecond = this.tblCategoriesDate1DateObj.getSeconds();
-                  this.tblCategoriesDate1DateSecond_print = ('0' + this.tblCategoriesDate1DateObj.getSeconds()).slice(-2);
-          
-                  // this.tblCategoriesDate1_print = this.tblCategoriesDate1;
-                  this.tblCategoriesDate1_print = FunctionsGeneric.dateRead01(this.tblCategoriesDate1, gSystemConfig.configBackendDateFormat, 0, gSystemConfig.configCategoriesDate1Type);
                 }
-                */
+                $this->tblCategoriesDate2 = $this->resultsCategoryDetails[0]->date2;
+                if ($this->tblCategoriesDate2) {
+                    $this->tblCategoriesDate2DateObj = new \DateTime($this->tblCategoriesDate2);
+
+                    $this->tblCategoriesDate2DateYear = $this->tblCategoriesDate2DateObj->format('Y');
+                    $this->tblCategoriesDate2DateDay = $this->tblCategoriesDate2DateObj->format('d');
+                    $this->tblCategoriesDate2DateMonth = $this->tblCategoriesDate2DateObj->format('m');
+            
+                    $this->tblCategoriesDate2DateHour = $this->tblCategoriesDate2DateObj->format('H');
+                    $this->tblCategoriesDate2DateHour_print = $this->tblCategoriesDate2DateHour;
+            
+                    $this->tblCategoriesDate2DateMinute = $this->tblCategoriesDate2DateObj->format('i');
+                    $this->tblCategoriesDate2DateMinute_print = $this->tblCategoriesDate2DateMinute;
+            
+                    $this->tblCategoriesDate2DateSecond = $this->tblCategoriesDate2DateObj->format('s');
+                    $this->tblCategoriesDate2DateSecond_print = $this->tblCategoriesDate2DateSecond;
+            
+                    $this->tblCategoriesDate2_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate2, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate2Type']);
+                }
+                $this->tblCategoriesDate3 = $this->resultsCategoryDetails[0]->date3;
+                if ($this->tblCategoriesDate3) {
+                    $this->tblCategoriesDate3DateObj = new \DateTime($this->tblCategoriesDate3);
+
+                    $this->tblCategoriesDate3DateYear = $this->tblCategoriesDate3DateObj->format('Y');
+                    $this->tblCategoriesDate3DateDay = $this->tblCategoriesDate3DateObj->format('d');
+                    $this->tblCategoriesDate3DateMonth = $this->tblCategoriesDate3DateObj->format('m');
+            
+                    $this->tblCategoriesDate3DateHour = $this->tblCategoriesDate3DateObj->format('H');
+                    $this->tblCategoriesDate3DateHour_print = $this->tblCategoriesDate3DateHour;
+            
+                    $this->tblCategoriesDate3DateMinute = $this->tblCategoriesDate3DateObj->format('i');
+                    $this->tblCategoriesDate3DateMinute_print = $this->tblCategoriesDate3DateMinute;
+            
+                    $this->tblCategoriesDate3DateSecond = $this->tblCategoriesDate3DateObj->format('s');
+                    $this->tblCategoriesDate3DateSecond_print = $this->tblCategoriesDate3DateSecond;
+            
+                    $this->tblCategoriesDate3_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate3, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate3Type']);
+                }
+                $this->tblCategoriesDate4 = $this->resultsCategoryDetails[0]->date4;
+                if ($this->tblCategoriesDate4) {
+                    $this->tblCategoriesDate4DateObj = new \DateTime($this->tblCategoriesDate4);
+
+                    $this->tblCategoriesDate4DateYear = $this->tblCategoriesDate4DateObj->format('Y');
+                    $this->tblCategoriesDate4DateDay = $this->tblCategoriesDate4DateObj->format('d');
+                    $this->tblCategoriesDate4DateMonth = $this->tblCategoriesDate4DateObj->format('m');
+            
+                    $this->tblCategoriesDate4DateHour = $this->tblCategoriesDate4DateObj->format('H');
+                    $this->tblCategoriesDate4DateHour_print = $this->tblCategoriesDate4DateHour;
+            
+                    $this->tblCategoriesDate4DateMinute = $this->tblCategoriesDate4DateObj->format('i');
+                    $this->tblCategoriesDate4DateMinute_print = $this->tblCategoriesDate4DateMinute;
+            
+                    $this->tblCategoriesDate4DateSecond = $this->tblCategoriesDate4DateObj->format('s');
+                    $this->tblCategoriesDate4DateSecond_print = $this->tblCategoriesDate4DateSecond;
+            
+                    $this->tblCategoriesDate4_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate4, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate4Type']);
+                }
+                $this->tblCategoriesDate5 = $this->resultsCategoryDetails[0]->date5;
+                if ($this->tblCategoriesDate5) {
+                    $this->tblCategoriesDate5DateObj = new \DateTime($this->tblCategoriesDate5);
+
+                    $this->tblCategoriesDate5DateYear = $this->tblCategoriesDate5DateObj->format('Y');
+                    $this->tblCategoriesDate5DateDay = $this->tblCategoriesDate5DateObj->format('d');
+                    $this->tblCategoriesDate5DateMonth = $this->tblCategoriesDate5DateObj->format('m');
+            
+                    $this->tblCategoriesDate5DateHour = $this->tblCategoriesDate5DateObj->format('H');
+                    $this->tblCategoriesDate5DateHour_print = $this->tblCategoriesDate5DateHour;
+            
+                    $this->tblCategoriesDate5DateMinute = $this->tblCategoriesDate5DateObj->format('i');
+                    $this->tblCategoriesDate5DateMinute_print = $this->tblCategoriesDate5DateMinute;
+            
+                    $this->tblCategoriesDate5DateSecond = $this->tblCategoriesDate5DateObj->format('s');
+                    $this->tblCategoriesDate5DateSecond_print = $this->tblCategoriesDate5DateSecond;
+            
+                    $this->tblCategoriesDate5_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate5, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate5Type']);
+                }
           
                 /*
                 TODO: check the select statement in this part
@@ -538,7 +591,14 @@ class ObjectCategoriesDetails
 
                 $this->tblCategoriesActivation = $this->resultsCategoryDetails[0]->activation;
                 $this->tblCategoriesActivation_print = $this->tblCategoriesActivation === 1 ? 
-                    'activated' : 'deactivated';
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0');
+
+                // Debug.
+                // echo 'appLabelsGet=<pre>';
+                // var_dump(\SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0'));
+                // echo '</pre><br />';    
           
                 $this->tblCategoriesIdStatus = $this->resultsCategoryDetails[0]->id_status;
                 $this->tblCategoriesIdStatus_print = $this->tblCategoriesIdStatus; // TODO
@@ -668,6 +728,58 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate1DateSecond'] = (int)$this->tblCategoriesDate1DateSecond;
                 $arrReturn['tblCategoriesDate1DateSecond_print'] = $this->tblCategoriesDate1DateSecond;
                 $arrReturn['tblCategoriesDate1_print'] = $this->tblCategoriesDate1_print;
+                
+                $arrReturn['tblCategoriesDate2'] = $this->tblCategoriesDate2;
+                $arrReturn['tblCategoriesDate2DateObj'] = $this->tblCategoriesDate2DateObj;
+                $arrReturn['tblCategoriesDate2DateYear'] = $this->tblCategoriesDate2DateYear;
+                $arrReturn['tblCategoriesDate2DateDay'] = $this->tblCategoriesDate2DateDay;
+                $arrReturn['tblCategoriesDate2DateMonth'] = $this->tblCategoriesDate2DateMonth;
+                $arrReturn['tblCategoriesDate2DateHour'] = (int)$this->tblCategoriesDate2DateHour;
+                $arrReturn['tblCategoriesDate2DateHour_print'] = $this->tblCategoriesDate2DateHour;
+                $arrReturn['tblCategoriesDate2DateMinute'] = (int)$this->tblCategoriesDate2DateMinute;
+                $arrReturn['tblCategoriesDate2DateMinute_print'] = $this->tblCategoriesDate2DateMinute;
+                $arrReturn['tblCategoriesDate2DateSecond'] = (int)$this->tblCategoriesDate2DateSecond;
+                $arrReturn['tblCategoriesDate2DateSecond_print'] = $this->tblCategoriesDate2DateSecond;
+                $arrReturn['tblCategoriesDate2_print'] = $this->tblCategoriesDate2_print;
+
+                $arrReturn['tblCategoriesDate3'] = $this->tblCategoriesDate3;
+                $arrReturn['tblCategoriesDate3DateObj'] = $this->tblCategoriesDate3DateObj;
+                $arrReturn['tblCategoriesDate3DateYear'] = $this->tblCategoriesDate3DateYear;
+                $arrReturn['tblCategoriesDate3DateDay'] = $this->tblCategoriesDate3DateDay;
+                $arrReturn['tblCategoriesDate3DateMonth'] = $this->tblCategoriesDate3DateMonth;
+                $arrReturn['tblCategoriesDate3DateHour'] = (int)$this->tblCategoriesDate3DateHour;
+                $arrReturn['tblCategoriesDate3DateHour_print'] = $this->tblCategoriesDate3DateHour;
+                $arrReturn['tblCategoriesDate3DateMinute'] = (int)$this->tblCategoriesDate3DateMinute;
+                $arrReturn['tblCategoriesDate3DateMinute_print'] = $this->tblCategoriesDate3DateMinute;
+                $arrReturn['tblCategoriesDate3DateSecond'] = (int)$this->tblCategoriesDate3DateSecond;
+                $arrReturn['tblCategoriesDate3DateSecond_print'] = $this->tblCategoriesDate3DateSecond;
+                $arrReturn['tblCategoriesDate3_print'] = $this->tblCategoriesDate3_print;
+
+                $arrReturn['tblCategoriesDate4'] = $this->tblCategoriesDate4;
+                $arrReturn['tblCategoriesDate4DateObj'] = $this->tblCategoriesDate4DateObj;
+                $arrReturn['tblCategoriesDate4DateYear'] = $this->tblCategoriesDate4DateYear;
+                $arrReturn['tblCategoriesDate4DateDay'] = $this->tblCategoriesDate4DateDay;
+                $arrReturn['tblCategoriesDate4DateMonth'] = $this->tblCategoriesDate4DateMonth;
+                $arrReturn['tblCategoriesDate4DateHour'] = (int)$this->tblCategoriesDate4DateHour;
+                $arrReturn['tblCategoriesDate4DateHour_print'] = $this->tblCategoriesDate4DateHour;
+                $arrReturn['tblCategoriesDate4DateMinute'] = (int)$this->tblCategoriesDate4DateMinute;
+                $arrReturn['tblCategoriesDate4DateMinute_print'] = $this->tblCategoriesDate4DateMinute;
+                $arrReturn['tblCategoriesDate4DateSecond'] = (int)$this->tblCategoriesDate4DateSecond;
+                $arrReturn['tblCategoriesDate4DateSecond_print'] = $this->tblCategoriesDate4DateSecond;
+                $arrReturn['tblCategoriesDate4_print'] = $this->tblCategoriesDate4_print;
+
+                $arrReturn['tblCategoriesDate5'] = $this->tblCategoriesDate5;
+                $arrReturn['tblCategoriesDate5DateObj'] = $this->tblCategoriesDate5DateObj;
+                $arrReturn['tblCategoriesDate5DateYear'] = $this->tblCategoriesDate5DateYear;
+                $arrReturn['tblCategoriesDate5DateDay'] = $this->tblCategoriesDate5DateDay;
+                $arrReturn['tblCategoriesDate5DateMonth'] = $this->tblCategoriesDate5DateMonth;
+                $arrReturn['tblCategoriesDate5DateHour'] = (int)$this->tblCategoriesDate5DateHour;
+                $arrReturn['tblCategoriesDate5DateHour_print'] = $this->tblCategoriesDate5DateHour;
+                $arrReturn['tblCategoriesDate5DateMinute'] = (int)$this->tblCategoriesDate5DateMinute;
+                $arrReturn['tblCategoriesDate5DateMinute_print'] = $this->tblCategoriesDate5DateMinute;
+                $arrReturn['tblCategoriesDate5DateSecond'] = (int)$this->tblCategoriesDate5DateSecond;
+                $arrReturn['tblCategoriesDate5DateSecond_print'] = $this->tblCategoriesDate5DateSecond;
+                $arrReturn['tblCategoriesDate5_print'] = $this->tblCategoriesDate5_print;
                 
                 $arrReturn['tblCategoriesImageMain'] = $this->tblCategoriesImageMain;
                 $arrReturn['tblCategoriesFile1'] = $this->tblCategoriesFile1;

@@ -8,24 +8,47 @@ class FunctionsGeneric
     /**
      * Return the label in the right terminal.
      * @static
-     * @param {object} objAppLabels 
-     * @param {string} labelName 
-     * @return {string}
+     * @param string objAppLabels 
+     * @param string labelName 
+     * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend->appLabels'], 'labelName')
      */
-    static function appLabelsGet($objAppLabels, string $labelName): string
+    static function appLabelsGet(object|null $objAppLabels, string $labelName): string
     {
-        //Variables.
-        //----------------------
-        $strReturn = "";
-        //----------------------
+        // Variables.
+        // ----------------------
+        $strReturn = '';
+        // $jsonAppLabels = null;
+        // ----------------------
+
+        // Logic.
+        // ----------------------
+        if ($labelName) {
+            if ($objAppLabels->$labelName) {
 
 
+                $strReturn = $objAppLabels->$labelName;
+                $strReturn = preg_replace('/(?:\r\n|\r|\n)/', '<br />', $strReturn); // replace line breaks with tags
+            }
+        }
+        // ----------------------
 
-        //Debug.
-        $strReturn = "testing";
+        // Debug.
+        // Convert json file to php json.
+        // TODO: put result in session or other temporary storage - configCache.
+        // $jsonAppLabels = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson($objAppLabels, ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+        
+        // $strReturn = "testing";
+        // $strReturn = $labelName;
 
+        // echo 'jsonAppLabels=<pre>';
+        // var_dump($jsonAppLabels);
+        // echo '</pre><br />';  
+        
+        // echo 'objAppLabels=<pre>';
+        // var_dump($objAppLabels);
+        // echo '</pre><br />';    
 
         return $strReturn;
     }
