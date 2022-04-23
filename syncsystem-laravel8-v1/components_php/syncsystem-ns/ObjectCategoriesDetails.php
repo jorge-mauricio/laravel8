@@ -8,14 +8,14 @@ class ObjectCategoriesDetails
     private float|null $idTbCategories = null;
     private array|null $arrSearchParameters = [];
 
-    private float $terminal = 0; // terminal: 0 - backend | 1 - frontend
+    private int $terminal = 0; // terminal: 0 - backend | 1 - frontend
     private string $labelPrefix = 'backend';
 
     private array|null $arrSpecialParameters = [];
 
     private array|null $resultsCategoryDetails = null;
 
-    private string $tblCategoriesID = '';
+    private float|null $tblCategoriesID = null;
     private float $tblCategoriesIdParent = 0;
     private float $tblCategoriesSortOrder = 0;
     private float $tblCategoriesSortOrder_print = 0;
@@ -149,23 +149,23 @@ class ObjectCategoriesDetails
     private string $tblCategoriesFile4 = '';
     private string $tblCategoriesFile5 = '';
 
-    private float $tblCategoriesActivation = 1;
+    private int $tblCategoriesActivation = 1;
     private string $tblCategoriesActivation_print = '';
-    private float $tblCategoriesActivation1 = 0;
+    private int $tblCategoriesActivation1 = 0;
     private string $tblCategoriesActivation1_print = '';
-    private float $tblCategoriesActivation2 = 0;
+    private int $tblCategoriesActivation2 = 0;
     private string $tblCategoriesActivation2_print = '';
-    private float $tblCategoriesActivation3 = 0;
+    private int $tblCategoriesActivation3 = 0;
     private string $tblCategoriesActivation3_print = '';
-    private float $tblCategoriesActivation4 = 0;
+    private int $tblCategoriesActivation4 = 0;
     private string $tblCategoriesActivation4_print = '';
-    private float $tblCategoriesActivation5 = 0;
+    private int $tblCategoriesActivation5 = 0;
     private string $tblCategoriesActivation5_print = '';
 
     private float $tblCategoriesIdStatus = 0;
-    private float $tblCategoriesIdStatus_print = 0;
+    private string $tblCategoriesIdStatus_print = '';
 
-    private float $tblCategoriesRestrictedAccess = 0;
+    private int $tblCategoriesRestrictedAccess = 0;
     private string $tblCategoriesRestrictedAccess_print = '';
 
     private string $tblCategoriesNotes = '';
@@ -590,18 +590,63 @@ class ObjectCategoriesDetails
                 $this->tblCategoriesFile5 = $this->resultsCategoryDetails[0]->file5;
 
                 $this->tblCategoriesActivation = $this->resultsCategoryDetails[0]->activation;
-                $this->tblCategoriesActivation_print = $this->tblCategoriesActivation === 1 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1') 
+                $this->tblCategoriesActivation_print = $this->tblCategoriesActivation === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
                 : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0');
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                ;
 
+                $this->tblCategoriesActivation1 = $this->resultsCategoryDetails[0]->activation1;
+                $this->tblCategoriesActivation1_print = $this->tblCategoriesActivation1 === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                ;
+                    
+                $this->tblCategoriesActivation2 = $this->resultsCategoryDetails[0]->activation2;
+                $this->tblCategoriesActivation2_print = $this->tblCategoriesActivation2 === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                ;
+
+                // Debug.
+                //dd('this->tblCategoriesActivation2=' . $this->tblCategoriesActivation2 === 0);
+                //dd('gettype=' . gettype($this->tblCategoriesActivation2));
+                    
+                $this->tblCategoriesActivation3 = $this->resultsCategoryDetails[0]->activation3;
+                $this->tblCategoriesActivation3_print = $this->tblCategoriesActivation3 === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                ;
+
+                $this->tblCategoriesActivation4 = $this->resultsCategoryDetails[0]->activation4;
+                $this->tblCategoriesActivation4_print = $this->tblCategoriesActivation4 === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                ;
+
+                $this->tblCategoriesActivation5 = $this->resultsCategoryDetails[0]->activation5;
+                $this->tblCategoriesActivation5_print = $this->tblCategoriesActivation5 === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                ;
+                    
                 // Debug.
                 // echo 'appLabelsGet=<pre>';
                 // var_dump(\SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0'));
                 // echo '</pre><br />';    
           
                 $this->tblCategoriesIdStatus = $this->resultsCategoryDetails[0]->id_status;
-                $this->tblCategoriesIdStatus_print = $this->tblCategoriesIdStatus; // TODO
+                $this->tblCategoriesIdStatus_print = $this->tblCategoriesIdStatus === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemDropDownSelectNone') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::contentMaskRead(\SyncSystemNS\FunctionsDB::genericFieldGet01($this->tblCategoriesIdStatus, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title'), 'db')
+                ;
+                
                 /*
                 if (this.tblCategoriesIdStatus == 0) {
                     this.tblCategoriesIdStatus_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemDropDownSelectNone');
@@ -611,45 +656,39 @@ class ObjectCategoriesDetails
                 */
 
                 $this->tblCategoriesRestrictedAccess = $this->resultsCategoryDetails[0]->restricted_access;
-                $this->tblCategoriesRestrictedAccess_print = $this->tblCategoriesRestrictedAccess === 1 ? 
-                    'restricted' : 'unrestricted';
-                /*
-                this.tblCategoriesRestrictedAccess = this.resultsCategoryDetails[0].restricted_access;
-                if (this.tblCategoriesRestrictedAccess == 0) {
-                  this.tblCategoriesRestrictedAccess_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemRestrictedAccess0');
-                }
-                if (this.tblCategoriesRestrictedAccess == 1) {
-                  this.tblCategoriesRestrictedAccess_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemRestrictedAccess1');
-                }
-                */
+                $this->tblCategoriesRestrictedAccess_print = $this->tblCategoriesRestrictedAccess === 0 ? 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemRestrictedAccess0') 
+                : 
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemRestrictedAccess1')
+                ;
                           
                 $this->tblCategoriesNotes = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->notes, 'db');
                 $this->tblCategoriesNotes_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->notes, 'db');
                           
                 // Build return array.
-                $arrReturn['tblCategoriesID'] = (float)$this->tblCategoriesID;
-                $arrReturn['tblCategoriesIdParent'] = (float)$this->tblCategoriesIdParent;
+                $arrReturn['tblCategoriesID'] = $this->tblCategoriesID;
+                $arrReturn['tblCategoriesIdParent'] = $this->tblCategoriesIdParent;
 
-                $arrReturn['tblCategoriesSortOrder'] = (float)$this->tblCategoriesSortOrder;
-                $arrReturn['tblCategoriesSortOrder_print'] = (float)$this->tblCategoriesSortOrder_print;
+                $arrReturn['tblCategoriesSortOrder'] = $this->tblCategoriesSortOrder;
+                $arrReturn['tblCategoriesSortOrder_print'] = $this->tblCategoriesSortOrder_print;
 
-                $arrReturn['tblCategoriesCategoryType'] = (float)$this->tblCategoriesCategoryType;
+                $arrReturn['tblCategoriesCategoryType'] = $this->tblCategoriesCategoryType;
 
                 $arrReturn['tblCategoriesDateCreation'] = $this->tblCategoriesDateCreation;
                 $arrReturn['tblCategoriesDateTimezone'] = $this->tblCategoriesDateTimezone;
                 $arrReturn['tblCategoriesDateEdit'] = $this->tblCategoriesDateEdit;
 
-                $arrReturn['tblCategoriesIdRegisterUser'] = (float)$this->tblCategoriesIdRegisterUser;
+                $arrReturn['tblCategoriesIdRegisterUser'] = $this->tblCategoriesIdRegisterUser;
                 $arrReturn['tblCategoriesIdRegisterUser_print'] = $this->tblCategoriesIdRegisterUser_print;
-                $arrReturn['tblCategoriesIdRegister1'] = (float)$this->tblCategoriesIdRegister1;
+                $arrReturn['tblCategoriesIdRegister1'] = $this->tblCategoriesIdRegister1;
                 $arrReturn['tblCategoriesIdRegister1_print'] = $this->tblCategoriesIdRegister1_print;
-                $arrReturn['tblCategoriesIdRegister2'] = (float)$this->tblCategoriesIdRegister2;
+                $arrReturn['tblCategoriesIdRegister2'] = $this->tblCategoriesIdRegister2;
                 $arrReturn['tblCategoriesIdRegister2_print'] = $this->tblCategoriesIdRegister1_print;
-                $arrReturn['tblCategoriesIdRegister3'] = (float)$this->tblCategoriesIdRegister3;
+                $arrReturn['tblCategoriesIdRegister3'] = $this->tblCategoriesIdRegister3;
                 $arrReturn['tblCategoriesIdRegister3_print'] = $this->tblCategoriesIdRegister1_print;
-                $arrReturn['tblCategoriesIdRegister4'] = (float)$this->tblCategoriesIdRegister4;
+                $arrReturn['tblCategoriesIdRegister4'] = $this->tblCategoriesIdRegister4;
                 $arrReturn['tblCategoriesIdRegister4_print'] = $this->tblCategoriesIdRegister1_print;
-                $arrReturn['tblCategoriesIdRegister5'] = (float)$this->tblCategoriesIdRegister5;
+                $arrReturn['tblCategoriesIdRegister5'] = $this->tblCategoriesIdRegister5;
                 $arrReturn['tblCategoriesIdRegister5_print'] = $this->tblCategoriesIdRegister1_print;
 
                 $arrReturn['tblCategoriesTitle'] = $this->tblCategoriesTitle;
@@ -721,11 +760,11 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate1DateYear'] = $this->tblCategoriesDate1DateYear;
                 $arrReturn['tblCategoriesDate1DateDay'] = $this->tblCategoriesDate1DateDay;
                 $arrReturn['tblCategoriesDate1DateMonth'] = $this->tblCategoriesDate1DateMonth;
-                $arrReturn['tblCategoriesDate1DateHour'] = (int)$this->tblCategoriesDate1DateHour;
+                $arrReturn['tblCategoriesDate1DateHour'] = $this->tblCategoriesDate1DateHour;
                 $arrReturn['tblCategoriesDate1DateHour_print'] = $this->tblCategoriesDate1DateHour;
-                $arrReturn['tblCategoriesDate1DateMinute'] = (int)$this->tblCategoriesDate1DateMinute;
+                $arrReturn['tblCategoriesDate1DateMinute'] = $this->tblCategoriesDate1DateMinute;
                 $arrReturn['tblCategoriesDate1DateMinute_print'] = $this->tblCategoriesDate1DateMinute;
-                $arrReturn['tblCategoriesDate1DateSecond'] = (int)$this->tblCategoriesDate1DateSecond;
+                $arrReturn['tblCategoriesDate1DateSecond'] = $this->tblCategoriesDate1DateSecond;
                 $arrReturn['tblCategoriesDate1DateSecond_print'] = $this->tblCategoriesDate1DateSecond;
                 $arrReturn['tblCategoriesDate1_print'] = $this->tblCategoriesDate1_print;
                 
@@ -734,11 +773,11 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate2DateYear'] = $this->tblCategoriesDate2DateYear;
                 $arrReturn['tblCategoriesDate2DateDay'] = $this->tblCategoriesDate2DateDay;
                 $arrReturn['tblCategoriesDate2DateMonth'] = $this->tblCategoriesDate2DateMonth;
-                $arrReturn['tblCategoriesDate2DateHour'] = (int)$this->tblCategoriesDate2DateHour;
+                $arrReturn['tblCategoriesDate2DateHour'] = $this->tblCategoriesDate2DateHour;
                 $arrReturn['tblCategoriesDate2DateHour_print'] = $this->tblCategoriesDate2DateHour;
-                $arrReturn['tblCategoriesDate2DateMinute'] = (int)$this->tblCategoriesDate2DateMinute;
+                $arrReturn['tblCategoriesDate2DateMinute'] = $this->tblCategoriesDate2DateMinute;
                 $arrReturn['tblCategoriesDate2DateMinute_print'] = $this->tblCategoriesDate2DateMinute;
-                $arrReturn['tblCategoriesDate2DateSecond'] = (int)$this->tblCategoriesDate2DateSecond;
+                $arrReturn['tblCategoriesDate2DateSecond'] = $this->tblCategoriesDate2DateSecond;
                 $arrReturn['tblCategoriesDate2DateSecond_print'] = $this->tblCategoriesDate2DateSecond;
                 $arrReturn['tblCategoriesDate2_print'] = $this->tblCategoriesDate2_print;
 
@@ -747,11 +786,11 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate3DateYear'] = $this->tblCategoriesDate3DateYear;
                 $arrReturn['tblCategoriesDate3DateDay'] = $this->tblCategoriesDate3DateDay;
                 $arrReturn['tblCategoriesDate3DateMonth'] = $this->tblCategoriesDate3DateMonth;
-                $arrReturn['tblCategoriesDate3DateHour'] = (int)$this->tblCategoriesDate3DateHour;
+                $arrReturn['tblCategoriesDate3DateHour'] = $this->tblCategoriesDate3DateHour;
                 $arrReturn['tblCategoriesDate3DateHour_print'] = $this->tblCategoriesDate3DateHour;
-                $arrReturn['tblCategoriesDate3DateMinute'] = (int)$this->tblCategoriesDate3DateMinute;
+                $arrReturn['tblCategoriesDate3DateMinute'] = $this->tblCategoriesDate3DateMinute;
                 $arrReturn['tblCategoriesDate3DateMinute_print'] = $this->tblCategoriesDate3DateMinute;
-                $arrReturn['tblCategoriesDate3DateSecond'] = (int)$this->tblCategoriesDate3DateSecond;
+                $arrReturn['tblCategoriesDate3DateSecond'] = $this->tblCategoriesDate3DateSecond;
                 $arrReturn['tblCategoriesDate3DateSecond_print'] = $this->tblCategoriesDate3DateSecond;
                 $arrReturn['tblCategoriesDate3_print'] = $this->tblCategoriesDate3_print;
 
@@ -760,11 +799,11 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate4DateYear'] = $this->tblCategoriesDate4DateYear;
                 $arrReturn['tblCategoriesDate4DateDay'] = $this->tblCategoriesDate4DateDay;
                 $arrReturn['tblCategoriesDate4DateMonth'] = $this->tblCategoriesDate4DateMonth;
-                $arrReturn['tblCategoriesDate4DateHour'] = (int)$this->tblCategoriesDate4DateHour;
+                $arrReturn['tblCategoriesDate4DateHour'] = $this->tblCategoriesDate4DateHour;
                 $arrReturn['tblCategoriesDate4DateHour_print'] = $this->tblCategoriesDate4DateHour;
-                $arrReturn['tblCategoriesDate4DateMinute'] = (int)$this->tblCategoriesDate4DateMinute;
+                $arrReturn['tblCategoriesDate4DateMinute'] = $this->tblCategoriesDate4DateMinute;
                 $arrReturn['tblCategoriesDate4DateMinute_print'] = $this->tblCategoriesDate4DateMinute;
-                $arrReturn['tblCategoriesDate4DateSecond'] = (int)$this->tblCategoriesDate4DateSecond;
+                $arrReturn['tblCategoriesDate4DateSecond'] = $this->tblCategoriesDate4DateSecond;
                 $arrReturn['tblCategoriesDate4DateSecond_print'] = $this->tblCategoriesDate4DateSecond;
                 $arrReturn['tblCategoriesDate4_print'] = $this->tblCategoriesDate4_print;
 
@@ -773,11 +812,11 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate5DateYear'] = $this->tblCategoriesDate5DateYear;
                 $arrReturn['tblCategoriesDate5DateDay'] = $this->tblCategoriesDate5DateDay;
                 $arrReturn['tblCategoriesDate5DateMonth'] = $this->tblCategoriesDate5DateMonth;
-                $arrReturn['tblCategoriesDate5DateHour'] = (int)$this->tblCategoriesDate5DateHour;
+                $arrReturn['tblCategoriesDate5DateHour'] = $this->tblCategoriesDate5DateHour;
                 $arrReturn['tblCategoriesDate5DateHour_print'] = $this->tblCategoriesDate5DateHour;
-                $arrReturn['tblCategoriesDate5DateMinute'] = (int)$this->tblCategoriesDate5DateMinute;
+                $arrReturn['tblCategoriesDate5DateMinute'] = $this->tblCategoriesDate5DateMinute;
                 $arrReturn['tblCategoriesDate5DateMinute_print'] = $this->tblCategoriesDate5DateMinute;
-                $arrReturn['tblCategoriesDate5DateSecond'] = (int)$this->tblCategoriesDate5DateSecond;
+                $arrReturn['tblCategoriesDate5DateSecond'] = $this->tblCategoriesDate5DateSecond;
                 $arrReturn['tblCategoriesDate5DateSecond_print'] = $this->tblCategoriesDate5DateSecond;
                 $arrReturn['tblCategoriesDate5_print'] = $this->tblCategoriesDate5_print;
                 
@@ -790,6 +829,16 @@ class ObjectCategoriesDetails
 
                 $arrReturn['tblCategoriesActivation'] = $this->tblCategoriesActivation;
                 $arrReturn['tblCategoriesActivation_print'] = $this->tblCategoriesActivation_print;
+                $arrReturn['tblCategoriesActivation1'] = $this->tblCategoriesActivation1;
+                $arrReturn['tblCategoriesActivation1_print'] = $this->tblCategoriesActivation1_print;
+                $arrReturn['tblCategoriesActivation2'] = $this->tblCategoriesActivation2;
+                $arrReturn['tblCategoriesActivation2_print'] = $this->tblCategoriesActivation2_print;
+                $arrReturn['tblCategoriesActivation3'] = $this->tblCategoriesActivation3;
+                $arrReturn['tblCategoriesActivation3_print'] = $this->tblCategoriesActivation3_print;
+                $arrReturn['tblCategoriesActivation4'] = $this->tblCategoriesActivation4;
+                $arrReturn['tblCategoriesActivation4_print'] = $this->tblCategoriesActivation4_print;
+                $arrReturn['tblCategoriesActivation5'] = $this->tblCategoriesActivation5;
+                $arrReturn['tblCategoriesActivation5_print'] = $this->tblCategoriesActivation5_print;
 
                 $arrReturn['tblCategoriesIdStatus'] = $this->tblCategoriesIdStatus;
                 $arrReturn['tblCategoriesIdStatus_print'] = $this->tblCategoriesIdStatus_print;

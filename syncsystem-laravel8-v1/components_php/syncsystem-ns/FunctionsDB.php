@@ -6,6 +6,68 @@ use Illuminate\Support\Facades\DB;
 
 class FunctionsDB
 {
+    // Function to return results from any field in table.
+    // **************************************************************************************
+    /**
+     * Function to return results from any field in table.
+     * @static
+     * @param float idRecord
+     * @param string strTable categories | content | files | publications | products | registers | quizzes | forms | forms_fields | forms_fields_options
+     * @param string fieldName
+     * @return string
+     * @example \SyncSystemNS\FunctionsDB::genericFieldGet01(790, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title')
+     */
+    static function genericFieldGet01(float $idRecord, string $strTable, string $fieldName): string
+    {
+        // Variables.
+        // ----------------------
+        $strReturn = '';
+        $objResultGenericField;
+        $strSQLGenericFieldSelect = '';
+        $strSQLGenericFieldSelectParams = [];
+        // ----------------------
+
+        if ($strTable && $idRecord) {
+            // Logic.
+                // ----------------------
+            try {
+                $objResultGenericField = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
+                $objResultGenericField = $objResultGenericField->select($fieldName);
+                $objResultGenericField = $objResultGenericField->where('id', '=', (float)\SyncSystemNS\FunctionsGeneric::contentMaskWrite($idRecord, 'db_sanitize'));
+                $objResultGenericField = $objResultGenericField->get()->toArray();
+
+                // Return data treatment.
+                if (count($objResultGenericField) > 0 ) {
+                    // $strReturn = $objResultGenericField[0][$fieldName];
+                    $strReturn = $objResultGenericField[$fieldName];
+                    // $strReturn = $objResultGenericField;
+                }
+
+                // Debug.
+                // dd($strReturn);
+                // ----------------------
+            } catch (Error $genericFieldGet01Error) {
+                if ($GLOBALS['configDebug'] === true) {
+                    throw new Error('genericFieldGet01: ' . $genericFieldGet01Error->message());
+                }
+            } finally {
+
+            }
+            // ----------------------
+        } else {
+            $strReturn = '';
+        }
+
+        return $strReturn;
+
+        // Usage.
+        // ----------------------
+        // \SyncSystemNS\FunctionsDB::genericFieldGet01(790, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title')
+        // ----------------------
+    }
+    // **************************************************************************************
+
+
     // Function to return results from any table.
     // **************************************************************************************
     /**
@@ -68,7 +130,7 @@ class FunctionsDB
     
                     // Integer.
                     if ($searchParametersFieldType === 'i') {
-                        $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '=', (float) \SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
+                        $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '=', (float)\SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
     
                         //$strSQLGenericTableSelect += ' ' + $strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' = ?';
                         //$strSQLGenericTableSelectParams.push(searchParametersFieldValue);

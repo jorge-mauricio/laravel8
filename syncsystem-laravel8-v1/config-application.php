@@ -281,6 +281,7 @@ $configSystemMetricDistance = 'KM'; // KM | MI
 
 // Languages.
 // **************************************************************************************
+// TODO: put result in session or other temporary storage - configCache.
 // Debug.
 //echo '__FILE__=<pre>';
 //var_dump(dirname(__FILE__));
