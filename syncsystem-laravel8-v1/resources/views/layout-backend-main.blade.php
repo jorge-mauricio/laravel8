@@ -2,10 +2,10 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge"><% // Bootstrap required. %>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">{{-- Bootstrap required. --}}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-        <title><!--%- SyncSystemNS.FunctionsGeneric.contentMaskRead(templateData.cphTitle, "config-application") %--></title>
+        <title>{{ $templateData['cphTitle'] }}</title>
 
         <?php // Style Sheets - personalized. http://localhost:3000 | ../../ ?>
         <!--% if(gSystemConfig.configDebug === true){ %-->
@@ -112,8 +112,16 @@
                     </div>
 
                     <?php // Body content. ?>
+
+                    {{-- Debug. --}}
                     <!--%-templateData.cphBody %-->
-                    {{ $templateData['cphBody'] }}
+                    cphBody = {{ $templateData['cphBody'] }} <br />
+                    additionalData = 
+                    @php
+                        var_dump($templateData['additionalData']);
+                    @endphp
+                    {{-- additionalData = {{ $templateData['additionalData'] }} --}}
+                    {{-- TODO: pass down--}}
                 </div>
                 <?php // Right column. ?>
             </main>
