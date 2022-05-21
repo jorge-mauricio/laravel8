@@ -15,7 +15,7 @@
             <!--link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend.bundle.css" media="screen" title="Default" /--><!--Production (custom styles)-->
             <!--link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend-vendor.bundle.css" media="screen" title="Default" /--><!--Production (vendor styles)-->
         <!--% } %-->
-        <link rel="canonical" href="<!%- gSystemConfig.configSystemURL %>" />
+        <link rel="canonical" href="<?php echo $GLOBALS['configSystemURL']; ?>" />
 
         <style type="text/css">
             /*html, body
@@ -33,10 +33,10 @@
 
                 </div>
                 <div class="ss-backend-title-main" style="position: relative; display: block; height: 40px; line-height: 40px; text-indent: 15px; background-color: #d1d8dc; border: 1px solid #6c7880; border-radius: 0px 0px 15px 15px; margin-top: 2px; overflow: hidden;">
-                    <%- SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configSystemName, "config-application") %>
+                    <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'layoutSystemName'); ?>
                 </div>
                 <div style="position: relative; display: block; height: 72px; background-image: url(/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-header-tb02-02.jpg); background-repeat: repeat-x; background-position: top center; overflow: hidden;">
-                    <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-header-tb02-03.jpg" alt="Header Element" style="position: absolute; display: block; top: 0px; right: -8px;" /> 
+                    <img src="{{ asset('/app_files_layout/backend-layout-header-tb02-03.jpg') }}" alt="Header Element" style="position: absolute; display: block; top: 0px; right: -8px;" /> 
                     <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-header-tb02-01.jpg" alt="Header Element" style="position: absolute; display: block; top: 0px; left: -8px;" /> 
 
                     <aside style="position: absolute; display: block; top: 6px; right: 8px; width: 150px;">
@@ -44,24 +44,24 @@
                             <li class="ss-backend-menu-li01">
                                 <a href="" 
                                     class="ss-backend-menu-header-link" 
-                                    title="">
-                                    <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuHome") %>
+                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuHome'); ?>">
+                                    <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuHome'); ?>
                                 </a>
                             </li>
                             <li class="ss-backend-menu-li01">
                                 <a href="http://www.syncsystem.com.br" 
                                     class="ss-backend-menu-header-link" 
                                     target="_blank" 
-                                    title="">
-                                    <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuSiteSystem") %>
+                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuSiteSystem'); ?>">
+                                    <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuSiteSystem'); ?>
                                 </a>
                             </li>
                             <li class="ss-backend-menu-li01">
                                 <a href="http://www.syncsystem.com.br/pt/Contato.aspx" 
                                     class="ss-backend-menu-header-link" 
                                     target="_blank" 
-                                    title="">
-                                    <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuContact") %>
+                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuContact'); ?>">
+                                    <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuContact'); ?>
                                 </a>
                             </li>
                         </ul>
@@ -79,8 +79,8 @@
                             <li class="ss-backend-menu-li01">
                                 <a href="/admin/categories/0" 
                                     class="ss-backend-menu-link" 
-                                    title="<%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuStartToolTip") %>">
-                                        <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "backendMenuStart") %>
+                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuStartToolTip'); ?>">
+                                        <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuStart'); ?>
                                 </a>
                             </li>
                         </ul>
@@ -88,7 +88,7 @@
 
                     <footer class="ss-backend-copyright" style="position: absolute; display: block; bottom: 0px; left: 0px; background-color: #ffffff; padding-bottom: 8px;">
                         <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-nav01-tb01-03.jpg" alt="Footer Element" style="position: absolute; display: block; top: -56px; left: 0px;" /> 
-                        <%- SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, "layoutCopyright") %> <%- gSystemConfig.configCopyrightYear %> ® <%- SyncSystemNS.FunctionsGeneric.contentMaskRead(gSystemConfig.configDevName, "config-application") %>
+                        <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'layoutCopyright') . ' ' . $GLOBALS['configCopyrightYear'] . ' ® ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'layoutDevName'); ?> 
                     </footer>
                 </div>
                 <?php // Left column. ?>

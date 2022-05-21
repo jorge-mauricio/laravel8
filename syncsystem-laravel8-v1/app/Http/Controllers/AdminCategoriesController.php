@@ -75,7 +75,6 @@ class AdminCategoriesController extends Controller
             // echo '</pre>';
 
 
-
             if ($this->arrCategoriesListingJson['returnStatus'] === true) {
                 $this->arrCategoriesDetails = $this->arrCategoriesListingJson['ocdRecord'];
                 $this->arrCategoriesListing = $this->arrCategoriesListingJson['oclRecords'];

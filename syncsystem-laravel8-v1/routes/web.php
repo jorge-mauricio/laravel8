@@ -22,6 +22,30 @@ Route::get('/', function () {
 });
 
 
+// Resources - GET.
+// **************************************************************************************
+Route::get('/files-layout-test/{filename}', function($filename){
+    echo 'debug';
+    /*
+    $path = resource_path() . '/' . 'app_files_layout/' . $filename;
+
+    dd($path);
+
+    if(!File::exists($path)) {
+        return response()->json(['message' => 'Image not found.'], 404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+    */
+});
+// **************************************************************************************
+
 // Admin - Layout - GET.
 // Debug: http://127.0.0.1:8000/admin/layout
 Route::get('/admin/layout', function () {
