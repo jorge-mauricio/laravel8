@@ -1,5 +1,10 @@
-@extends('admin.layout-admin-main')
-
+{{-- @include('admin.include-layout') --}}
+{{-- @extends('admin.layout-admin-main') --}}
+{{-- @extends('admin.{{$masterPageSelect}}') --}}
+{{-- @extends({{'admin.' . $masterPageSelect}}) --}}
+{{-- @extends('admin.' . $masterPageSelect) --}}
+{{-- @extends('admin.' . $GLOBALS['masterPageSelect']) --}}
+@extends('admin.' . $templateData['masterPageSelect'])
 
 @section('cphTitle')
     {{ $templateData['cphTitle'] }}
@@ -12,6 +17,10 @@
 @section('cphBody')
     <pre>
         @php
+            // Debug.
+            echo '_GET=' . $_GET['masterPageSelect'] . '<br />';
+            // echo 'masterPageSelect=' . $masterPageSelect . '<br />';
+
             var_dump($templateData['cphBody']);
             // var_dump($templateData['additionalData']);
         @endphp

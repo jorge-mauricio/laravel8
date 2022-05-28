@@ -104,6 +104,10 @@ class AdminCategoriesController extends Controller
                 // Dynamic data.
                 //$this->templateData['additionalData']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
                 //$this->templateData['additionalData']['arrCategoriesListing'] = $this->arrCategoriesListing;
+
+
+                // Layout.
+                $this->templateData['masterPageSelect'] = $_GET['masterPageSelect']; // 'layout-admin-main'
             }    
 
 
@@ -111,7 +115,7 @@ class AdminCategoriesController extends Controller
             // Debug.
             // return 'admin categories listing (controller) idTbCategories = ' . $idTbCategories;
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
-
+            // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
 
             // Return with view.
             // return view('layout-backend-main', compact('templateData')); // working, as long as templateData is a variable, not a property
