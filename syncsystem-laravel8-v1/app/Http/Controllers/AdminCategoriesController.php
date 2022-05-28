@@ -94,12 +94,16 @@ class AdminCategoriesController extends Controller
                 // TODO: build content object.
                 // $this->templateData['cphBody'] = 'idTbCategories = ' . $idParentCategories;
                 // $this->templateData['cphBody'] = '_idParentCategories = ' . $_idParentCategories; // debug
-                $this->templateData['cphBody'] = 'partial-layout-admin-categories-listing';
+
+                //$this->templateData['cphBody'] = 'partial-layout-admin-categories-listing';
                 //NOTE: maybe change to dots in the blade layout to get the partial directly
 
+                $this->templateData['cphBody']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
+                $this->templateData['cphBody']['arrCategoriesListing'] = $this->arrCategoriesListing;
+
                 // Dynamic data.
-                $this->templateData['additionalData']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
-                $this->templateData['additionalData']['arrCategoriesListing'] = $this->arrCategoriesListing;
+                //$this->templateData['additionalData']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
+                //$this->templateData['additionalData']['arrCategoriesListing'] = $this->arrCategoriesListing;
             }    
 
 
@@ -114,7 +118,9 @@ class AdminCategoriesController extends Controller
             // return View::make('layout-backend-main')->with('templateData', $this->templateData); // error
             // return view('layout-backend-main', compact(['templateData' => $this->templateData]));
             // return view('layout-backend-main', ['templateData' => $this->templateData]); // working
-            return view('layout-backend-main')->with('templateData', $this->templateData); // working
+            // return view('layout-backend-main')->with('templateData', $this->templateData); // working
+            // return view('admin.layout-admin-main')->with('templateData', $this->templateData); // working
+            return view('admin.admin-categories-listing')->with('templateData', $this->templateData); // working
 
         } catch(Exception $adminCategoriesListingError) {
             echo 'Error reading API: ' . $apiError->getMessage();     

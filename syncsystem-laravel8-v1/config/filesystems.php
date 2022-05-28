@@ -86,6 +86,7 @@ return [
         // public_path(config('app.configDirectoryFilesLayoutSD')) => resource_path('app_files_layout'), // working
         public_path(env('CONFIG_DIRECTORY_FILES_LAYOUT_SD')) => resource_path('app_files_layout'), // working
         // public_path('app_resources') => resource_path('app_resources'),
+        public_path('fonts') => resource_path('app_fonts'),
     ],
 
 ];

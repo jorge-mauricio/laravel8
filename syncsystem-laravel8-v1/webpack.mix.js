@@ -11,16 +11,20 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    /*.postCss('resources/css/app.css', 'public/css', [
+ //mix.js('resources/js/app.js', 'public/js')
+ mix.js('resources/' + env('CONFIG_DIRECTORY_JS') + '/app.js', env('CONFIG_DIRECTORY_BUILD_LARAVEL') + '/' + env('CONFIG_DIRECTORY_JS_SD'))
+ /*.postCss('resources/css/app.css', 'public/css', [
         //
     ])
     */
-   /*
+    /*
     .postCss('resources/app_styles/styles-backend.css', 'public/css', [
         //
     ])
     */
-    .sass('resources/app_styles/styles-backend.scss', 'public/css/styles-backend.bundle.css');
+    //.sass('resources/app_styles/styles-backend.scss', 'public/css/styles-backend.bundle.css');
+    .sass('resources/' + env('CONFIG_DIRECTORY_STYLES') + '/styles-backend.scss',  env('CONFIG_DIRECTORY_BUILD_LARAVEL') + '/' + env('CONFIG_DIRECTORY_STYLES_SD') + '/styles-backend.bundle.css');
+
+    // typescript ref: https://sebastiandedeyne.com/typescript-with-laravel-mix/
 
 

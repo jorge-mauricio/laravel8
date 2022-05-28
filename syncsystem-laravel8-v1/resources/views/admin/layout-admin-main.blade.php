@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">{{-- Bootstrap required. --}}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-        <title>{{ $templateData['cphTitle'] }}</title>
+        <title>@yield('cphTitle'){{-- $templateData['cphTitle'] --}}</title>
 
         <?php // Style Sheets - personalized. http://localhost:3000 | ../../ ?>
         <!--% if(gSystemConfig.configDebug === true){ %-->
@@ -98,7 +98,8 @@
                     <h1 class="ss-backend-title01" style="position: relative; display: block; border-top: 4px double #b6bcc0; border-bottom: 4px double #b6bcc0; font-size: 18px; margin-bottom: 2px;">
                         <?php // Title content. ?>
                         <!--%- templateData.cphTitleCurrent %-->
-                        {{ $templateData['cphTitleCurrent'] }}
+                        {{-- $templateData['cphTitleCurrent'] --}}
+                        @yield('cphTitleCurrent')
                     </h1>
 
                     <div id="divMainSuccess" class="ss-backend-success">
@@ -115,12 +116,15 @@
 
                     {{-- Debug. --}}
                     <!--%-templateData.cphBody %-->
+                    {{--
                     cphBody = {{ $templateData['cphBody'] }} <br />
                     additionalData = 
                     @php
                         var_dump($templateData['additionalData']);
                     @endphp
+                    --}}
                     {{-- additionalData = {{ $templateData['additionalData'] }} --}}
+                    @yield('cphBody')
                     {{-- TODO: pass down--}}
                 </div>
                 <?php // Right column. ?>

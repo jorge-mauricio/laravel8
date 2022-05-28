@@ -128,6 +128,7 @@ $configDirectoryViews = 'app_views';
 $configDirectoryDist = 'dist'; // webpack distribution folder files (production / minifying)
 $configDirectoryBuildReact = 'build'; // webpack distribution folder files - react (production / minifying)
 $configDirectoryBuildReactClient = 'public'; // webpack distribution folder files - react client (production / minifying)
+$configDirectoryBuildLaravel = 'public';
 
 // Upload directories.
 $configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
@@ -140,12 +141,19 @@ $configFrontendDefaultViewSD = 'frontend';
 $configDirectorySystemSD = 'backend';
 $configDirectoryAdminSD = 'admin';
 
-// $configDirectoryFilesSD = ""; // "" - when using remote file storage
+/*
 $configDirectoryFilesSD = env('CONFIG_DIRECTORY_FILES_SD'); // 'files' | "" - when using remote
 $configDirectoryFilesLayoutSD = env('CONFIG_DIRECTORY_FILES_LAYOUT_SD'); // 'files-layout'
 $configDirectoryFontsSD = env('CONFIG_DIRECTORY_FONTS_SD'); // 'fonts'
 $configDirectoryStylesSD = env('CONFIG_DIRECTORY_STYLES_SD'); // 'css'
 $configDirectoryJSSD = env('CONFIG_DIRECTORY_JS_SD'); // 'js'
+*/
+// $configDirectoryFilesSD = ""; // "" - when using remote file storage
+$configDirectoryFilesSD = 'files'; // "" - when using remote
+$configDirectoryFilesLayoutSD = 'files-layout';
+$configDirectoryFontsSD = 'fonts';
+$configDirectoryStylesSD = 'css';
+$configDirectoryJSSD = 'js';
 $configDirectoryDistSD = 'dist';
 $configDirectoryBuildReactSD = 'build'; // TODO: Maybe change to frontend_react
 $configDirectoryBuildReactClientSD = 'public';
