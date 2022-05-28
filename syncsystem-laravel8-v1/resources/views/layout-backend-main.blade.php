@@ -9,7 +9,7 @@
 
         <?php // Style Sheets - personalized. http://localhost:3000 | ../../ ?>
         <!--% if(gSystemConfig.configDebug === true){ %-->
-            <link rel="stylesheet" type="text/css" href="{{ asset('css/styles-backend.css') }}" media="screen" title="Default" /><!--Dev-->
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/styles-backend.bundle.css') }}" media="screen" title="Default" /><!--Dev-->
         <!--% } %>
         <% if(gSystemConfig.configDebug === false){ %-->
             <!--link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend.bundle.css" media="screen" title="Default" /--><!--Production (custom styles)-->
@@ -35,9 +35,9 @@
                 <div class="ss-backend-title-main" style="position: relative; display: block; height: 40px; line-height: 40px; text-indent: 15px; background-color: #d1d8dc; border: 1px solid #6c7880; border-radius: 0px 0px 15px 15px; margin-top: 2px; overflow: hidden;">
                     <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'layoutSystemName'); ?>
                 </div>
-                <div style="position: relative; display: block; height: 72px; background-image: url(/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-header-tb02-02.jpg); background-repeat: repeat-x; background-position: top center; overflow: hidden;">
-                    <img src="{{ asset('/app_files_layout/backend-layout-header-tb02-03.jpg') }}" alt="Header Element" style="position: absolute; display: block; top: 0px; right: -8px;" /> 
-                    <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-header-tb02-01.jpg" alt="Header Element" style="position: absolute; display: block; top: 0px; left: -8px;" /> 
+                <div style="position: relative; display: block; height: 72px; background-image: url({{ asset('/' . $GLOBALS['configDirectoryFilesLayoutSD'] . '/backend-layout-header-tb02-02.jpg') }}); background-repeat: repeat-x; background-position: top center; overflow: hidden;">
+                    <img src="{{ asset('/' . $GLOBALS['configDirectoryFilesLayoutSD'] . '/backend-layout-header-tb02-03.jpg') }}" alt="Header Element" style="position: absolute; display: block; top: 0px; right: -8px;" /> 
+                    <img src="{{ asset('/' . $GLOBALS['configDirectoryFilesLayoutSD'] . '/backend-layout-header-tb02-01.jpg') }}" alt="Header Element" style="position: absolute; display: block; top: 0px; left: -8px;" /> 
 
                     <aside style="position: absolute; display: block; top: 6px; right: 8px; width: 150px;">
                         <ul class="ss-backend-menu-ul01" style="color: #000000; list-style-type: disc; line-height: 11px;">
@@ -71,8 +71,8 @@
 
             <main style="position: relative; display: flex; flex: 1; align-items: stretch;">
                 <?php // Left column. ?>
-                <div style="position: relative; display: block; min-width: 222px; max-width: 222px; background-image: url(/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-nav01-tb01-02.jpg); background-position: left; background-repeat: repeat-y; overflow: hidden;">
-                    <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-nav01-tb01-01.jpg" alt="Nav Element" style="position: absolute; display: block; top: 0px; left: 0px; margin-top: -25px;" /> 
+                <div style="position: relative; display: block; min-width: 222px; max-width: 222px; background-image: url({{ asset('/' . $GLOBALS['configDirectoryFilesLayoutSD'] . '/backend-layout-nav01-tb01-02.jpg') }}); background-position: left; background-repeat: repeat-y; overflow: hidden;">
+                    <img src="{{ asset('/' . $GLOBALS['configDirectoryFilesLayoutSD'] . '/backend-layout-nav01-tb01-01.jpg') }}" alt="Nav Element" style="position: absolute; display: block; top: 0px; left: 0px; margin-top: -25px;" /> 
                     
                     <nav style="position: relative; display: block; padding-top: 20px; margin-left: 37px; z-index: 1;">
                         <ul class="ss-backend-menu-ul01">
@@ -87,7 +87,7 @@
                     </nav>
 
                     <footer class="ss-backend-copyright" style="position: absolute; display: block; bottom: 0px; left: 0px; background-color: #ffffff; padding-bottom: 8px;">
-                        <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-nav01-tb01-03.jpg" alt="Footer Element" style="position: absolute; display: block; top: -56px; left: 0px;" /> 
+                        <img src="{{ asset('/' . $GLOBALS['configDirectoryFilesLayoutSD'] . '/backend-layout-nav01-tb01-03.jpg') }}" alt="Footer Element" style="position: absolute; display: block; top: -56px; left: 0px;" /> 
                         <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'layoutCopyright') . ' ' . $GLOBALS['configCopyrightYear'] . ' ® ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'layoutDevName'); ?> 
                     </footer>
                 </div>
@@ -134,7 +134,7 @@
         <?php // Ajax progress bar. ?>
         <div id="updtProgressGeneric" class="ss-backend-progress-bar-generic1-container" style="display: none;">
             <div class="ss-backend-progress-bar-generic1">
-                <img src="/<%- gSystemConfig.configDirectoryFilesLayoutSD %>/backend-layout-progress-bar-generic1.gif" alt="" />
+                <img src="{{ asset('/' . $GLOBALS['configDirectoryFilesLayoutSD'] . '/backend-layout-progress-bar-generic1.gif') }}" alt="" />
             </div>
         </div>
     </body>

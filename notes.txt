@@ -1,0 +1,23 @@
+- run dev environment:
+	- clean up and rebuild:
+		- terminal: composer dump-autoload
+		- terminal: composer dump-autoload -o
+
+		- terminal: php artisan clear-compiled
+		- terminal: php artisan optimize
+
+		- terminal: php artisan route:clear
+		- terminal: php artisan view:clear
+
+		- terminal: php artisan cache:clear
+		- terminal: php artisan config:cache
+		- terminal: php artisan config:clear
+
+	- execute symlinks defined on configuration:
+		- update new simlinks: syncsystem-laravel8-v1\config\filesystems.php
+		- terminal (root): php artisan storage:link			
+
+	- open 3 terminals in syncsystem-laravel8-v1 path
+		- terminal 1 (webpack compile): npm run watch
+		- terminal 2 (split): php -S localhost:8000 -t public/
+		- terminal 3 (split): php -S localhost:8001 -t public/

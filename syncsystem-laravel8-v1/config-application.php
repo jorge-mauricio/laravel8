@@ -123,11 +123,11 @@ $configDirectoryFilesLayout = 'app_files_layout';
 $configDirectoryFonts = 'app_fonts';
 $configDirectoryResources = 'app_resources';
 $configDirectoryStyles = 'app_styles';
+$configDirectoryJS = 'app_js';
 $configDirectoryViews = 'app_views';
 $configDirectoryDist = 'dist'; // webpack distribution folder files (production / minifying)
 $configDirectoryBuildReact = 'build'; // webpack distribution folder files - react (production / minifying)
 $configDirectoryBuildReactClient = 'public'; // webpack distribution folder files - react client (production / minifying)
-$configDirectoryJS = 'app_js';
 
 // Upload directories.
 $configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
@@ -141,11 +141,11 @@ $configDirectorySystemSD = 'backend';
 $configDirectoryAdminSD = 'admin';
 
 // $configDirectoryFilesSD = ""; // "" - when using remote file storage
-$configDirectoryFilesSD = 'files'; // "" - when using remote
-$configDirectoryFilesLayoutSD = 'files-layout';
-$configDirectoryFontsSD = 'fonts';
-$configDirectoryStylesSD = 'css';
-$configDirectoryJSSD = 'js';
+$configDirectoryFilesSD = env('CONFIG_DIRECTORY_FILES_SD'); // 'files' | "" - when using remote
+$configDirectoryFilesLayoutSD = env('CONFIG_DIRECTORY_FILES_LAYOUT_SD'); // 'files-layout'
+$configDirectoryFontsSD = env('CONFIG_DIRECTORY_FONTS_SD'); // 'fonts'
+$configDirectoryStylesSD = env('CONFIG_DIRECTORY_STYLES_SD'); // 'css'
+$configDirectoryJSSD = env('CONFIG_DIRECTORY_JS_SD'); // 'js'
 $configDirectoryDistSD = 'dist';
 $configDirectoryBuildReactSD = 'build'; // TODO: Maybe change to frontend_react
 $configDirectoryBuildReactClientSD = 'public';
@@ -289,7 +289,8 @@ $configSystemMetricDistance = 'KM'; // KM | MI
 
 //$configLanguageFrontend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
 // $configLanguageFrontend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
-$configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+// $configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels'); // working
+$configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($configDirectoryResources)  . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
 //echo 'configLanguageFrontend=<pre>';
 //var_dump(dirname($configLanguageFrontend));
 ////var_dump(dirname(json_decode($configLanguageFrontend)));
@@ -297,7 +298,8 @@ $configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(fi
 
 //$configLanguageBackend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
 //$configLanguageBackend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
-$configLanguageBackend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+// $configLanguageBackend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');  // working
+$configLanguageBackend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($configDirectoryResources) . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
 // **************************************************************************************
 
 //Categories - configuration and resources.

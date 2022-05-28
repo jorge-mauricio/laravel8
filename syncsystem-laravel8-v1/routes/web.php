@@ -24,12 +24,16 @@ Route::get('/', function () {
 
 // Resources - GET.
 // **************************************************************************************
-Route::get('/files-layout-test/{filename}', function($filename){
-    echo 'debug';
-    /*
-    $path = resource_path() . '/' . 'app_files_layout/' . $filename;
+/*Route::get('/files-layout-test/{filename?}', function($filename){
 
-    dd($path);
+    //$path = resource_path() . '/' . 'app_files_layout/' . $filename;
+    //$path = resource_path() . DIRECTORY_SEPARATOR  . 'files-layout' . DIRECTORY_SEPARATOR . $filename;
+    //$path = resource_path() . DIRECTORY_SEPARATOR  . 'app_files_layout' . DIRECTORY_SEPARATOR . $filename;
+    $path = asset('files-layout/' . $filename);
+
+    // Debug.
+    //dd($path);
+    //echo 'path=' . $path;
 
     if(!File::exists($path)) {
         return response()->json(['message' => 'Image not found.'], 404);
@@ -42,8 +46,10 @@ Route::get('/files-layout-test/{filename}', function($filename){
     $response->header("Content-Type", $type);
 
     return $response;
-    */
-});
+    
+    
+    
+});*/
 // **************************************************************************************
 
 // Admin - Layout - GET.

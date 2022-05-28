@@ -1,4 +1,5 @@
 <?php
+// require __DIR__ . '/../config-application.php'; // SyncSystem customized configuration. // error - language load function
 
 return [
 
@@ -80,6 +81,11 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        // public_path('files-layout') => resource_path('app_files_layout'),
+        // public_path($GLOBALS['configDirectoryFilesLayoutSD']) => resource_path('app_files_layout'),
+        // public_path(config('app.configDirectoryFilesLayoutSD')) => resource_path('app_files_layout'), // working
+        public_path(env('CONFIG_DIRECTORY_FILES_LAYOUT_SD')) => resource_path('app_files_layout'), // working
+        // public_path('app_resources') => resource_path('app_resources'),
     ],
 
 ];

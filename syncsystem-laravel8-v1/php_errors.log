@@ -1,0 +1,7 @@
+[28-May-2022 11:41:11 America/Sao_Paulo] PHP Warning:  Undefined array key "configDirectoryFilesLayoutSD" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config\filesystems.php on line 84
+[28-May-2022 11:54:26 America/Sao_Paulo] PHP Warning:  Undefined array key "configDirectoryFilesLayoutSD" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config\app.php on line 232
+[28-May-2022 11:59:47 America/Sao_Paulo] PHP Warning:  file_get_contents(app_resources\language-en-us.js): Failed to open stream: No such file or directory in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config-application.php on line 292
+[28-May-2022 13:41:24 America/Sao_Paulo] PHP Warning:  Undefined array key "configDirectoryFilesLayoutSD" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config\app.php on line 233
+[28-May-2022 13:48:07 America/Sao_Paulo] PHP Warning:  Undefined array key "configDirectoryFilesLayoutSD" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config\filesystems.php on line 85
+[28-May-2022 13:48:26 America/Sao_Paulo] PHP Warning:  Undefined array key "configDirectoryFilesLayoutSD" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config\filesystems.php on line 85
+[28-May-2022 13:48:46 America/Sao_Paulo] PHP Warning:  Undefined array key "configDirectoryFilesLayoutSD" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config\filesystems.php on line 85

@@ -229,4 +229,8 @@ return [
 
     ],
 
+    // 'configDirectoryFilesLayoutSD' => '',
+    // 'configDirectoryFilesLayoutSD' => 'files-layout', // working
+    // 'configDirectoryFilesLayoutSD' => $GLOBALS['configDirectoryFilesLayoutSD'],
+
 ];
