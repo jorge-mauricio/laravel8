@@ -12,3 +12,6 @@ if (empty($masterPageSelect)) {
     $masterPageSelect = 'layout-admin-main';
 }
 ?>
+
+@php
+@endphp

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Http;
 use App\Models\CategoriesListing; // DEV: check if this will be used.
 
 
-class AdminCategoriesController extends Controller
+// class AdminCategoriesController extends Controller
+class AdminCategoriesController extends AdminBaseController
 {
     // Properties.
     // ----------------------
@@ -30,6 +31,12 @@ class AdminCategoriesController extends Controller
     private string|null $messageAlert = '';
     private float|null $nRecords = null;
     // ----------------------
+
+    // Constructor.
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     // Admin Categories Listing Controller.
     // public function adminCategoriesListing(float|string $idParent = null): string //TODO: change to the right type
@@ -107,7 +114,7 @@ class AdminCategoriesController extends Controller
 
 
                 // Layout.
-                $this->templateData['masterPageSelect'] = $_GET['masterPageSelect']; // 'layout-admin-main'
+                //$this->templateData['masterPageSelect'] = $_GET['masterPageSelect']; // 'layout-admin-main'
             }    
 
 

@@ -57,3 +57,9 @@ Stack trace:
 [28-May-2022 13:49:20 America/Sao_Paulo] PHP Warning:  Constant SS_ENCRYPT_METHOD_DATA_DEFUSE already defined in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config-application.php on line 58
 [28-May-2022 14:07:50 America/Sao_Paulo] PHP Parse error:  syntax error, unexpected token ";", expecting ")" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\index.php on line 53
 [28-May-2022 14:08:01 America/Sao_Paulo] PHP Parse error:  syntax error, unexpected token ";", expecting ")" in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\index.php on line 53
+[04-Jun-2022 16:50:50 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Call to undefined method Illuminate\Container\Container::resourcePath() in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php:703
+Stack trace:
+#0 K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config-application.php(301): resource_path()
+#1 K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\index.php(46): require('...')
+#2 {main}
+  thrown in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php on line 703
