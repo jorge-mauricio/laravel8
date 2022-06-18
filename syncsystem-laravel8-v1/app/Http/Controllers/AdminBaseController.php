@@ -16,8 +16,14 @@ class AdminBaseController extends Controller
         if (!empty($_POST['masterPageSelect'])) {
             $masterPageSelect = $_POST['masterPageSelect'];
         } 
+
+        $pageNumber = '';
+        // $messageSuccess = '';
+        // $messageError = '';
+        // $messageAlert = '';
         
         // Shere between views.
         View::share ( 'masterPageSelect', $masterPageSelect );
+        View::share ( 'pageNumber', $pageNumber );
      }  
 }

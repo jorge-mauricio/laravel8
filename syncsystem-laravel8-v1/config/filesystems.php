@@ -89,6 +89,7 @@ return [
         // public_path('app_resources') => resource_path('app_resources'),
         // public_path('fonts') => resource_path('app_fonts'),
         public_path(env('CONFIG_DIRECTORY_FONTS_SD')) => resource_path(env('CONFIG_DIRECTORY_FONTS')),
+        // TODO: maybe use function to get value from config.
     ],
 
 ];

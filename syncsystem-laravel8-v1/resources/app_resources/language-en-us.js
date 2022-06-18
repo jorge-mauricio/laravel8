@@ -12,6 +12,7 @@ exports.appLabels = {
   configSiteDescription: 'Description example.',
   configSiteKeywords: 'keywords or key terms, separated by, commas',
 
+  configBackendLanguage: 'en_US', // en_US | pt_BR
   configFrontendLanguage: 'en_US', // en_US | pt_BR
 
   layoutSystemName: 'Content Management System', // Sistema de Gerenciamento de Conteúdo | Content Management System

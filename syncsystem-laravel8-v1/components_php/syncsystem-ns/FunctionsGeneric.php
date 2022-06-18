@@ -431,6 +431,42 @@ class FunctionsGeneric
     }
     // **************************************************************************************
 
+    // Remove HTML tags from string.
+    // **************************************************************************************
+    /**
+     * Remove HTML tags from string.
+     * @static
+     * @param string strHTML
+     * @return string
+     * @example
+     * \SyncSystemNS\FunctionsGeneric::removeHTML01('string');
+     */ 
+    static function removeHTML01(string $strHTML): string
+    {
+        // Variables.
+        // ----------------------
+        $strReturn = $strHTML;
+        // ----------------------
+
+        // Logic.
+        if ($strReturn) {
+            // $strReturn = strReturn.replace(/<[^>]*>?/gm, ''); // strip HTML (js)
+            $strReturn = strip_tags($strReturn); // strip HTML
+            // $strReturn = strReturn.replace(/\r?\n|\r/g, ' '); // strip all kinds of line breaks (js)
+            $strReturn = preg_replace('/(?:\r\n|\r|\n)/', ' ', $strReturn); // strip all kinds of line breaks
+        } else {
+            $strReturn = '';
+        }
+
+        return $strReturn;
+
+        // Usage.
+        // ----------------------
+        // \SyncSystemNS\FunctionsGeneric::removeHTML01('string');
+        // ----------------------
+    }
+    // **************************************************************************************
+
 
     // Function to help build the SQL queries.
     // **************************************************************************************
