@@ -1,0 +1,9 @@
+- type script webpack mix config
+- bundle all javascript files
+
+- set dev / production (not bundled / bundled)
+	syncsystem-laravel8-v1\resources\app_views\admin\layout-admin-include-js-head.blade.php
+
+- change term backend to admin
+
+- admin meta tags - limit characters

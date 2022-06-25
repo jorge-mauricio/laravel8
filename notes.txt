@@ -1,5 +1,6 @@
 - run dev environment:
 	- clean up and rebuild:
+	TODO: maybe, put inside a composer script.
 		- terminal: composer dump-autoload
 		- terminal: composer dump-autoload -o
 
@@ -14,6 +15,7 @@
 		- terminal: php artisan config:clear
 
 	- execute symlinks defined on configuration:
+	TODO: create a composer setup script.
 		- update new simlinks: syncsystem-laravel8-v1\config\filesystems.php
 		- terminal (root): php artisan storage:link			
 
@@ -21,3 +23,6 @@
 		- terminal 1 (webpack compile): npm run watch
 		- terminal 2 (split): php -S localhost:8000 -t public/
 		- terminal 3 (split): php -S localhost:8001 -t public/
+
+	- dev address:
+		http://localhost:8000/admin/categories/781?masterPageSelect=layout-admin-main

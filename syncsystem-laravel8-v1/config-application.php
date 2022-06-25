@@ -310,6 +310,89 @@ $configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(fi
 $configLanguageBackend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($configDirectoryResources) . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
 // **************************************************************************************
 
+// Categories types - configuration and resources.
+// **************************************************************************************
+$configCategoryType = [
+  // Content
+  [
+    'category_type' => 1,
+    'category_type_function_label' => 'backendCategoriesType1Function',
+    'queryString' => '',
+  ],
+
+  // Products
+  [
+    'category_type' => 2,
+    'category_type_function_label' => 'backendCategoriesType2Function',
+    'queryString' => '',
+  ],
+
+  // News
+  [
+    'category_type' => 3,
+    'category_type_function_label' => 'backendCategoriesType3Function',
+    'queryString' => 'publicationType=1',
+  ],
+
+  // Photo Gallery
+  [
+    'category_type' => 4,
+    'category_type_function_label' => 'backendCategoriesType4Function',
+    'queryString' => 'publicationType=2',
+  ],
+
+  // Articles
+  [
+    'category_type' => 5,
+    'category_type_function_label' => 'backendCategoriesType5Function',
+    'queryString' => 'publicationType=3',
+  ],
+
+  // Publications
+  [
+    'category_type' => 6,
+    'category_type_function_label' => 'backendCategoriesType6Function',
+    'queryString' => 'publicationType=4',
+  ],
+
+  // Polls
+  [
+    'category_type' => 7,
+    'category_type_function_label' => 'backendCategoriesType7Function',
+    'queryString' => 'idType=1',
+  ],
+  
+  // Segment
+  [
+    'category_type' => 9,
+    'category_type_function_label' => 'backendCategoriesType9Function',
+    'queryString' => '-',
+  ],
+
+  // Forms
+  [
+    'category_type' => 12,
+    'category_type_function_label' => 'backendCategoriesType12Function',
+    'queryString' => '',
+  ],
+
+  // Registers
+  [
+    'category_type' => 13,
+    'category_type_function_label' => 'backendCategoriesType13Function',
+    'queryString' => '',
+  ],
+
+  // Polls
+  [
+    'category_type' => 17,
+    'category_type_function_label' => 'backendCategoriesType17Function',
+    'queryString' => 'idType=2',
+  ],
+];
+// **************************************************************************************
+
+
 //Categories - configuration and resources.
 // **************************************************************************************
 $configCategoriesSort = "title"; //options: id | sort_order | date_creation esc | date_creation desc | title
@@ -482,16 +565,16 @@ $enableCategoriesFile1 = 1; //0 - disable | 1 - enable
 $configCategoriesFile1Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile2 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile2Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile3 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile3Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile4 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile4Type = 1; //1 - image | 3 - file
 
 $enableCategoriesFile5 = 1; //0 - disable | 1 - enable
-$configCategoriesFile1Type = 1; //1 - image | 3 - file
+$configCategoriesFile5Type = 1; //1 - image | 3 - file
 
 
 //Activation fields.

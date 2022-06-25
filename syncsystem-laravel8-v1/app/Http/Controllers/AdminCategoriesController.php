@@ -85,9 +85,12 @@ class AdminCategoriesController extends AdminBaseController
             if ($this->arrCategoriesListingJson['returnStatus'] === true) {
                 $this->arrCategoriesDetails = $this->arrCategoriesListingJson['ocdRecord'];
                 $this->arrCategoriesListing = $this->arrCategoriesListingJson['oclRecords'];
+                // Note: array listing array comes with extra data ("returnStatus" => true), so needs data treatment to clean it.
 
 
                 // Build template data.
+                $this->templateData['idParentCategories'] = $this->idParentCategories;
+
                 // Title current - content place holder.
                 $this->templateData['cphTitleCurrent'] = $this->arrCategoriesDetails['tblCategoriesTitle'];
                 
@@ -107,6 +110,7 @@ class AdminCategoriesController extends AdminBaseController
 
                 $this->templateData['cphBody']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
                 $this->templateData['cphBody']['arrCategoriesListing'] = $this->arrCategoriesListing;
+                unset($this->templateData['cphBody']['arrCategoriesListing']['returnStatus']); // Clean extra data.
 
                 // Dynamic data.
                 //$this->templateData['additionalData']['arrCategoriesDetails'] = $this->arrCategoriesDetails;

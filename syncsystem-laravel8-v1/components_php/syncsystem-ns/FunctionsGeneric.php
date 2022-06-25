@@ -65,7 +65,7 @@ class FunctionsGeneric
      * @param int dateType null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
      * @return string
      */
-    static function dateRead01($strDate, $configDateFormat, $dateFormatReturn, $dateType = null):string 
+    static function dateRead01($strDate, $configDateFormat, $dateFormatReturn, $dateType = null): string 
     {
         // configDateFormat: 1 - pt | 2 uk | configBackendDateFormat | configFrontendDateFormat
         // dateFormatReturn: 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
@@ -424,6 +424,216 @@ class FunctionsGeneric
             if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL) {
                 // TODO
             }
+        }
+        // ----------------------
+
+        return $strReturn;
+    }
+    // **************************************************************************************
+
+    // Configuration function for categories types.
+    // **************************************************************************************
+    /**
+     * Configuration function for categories types.
+     * @static
+     * @param string|int valueData
+     * @param int returnInfo 0 - Query String | 1 - pageLinkFrontend | 2 - variableFrontend | 3 - pageLinkBackend | 4 - variableBackend | 5 - function name | 11 - pageLinkDashboard | 12 - variableDashboard
+     * @return string
+     * @example
+     * \SyncSystemNS\FunctionsGeneric::categoryConfigSelect($categoriesRow['category_type'], 1)
+    */ 
+    static function categoryConfigSelect(string $categoryType, int $returnInfo): string
+    {
+        // Variables.
+        // ----------------------
+        $strReturn = '';
+
+        $pageLinkFrontend = '';
+        $variableFrontend = '';
+        $pageLinkBackend = '';
+        $variableBackend = '';
+        $pageLinkDashboard = '';
+        $variableDashboard = '';
+        // ----------------------
+
+        // Logic - category type definition.
+        // ----------------------
+
+        // Content.
+        if ($categoryType === 1) {
+            $pageLinkFrontend = $GLOBALS['configRouteBackendContent'];
+            $variableFrontend = 'idParentContent';
+
+            $pageLinkBackend = $GLOBALS['configRouteFrontendContent'];
+            $variableBackend = 'idParentContent';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardContent'];
+            $variableDashboard = 'idParentContent';
+        }
+
+        // Products.
+        if ($categoryType === 2) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendProducts'];
+            $variableFrontend = 'idParentProducts';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendProducts'];
+            $variableBackend = 'idParentProducts';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardProducts'];
+            $variableDashboard = 'idParentProducts';
+        }
+
+        // Publications - news.
+        if ($categoryType === 3) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $variableFrontend = 'idParentPublications';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $variableBackend = 'idParentPublications';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $variableDashboard = 'idParentPublications';
+        }
+        // Publications - photo gallery.
+        if ($categoryType === 4) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $variableFrontend = 'idParentPublications';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $variableBackend = 'idParentPublications';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $variableDashboard = 'idParentPublications';
+        }
+        // Publications - articles.
+        if ($categoryType === 5) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $variableFrontend = 'idParentPublications';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $variableBackend = 'idParentPublications';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $variableDashboard = 'idParentPublications';
+        }
+        // Publications - publications.
+        if ($categoryType === 6) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $variableFrontend = 'idParentPublications';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $variableBackend = 'idParentPublications';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $variableDashboard = 'idParentPublications';
+        }
+
+        // Polls.
+        if ($categoryType === 7) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendQuizzes'];
+            $variableFrontend = 'idParentQuizzes';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendQuizzes'];
+            $variableBackend = 'idParentQuizzes';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardQuizzes'];
+            $variableDashboard = 'idParentQuizzes';
+        }
+
+        // Categories.
+        if ($categoryType === 9) {
+            // pageLinkFrontend = "categories";
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendCategories'];
+            $variableFrontend = 'idParentCategories';
+
+            // pageLinkBackend = "categories";
+            $pageLinkBackend = $GLOBALS['configRouteBackendCategories'];
+            $variableBackend = 'idParentCategories';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardCategories'];
+            $variableDashboard = 'idParentCategories';
+        }
+
+        // Forms.
+        if ($categoryType === 12) {
+            $pageLinkFrontend = $GLOBALS['configRouteBackendForms'];
+            $variableFrontend = 'idParentForms';
+
+            $pageLinkBackend = 'forms';
+            $variableBackend = 'idParentForms';
+
+            $pageLinkDashboard = 'dashboard-forms';
+            $variableDashboard = 'idParentForms';
+        }
+
+        // Registers.
+        if ($categoryType === 13) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendRegisters'];
+            $variableFrontend = 'idParentRegisters';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendRegisters'];
+            $variableBackend = 'idParentRegisters';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardRegisters'];
+            $variableDashboard = 'idParentRegisters';
+        }
+
+        // Quizzes.
+        if ($categoryType === 17) {
+            $pageLinkFrontend = $GLOBALS['configRouteFrontendQuizzes'];
+            $variableFrontend = 'idParentQuizzes';
+
+            $pageLinkBackend = $GLOBALS['configRouteBackendQuizzes'];
+            $variableBackend = 'idParentQuizzes';
+
+            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardQuizzes'];
+            $variableDashboard = 'idParentQuizzes';
+        }
+        // ----------------------
+
+        // Logic - return info definition.
+        // ----------------------
+        if ($returnInfo === 0) {
+            for ($countObjArray = 0; $countObjArray < count($GLOBALS['configCategoryType']); $countObjArray++) {
+                $objCategoryType = $GLOBALS['configCategoryType'][$countObjArray];
+                foreach ($objCategoryType as $key => $value) {
+                    if ($objCategoryType[$key] === $categoryType) {
+                        $strReturn = $objCategoryType['queryString'];
+                    }
+                }
+            }
+        }
+
+        if ($returnInfo === 1) {
+            $strReturn = $pageLinkFrontend;
+        }
+        if ($returnInfo === 2) {
+            $strReturn = $variableFrontend;
+        }
+
+        if ($returnInfo === 3) {
+            $strReturn = $pageLinkBackend;
+        }
+        if ($returnInfo === 4) {
+            $strReturn = $variableBackend;
+        }
+
+        if ($returnInfo === 5) {
+            for ($countObjArray = 0; $countObjArray < count($GLOBALS['configCategoryType']); $countObjArray++) {
+                $objCategoryType = $GLOBALS['configCategoryType'][$countObjArray];
+                foreach ($objCategoryType as $key => $value) {
+                    if ($objCategoryType[$key] === $categoryType) {
+                        $strReturn = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $objCategoryType['category_type_function_label']);
+                    }
+                }
+            }
+        }
+
+        if ($returnInfo === 11) {
+            $strReturn = $pageLinkDashboard;
+        }
+        if ($returnInfo === 12) {
+            $strReturn = $variableDashboard;
         }
         // ----------------------
 
