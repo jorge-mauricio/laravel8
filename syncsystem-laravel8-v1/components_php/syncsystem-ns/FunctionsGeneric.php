@@ -160,6 +160,124 @@ class FunctionsGeneric
     // **************************************************************************************
 
 
+    // Fill timetable values.
+    // **************************************************************************************
+    /**
+     * Fill timetable values.
+     * @static
+     * @param string timeTableType mm - months | d - day | y - year |  h - hour | m - minute | s - seconds
+     * @param integer fillType 1 - conventional interval
+     * @return array
+     */
+    static function timeTableFill01($timeTableType, $fillType, $specialParameters = [])
+    {
+        // timeTableType: mm - months | d - day | y - year |  h - hour | m - minute | s - seconds
+        // fillType: 1 - conventional interval
+        // specialParameters: [yearEndValue => 2050, dateType => 1]
+            // dateType: 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+
+        // Variables.
+        // ----------------------
+        $strReturn = [];
+
+        $dateNow = new \DateTime(); // Y-m-d H:i:s
+        $dateNowDay = $dateNow->format('d');
+        $dateNowMonth = $dateNow->format('m');
+        $dateNowYear = $dateNow->format('Y');
+        $dateNowMinute = $dateNow->format('i');
+        $dateNowHour = $dateNow->format('H');
+        $dateNowSecond = $dateNow->format('s');
+        // ----------------------
+
+        // Conventional interval.
+        // ----------------------
+        if ($fillType === 1) {
+            // Months.
+            if ($timeTableType === 'mm') {
+                for ($countMonths = 1; $countMonths <= 12; $countMonths++) {
+                    array_push($strReturn, $countMonths);
+                }
+            }
+
+            // Days.
+            if ($timeTableType === 'd') {
+                for ($countDays = 1; $countDays <= 31; $countDays++) {
+                    array_push($strReturn, $countDays);
+                }
+            }
+
+            // Years.
+            if ($timeTableType == 'y') {
+                // 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute)
+                if (!isset($specialParameters['dateType']) || $specialParameters['dateType'] === 1 || $specialParameters['dateType'] === 2 || $specialParameters['dateType'] === 3) {
+                    for ($countYears = 1900; $countYears <= $dateNowYear + 20; $countYears++) {
+                        array_push($strReturn, $countYears);
+                    }
+                }
+
+                // 4 - birth date (limited range)
+                if ($specialParameters['dateType'] === 4) {
+                    for ($countYears = 1900; $countYears <= $dateNowYear; $countYears++) {
+                        array_push($strReturn, $countYears);
+                    }
+                }
+
+                // 5 - task date (forward on)
+                if ($specialParameters['dateType'] === 5 || $specialParameters['dateType'] === 55) {
+                    for ($countYears = $dateNowYear; $countYears <= $dateNowYear + 20; $countYears++) {
+                        array_push($strReturn, $countYears);
+                    }
+                }
+
+                // 6 - history date (backwards on)
+                if ($specialParameters['dateType'] === 6 || $specialParameters['dateType'] === 66) {
+                    for ($countYears = 1900; $countYears <= $dateNowYear; $countYears++) {
+                        array_push($strReturn, $countYears);
+                    }
+                }
+            }
+
+            // Hours.
+            if ($timeTableType === 'h') {
+                for ($countHours = 0; $countHours <= 23; $countHours++) {
+                    array_push($strReturn, $countHours);
+                }
+            }
+
+            // Hours.
+            if ($timeTableType === 'm') {
+                for ($countMinutes = 0; $countMinutes <= 59; $countMinutes++) {
+                    array_push($strReturn, $countMinutes);
+                }
+            }
+
+            // Seconds.
+            if ($timeTableType === 's') {
+                for ($countSeconds = 0; $countSeconds <= 59; $countSeconds++) {
+                    array_push($strReturn, $countSeconds);
+                }
+            }
+        }
+        // ----------------------
+
+        return $strReturn;
+
+        // Usage.
+        // ----------------------
+        /*
+        foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1) as arrayRow) {
+            <option value="{{ arrayRow }}">{{ arrayRow }}</option>
+        }
+            ${\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1).map((arrayRow)=>{
+                return `
+                    <option value="${ arrayRow }">${ arrayRow }</option>
+                `}).join(",") }
+            */
+        // ----------------------
+    }
+    // **************************************************************************************
+
+
     // Data treatment for displaying information.
     // **************************************************************************************
     /**

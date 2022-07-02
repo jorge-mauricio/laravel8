@@ -396,7 +396,31 @@ $configCategoryType = [
 //Categories - configuration and resources.
 // **************************************************************************************
 $configCategoriesSort = "title"; //options: id | sort_order | date_creation esc | date_creation desc | title
-$enableCategoriesSortCustom = 0; //0 - disable | 1 - enable
+$enableCategoriesSortCustom = 1; //0 - disable | 1 - enable
+$configCategoriesInputOrder = [
+  'inputRowCategories_id_parent', 
+  'inputRowCategories_sort_order', 
+  'inputRowCategories_date1', 
+  'inputRowCategories_id_register_user', 
+  'inputRowCategories_title', 
+  'inputRowCategories_description', 
+  'inputRowCategories_url_alias', 
+  'inputRowCategories_meta_title', 
+  'inputRowCategories_meta_description', 
+  'inputRowCategories_keywords_tags', 
+  'inputRowCategories_info1', 
+  'inputRowCategories_info_small1', 
+  'inputRowCategories_number1', 
+  'inputRowCategories_number_small1', 
+  'inputRowCategories_category_type', 
+  'inputRowCategories_image_main', 
+  'inputRowCategories_file1', 
+  'inputRowCategories_file2', 
+  'inputRowCategories_activation', 
+  'inputRowCategories_id_restricted_access', 
+  'inputRowCategories_id_status', 
+  'inputRowCategories_notes'
+];
 
 //Basic resources.
 $enableCategoriesImageMain = 1; // 0 - disable | 1 - enable
@@ -499,7 +523,7 @@ $enableCategoriesInfoS2 = 1; //0 - disable | 1 - enable
 $configCategoriesInfoS2FieldType = 1; //1 - single line | 2 - multiline
 
 $enableCategoriesInfoS3 = 1; //0 - disable | 1 - enable
-$configCategoriesInfo3FieldType = 1; //1 - single line | 2 - multiline
+$configCategoriesInfoS3FieldType = 1; //1 - single line | 2 - multiline
 
 $enableCategoriesInfoS4 = 1; //0 - disable | 1 - enable
 $configCategoriesInfoS4FieldType = 1; //1 - single line | 2 - multiline
@@ -541,23 +565,23 @@ $configCategoriesNumberS5FieldType = 1; //1 - general number | 2 - system curren
 
 //Date fields.
 $enableCategoriesDate1 = 1; //0 - disable | 1 - enable
-$configCategoriesDate1FieldType = 1; //1 - JQuery DatePicker
+$configCategoriesDate1FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
 $configCategoriesDate1Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
 $enableCategoriesDate2 = 1; //0 - disable | 1 - enable
-$configCategoriesDate2FieldType = 1; //1 - JQuery DatePicker
+$configCategoriesDate2FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
 $configCategoriesDate2Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
 $enableCategoriesDate3 = 1; //0 - disable | 1 - enable
-$configCategoriesDate3FieldType = 1; //1 - JQuery DatePicker
+$configCategoriesDate3FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
 $configCategoriesDate3Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
 $enableCategoriesDate4 = 1; //0 - disable | 1 - enable
-$configCategoriesDate4FieldType = 1; //1 - JQuery DatePicker
+$configCategoriesDate4FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
 $configCategoriesDate4Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
 $enableCategoriesDate5 = 1; //0 - disable | 1 - enable
-$configCategoriesDate5FieldType = 1; //1 - JQuery DatePicker
+$configCategoriesDate5FieldType = 11; //1 - JQuery DatePicker  | 2 - dropdown menu | 11 - js-datepicker
 $configCategoriesDate5Type = 1; //1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on)
 
 //File fields.

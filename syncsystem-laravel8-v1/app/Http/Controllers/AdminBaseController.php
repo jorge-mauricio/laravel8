@@ -21,9 +21,26 @@ class AdminBaseController extends Controller
         // $messageSuccess = '';
         // $messageError = '';
         // $messageAlert = '';
-        
+
+        // Current date values.
+        $dateNow = new \DateTime(); // Y-m-d H:i:s
+        $dateNowDay = $dateNow->format('d');
+        $dateNowMonth = $dateNow->format('m');
+        $dateNowYear = $dateNow->format('Y');
+        $dateNowMinute = $dateNow->format('i');
+        $dateNowHour = $dateNow->format('H');
+        $dateNowSecond = $dateNow->format('s');
+            
         // Shere between views.
         View::share ( 'masterPageSelect', $masterPageSelect );
         View::share ( 'pageNumber', $pageNumber );
+
+        View::share ( 'dateNow', $dateNow );
+        View::share ( 'dateNowDay', $dateNowDay );
+        View::share ( 'dateNowMonth', $dateNowMonth );
+        View::share ( 'dateNowYear', $dateNowYear );
+        View::share ( 'dateNowMinute', $dateNowMinute );
+        View::share ( 'dateNowHour', $dateNowHour );
+        View::share ( 'dateNowSecond', $dateNowSecond );
      }  
 }
