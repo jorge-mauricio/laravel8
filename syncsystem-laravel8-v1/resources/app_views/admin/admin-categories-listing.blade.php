@@ -1475,7 +1475,7 @@
 
 
                                     {{-- TinyMCE. --}}
-                                    @if ($GLOBALS['configBackendTextBox'] === 15 || $GLOBALS['configBackendTextBox'] === 18)
+                                    @if ($GLOBALS['configBackendTextBox'] === 17 || $GLOBALS['configBackendTextBox'] === 18)
                                         <textarea id="categories_description" name="description" class="ss-backend-field-text-area01"></textarea>
                                         <script>
                                             tinyMCEBackendConfig.selector = "#categories_description";
@@ -2165,41 +2165,6 @@
                                             <input type="text" id="categories_number2" name="number2" class="ss-backend-field-numeric02" value="0" maxlength="34" />
                                             <script>
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("categories_number2");
-                                            </script>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endif
-
-                            @if ($GLOBALS['enableCategoriesNumber3'] === 1)
-                                <tr id="inputRowCategories_number3" class="ss-backend-table-bg-light">
-                                    <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber3') }}: 
-                                    </td>
-                                    <td>
-                                        {{-- General number. --}}
-                                        @if ($GLOBALS['configCategoriesNumber3FieldType'] === 1)
-                                            <input type="text" id="categories_number3" name="number3" class="ss-backend-field-numeric02" value="0" maxlength="34" />
-                                            <script>
-                                                Inputmask(inputmaskGenericBackendConfigOptions).mask("categories_number3");
-                                            </script>
-                                        @endif
-
-                                        {{-- System currency. --}}
-                                        @if ($GLOBALS['configCategoriesNumber3FieldType'] === 2 || $GLOBALS['configCategoriesNumber3FieldType'] === 4)
-                                            {{ $GLOBALS['configSystemCurrency'] }}
-                                            <input type="text" id="categories_number3" name="number3" class="ss-backend-field-currency01" value="0" maxlength="45" />
-                                            
-                                            <script>
-                                                Inputmask(inputmaskCurrencyBackendConfigOptions).mask("categories_number3");
-                                            </script>
-                                        @endif
-
-                                        {{-- Decimal. --}}
-                                        @if ($GLOBALS['configCategoriesNumber3FieldType'] === 3)
-                                            <input type="text" id="categories_number3" name="number3" class="ss-backend-field-numeric02" value="0" maxlength="34" />
-                                            <script>
-                                                Inputmask(inputmaskDecimalBackendConfigOptions).mask("categories_number3");
                                             </script>
                                         @endif
                                     </td>
@@ -3349,6 +3314,18 @@
 
 
                 </div>
+                {{-- TODO: transform into CSS class. --}}
+                <div style="position: relative; display: block; overflow: hidden; clear: both; margin-top: 2px;">
+                    <button id="categories_include" name="categories_include" class="ss-backend-btn-base ss-backend-btn-action-execute" style="float: left;">
+                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendButtonSend') }}
+                    </button>
+                </div>
+
+                <input type="hidden" id="categories_id_parent" name="id_parent" value="{{ $idParentCategories }}" />
+
+                <input type="hidden" id="categories_idParent" name="idParent" value="{{ $idParentCategories }}" />
+                <input type="hidden" id="categories_pageNumber" name="pageNumber" value="{{ $pageNumber }}" />
+                <input type="hidden" id="categories_masterPageSelect" name="masterPageSelect" value="{{ $masterPageSelect }}" />
             </form>
         </section>
 

@@ -65,7 +65,7 @@ class FunctionsGeneric
      * @param int dateType null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
      * @return string
      */
-    static function dateRead01($strDate, $configDateFormat, $dateFormatReturn, $dateType = null): string 
+    static function dateRead01(?string $strDate, int $configDateFormat, int $dateFormatReturn, int $dateType = null): string // TODO: double check if can be passed as null ?string $strDate
     {
         // configDateFormat: 1 - pt | 2 uk | configBackendDateFormat | configFrontendDateFormat
         // dateFormatReturn: 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
@@ -169,7 +169,7 @@ class FunctionsGeneric
      * @param integer fillType 1 - conventional interval
      * @return array
      */
-    static function timeTableFill01($timeTableType, $fillType, $specialParameters = [])
+    static function timeTableFill01(string $timeTableType, int $fillType, $specialParameters = []): array
     {
         // timeTableType: mm - months | d - day | y - year |  h - hour | m - minute | s - seconds
         // fillType: 1 - conventional interval
@@ -476,7 +476,7 @@ class FunctionsGeneric
      * SyncSystemNS.FunctionsGeneric.valueMaskRead(1000, '$', 2)
      */
     //static function valueMaskRead($valueData, $configCurrency = '$', $valueType = 2, $specialInstructions = null): float
-    static function valueMaskRead($valueData, $configCurrency = '$', $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, $specialInstructions = null): float
+    static function valueMaskRead(float $valueData, string $configCurrency = '$', int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, ?array $specialInstructions = null): mixed
     {
         // Variables.
         // ----------------------

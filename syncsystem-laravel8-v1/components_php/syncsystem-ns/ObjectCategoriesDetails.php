@@ -456,6 +456,7 @@ class ObjectCategoriesDetails
                           
                 $this->tblCategoriesNumber1 = $this->resultsCategoryDetails[0]->number1;
                 $this->tblCategoriesNumber1_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber1, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber1FieldType']);
+                //$this->tblCategoriesNumber1_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber1, $GLOBALS['configSystemCurrency'], 1);
                 $this->tblCategoriesNumber2 = $this->resultsCategoryDetails[0]->number2;
                 $this->tblCategoriesNumber2_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber2, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber2FieldType']);
                 $this->tblCategoriesNumber3 = $this->resultsCategoryDetails[0]->number3;

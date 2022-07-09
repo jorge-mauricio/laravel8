@@ -105,6 +105,14 @@ $configSystemDBTableFiltersGenericBinding = "filters_generic_binding";
 $configSystemDBTableUsers = "users";
 //----------------------
 
+// Media configuration.
+// ----------------------
+$configImagePopup = 4; // 0 - no pop-up | 1 - LightBox 2 (JQuery) | 3 - fancybox (JQuery) | 4 - GLightbox (vanilla js)
+$configImagePopupBGColor = '#000000';
+$configImagePopupW = '890';
+$configImagePopupH = '530';
+// ----------------------
+
 // Directories configuration.
 // ----------------------
 $configPhysicalPathRoot = dirname(__FILE__);
@@ -533,10 +541,10 @@ $configCategoriesInfoS5FieldType = 1; //1 - single line | 2 - multiline
 
 //Big number fields.
 $enableCategoriesNumber1 = 1; //0 - disable | 1 - enable
-$configCategoriesNumber1FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$configCategoriesNumber1FieldType = 2; //1 - general number | 2 - system currency | 3 - decimal
 
 $enableCategoriesNumber2 = 1; //0 - disable | 1 - enable
-$configCategoriesNumber2FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal
+$configCategoriesNumber2FieldType = 2; //1 - general number | 2 - system currency | 3 - decimal
 
 $enableCategoriesNumber3 = 1; //0 - disable | 1 - enable
 $configCategoriesNumber3FieldType = 1; //1 - general number | 2 - system currency | 3 - decimal

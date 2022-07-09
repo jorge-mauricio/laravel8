@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+//require('dotenv').config();
 
 /*
  |--------------------------------------------------------------------------
@@ -12,7 +13,11 @@ const mix = require('laravel-mix');
  */
 
  //mix.js('resources/js/app.js', 'public/js')
- mix.js('resources/' + env('CONFIG_DIRECTORY_JS') + '/app.js', env('CONFIG_DIRECTORY_BUILD_LARAVEL') + '/' + env('CONFIG_DIRECTORY_JS_SD'))
+ //mix.js('resources/' + env('CONFIG_DIRECTORY_JS') + '/app.js', env('CONFIG_DIRECTORY_BUILD_LARAVEL') + '/' + env('CONFIG_DIRECTORY_JS_SD'))
+ mix.js('resources/js/app.js', env('CONFIG_DIRECTORY_BUILD_LARAVEL') + '/' + env('CONFIG_DIRECTORY_JS_SD'))
+ // Note: check https://github.com/laravel-mix/laravel-mix/issues/1096
+ // Review: causing error with env()
+ 
  /*.postCss('resources/css/app.css', 'public/css', [
         //
     ])

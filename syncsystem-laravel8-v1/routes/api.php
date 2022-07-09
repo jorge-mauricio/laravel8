@@ -54,7 +54,10 @@ Route::get('/categories/{idTbCategories?}',[ApiCategoriesListingController::clas
 // **************************************************************************************
 
 
-// API - Categories - listing - POST.
-Route::post('/categories/{idTbCategories?}', function(?float $idTbCategories = null) {
-    return 'api categories (post) - ' . $idTbCategories;
-});
+// Admin - Categories - POST (insert record).
+// **************************************************************************************
+Route::post('admin/categories/', function() {
+    //return 'api categories (post) - ' . $idTbCategories;
+    return 'api categories (post)';
+})->name('api.categories.insert');
+// **************************************************************************************
