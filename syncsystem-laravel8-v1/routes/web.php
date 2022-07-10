@@ -67,12 +67,26 @@ Route::get('/admin/layout', function () {
 Route::get('/categories/{idTbCategories?}',[FrontendCategoriesListingController::class, '__construct'])->name('categories.listing'); // Inside Laravel, you can redirect to route like: {{ route('categories.listing') }}
 // **************************************************************************************
 
+/*
+use App\Http\Controllers\OrderController;
+ 
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/orders/{id}', 'show');
+    Route::post('/orders', 'store');
+});
+*/
 
 // Admin - Categories - listing - GET.
 // **************************************************************************************
 // Debug: http://127.0.0.1:8000/admin/categories/123
 // Debug: http://127.0.0.1:8000/admin/categories/781
-// Debug: http://localhost:8000/admin/categories/781
-Route::get('/admin/categories/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+// Debug: http://localhost:8000/system/categories/781
+Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
 //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
+// **************************************************************************************
+
+
+// Admin - Categories - POST (insert record).
+// **************************************************************************************
+Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
 // **************************************************************************************

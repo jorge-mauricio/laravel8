@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers.
 use App\Http\Controllers\ApiCategoriesListingController;
+use App\Http\Controllers\ApiCategoriesInsertController;
 
 
 /*
@@ -41,7 +42,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });*/
 //Route::get('/categories/{idTbCategories?}','ApiCategoriesListingController')->name('api.categories.listing');
 
-Route::get('/categories/{idTbCategories?}',[ApiCategoriesListingController::class, 'getCategoriesListing'], function ($getCategoriesListingResults) {
+Route::get('/' . $GLOBALS['configRouteAPICategories'] . '/{idTbCategories?}',[ApiCategoriesListingController::class, 'getCategoriesListing'], function ($getCategoriesListingResults) {
     return response()->json($getCategoriesListingResults);
 })->name('api.categories.listing');
 
@@ -54,10 +55,13 @@ Route::get('/categories/{idTbCategories?}',[ApiCategoriesListingController::clas
 // **************************************************************************************
 
 
-// Admin - Categories - POST (insert record).
+// API - Categories - POST (insert record).
 // **************************************************************************************
-Route::post('admin/categories/', function() {
+// dev: http://localhost:8001/api/admin/categories/
+Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/',[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
     //return 'api categories (post) - ' . $idTbCategories;
-    return 'api categories (post)';
+    //return 'api categories (post)';
+
+    return response()->json($insertCategoriesResults);
 })->name('api.categories.insert');
 // **************************************************************************************

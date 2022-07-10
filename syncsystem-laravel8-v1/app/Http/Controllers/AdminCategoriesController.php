@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 // Custom models.
-use App\Models\CategoriesListing; // DEV: check if this will be used.
+//use App\Models\CategoriesListing; // DEV: check if this will be used.
 
 
 // class AdminCategoriesController extends Controller
@@ -18,6 +18,7 @@ class AdminCategoriesController extends AdminBaseController
     private float|string|null $idParentCategories = null;
     private float|null $pageNumber = null;
     private string|null $masterPageSelect = 'layout-backend-main';
+    private string|null $returnURL = null;
 
     private array $cookiesData;
     private array $templateData;
@@ -25,6 +26,8 @@ class AdminCategoriesController extends AdminBaseController
     private array|null $arrCategoriesListingJson = null;
     private array|null $arrCategoriesDetails = null;
     private array|null $arrCategoriesListing = null;
+
+    private array|null $arrCategoriesInsertJson = null;
 
     private string|null $messageSuccess = '';
     private string|null $messageError = '';
@@ -61,7 +64,9 @@ class AdminCategoriesController extends AdminBaseController
 
             // $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get('http://127.0.0.1:8000/api/categories/' . $this->idParentCategories . '/?apiKey=fswd@2008');
             // $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get('http://localhost:8001/api/categories/' . $this->idParentCategories . '/?apiKey=fswd@2008');
-            $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/api/categories/' . $this->idParentCategories . '/?apiKey=fswd@2008');
+            $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $this->idParentCategories . '/', [
+                'apiKey' => env('CONFIG_API_KEY_SYSTEM')
+            ]);
             // Note / TODO: On production, set verify to true.
             //return $apiCategoriesDetailsCurrentResponse->json();
             $this->arrCategoriesListingJson = $apiCategoriesListingCurrentResponse->json();
@@ -128,15 +133,6 @@ class AdminCategoriesController extends AdminBaseController
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
 
-            // Return with view.
-            // return view('layout-backend-main', compact('templateData')); // working, as long as templateData is a variable, not a property
-            // return View::make('layout-backend-main')->with('templateData', $this->templateData); // error
-            // return view('layout-backend-main', compact(['templateData' => $this->templateData]));
-            // return view('layout-backend-main', ['templateData' => $this->templateData]); // working
-            // return view('layout-backend-main')->with('templateData', $this->templateData); // working
-            // return view('admin.layout-admin-main')->with('templateData', $this->templateData); // working
-            return view('admin.admin-categories-listing')->with('templateData', $this->templateData); // working
-
         } catch(Exception $adminCategoriesListingError) {
             echo 'Error reading API: ' . $apiError->getMessage();     
             
@@ -146,28 +142,115 @@ class AdminCategoriesController extends AdminBaseController
         } finally {
 
         }
-        
+
+        // Return with view.
+        // return view('layout-backend-main', compact('templateData')); // working, as long as templateData is a variable, not a property
+        // return View::make('layout-backend-main')->with('templateData', $this->templateData); // error
+        // return view('layout-backend-main', compact(['templateData' => $this->templateData]));
+        // return view('layout-backend-main', ['templateData' => $this->templateData]); // working
+        // return view('layout-backend-main')->with('templateData', $this->templateData); // working
+        // return view('admin.layout-admin-main')->with('templateData', $this->templateData); // working
+        return view('admin.admin-categories-listing')->with('templateData', $this->templateData); // working
     }
 
 
-    //public function getCategoriesListing(float|string $idTbCategories = null): string //TODO: change to the right type
-    public function getCategoriesListing(float|string $idParent = null): string //TODO: change to the right type
+    public function adminCategoriesInsert(Request $req): mixed //TODO: change to the right type
     {
+        //TODO: create option for load method (api / monolithic)
+
         // Variables.
         // ----------------------
-        // float|string $idParent = null;
-        // ----------------------
-
-        // Value definition.
-        // ----------------------
-        $this->_idParent = $idParent;
-        // ----------------------
-
-        //$adminCategoriesListing = CategoriesListing::all();
-        $clAdmin = new CategoriesListing($this->_idParent);
-
-        $adminCategoriesListing = $clAdmin->cphBodyBuild();
+        $apiCategoriesInsertResponse = null;
         
-        return $adminCategoriesListing;
+        $tblCategoriesID = null;
+        $tblCategoriesIdParent = null;
+        $tblCategoriesSortOrder = 0;
+        $tblCategoriesCategoryType = null;
+        // ----------------------
+
+        // Define values.
+        // ----------------------
+        // $tblCategoriesID = null;
+        $tblCategoriesIdParent = $req->post('id_parent');
+        $tblCategoriesSortOrder = $req->post('sort_order');
+        $tblCategoriesCategoryType = $req->post('category_type');
+
+
+        $this->idParentCategories = $req->post('idParent');
+        $this->pageNumber = $req->post('pageNumber');
+        $this->masterPageSelect = $req->post('masterPageSelect');
+        // ----------------------
+
+        // Return URL build.
+        // ----------------------
+        $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
+        $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
+        if ($this->pageNumber) {
+            $this->returnURL .= '&pageNumber=' . $this->pageNumber;
+        }
+        // ----------------------
+
+        // Logic.
+        try {
+            // API call.
+            /**/
+            //array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
+            //$arrData = array_merge($arrData, $req->all());
+            $apiCategoriesInsertResponse = Http::withOptions(['verify' => false])->post(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/', 
+                array_merge(
+                    ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
+                    $req->all()
+                ) // ...$req->all() (splat only works on php 8.1 and up)
+                /*'tblCategoriesID' => $tblCategoriesID,
+                'tblCategoriesIdParent' => $tblCategoriesIdParent,
+                'tblCategoriesSortOrder' => $tblCategoriesSortOrder,
+                'tblCategoriesCategoryType' => $tblCategoriesCategoryType,
+                */
+                
+            );
+            $this->arrCategoriesInsertJson = $apiCategoriesInsertResponse->json();
+
+            // Files upload.
+
+
+            // Debug.
+            
+            //echo 'req=<pre>';
+            //var_dump($req);
+            //echo '</pre><br />';
+
+            //echo 'req->input=<pre>';
+            //var_dump($req->post('id_parent'));
+            //echo '</pre><br />';
+            //echo 'method=' . $method . '<br />';
+
+            echo 'this->arrCategoriesInsertJson=<pre>';
+            var_dump($this->arrCategoriesInsertJson);
+            echo '</pre><br />';
+
+            //echo 'req->all()=<pre>';
+            //var_dump($req->all());
+            //echo '</pre><br />';
+
+            echo 'tblCategoriesID=' . $tblCategoriesID . '<br />';
+            echo 'tblCategoriesIdParent=' . $tblCategoriesIdParent . '<br />';
+            echo 'tblCategoriesSortOrder=' . $tblCategoriesSortOrder . '<br />';
+            echo 'tblCategoriesCategoryType=' . $tblCategoriesCategoryType . '<br />';
+
+            echo 'idParentCategories=' . $this->idParentCategories . '<br />';
+            echo 'pageNumber=' . $this->pageNumber . '<br />';
+            echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
+            exit();
+
+        } catch (Error $adminCategoriesInsertError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('adminCategoriesInsertError: ' . $adminCategoriesInsertError->message());
+            }
+        } finally {
+
+        }
+
+        // Redirect
+        return redirect($this->returnURL)->with('status','Student Added Successfully');
     }
 }

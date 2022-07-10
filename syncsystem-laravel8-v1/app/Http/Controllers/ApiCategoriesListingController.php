@@ -48,7 +48,7 @@ class ApiCategoriesListingController extends Controller
     // **************************************************************************************
     //public function __construct(?float $idParent = null)
     //public function __construct(float|string $_idTbCategories = null)
-    public function __construct(Request $request)
+    public function __construct(Request $req)
     {
         // Value definition.
         // ----------------------
@@ -72,7 +72,7 @@ class ApiCategoriesListingController extends Controller
 
     //public function getCategoriesListing(float|string $idParent = null): string|array //TODO: change to the right type
     //public function getCategoriesListing(): array //TODO: change to the right type
-    public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): array //TODO: change to the right type
+    public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): array
     //public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): mixed //TODO: change to the right type
     {
         // Variables.

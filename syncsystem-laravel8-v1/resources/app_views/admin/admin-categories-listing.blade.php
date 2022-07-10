@@ -1359,6 +1359,8 @@
         {{-- Form. --}}
         <section class="ss-backend-layout-section-form01">
             <form id="formCategories" name="formCategories" method="POST" action="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] }}" enctype="multipart/form-data">
+                @csrf
+                
                 {{-- TODO: change for css class. --}}
                 <div style="position: relative; display: block; overflow: hidden;">
                     <script>
