@@ -26,3 +26,4 @@
 
 	- dev address:
 		http://localhost:8000/admin/categories/781?masterPageSelect=layout-admin-main
+		http://localhost:8000/system/categories/781?masterPageSelect=layout-admin-main

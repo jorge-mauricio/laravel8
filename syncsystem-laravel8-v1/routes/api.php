@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiCategoriesListingController;
 use App\Http\Controllers\ApiCategoriesInsertController;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,7 +41,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });*/
 //Route::get('/categories/{idTbCategories?}','ApiCategoriesListingController')->name('api.categories.listing');
 
-Route::get('/' . $GLOBALS['configRouteAPICategories'] . '/{idTbCategories?}',[ApiCategoriesListingController::class, 'getCategoriesListing'], function ($getCategoriesListingResults) {
+//Route::get('/' . $GLOBALS['configRouteAPICategories'] . '/{idTbCategories?}',[ApiCategoriesListingController::class, 'getCategoriesListing'], function ($getCategoriesListingResults) {
+Route::get('/categories/{idTbCategories?}',[ApiCategoriesListingController::class, 'getCategoriesListing'], function ($getCategoriesListingResults) {
     return response()->json($getCategoriesListingResults);
 })->name('api.categories.listing');
 
@@ -58,10 +58,14 @@ Route::get('/' . $GLOBALS['configRouteAPICategories'] . '/{idTbCategories?}',[Ap
 // API - Categories - POST (insert record).
 // **************************************************************************************
 // dev: http://localhost:8001/api/admin/categories/
-Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/',[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
+//Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/',[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
+/**/
+Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
     //return 'api categories (post) - ' . $idTbCategories;
     //return 'api categories (post)';
 
     return response()->json($insertCategoriesResults);
 })->name('api.categories.insert');
+
+//Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
 // **************************************************************************************

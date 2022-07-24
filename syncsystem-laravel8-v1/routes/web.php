@@ -81,12 +81,14 @@ Route::controller(OrderController::class)->group(function () {
 // Debug: http://127.0.0.1:8000/admin/categories/123
 // Debug: http://127.0.0.1:8000/admin/categories/781
 // Debug: http://localhost:8000/system/categories/781
-Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+Route::get('/system/categories/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+//Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
 //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
 // **************************************************************************************
 
 
 // Admin - Categories - POST (insert record).
 // **************************************************************************************
-Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
+//Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
+Route::post('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
 // **************************************************************************************

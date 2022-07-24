@@ -289,7 +289,7 @@ class FunctionsGeneric
      * @example
      *
      */
-    static function contentMaskRead(string $strContent, string $specialInstructions = ''): string
+    static function contentMaskRead(?string $strContent, string $specialInstructions = ''): string
     {
         // specialInstructions: db | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
 

@@ -6,6 +6,47 @@ use Illuminate\Support\Facades\DB;
 
 class FunctionsDB
 {
+    // Universal counter - update.
+    // **************************************************************************************
+    /**
+     * Universal counter - update.
+     * @static
+     * @param int idTbCounter 1 - Universal Counter | 5 - Import
+     * @return float|null
+     * @example
+     * \SyncSystemNS\FunctionsDB::counterUniversalUpdate(1)
+     */
+    // async function counterUniversalUpdate(idTbCounter = 1)
+    // static counterUniversalCreate(idTbCounter = 1, callback)
+    static function counterUniversalUpdate(int $idTbCounter = 1): float|null
+    {
+        // Variables.
+        // ----------------------
+        $intReturn = null;
+        $strReturn = '';
+        $nCounterUpdate = 0;
+        $strSQLCounterUpdate = '';
+        $objResultCounterUpdate = '';
+        // ----------------------
+
+        // Logic.
+        try {
+            // Select the record.
+            $nCounterUpdate = \SyncSystemNS\FunctionsDB::genericFieldGet01($idTbCounter, $GLOBALS['configSystemDBTableCounter'], 'counter_global');
+
+            $intReturn = $nCounterUpdate;
+        } catch (Error $counterUniversalUpdateError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('counterUniversalUpdateError: ' . $counterUniversalUpdateError->message());
+            }
+        } finally {
+
+        }
+
+        return $intReturn;
+    }
+
+
     // Function to return results from any field in table.
     // **************************************************************************************
     /**
@@ -35,9 +76,10 @@ class FunctionsDB
                 $objResultGenericField = $objResultGenericField->select($fieldName);
                 $objResultGenericField = $objResultGenericField->where('id', '=', (float)\SyncSystemNS\FunctionsGeneric::contentMaskWrite($idRecord, 'db_sanitize'));
                 $objResultGenericField = $objResultGenericField->get()->toArray();
+                dump($objResultGenericField);
 
                 // Return data treatment.
-                if (count($objResultGenericField) > 0 ) {
+                if (count($objResultGenericField) > 0) {
                     // $strReturn = $objResultGenericField[0][$fieldName];
                     $strReturn = $objResultGenericField[$fieldName];
                     // $strReturn = $objResultGenericField;
