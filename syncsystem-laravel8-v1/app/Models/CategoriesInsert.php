@@ -107,10 +107,10 @@ class CategoriesInsert extends Model
 
         // Logic.
         try {
-            //$this->resultsSQLCategoriesInsert = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableCategories']);
+            //$this->resultsSQLCategoriesInsert = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableCategories']); // working
 
-            //$this->resultsSQLCategoriesInsert = $resultsSQLCategoriesInsert->insert($this->arrSQLCategoriesInsertParams);
-            //$arrReturn['resultsSQLCategoriesInsert'] = $this->resultsSQLCategoriesInsert;
+            //$this->resultsSQLCategoriesInsert = $resultsSQLCategoriesInsert->insert($this->arrSQLCategoriesInsertParams); // working
+            //$arrReturn['resultsSQLCategoriesInsert'] = $this->resultsSQLCategoriesInsert; // working
 
             //if ($resultsSQLCategoriesInsert === true) {
                 $arrReturn = [

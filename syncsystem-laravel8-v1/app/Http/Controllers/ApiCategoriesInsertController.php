@@ -66,11 +66,41 @@ class ApiCategoriesInsertController extends Controller
             //echo '</pre><br />';
             //dump($ciAPI);
 
+            //echo 'genericFieldGet01 (filters)=<pre>';
+            //var_dump(\SyncSystemNS\FunctionsGeneric::contentMaskRead(\SyncSystemNS\FunctionsDB::genericFieldGet01(948, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title'), 'db'));
+            //echo '</pre><br />';
+
+            //echo 'genericFieldGet01=<pre>';
+            //var_dump(\SyncSystemNS\FunctionsDB::genericFieldGet01(1, $GLOBALS['configSystemDBTableCounter'], 'counter_global'));
+            //echo '</pre><br />';         
+
+            echo 'counterUniversalUpdate()=<pre>';
+            var_dump(\SyncSystemNS\FunctionsDB::counterUniversalUpdate());
+            echo '</pre><br />';
+
+            /*echo 'updateRecordGeneric10=' . \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10('counter', 
+            'counter_global', 
+            '330',
+            ["id;" . 2 . ";i"]) . '<br />';
+            */
+
+            echo 'updateRecordGeneric10=<pre>';
+            var_dump(\SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10('counter', 
+            'counter_global', 
+            '320',
+            ["id;" . 2 . ";i"]));
+            echo '</pre><br />';
+
+            exit();
+
+            
+
             // $this->arrReturn['debug'] = $req->all(); // working
             $this->arrReturn['debug'] = $this->arrCategoriesInsertParameters;
             //$this->arrReturn['ciAPI'] = $this->ciAPI;
             $this->arrReturn['buildParameters'] = $this->ciAPI->buildParameters($this->arrCategoriesInsertParameters);
-            $this->arrReturn['addRecord'] = $this->ciAPI->addRecord($this->arrCategoriesInsertParameters);
+            //$this->arrReturn['addRecord'] = $this->ciAPI->addRecord($this->arrCategoriesInsertParameters); // Working
+
             //\SyncSystemNS\FunctionsDB::counterUniversalUpdate();
             //$this->arrReturn['categoriesInsertBuildParameters'] = $this->ciAPI->categoriesInsertBuildParameters($this->arrCategoriesInsertParameters);
 

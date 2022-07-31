@@ -22,9 +22,7 @@ class FunctionsDB
     {
         // Variables.
         // ----------------------
-        $intReturn = null;
-        $strReturn = '';
-        $nCounterUpdate = 0;
+        $nCounterUpdate = null;
         $strSQLCounterUpdate = '';
         $objResultCounterUpdate = '';
         // ----------------------
@@ -34,7 +32,16 @@ class FunctionsDB
             // Select the record.
             $nCounterUpdate = \SyncSystemNS\FunctionsDB::genericFieldGet01($idTbCounter, $GLOBALS['configSystemDBTableCounter'], 'counter_global');
 
-            $intReturn = $nCounterUpdate;
+            // Logic.
+            // ----------------------
+            if ($nCounterUpdate !== '') {
+                // Add 1 for next number to update.
+                $nCounterUpdate = $nCounterUpdate + 1;
+
+                // Update counter.
+
+            }
+            // ----------------------
         } catch (Error $counterUniversalUpdateError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('counterUniversalUpdateError: ' . $counterUniversalUpdateError->message());
@@ -43,7 +50,7 @@ class FunctionsDB
 
         }
 
-        return $intReturn;
+        return $nCounterUpdate;
     }
 
 
@@ -70,18 +77,26 @@ class FunctionsDB
 
         if ($strTable && $idRecord) {
             // Logic.
-                // ----------------------
+            // ----------------------
             try {
+                // Debug.
+                /*
+                echo 'CONFIG_SYSTEM_DB_TABLE_PREFIX=<pre>';
+                var_dump(env('CONFIG_SYSTEM_DB_TABLE_PREFIX'));
+                echo '</pre><br />';
+                */
+                    
                 $objResultGenericField = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
                 $objResultGenericField = $objResultGenericField->select($fieldName);
                 $objResultGenericField = $objResultGenericField->where('id', '=', (float)\SyncSystemNS\FunctionsGeneric::contentMaskWrite($idRecord, 'db_sanitize'));
                 $objResultGenericField = $objResultGenericField->get()->toArray();
-                dump($objResultGenericField);
 
                 // Return data treatment.
                 if (count($objResultGenericField) > 0) {
                     // $strReturn = $objResultGenericField[0][$fieldName];
-                    $strReturn = $objResultGenericField[$fieldName];
+                    // $strReturn = $objResultGenericField[$fieldName];
+                    // $strReturn = $objResultGenericField[0]->$fieldName;
+                    $strReturn = $objResultGenericField[0]->$fieldName;
                     // $strReturn = $objResultGenericField;
                 }
 
