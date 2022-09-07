@@ -8,8 +8,8 @@ class FunctionsGeneric
     /**
      * Return the label in the right terminal.
      * @static
-     * @param string objAppLabels 
-     * @param string labelName 
+     * @param string $objAppLabels 
+     * @param string $labelName 
      * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend->appLabels'], 'labelName')
@@ -54,22 +54,103 @@ class FunctionsGeneric
     }
     // **************************************************************************************
 
+    // Date format for SQL write.
+    // **************************************************************************************
+    /**
+     * Date format for SQL write.
+     * @static
+     * @param mixed $dateInput string|DateTime 
+     * @param string $configDateFormat 1 - PT | 2 - UK
+     * @return mixed If `configDateFormat` is empty, will return Date string|DateTime
+     * @example
+     * \SyncSystemNS\FunctionsGeneric::dateSQLWrite($dateObjName)
+     * \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', $GLOBALS['configBackendDateFormat'])
+     */
+    static function dateSQLWrite(mixed $dateInput, string $configDateFormat = ''): mixed 
+    {
+        // Variables.
+        // ----------------------
+        $strReturn = '';
+        $dateObj = new \DateTime();
+        $arrDateFull = [];
+        $arrDate = [];
+        $strDateTime = '';
+        // ----------------------
+
+        if ($dateInput) {
+            // TODO: Detect input format (2000-30-01 or 01/30/2000).
+
+            // Logic - returns yyyy-mm-dd hh:MM:ss.
+            // ----------------------
+            // ref: https:// blog.dotmaui.com/2017/10/17/javascript-current-date-with-format-yyyy-mm-dd-hhmmss/
+            if (!$configDateFormat) {
+                // Variable value.
+                $dateObj = $dateInput;
+
+                // Variables.
+                $dateYear = $dateObj->format('Y');
+                $dateDay = $dateObj->format('d');
+                $dateMonth = $dateObj->format('m');
+
+                $dateHour = $dateObj->format('H');
+                $dateMinute = $dateObj->format('i');
+                $dateSecond = $dateObj->format('s');
+
+                $dateFormated = $dateYear . '-' . $dateMonth . '-' . $dateDay;
+
+                // Ajustments.
+                if ($dateDay < 10) {
+                    $dateDay = '0' . $dateDay;
+                }
+
+                if ($dateMonth < 10) {
+                    $dateMonth = '0' . $dateMonth;
+                }
+
+                if ($dateHour < 10) {
+                    $dateHour = '0' . $dateHour;
+                }
+
+                if ($dateMinute < 10) {
+                    $dateMinute = '0' . $dateMinute;
+                }
+
+                if ($dateSecond < 10) {
+                    $dateSecond = '0' . $dateSecond;
+                }
+
+                $strReturn = $dateFormated . ' ' . $dateHour . ':' . $dateMinute . ':' . $dateSecond;
+            }
+            // ----------------------
+
+            // TODO (node): Forced format.
+        }
+
+        return $strReturn;
+
+        // Usage.
+        // ----------------------
+        // \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', $GLOBALS['configBackendDateFormat'])
+        // ----------------------
+    }
+    // **************************************************************************************
+
     // Function to return formatted date.
     // **************************************************************************************
     /**
      * Function to return formatted date.
      * @static
-     * @param string strDate 14/01/2016 | 01/14/2016
-     * @param int configDateFormat 1 - PT | 2 - UK | configBackendDateFormat | configFrontendDateFormat
-     * @param int dateFormatReturn 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
-     * @param int dateType null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+     * @param string $strDate 14/01/2016 | 01/14/2016
+     * @param int $configDateFormat 1 - PT | 2 - UK | configBackendDateFormat | configFrontendDateFormat
+     * @param int $dateFormatReturn 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
+     * @param int $dateType null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
      * @return string
      */
     static function dateRead01(?string $strDate, int $configDateFormat, int $dateFormatReturn, int $dateType = null): string // TODO: double check if can be passed as null ?string $strDate
     {
-        // configDateFormat: 1 - pt | 2 uk | configBackendDateFormat | configFrontendDateFormat
-        // dateFormatReturn: 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
-        // dateType: null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
+        // $configDateFormat: 1 - pt | 2 uk | configBackendDateFormat | configFrontendDateFormat
+        // $dateFormatReturn: 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
+        // $dateType: null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
 
         // Variables.
         // ----------------------
@@ -165,8 +246,8 @@ class FunctionsGeneric
     /**
      * Fill timetable values.
      * @static
-     * @param string timeTableType mm - months | d - day | y - year |  h - hour | m - minute | s - seconds
-     * @param integer fillType 1 - conventional interval
+     * @param string $timeTableType mm - months | d - day | y - year |  h - hour | m - minute | s - seconds
+     * @param integer $fillType 1 - conventional interval
      * @return array
      */
     static function timeTableFill01(string $timeTableType, int $fillType, $specialParameters = []): array
@@ -283,8 +364,8 @@ class FunctionsGeneric
     /**
      * Data treatment for displaying information.
      * @static
-     * @param string strContent
-     * @param string specialInstructions db | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
+     * @param string $strContent
+     * @param string $specialInstructions db | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
      * @return string
      * @example
      *
@@ -406,8 +487,8 @@ class FunctionsGeneric
     /**
      * Data treatment for writing content.
      * @static
-     * @param string strContent
-     * @param string specialInstructions db_write_text | db_sanitize | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode)
+     * @param string $strContent
+     * @param string $specialInstructions db_write_text | db_sanitize | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode)
      * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::contentMaskWrite('testing contentMaskWrite', 'db_sanitize');
@@ -467,9 +548,9 @@ class FunctionsGeneric
     /**
      * Data treatment to read values.
      * @static
-     * @param string valueData
-     * @param string configCurrency '$' | 'R$'
-     * @param int valueType 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency (with decimals)
+     * @param string $valueData
+     * @param string $configCurrency '$' | 'R$'
+     * @param int $valueType 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency (with decimals)
      * @param array|null specialInstructions
      * @return float
      * @example
@@ -554,8 +635,8 @@ class FunctionsGeneric
     /**
      * Configuration function for categories types.
      * @static
-     * @param string|int valueData
-     * @param int returnInfo 0 - Query String | 1 - pageLinkFrontend | 2 - variableFrontend | 3 - pageLinkBackend | 4 - variableBackend | 5 - function name | 11 - pageLinkDashboard | 12 - variableDashboard
+     * @param string|int $valueData
+     * @param int $returnInfo 0 - Query String | 1 - pageLinkFrontend | 2 - variableFrontend | 3 - pageLinkBackend | 4 - variableBackend | 5 - function name | 11 - pageLinkDashboard | 12 - variableDashboard
      * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::categoryConfigSelect($categoriesRow['category_type'], 1)
@@ -764,7 +845,7 @@ class FunctionsGeneric
     /**
      * Remove HTML tags from string.
      * @static
-     * @param string strHTML
+     * @param string $strHTML
      * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::removeHTML01('string');
@@ -800,9 +881,9 @@ class FunctionsGeneric
     // **************************************************************************************
     /**
      * Function to help build the SQL queries.
-     * @param string strTable categories (configSystemDBTableCategories) | files (configSystemDBTableFiles) | content (configSystemDBTableContent) | forms | filters_generic (configSystemDBTableFiltersGeneric) | filters_generic_binding (configSystemDBTableFiltersGenericBinding)
-     * @param string buildType all | backend_optimized | frontend_optimized
-     * @param string returnMethod array | string (separated by commas)
+     * @param string $strTable categories (configSystemDBTableCategories) | files (configSystemDBTableFiles) | content (configSystemDBTableContent) | forms | filters_generic (configSystemDBTableFiltersGeneric) | filters_generic_binding (configSystemDBTableFiltersGenericBinding)
+     * @param string $buildType all | backend_optimized | frontend_optimized
+     * @param string $returnMethod array | string (separated by commas)
      * @return array|string
      */
     static function tableFieldsQueryBuild01(string $strTable, string $buildType, string $returnMethod): array|string

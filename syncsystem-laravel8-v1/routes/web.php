@@ -90,5 +90,5 @@ Route::get('/system/categories/{idTbCategories?}',[AdminCategoriesController::cl
 // Admin - Categories - POST (insert record).
 // **************************************************************************************
 //Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
-Route::post('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
+Route::post('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert'); // working
 // **************************************************************************************

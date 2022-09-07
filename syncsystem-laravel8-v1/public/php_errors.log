@@ -63,3 +63,4 @@ Stack trace:
 #1 K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\index.php(46): require('...')
 #2 {main}
   thrown in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php on line 703
+[07-Aug-2022 18:26:41 UTC] PHP Fatal error:  A void function must not return a value in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\app\Http\Controllers\ApiCategoriesInsertController.php on line 130

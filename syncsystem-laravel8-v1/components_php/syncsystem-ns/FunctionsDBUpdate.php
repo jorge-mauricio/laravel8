@@ -82,9 +82,9 @@ class FunctionsDBUpdate
             if ($objSQLRecordsGenericUpdate >= 0) {
                 // Note: If values are the same, it will return 0 and not update DB.
                 if ($objSQLRecordsGenericUpdate === 0) {
-                    $arrReturn = [ 'returnStatus' => true, 'nRecords' => 1 ];
+                    $arrReturn = ['returnStatus' => true, 'nRecords' => 1];
                 } else {
-                    $arrReturn = [ 'returnStatus' => true, 'nRecords' => $objSQLRecordsGenericUpdate ];
+                    $arrReturn = ['returnStatus' => true, 'nRecords' => $objSQLRecordsGenericUpdate];
                 }
             }
         }

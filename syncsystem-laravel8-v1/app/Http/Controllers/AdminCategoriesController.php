@@ -162,18 +162,18 @@ class AdminCategoriesController extends AdminBaseController
         // ----------------------
         $apiCategoriesInsertResponse = null;
         
-        $tblCategoriesID = null;
-        $tblCategoriesIdParent = null;
-        $tblCategoriesSortOrder = 0;
-        $tblCategoriesCategoryType = null;
+        //$tblCategoriesID = null;
+        //$tblCategoriesIdParent = null;
+        //$tblCategoriesSortOrder = 0;
+        //$tblCategoriesCategoryType = null;
         // ----------------------
 
         // Define values.
         // ----------------------
         // $tblCategoriesID = null;
-        $tblCategoriesIdParent = $req->post('id_parent');
-        $tblCategoriesSortOrder = $req->post('sort_order');
-        $tblCategoriesCategoryType = $req->post('category_type');
+        //$tblCategoriesIdParent = $req->post('id_parent');
+        //$tblCategoriesSortOrder = $req->post('sort_order');
+        //$tblCategoriesCategoryType = $req->post('category_type');
 
 
         $this->idParentCategories = $req->post('idParent');
@@ -212,9 +212,7 @@ class AdminCategoriesController extends AdminBaseController
 
             // Files upload.
 
-
             // Debug.
-            
             //echo 'req=<pre>';
             //var_dump($req);
             //echo '</pre><br />';
@@ -224,23 +222,23 @@ class AdminCategoriesController extends AdminBaseController
             //echo '</pre><br />';
             //echo 'method=' . $method . '<br />';
 
-            echo 'this->arrCategoriesInsertJson=<pre>';
-            var_dump($this->arrCategoriesInsertJson);
-            echo '</pre><br />';
+            //echo 'this->arrCategoriesInsertJson=<pre>';
+            //var_dump($this->arrCategoriesInsertJson);
+            //echo '</pre><br />'; // working (debug)
 
             //echo 'req->all()=<pre>';
             //var_dump($req->all());
             //echo '</pre><br />';
 
-            echo 'tblCategoriesID=' . $tblCategoriesID . '<br />';
-            echo 'tblCategoriesIdParent=' . $tblCategoriesIdParent . '<br />';
-            echo 'tblCategoriesSortOrder=' . $tblCategoriesSortOrder . '<br />';
-            echo 'tblCategoriesCategoryType=' . $tblCategoriesCategoryType . '<br />';
+            //echo 'tblCategoriesID=' . $tblCategoriesID . '<br />';
+            //echo 'tblCategoriesIdParent=' . $tblCategoriesIdParent . '<br />';
+            //echo 'tblCategoriesSortOrder=' . $tblCategoriesSortOrder . '<br />';
+            //echo 'tblCategoriesCategoryType=' . $tblCategoriesCategoryType . '<br />';
 
-            echo 'idParentCategories=' . $this->idParentCategories . '<br />';
-            echo 'pageNumber=' . $this->pageNumber . '<br />';
-            echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
-            exit();
+            //echo 'idParentCategories=' . $this->idParentCategories . '<br />';
+            //echo 'pageNumber=' . $this->pageNumber . '<br />';
+            //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
+            //exit();
 
         } catch (Error $adminCategoriesInsertError) {
             if ($GLOBALS['configDebug'] === true) {
@@ -251,6 +249,12 @@ class AdminCategoriesController extends AdminBaseController
         }
 
         // Redirect
-        return redirect($this->returnURL)->with('status','Student Added Successfully');
+        if ($this->arrCategoriesInsertJson['returnStatus'] === true) {
+            // $this->returnURL .= '&messageSuccess=statusMessage2';
+            return redirect($this->returnURL)->with('messageSuccess', $this->arrCategoriesInsertJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage2'));
+        } else {
+            // $this->returnURL .= '&messageError=statusMessage3';
+            return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage3'));
+        }
     }
 }

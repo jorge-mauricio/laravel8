@@ -18,29 +18,36 @@ class AdminBaseController extends Controller
         } 
 
         $pageNumber = '';
-        // $messageSuccess = '';
-        // $messageError = '';
-        // $messageAlert = '';
+
+        $messageSuccess = '';
+        isset($_GET['messageSuccess']) ? $messageSuccess = $_GET['messageSuccess'] : $messageSuccess = '';
+        $messageError = '';
+        $messageAlert = '';
 
         // Current date values.
         $dateNow = new \DateTime(); // Y-m-d H:i:s
-        $dateNowDay = $dateNow->format('d');
-        $dateNowMonth = $dateNow->format('m');
         $dateNowYear = $dateNow->format('Y');
-        $dateNowMinute = $dateNow->format('i');
+        $dateNowMonth = $dateNow->format('m');
+        $dateNowDay = $dateNow->format('d');
+        
         $dateNowHour = $dateNow->format('H');
+        $dateNowMinute = $dateNow->format('i');
         $dateNowSecond = $dateNow->format('s');
             
         // Shere between views.
-        View::share ( 'masterPageSelect', $masterPageSelect );
-        View::share ( 'pageNumber', $pageNumber );
+        View::share('masterPageSelect', $masterPageSelect);
+        View::share('pageNumber', $pageNumber);
 
-        View::share ( 'dateNow', $dateNow );
-        View::share ( 'dateNowDay', $dateNowDay );
-        View::share ( 'dateNowMonth', $dateNowMonth );
-        View::share ( 'dateNowYear', $dateNowYear );
-        View::share ( 'dateNowMinute', $dateNowMinute );
-        View::share ( 'dateNowHour', $dateNowHour );
-        View::share ( 'dateNowSecond', $dateNowSecond );
+        View::share('messageSuccess', $messageSuccess);
+        View::share('messageError', $messageError);
+        View::share('messageAlert', $messageAlert);
+
+        View::share('dateNow', $dateNow);
+        View::share('dateNowDay', $dateNowDay);
+        View::share('dateNowMonth', $dateNowMonth);
+        View::share('dateNowYear', $dateNowYear);
+        View::share('dateNowMinute', $dateNowMinute);
+        View::share('dateNowHour', $dateNowHour);
+        View::share('dateNowSecond', $dateNowSecond);
      }  
 }

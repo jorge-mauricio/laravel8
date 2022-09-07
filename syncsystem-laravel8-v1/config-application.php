@@ -28,7 +28,7 @@ ini_set('display_errors', 1); //Show all errors.
 
 
 // Timezone configuration.
-date_default_timezone_set('America/Sao_Paulo');
+date_default_timezone_set('America/Sao_Paulo'); // not wired
 // **************************************************************************************
 
 // General constants.
@@ -277,7 +277,7 @@ $configBackendTemplateEngine = 11; // 1 - EJS | 11 - blade
 $configBackendTextBox = 17; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
 $configFrontendTextBox = 1; // 1 - no formatting | 2 - basic formatting (CKEditor) | 3 - advanced formatting (CKEditor) | 4 - basic formatting (Ajax HTMLEditorExtender) | 5 - advanced formatting (Ajax HTMLEditorExtender) | 6 - formatting (Ajax HTMLEditor) | 7 - advanced formatting (Ajax HTMLEditor) | 11 - basic (CLEditor) | 12 - advanced formatting (CLEditor) | 13 - basic (Quill) | 14 - advanced formatting (Quill) | 15 - basic (FroalaEditor) | 16 - advanced formatting (FroalaEditor) | 17 basic (TinyMCE) | 18 - advanced formatting (TinyMCE)
 
-$configSystemTimeZone = 'America/Sao_Paulo'; // America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
+$configSystemTimeZone = 'America/Sao_Paulo'; // UTC | America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
 $configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
 $configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
 

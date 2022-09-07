@@ -67,16 +67,7 @@
 @endsection
 
 @section('cphBody')
-    {{-- TODO: substitute with session. --}}
-    <div id="divMessageSuccess" class="ss-backend-success">
-
-    </div>
-    <div id="divMessageError" class="ss-backend-error">
-
-    </div>
-    <div id="divMessageAlert" class="ss-backend-alert">
-
-    </div>
+    @include('admin.partial-messages-status')
 
     <script>
         // Debug.

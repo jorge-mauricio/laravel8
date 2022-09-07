@@ -24,7 +24,7 @@ class FunctionsDB
         // ----------------------
         $nCounterUpdate = null;
         $strSQLCounterUpdate = '';
-        $objResultCounterUpdate = '';
+        $arrResultCounterUpdate = '';
         // ----------------------
 
         // Logic.
@@ -39,7 +39,16 @@ class FunctionsDB
                 $nCounterUpdate = $nCounterUpdate + 1;
 
                 // Update counter.
+                $arrResultCounterUpdate = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10($GLOBALS['configSystemDBTableCounter'], 
+                    'counter_global', 
+                    (string)$nCounterUpdate,
+                    ["id;" . $idTbCounter . ";i"]
+                );
 
+                // Check if update was successful.
+                if ($arrResultCounterUpdate['returnStatus'] === false) {
+                    return null;
+                }
             }
             // ----------------------
         } catch (Error $counterUniversalUpdateError) {

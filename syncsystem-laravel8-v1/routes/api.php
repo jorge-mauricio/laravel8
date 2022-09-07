@@ -61,6 +61,7 @@ Route::get('/categories/{idTbCategories?}',[ApiCategoriesListingController::clas
 //Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/',[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
 /**/
 Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
+    // Debug.
     //return 'api categories (post) - ' . $idTbCategories;
     //return 'api categories (post)';
 
