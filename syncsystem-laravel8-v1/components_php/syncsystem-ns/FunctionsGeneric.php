@@ -60,13 +60,13 @@ class FunctionsGeneric
      * Date format for SQL write.
      * @static
      * @param mixed $dateInput string|DateTime 
-     * @param string $configDateFormat 1 - PT | 2 - UK
+     * @param int|null $configDateFormat 1 - PT | 2 - UK
      * @return mixed If `configDateFormat` is empty, will return Date string|DateTime
      * @example
      * \SyncSystemNS\FunctionsGeneric::dateSQLWrite($dateObjName)
      * \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', $GLOBALS['configBackendDateFormat'])
      */
-    static function dateSQLWrite(mixed $dateInput, string $configDateFormat = ''): mixed 
+    static function dateSQLWrite(mixed $dateInput, int|null $configDateFormat = null): mixed 
     {
         // Variables.
         // ----------------------
@@ -83,9 +83,11 @@ class FunctionsGeneric
             // Logic - returns yyyy-mm-dd hh:MM:ss.
             // ----------------------
             // ref: https:// blog.dotmaui.com/2017/10/17/javascript-current-date-with-format-yyyy-mm-dd-hhmmss/
-            if (!$configDateFormat) {
+            if ($configDateFormat === null) {
                 // Variable value.
+                // $dateObj = new \DateTime($dateInput);
                 $dateObj = $dateInput;
+                // TODO: double check this logic (syncsystem-laravel8-v1\\app\\Models\\CategoriesInsert.php(143): SyncSystemNS\\FunctionsGeneric::dateSQLWrite())
 
                 // Variables.
                 $dateYear = $dateObj->format('Y');
@@ -123,7 +125,37 @@ class FunctionsGeneric
             }
             // ----------------------
 
-            // TODO (node): Forced format.
+            // Forced format.
+            // ----------------------
+            if ($configDateFormat) {
+                if (strpos($dateInput, '/') !== false) {
+                    // Variables values definitions.
+                    $arrDateFull = explode(' ', $dateInput);
+
+                    $arrDate = explode('/', $arrDateFull[0]);
+
+                    if (isset($arrDateFull[1])) {
+                        $strDateTime = $arrDateFull[1];
+                    }
+
+                    // portuguese dd/mm/yyyy
+                    if ($configDateFormat === 1) {
+                        $strReturn = $arrDate[2] . '-' . $arrDate[1] . '-' . $arrDate[0];
+                    }
+
+                    // britanic mm/dd/yyyy
+                    if ($configDateFormat == 2) {
+                        $strReturn = $arrDate[2] . '-' . $arrDate[0] . '-' . $arrDate[1];
+                    }
+
+                    if ($strDateTime !== '') {
+                        $strReturn = $strReturn . ' ' . $strDateTime;
+                    }
+                } else {
+                    $strReturn = null;
+                }
+            }
+            // ----------------------
         }
 
         return $strReturn;
@@ -543,6 +575,59 @@ class FunctionsGeneric
     // **************************************************************************************
 
 
+    // Data treatment for writing values.
+    // **************************************************************************************
+    /**
+     * Data treatment for writing values.
+     * @static
+     * @param string $valueData
+     * @param int $valueType valueType 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency (decimal)
+     * @param array|null specialInstructions
+     * @return float|int|string
+     * @example
+     * \SyncSystemNS\FunctionsGeneric::valueMaskRead(1000, '$', 2)
+     */
+    static function valueMaskWrite(float $valueData, int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, ?array $specialInstructions = null): mixed
+    {
+        // valueType: 1 - general number | 2 - system currency | 3 - decimal (máximum: 34 digits) | 4 - system currency (decimal)
+
+        // Variables.
+        // ----------------------
+        $strReturn = $valueData;
+        // ----------------------
+
+        // Logic.
+        if ($strReturn) {
+            // system currency
+            if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY) {
+                $strReturn = preg_replace('/\,/', '', $strReturn);
+                $strReturn = preg_replace('/\./', '', $strReturn);
+            }
+
+            // decimal
+            if ($valueType === SS_VALUE_TYPE_DECIMAL) {
+                $strReturn = preg_replace('/\,/', '', $strReturn);
+            }
+
+            // system currency (decimals)
+            if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL) {
+                // R$ - Real.
+                if ($GLOBALS['configSystemCurrency'] === 'R$') {
+                    $strReturn = preg_replace('/\./', '', $strReturn);
+                    $strReturn = preg_replace('/\,/', '.', $strReturn);
+                }
+
+                // $ - Dollar.
+                if ($GLOBALS['configSystemCurrency'] === '$') {
+                    $strReturn = preg_replace('/\,/', '', $strReturn);
+                }
+            }
+        }
+
+        return $strReturn;
+    }
+    // **************************************************************************************
+
     // Data treatment to read values.
     // **************************************************************************************
     /**
@@ -554,7 +639,7 @@ class FunctionsGeneric
      * @param array|null specialInstructions
      * @return float
      * @example
-     * SyncSystemNS.FunctionsGeneric.valueMaskRead(1000, '$', 2)
+     * \SyncSystemNS\FunctionsGeneric::valueMaskRead(1000, '$', 2)
      */
     //static function valueMaskRead($valueData, $configCurrency = '$', $valueType = 2, $specialInstructions = null): float
     static function valueMaskRead(float $valueData, string $configCurrency = '$', int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, ?array $specialInstructions = null): mixed

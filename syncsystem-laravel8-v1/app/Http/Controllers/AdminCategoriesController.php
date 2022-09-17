@@ -80,7 +80,12 @@ class AdminCategoriesController extends AdminBaseController
             // echo 'apiCategoriesListingCurrentResponse->json()=<pre>';
             // var_dump($apiCategoriesListingCurrentResponse->json());
             // echo '</pre>';
-            // exit();
+
+            //echo 'arrCategoriesListingJson=<pre>';
+            //var_dump($arrCategoriesListingJson);
+            //echo '</pre>';
+            
+            //exit();
 
             // echo '$this->arrCategoriesListingJson[returnStatus]=<pre>';
             // var_dump($this->arrCategoriesListingJson['returnStatus']);
@@ -212,6 +217,8 @@ class AdminCategoriesController extends AdminBaseController
 
             // Files upload.
 
+            
+
             // Debug.
             //echo 'req=<pre>';
             //var_dump($req);
@@ -221,6 +228,14 @@ class AdminCategoriesController extends AdminBaseController
             //var_dump($req->post('id_parent'));
             //echo '</pre><br />';
             //echo 'method=' . $method . '<br />';
+
+            //echo 'req->post=<pre>';
+            //var_dump($req->post('date1'));
+            //echo '</pre><br />';
+
+            //echo 'req->post(dateSQLWrite)=<pre>';
+            //var_dump(\SyncSystemNS\FunctionsGeneric::dateSQLWrite($req->post('date1'), $GLOBALS['configBackendDateFormat']));
+            //echo '</pre><br />';
 
             //echo 'this->arrCategoriesInsertJson=<pre>';
             //var_dump($this->arrCategoriesInsertJson);

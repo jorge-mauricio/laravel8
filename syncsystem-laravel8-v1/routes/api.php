@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Controllers.
+use App\Http\Controllers\ApiRecordsPatchController;
+
 use App\Http\Controllers\ApiCategoriesListingController;
 use App\Http\Controllers\ApiCategoriesInsertController;
 
@@ -23,6 +25,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // TODO: route group with middleware
+
+// API - Records - Patch (small changes).
+// **************************************************************************************
+// Route::patch('/records/', function() {
+// Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/', function() {
+Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
+// Route::patch('/records/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
+        // Debug.
+    return 'api records (patch)';
+
+    return response()->json($patchRecordsResults);
+})->name('api.records.patch');
+// **************************************************************************************
 
 // API - Categories - listing - GET.
 // **************************************************************************************
@@ -70,3 +85,6 @@ Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategor
 
 //Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
 // **************************************************************************************
+
+
+

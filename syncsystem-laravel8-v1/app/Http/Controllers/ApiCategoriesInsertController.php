@@ -33,10 +33,12 @@ class ApiCategoriesInsertController extends Controller
     // **************************************************************************************
     public function __construct(Request $req)
     {
-
+        //
     }
     // **************************************************************************************
 
+    // Handle category insert record and return data.
+    // **************************************************************************************
     public function insertCategories(Request $req): array
     //public function insertCategories(Request $req): mixed
     {
@@ -83,6 +85,35 @@ class ApiCategoriesInsertController extends Controller
         $this->arrCategoriesInsertParameters['_tblCategoriesInfoSmall4'] = $req->post('info_small4');
         $this->arrCategoriesInsertParameters['_tblCategoriesInfoSmall5'] = $req->post('info_small5');
 
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber1'] = (float)$req->post('number1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber2'] = (float)$req->post('number2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber3'] = (float)$req->post('number3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber4'] = (float)$req->post('number4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber5'] = (float)$req->post('number5');
+
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall1'] = (float)$req->post('number_small1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall2'] = (float)$req->post('number_small2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall3'] = (float)$req->post('number_small3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall4'] = (float)$req->post('number_small4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall5'] = (float)$req->post('number_small5');
+
+        $this->arrCategoriesInsertParameters['_tblCategoriesDate1'] = $req->post('date1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesDate2'] = $req->post('date2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesDate3'] = $req->post('date3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesDate4'] = $req->post('date4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesDate5'] = $req->post('date5');
+
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation'] = (int)$req->post('activation');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation1'] = (int)$req->post('activation1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation2'] = (int)$req->post('activation2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation3'] = (int)$req->post('activation3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation4'] = (int)$req->post('activation4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation5'] = (int)$req->post('activation5');
+
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdStatus'] = (float)$req->post('id_status');
+        $this->arrCategoriesInsertParameters['_tblCategoriesRestrictedAccess'] = (int)$req->post('restricted_access');
+
+        $this->arrCategoriesInsertParameters['_tblCategoriesNotes'] = $req->post('notes');
         
         // Logic.
         try {
@@ -107,6 +138,10 @@ class ApiCategoriesInsertController extends Controller
             //var_dump($ciAPI);
             //echo '</pre><br />';
             //dump($ciAPI);
+
+            //echo 'this->arrCategoriesInsertParameters=<pre>';
+            //var_dump($this->arrCategoriesInsertParameters);
+            //echo '</pre><br />';
 
             //echo 'genericFieldGet01 (filters)=<pre>';
             //var_dump(\SyncSystemNS\FunctionsGeneric::contentMaskRead(\SyncSystemNS\FunctionsDB::genericFieldGet01(948, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title'), 'db'));
@@ -170,4 +205,5 @@ class ApiCategoriesInsertController extends Controller
 
         return $this->arrReturn;
     }
+    // **************************************************************************************
 }

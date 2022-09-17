@@ -1052,7 +1052,7 @@
                                                                                         // Hide ajax progress bar.
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
-                                                {{ $categoriesRow['activation1'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }} 
+                                                {{ $categoriesRow['activation1'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}
                                             </a>
                                         </td>
                                     @endif
