@@ -32,8 +32,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/', function() {
 Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
 // Route::patch('/records/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
-        // Debug.
-    return 'api records (patch)';
+    // Debug.
+    //return 'api records (patch)';
 
     return response()->json($patchRecordsResults);
 })->name('api.records.patch');

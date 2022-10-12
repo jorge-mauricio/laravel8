@@ -64,13 +64,13 @@ define('SS_ENCRYPT_METHOD_DATA_DEFUSE', 22);
 $configSystemClientName = "Planejamento Visual";
 
 $configSiteTitle = "SyncSystem - Multiplatform"; //site name
-$configSystemName = "Sistema de Gerenciamento de Conteúdo"; //Sistema de Controle | Sistema Administrativo | CRM
-$configDevName = "Planejamento Visual - Arte e Tecnologia"; //Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Criação e Treinamento Web | Web Inventor - Imagine, realize.
-$configDevSite = "http://www.planejamentovisual.com.br"; //http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br
+$configSystemName = "Sistema de Gerenciamento de Conteúdo"; // Sistema de Controle | Sistema Administrativo | CRM
+$configDevName = "Planejamento Visual - Arte e Tecnologia"; // Jorge Mauricio - Programador Visual | Planejamento Visual - Arte e Tecnologia | Jorge Mauricio - Criação e Treinamento Web | Web Inventor - Imagine, realize.
+$configDevSite = "http://www.planejamentovisual.com.br"; // http://www.programadorvisual.com.br | http://www.planejamentovisual.com.br | http://www.jorgemauricio.com | http://www.webinventor.com.br
 $configCopyrightYear = "2015";
 
-$configSystemURL = "http://multiplatformv1.syncsystem.com.br";
-$configSystemURLSSL = "http://multiplatformv1.syncsystem.com.br";
+$configSystemURL = "http://multiplatformv1.syncsystem.com.br"; // http://multiplatformv1.syncsystem.com.br
+$configSystemURLSSL = "http://multiplatformv1.syncsystem.com.br"; // http://multiplatformv1.syncsystem.com.br
 
 $configSystemURLImages = ".."; //".." = relative path | http://www.nomedodominio.com.br = absolute path
 
@@ -250,7 +250,7 @@ $configRouteFrontendDashboardQuizzes = 'dashboard-quizzes';
 // ----------------------
 $configCryptType = 2; // 0 - no cryptography | 1 - hash (doesn´t allow decryptography) | 2 - Data (allows decryptography)
 $configCryptHash = 11; // 11 - md5 (PHP) | 23 - Crypto Module
-$configCryptData = 26; // 21 - MCrypt PHP library (PHP) (tested: linux - php 7.0 | windows - php 5.4) | 22 - Defuse php-encryption (php) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
+$configCryptData = 22; // 21 - MCrypt PHP library (PHP) (tested: linux - php 7.0 | windows - php 5.4) | 22 - Defuse php-encryption (php) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv
 
 $configCryptKey = 'system_crypt_key'; // generate key data
 $configCryptKey16Byte = '95f19c6f734f9f4fdc1d4258277a1c7d'; // not in use

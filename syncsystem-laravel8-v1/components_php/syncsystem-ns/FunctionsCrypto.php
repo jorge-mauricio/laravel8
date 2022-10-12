@@ -16,7 +16,7 @@ class FunctionsCrypto
      * @example
      * \SyncSystemNS\FunctionsCrypto::encryptValue("testing encryption", SS_ENCRYPT_METHOD_DATA)
      */
-    static function encryptValue($strValue, $encryptMethod = SS_ENCRYPT_METHOD_DATA): string
+    static function encryptValue(string $strValue, int $encryptMethod = SS_ENCRYPT_METHOD_DATA): string
     {
         // encryptMethod: 0 - none | 1 - hash | 2 - data
         // Variables.
@@ -45,17 +45,18 @@ class FunctionsCrypto
         // ----------------------
         if ($encryptMethod === SS_ENCRYPT_METHOD_DATA) {
 
-
 			//MCrypt PHP library.
 			if($GLOBALS['configCryptData'] === SS_ENCRYPT_METHOD_DATA_MCRYPT)
 			{
-				$strReturn = \SyncSystemNS\Crypto::MCryptEncrypt($strValue, $GLOBALS['configCryptKey32Byte']);
+				$strReturn = \SyncSystemNS\FunctionsCrypto::MCryptEncrypt($strValue, $GLOBALS['configCryptKey32Byte']);
+                // Debug.
+                echo 'strReturn=' . $strReturn . '<br />';
 			}
 			
 			//Defuse php-encryption.
 			if($GLOBALS['configCryptData'] === SS_ENCRYPT_METHOD_DATA_DEFUSE)
 			{
-				$strReturn = \SyncSystemNS\Crypto::DefuseEncrypt($strValue, $GLOBALS['configCryptChaveDefusePHPEncryptionRandomKey'], 1);
+				$strReturn = \SyncSystemNS\FunctionsCrypto::DefuseEncrypt($strValue, $GLOBALS['configCryptChaveDefusePHPEncryptionRandomKey'], 1);
 			}
         }
         // ----------------------

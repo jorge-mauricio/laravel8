@@ -85,7 +85,6 @@ class CategoriesInsert extends Model
 
     private string $tblCategoriesNotes = '';
 
-    
     private array $arrSQLCategoriesInsertParams = [];
     private mixed $resultsSQLCategoriesInsert;
     

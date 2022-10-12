@@ -84,6 +84,8 @@
             //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
             //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
 
+            //echo 'apiKey=' . \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) . '<br />';
+
             // var_dump($templateData['cphBody']);
             // var_dump($templateData['additionalData']);
         @endphp
@@ -960,7 +962,7 @@
                                     <td id="formCategoriesListing_elementActivation{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                         <a id="linkActivation{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
                                             onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                      ajaxRecordsPatch01_async('{{ $GLOBALS['configSystemURLSSL'] . '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
+                                                      ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                 {
                                                                                     idRecord: '{{ $categoriesRow['id'] }}', 
                                                                                     strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
@@ -973,9 +975,12 @@
                                                                                 async function(_resObjReturn) {
                                                                                     // alert(JSON.stringify(_resObjReturn));
                                                                                     
-                                                                                    if (_resObjReturn.objReturn.returnStatus === true) {
+                                                                                    // if (_resObjReturn.objReturn.returnStatus === true) { // For some reason, the promise object is returning without an object inside.
+                                                                                    if (_resObjReturn.returnStatus === true) {
+                                                                                        // alert('returnStatus=', true);
+
                                                                                         // Check status.
-                                                                                        if (_resObjReturn.objReturn.recordUpdatedValue === 0) { //TODO: check type to change comparison (string or int)
+                                                                                        if (_resObjReturn.recordUpdatedValue === '0') {
                                                                                             // Change cell color.
                                                                                             elementCSSAdd('formCategoriesListing_elementActivation{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -983,7 +988,7 @@
                                                                                             elementMessage01('linkActivation{{ $categoriesRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}');
                                                                                         }
 
-                                                                                        if (_resObjReturn.objReturn.recordUpdatedValue === 1) {
+                                                                                        if (_resObjReturn.recordUpdatedValue === '1') {
                                                                                             // Change cell color.
                                                                                             elementCSSRemove('formCategoriesListing_elementActivation{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1010,7 +1015,7 @@
                                         <td id="formCategoriesListing_elementActivation1{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation1'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation1{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ $GLOBALS['configSystemURLSSL'] . '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
+                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}', 
                                                                                         strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
@@ -1023,9 +1028,9 @@
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
                                                                                         
-                                                                                        if (_resObjReturn.objReturn.returnStatus === true) {
+                                                                                        if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 0) { //TODO: check type to change comparison (string or int)
+                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
                                                                                                 // Change cell color.
                                                                                                 elementCSSAdd('formCategoriesListing_elementActivation1{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1033,7 +1038,7 @@
                                                                                                 elementMessage01('linkActivation1{{ $categoriesRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}');
                                                                                             }
 
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 1) {
+                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
                                                                                                 // Change cell color.
                                                                                                 elementCSSRemove('formCategoriesListing_elementActivation1{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1061,7 +1066,7 @@
                                         <td id="formCategoriesListing_elementActivation2{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation2'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation2{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ $GLOBALS['configSystemURLSSL'] . '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
+                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}', 
                                                                                         strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
@@ -1074,9 +1079,9 @@
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
                                                                                         
-                                                                                        if (_resObjReturn.objReturn.returnStatus === true) {
+                                                                                        if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 0) { //TODO: check type to change comparison (string or int)
+                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
                                                                                                 // Change cell color.
                                                                                                 elementCSSAdd('formCategoriesListing_elementActivation2{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1084,7 +1089,7 @@
                                                                                                 elementMessage01('linkActivation2{{ $categoriesRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}');
                                                                                             }
 
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 1) {
+                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
                                                                                                 // Change cell color.
                                                                                                 elementCSSRemove('formCategoriesListing_elementActivation2{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1112,7 +1117,7 @@
                                         <td id="formCategoriesListing_elementActivation3{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation3'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation3{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ $GLOBALS['configSystemURLSSL'] . '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
+                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}', 
                                                                                         strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
@@ -1125,9 +1130,9 @@
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
                                                                                         
-                                                                                        if (_resObjReturn.objReturn.returnStatus === true) {
+                                                                                        if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 0) { //TODO: check type to change comparison (string or int)
+                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
                                                                                                 // Change cell color.
                                                                                                 elementCSSAdd('formCategoriesListing_elementActivation3{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1135,7 +1140,7 @@
                                                                                                 elementMessage01('linkActivation3{{ $categoriesRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}');
                                                                                             }
 
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 1) {
+                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
                                                                                                 // Change cell color.
                                                                                                 elementCSSRemove('formCategoriesListing_elementActivation3{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1163,7 +1168,7 @@
                                         <td id="formCategoriesListing_elementActivation4{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation4'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation4{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ $GLOBALS['configSystemURLSSL'] . '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
+                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}', 
                                                                                         strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
@@ -1176,9 +1181,9 @@
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
                                                                                         
-                                                                                        if (_resObjReturn.objReturn.returnStatus === true) {
+                                                                                        if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 0) { //TODO: check type to change comparison (string or int)
+                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
                                                                                                 // Change cell color.
                                                                                                 elementCSSAdd('formCategoriesListing_elementActivation4{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1186,7 +1191,7 @@
                                                                                                 elementMessage01('linkActivation4{{ $categoriesRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}');
                                                                                             }
 
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 1) {
+                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
                                                                                                 // Change cell color.
                                                                                                 elementCSSRemove('formCategoriesListing_elementActivation4{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1214,7 +1219,7 @@
                                         <td id="formCategoriesListing_elementActivation5{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation5'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation5{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ $GLOBALS['configSystemURLSSL'] . '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
+                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}', 
                                                                                         strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
@@ -1227,9 +1232,9 @@
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
                                                                                         
-                                                                                        if (_resObjReturn.objReturn.returnStatus === true) {
+                                                                                        if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 0) { //TODO: check type to change comparison (string or int)
+                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
                                                                                                 // Change cell color.
                                                                                                 elementCSSAdd('formCategoriesListing_elementActivation5{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1237,7 +1242,7 @@
                                                                                                 elementMessage01('linkActivation5{{ $categoriesRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}');
                                                                                             }
 
-                                                                                            if (_resObjReturn.objReturn.recordUpdatedValue === 1) {
+                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
                                                                                                 // Change cell color.
                                                                                                 elementCSSRemove('formCategoriesListing_elementActivation5{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
 
@@ -1265,7 +1270,7 @@
                                         <td id="formCategoriesListing_elementRestrictedAccess{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['restricted_access'] === 0 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkRestrictedAccess{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                          ajaxRecordsPatch01_async('{{ $GLOBALS['configSystemURLSSL'] . '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
+                                                          ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                 {
                                                                                     idRecord: '{{ $categoriesRow['id'] }}', 
                                                                                     strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
@@ -1276,9 +1281,9 @@
                                                                                     apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
                                                                                 }, 
                                                                                 async function(_resObjReturn) {
-                                                                                    if(_resObjReturn.objReturn.returnStatus === true) {
+                                                                                    if(_resObjReturn.returnStatus === true) {
                                                                                         // Check status.
-                                                                                        if(_resObjReturn.objReturn.recordUpdatedValue === 0)
+                                                                                        if(_resObjReturn.recordUpdatedValue === '0')
                                                                                         {
                                                                                             // Change cell color.
                                                                                             elementCSSRemove('formCategoriesListing_elementRestrictedAccess{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
@@ -1287,7 +1292,7 @@
                                                                                             elementMessage01('linkRestrictedAccess{{ $categoriesRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccess0A') }}');
                                                                                         }
 
-                                                                                        if(_resObjReturn.objReturn.recordUpdatedValue === 1)
+                                                                                        if(_resObjReturn.recordUpdatedValue === '1')
                                                                                         {
                                                                                             // Change cell color.
                                                                                             elementCSSAdd('formCategoriesListing_elementRestrictedAccess{{ $categoriesRow['id'] }}', 'ss-backend-table-bg-deactive');
