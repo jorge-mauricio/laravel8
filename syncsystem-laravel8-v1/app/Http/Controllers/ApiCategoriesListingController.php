@@ -70,6 +70,12 @@ class ApiCategoriesListingController extends Controller
 
     // Handle categories listing.
     // **************************************************************************************
+    /**
+     * Handle categories listing.
+     * @param Request $req
+     * @param float|string $_idTbCategories
+     * @return array
+     */
     //public function getCategoriesListing(float|string $idParent = null): string|array //TODO: change to the right type
     //public function getCategoriesListing(): array //TODO: change to the right type
     public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): array
@@ -80,7 +86,7 @@ class ApiCategoriesListingController extends Controller
         // float|string $idParent = null;
         // ----------------------
 
-        // Value definition.
+        // Define values.
         // ----------------------
         //$this->idParent = $idParent;
         $this->idTbCategories = $_idTbCategories;

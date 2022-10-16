@@ -45,6 +45,11 @@ class AdminRecordsController extends AdminBaseController
 
     // Handle records delete.
     // **************************************************************************************
+    /**
+     * Handle records delete.
+     * @param Request $req
+     * @return RedirectResponse
+     */
     public function adminRecordsDelete(Request $req): RedirectResponse
     {
         //TODO: move this to it´s own controller: ex: adminRecordsController

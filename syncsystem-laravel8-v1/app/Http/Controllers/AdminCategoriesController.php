@@ -47,6 +47,11 @@ class AdminCategoriesController extends AdminBaseController
 
     // Admin Categories Listing Controller.
     // **************************************************************************************
+    /**
+     * Admin Categories Listing Controller.
+     * @param float|string $_idParentCategories
+     * @return View
+     */
     // public function adminCategoriesListing(float|string $idParent = null): string //TODO: change to the right type
     public function adminCategoriesListing(float|string $_idParentCategories = null): View
     {
@@ -62,6 +67,7 @@ class AdminCategoriesController extends AdminBaseController
         $this->idParentCategories = $_idParentCategories;
         // ----------------------
 
+        // Logic.
         try {
             // Debug: https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008
             //$apiCategoriesDetailsCurrentResponse = Http::get('https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008');
@@ -166,6 +172,11 @@ class AdminCategoriesController extends AdminBaseController
 
     // Handle categories insert.
     // **************************************************************************************
+    /**
+     * Handle categories insert.
+     * @param Request $req
+     * @return RedirectResponse
+     */
     public function adminCategoriesInsert(Request $req): RedirectResponse
     {
         //TODO: create option for load method (api / monolithic)
@@ -196,6 +207,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Return URL build.
         // ----------------------
+        // TODO: think about using returnURLBuild method.
         $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
         $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
         if ($this->pageNumber) {

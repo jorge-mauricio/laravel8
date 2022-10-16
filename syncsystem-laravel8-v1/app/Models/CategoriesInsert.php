@@ -12,7 +12,6 @@ class CategoriesInsert extends Model
 
     // Properties.
     // ----------------------
-    /**/
     private float|null $tblCategoriesID = null;
     private float $tblCategoriesIdParent = 0;
     private float $tblCategoriesSortOrder = 0;
@@ -132,17 +131,24 @@ class CategoriesInsert extends Model
 
     // Build parameters to be inserted.
     // **************************************************************************************
-    /**/
+    /**
+     * Build parameters to be inserted.
+     * @param array $arrParameters
+     * @return array
+     */
     //public function buildParameters(array $arrParameters): array
     private function buildParameters(array $arrParameters): array
     //public function categoriesInsertBuildParameters(Request $req): void
     {
         // Variables.
+        // ----------------------
         $arrReturn = [
             'returnStatus' => false
         ];
+        // ----------------------
 
         // Define values.
+        // ----------------------
         $this->tblCategoriesID = isset($arrParameters['_tblCategoriesID']) ? $arrParameters['_tblCategoriesID'] : \SyncSystemNS\FunctionsDB::counterUniversalUpdate();
         $this->tblCategoriesIdParent = isset($arrParameters['_tblCategoriesIdParent']) ? $arrParameters['_tblCategoriesIdParent'] : $this->tblCategoriesIdParent;
         $this->tblCategoriesSortOrder = isset($arrParameters['_tblCategoriesSortOrder']) ? $arrParameters['_tblCategoriesSortOrder'] : $this->tblCategoriesSortOrder;
@@ -283,10 +289,11 @@ class CategoriesInsert extends Model
         $this->tblCategoriesRestrictedAccess = (isset($arrParameters['_tblCategoriesRestrictedAccess']) && $arrParameters['_tblCategoriesRestrictedAccess']) ? $arrParameters['_tblCategoriesRestrictedAccess'] : $this->tblCategoriesRestrictedAccess;
 
         $this->tblCategoriesNotes = isset($arrParameters['_tblCategoriesNotes']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesNotes'], 'db_write_text') : $this->tblCategoriesNotes;
-    
+        // ----------------------
             
 
         // Build insert parameters.
+        // ----------------------
         //$this->arrSQLCategoriesInsertParams['id'] = 123123123;
         //$this->tblCategoriesID ? $this->arrSQLCategoriesInsertParams['id'] = $this->tblCategoriesID : $this->arrSQLCategoriesInsertParams['id'] = \SyncSystemNS\FunctionsDB::counterUniversalUpdate();
         $this->arrSQLCategoriesInsertParams['id'] = $this->tblCategoriesID;
@@ -360,7 +367,7 @@ class CategoriesInsert extends Model
         $this->arrSQLCategoriesInsertParams['restricted_access'] = $this->tblCategoriesRestrictedAccess;
 
         $this->arrSQLCategoriesInsertParams['notes'] = $this->tblCategoriesNotes;
-
+        // ----------------------
 
         $arrReturn = [
             'returnStatus' => true
@@ -398,14 +405,20 @@ class CategoriesInsert extends Model
 
     // Add record to database.
     // **************************************************************************************
+    /**
+     * Add record to database.
+     * @return array
+     */
     public function addRecord(): array
     {
         // Variables.
+        // ----------------------
         $arrReturn = [
             'returnStatus' => false, 
             'nRecords' => 0, 
             'idRecordInsert' => null
         ];
+        // ----------------------
 
         // Logic.
         try {

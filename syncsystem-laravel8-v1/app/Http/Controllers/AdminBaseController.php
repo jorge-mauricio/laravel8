@@ -70,8 +70,13 @@ class AdminBaseController extends Controller
     }
     // **************************************************************************************
 
-    // Return URL build.
+    // Build return URL for redirect.
     // **************************************************************************************
+    /**
+     * Build return URL for redirect.
+     * @param Request $req
+     * @return string
+     */
     protected function returnURLBuild(Request $req): string
     {
         // Variables.

@@ -25,17 +25,26 @@ class ApiRecordsController extends Controller
 
     // Handle record delete return data.
     // **************************************************************************************
+    /**
+     * Handle record delete return data.
+     * @param Request $req
+     * @return array
+     */
     public function deleteRecords(Request $req): array
     {
         // Variables.
+        // ----------------------
         $strTable = '';
         $idsRecordsDelete = null;
         $deleteRecordsFilesResult = null;
+        // ----------------------
 
         // Define values.
+        // ----------------------
         $strTable = $req->post('strTable');
         $idsRecordsDelete = $req->post('idsRecordsDelete');
         $apiKey = $req->post('apiKey'); // TODO: evaluate if this is necessary
+        // ----------------------
 
         // Debug.
         //$this->arrReturn['strTable'] = $this->strTable;
@@ -77,6 +86,7 @@ class ApiRecordsController extends Controller
     public function patchRecords(Request $req): array
     {
         // Variables.
+        // ----------------------
         $strTable = '';
         $idRecord = null;
         $strField = '';
@@ -85,6 +95,7 @@ class ApiRecordsController extends Controller
         $recordValue = null;
         // $arrRecordsPatchParameters = [];
         $resultsSQLRecordsUpdate = null;
+        // ----------------------
 
         // Build parameters.
         /*
@@ -100,6 +111,7 @@ class ApiRecordsController extends Controller
         */
 
         // Define values.
+        // ----------------------
         $strTable = $req->post('strTable');
         $idRecord = (float)$req->post('idRecord');
         $strField = $req->post('strField');
@@ -107,6 +119,7 @@ class ApiRecordsController extends Controller
         $patchType = $req->post('patchType');
         $ajaxFunction = (bool)$req->post('ajaxFunction');
         $this->apiKey = $req->post('apiKey'); // TODO: evaluate if this is necessary
+        // ----------------------
 
         // Debug.
         //echo 'req->all() (inside api records patch controller=<pre>';

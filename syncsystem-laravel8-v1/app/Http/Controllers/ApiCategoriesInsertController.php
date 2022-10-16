@@ -39,6 +39,11 @@ class ApiCategoriesInsertController extends Controller
 
     // Handle category insert record and return data.
     // **************************************************************************************
+    /**
+     * Handle category insert record and return data.
+     * @param Request $req
+     * @return array
+     */
     public function insertCategories(Request $req): array
     //public function insertCategories(Request $req): mixed
     {
@@ -47,6 +52,7 @@ class ApiCategoriesInsertController extends Controller
         //$addRecordResult = [];
 
         // Build parameters.
+        // ----------------------
         $this->arrCategoriesInsertParameters['_tblCategoriesID'] = null;
         $this->arrCategoriesInsertParameters['_tblCategoriesIdParent'] = (float)$req->post('id_parent');
         $this->arrCategoriesInsertParameters['_tblCategoriesSortOrder'] = (float)$req->post('sort_order');
@@ -114,7 +120,8 @@ class ApiCategoriesInsertController extends Controller
         $this->arrCategoriesInsertParameters['_tblCategoriesRestrictedAccess'] = (int)$req->post('restricted_access');
 
         $this->arrCategoriesInsertParameters['_tblCategoriesNotes'] = $req->post('notes');
-        
+        // ----------------------
+
         // Logic.
         try {
             $this->ciAPI = new CategoriesInsert($this->arrCategoriesInsertParameters);
