@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers.
 use App\Http\Controllers\AdminCategoriesController;
+use App\Http\Controllers\AdminRecordsController;
 use App\Http\Controllers\FrontendCategoriesListingController;
 
 /*
@@ -91,4 +92,13 @@ Route::get('/system/categories/{idTbCategories?}',[AdminCategoriesController::cl
 // **************************************************************************************
 //Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
 Route::post('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert'); // working
+// **************************************************************************************
+
+
+// Admin - Categories - POST (insert record).
+// TODO: change to system/records
+// **************************************************************************************
+//Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
+//Route::delete('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesDelete'])->name('admin.categories.delete');
+Route::delete('/system/records/',[AdminRecordsController::class, 'adminRecordsDelete'])->name('admin.records.delete');
 // **************************************************************************************

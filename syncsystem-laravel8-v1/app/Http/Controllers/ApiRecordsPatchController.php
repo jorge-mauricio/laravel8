@@ -35,6 +35,7 @@ class ApiRecordsPatchController extends Controller
     // **************************************************************************************
 
     // Handle record edit and return data.
+    // TODO: move to AdminRecordsController.
     // **************************************************************************************
     public function patchRecords(Request $req): array
     {

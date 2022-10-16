@@ -61,6 +61,15 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "start-app": [
+            "research parallel"
+        ],
+        "start-frontend": [
+            "php -S localhost:8000 -t public/"
+        ],
+        "start-backend": [
+            "php -S localhost:8001 -t public/"
         ]
     }
 }

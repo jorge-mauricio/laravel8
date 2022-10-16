@@ -11,10 +11,10 @@ class FunctionsDBUpdate
     /**
      * Function to update a generic record field.
      * @static
-     * @param string strTable
-     * @param string strField
-     * @param string recordValue
-     * @param array arrSearchParameters
+     * @param string $strTable
+     * @param string $strField
+     * @param string $recordValue
+     * @param array $arrSearchParameters
      * @return array|null
      * @example
      * $updateRecordsGeneric10Result = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10(strTable, 
@@ -94,9 +94,9 @@ class FunctionsDBUpdate
         // ----------------------
         /*
             $updateRecordsGeneric10Result = \SyncSystemNS\FunctionsDBUpdate::deleteRecordsGeneric10(strTable, 
-                strField, 
+                'strField', 
                 recordValue, 
-                ["id;"+ idRecord + ";i"]);
+                ["id;" . idRecord . ";i"]);
             */
         // ----------------------
     }

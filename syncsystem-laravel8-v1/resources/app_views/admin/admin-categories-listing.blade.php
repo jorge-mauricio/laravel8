@@ -99,6 +99,10 @@
         @else
             {{-- TODO: create css class for this part. --}}
             <div style="position: relative; display: block; overflow: hidden; margin-bottom: 2px;">
+                {{-- onclick="elementMessage01('formCategoriesListing_method', 'DELETE');
+                            formSubmit('formCategoriesListing', '', '', '/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/?_method=DELETE');
+                            "--}}
+
                 <button 
                     id="categories_delete" 
                     name="categories_delete" 
@@ -127,6 +131,7 @@
             @endphp
             
             <form id="formCategoriesListing" name="formCategoriesListing" method="POST" action="" enctype="application/x-www-form-urlencoded">
+                @csrf
                 <input type="hidden" id="formCategoriesListing_method" name="_method" value="">
 
                 <input type="hidden" id="formCategoriesListing_strTable" name="strTable" value="{{ $GLOBALS['configSystemDBTableCategories'] }}" />
@@ -1322,8 +1327,8 @@
                                         </a>
                                     </td>
                                     <td style="text-align: center;">
-                                        <!--input type="checkbox" name="idsRecordsDelete[]" value="${categoriesRow.id}" class="ss-backend-field-checkbox" /--> 
-                                        <input type="checkbox" name="idsRecordsDelete" value="{{ $categoriesRow['id'] }}" class="ss-backend-field-checkbox" /> 
+                                        <input type="checkbox" name="idsRecordsDelete[]" value="{{ $categoriesRow['id'] }}" class="ss-backend-field-checkbox" /> 
+                                        <!--input type="checkbox" name="idsRecordsDelete" value="{{ $categoriesRow['id'] }}" class="ss-backend-field-checkbox" /--> 
                                         <!--input type="checkbox" name="arrIdsRecordsDelete" value="${categoriesRow.id}" class="ss-backend-field-checkbox" /--> 
                                     </td>
                                 </tr>

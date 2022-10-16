@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers.
 use App\Http\Controllers\ApiRecordsPatchController;
+use App\Http\Controllers\ApiRecordsDeleteController;
 
 use App\Http\Controllers\ApiCategoriesListingController;
 use App\Http\Controllers\ApiCategoriesInsertController;
@@ -26,12 +27,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // TODO: route group with middleware
 
+// Backend - Records - Delete.
+// TODO: middleware function to check user_root or user_backend
+// **************************************************************************************
+Route::delete('/records/',[ApiRecordsDeleteController::class, 'deleteRecords'], function($deleteRecordsResults) {
+//Route::delete('/' . $GLOBALS['configRouteBackendRecords'] . '/',[ApiRecordsDeleteController::class, 'deleteRecords'], function($deleteRecordsResults) {
+    //return 'api records (delete)';
+    return response()->json($deleteRecordsResults);
+})->name('api.records.delete');
+// **************************************************************************************
+
 // API - Records - Patch (small changes).
 // **************************************************************************************
 // Route::patch('/records/', function() {
 // Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/', function() {
-Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
-// Route::patch('/records/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
+Route::patch('/records/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
+//Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
     // Debug.
     //return 'api records (patch)';
 
