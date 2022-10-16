@@ -7,23 +7,12 @@ use Illuminate\Http\Request;
 // Custom models.
 use App\Models\RecordsUpdate;
 
-class ApiRecordsPatchController extends Controller
+class ApiRecordsController extends Controller
 {
     // Properties.
     // ----------------------
     private array|null $arrReturn = ['returnStatus' => false];
-    //private mixed $ruAPI;
-
-    private string $strTable = '';
-    private float|null $idRecord = null;
-    private string $strField = '';
-    private string|null $recordValue = null;
-    private string $patchType = ''; // setValue | toggleValue | fileDelete
-    private bool $ajaxFunction = false; // true - using ajax | false - not using ajax (using redirection)
     private string $apiKey = ''; // TODO: double check if this is necessary
-
-    private array|null $arrRecordsPatchParameters = [];
-    private mixed $resultsSQLRecordsUpdate;
     // ----------------------
 
     // Constructor.
@@ -34,11 +23,69 @@ class ApiRecordsPatchController extends Controller
     }
     // **************************************************************************************
 
+    // Handle record delete return data.
+    // **************************************************************************************
+    public function deleteRecords(Request $req): array
+    {
+        // Variables.
+        $strTable = '';
+        $idsRecordsDelete = null;
+        $deleteRecordsFilesResult = null;
+
+        // Define values.
+        $strTable = $req->post('strTable');
+        $idsRecordsDelete = $req->post('idsRecordsDelete');
+        $apiKey = $req->post('apiKey'); // TODO: evaluate if this is necessary
+
+        // Debug.
+        //$this->arrReturn['strTable'] = $this->strTable;
+        //$this->arrReturn['idsRecordsDelete'] = $this->idsRecordsDelete;
+
+        // Logic.
+        try {
+            if (count($idsRecordsDelete) > 0) {
+                $deleteRecordsFilesResult = \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10($strTable, ['id;' . implode(',', $idsRecordsDelete) . ';ids']);
+
+                // TODO: delete files
+            }
+
+            //$this->arrReturn['deleteRecordsFilesResult'] = $this->deleteRecordsFilesResult; // debug.
+        } catch (Error $deleteRecordsError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('deleteRecordsError: ' . $deleteRecordsError->message());
+            }
+        } finally {
+            if ($deleteRecordsFilesResult['returnStatus'] === true) {
+                $this->arrReturn['returnStatus'] = true;
+                $this->arrReturn['nRecords'] = $deleteRecordsFilesResult['nRecords'];
+            }
+        }
+
+        //$this->arrReturn['debug'] = \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10('categories', ['id;238;i']); // debug
+        //$this->arrReturn['debug'] = \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10($this->strTable, ['id;238;i']); // debug
+
+
+        //return $this->arrRecordsPatchParameters; // debug
+        //return $req; // debug
+        return $this->arrReturn;
+    }
+    // **************************************************************************************
+
     // Handle record edit and return data.
     // TODO: move to AdminRecordsController.
     // **************************************************************************************
     public function patchRecords(Request $req): array
     {
+        // Variables.
+        $strTable = '';
+        $idRecord = null;
+        $strField = '';
+        $patchType = '';
+        $ajaxFunction = '';
+        $recordValue = null;
+        // $arrRecordsPatchParameters = [];
+        $resultsSQLRecordsUpdate = null;
+
         // Build parameters.
         /*
         $this->arrRecordsPatchParameters['_strTable'] = $req->post('strTable');
@@ -53,12 +100,12 @@ class ApiRecordsPatchController extends Controller
         */
 
         // Define values.
-        $this->strTable = $req->post('strTable');
-        $this->idRecord = (float)$req->post('idRecord');
-        $this->strField = $req->post('strField');
-        $this->recordValue = $req->post('recordValue');
-        $this->patchType = $req->post('patchType');
-        $this->ajaxFunction = (bool)$req->post('ajaxFunction');
+        $strTable = $req->post('strTable');
+        $idRecord = (float)$req->post('idRecord');
+        $strField = $req->post('strField');
+        $recordValue = $req->post('recordValue');
+        $patchType = $req->post('patchType');
+        $ajaxFunction = (bool)$req->post('ajaxFunction');
         $this->apiKey = $req->post('apiKey'); // TODO: evaluate if this is necessary
 
         // Debug.
@@ -67,20 +114,19 @@ class ApiRecordsPatchController extends Controller
         //var_dump($req);
         //echo '</pre><br />';
 
-
         // Logic.
         try {
-
             // toggleValue
             //if ($this->arrRecordsPatchParameters['_patchType'] === 'toggleValue') {
-            if ($this->patchType === 'toggleValue') {
-                    // Variables.
+            //if ($this->patchType === 'toggleValue') {
+            if ($patchType === 'toggleValue') {
+                // Variables.
                 $valueCurrent = '';
                 $valueUpdate = '';
 
                 // Get current value.
                 //$valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($this->arrRecordsPatchParameters['_idRecord'], $GLOBALS['configSystemDBTableCategories'], $this->arrRecordsPatchParameters['_strField']);
-                $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($this->idRecord, $GLOBALS['configSystemDBTableCategories'], $this->strField);
+                $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($idRecord, $GLOBALS['configSystemDBTableCategories'], $strField);
 
                 // Define update value.
                 if ($valueCurrent === '1') {
@@ -93,10 +139,10 @@ class ApiRecordsPatchController extends Controller
                 //$this->arrRecordsPatchParameters['_recordValue'] = $valueUpdate;
 
                 // update record.
-                $this->resultsSQLRecordsUpdate = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10($this->strTable, $this->strField, $valueUpdate, ['id;' . $this->idRecord . ';i']);
-                if ($this->resultsSQLRecordsUpdate['returnStatus'] === true) {
-                    $this->arrReturn['returnStatus'] = $this->resultsSQLRecordsUpdate['returnStatus'];
-                    $this->arrReturn['nRecords'] = $this->resultsSQLRecordsUpdate['nRecords'];
+                $resultsSQLRecordsUpdate = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10($strTable, $strField, $valueUpdate, ['id;' . $idRecord . ';i']);
+                if ($resultsSQLRecordsUpdate['returnStatus'] === true) {
+                    $this->arrReturn['returnStatus'] = $resultsSQLRecordsUpdate['returnStatus'];
+                    $this->arrReturn['nRecords'] = $resultsSQLRecordsUpdate['nRecords'];
                     $this->arrReturn['recordUpdatedValue'] = $valueUpdate;
                     
                 } else {
@@ -105,7 +151,6 @@ class ApiRecordsPatchController extends Controller
                 //$this->ruAPI = new RecordsUpdate($this->arrRecordsPatchParameters);
                 //$this->arrReturn = $this->ruAPI->updateRecord();
             }
-
         } catch (Error $patchRecordsError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('patchRecordsError: ' . $patchRecordsError->message());

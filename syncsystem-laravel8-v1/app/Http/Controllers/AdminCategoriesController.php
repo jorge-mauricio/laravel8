@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 // Custom models.
 //use App\Models\CategoriesListing; // DEV: check if this will be used.
@@ -27,7 +29,7 @@ class AdminCategoriesController extends AdminBaseController
     private array|null $arrCategoriesDetails = null;
     private array|null $arrCategoriesListing = null;
 
-    private array|null $arrCategoriesInsertJson = null;
+    //private array|null $arrCategoriesInsertJson = null;
 
     private string|null $messageSuccess = '';
     private string|null $messageError = '';
@@ -46,7 +48,7 @@ class AdminCategoriesController extends AdminBaseController
     // Admin Categories Listing Controller.
     // **************************************************************************************
     // public function adminCategoriesListing(float|string $idParent = null): string //TODO: change to the right type
-    public function adminCategoriesListing(float|string $_idParentCategories = null): mixed //TODO: change to the right type
+    public function adminCategoriesListing(float|string $_idParentCategories = null): View
     {
         // Variables.
         // ----------------------
@@ -164,13 +166,14 @@ class AdminCategoriesController extends AdminBaseController
 
     // Handle categories insert.
     // **************************************************************************************
-    public function adminCategoriesInsert(Request $req): mixed //TODO: change to the right type (maybe void)
+    public function adminCategoriesInsert(Request $req): RedirectResponse
     {
         //TODO: create option for load method (api / monolithic)
 
         // Variables.
         // ----------------------
         $apiCategoriesInsertResponse = null;
+        $arrCategoriesInsertJson = null;
         
         //$tblCategoriesID = null;
         //$tblCategoriesIdParent = null;
@@ -218,7 +221,7 @@ class AdminCategoriesController extends AdminBaseController
                 */
                 
             );
-            $this->arrCategoriesInsertJson = $apiCategoriesInsertResponse->json();
+            $arrCategoriesInsertJson = $apiCategoriesInsertResponse->json();
 
             // Files upload.
 
@@ -269,116 +272,13 @@ class AdminCategoriesController extends AdminBaseController
         }
 
         // Redirect.
-        if ($this->arrCategoriesInsertJson['returnStatus'] === true) {
+        if ($arrCategoriesInsertJson['returnStatus'] === true) {
             // $this->returnURL .= '&messageSuccess=statusMessage2';
-            return redirect($this->returnURL)->with('messageSuccess', $this->arrCategoriesInsertJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage2'));
+            return redirect($this->returnURL)->with('messageSuccess', $arrCategoriesInsertJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage2'));
         } else {
             // $this->returnURL .= '&messageError=statusMessage3';
             return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage3'));
         }
     }
-
-    public function adminCategoriesDelete(Request $req): mixed //TODO: change to the right type
-    {
-        //TODO: move this to it´s own controller: ex: adminRecordsController
-
-        // Variables.
-        // ----------------------
-        $apiCategoriesDeleteResponse = null;
-        // ----------------------
-
-        // Define values.
-        // ----------------------
-        // $tblCategoriesID = null;
-        //$tblCategoriesIdParent = $req->post('id_parent');
-        //$tblCategoriesSortOrder = $req->post('sort_order');
-        //$tblCategoriesCategoryType = $req->post('category_type');
-
-
-        $this->idParentCategories = $req->post('idParent');
-        $this->pageNumber = $req->post('pageNumber');
-        $this->masterPageSelect = $req->post('masterPageSelect');
-        // ----------------------
-
-        // Return URL build.
-        // ----------------------
-        // TODO: create own method for page return URL build.
-        $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
-        $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
-        if ($this->pageNumber) {
-            $this->returnURL .= '&pageNumber=' . $this->pageNumber;
-        }
-        // ----------------------
-
-        // Logic.
-        try {
-            // API call.
-            /**/
-            //array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
-            //$arrData = array_merge($arrData, $req->all());
-            $apiCategoriesDeleteResponse = Http::withOptions(['verify' => false])->delete(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIRecords'] . '/', 
-                array_merge(
-                    ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
-                    $req->all()
-                ) // ...$req->all() (splat only works on php 8.1 and up)
-                /*'tblCategoriesID' => $tblCategoriesID,
-                'tblCategoriesIdParent' => $tblCategoriesIdParent,
-                'tblCategoriesSortOrder' => $tblCategoriesSortOrder,
-                'tblCategoriesCategoryType' => $tblCategoriesCategoryType,
-                */
-                
-            );
-            $this->arrCategoriesDeleteJson = $apiCategoriesDeleteResponse->json();
-
-            // Files upload.
-
-
-
-            // Debug.
-            //echo 'req=<pre>';
-            //var_dump($req);
-            //echo '</pre><br />';
-
-            //echo 'req->input=<pre>';
-            //var_dump($req->post('id_parent'));
-            //echo '</pre><br />';
-            //echo 'method=' . $method . '<br />';
-
-            //echo 'req->post=<pre>';
-            //var_dump($req->post('date1'));
-            //echo '</pre><br />';
-
-            //echo 'req->post(dateSQLWrite)=<pre>';
-            //var_dump(\SyncSystemNS\FunctionsGeneric::dateSQLWrite($req->post('date1'), $GLOBALS['configBackendDateFormat']));
-            //echo '</pre><br />';
-
-            echo 'this->arrCategoriesDeleteJson=<pre>';
-            var_dump($this->arrCategoriesDeleteJson);
-            echo '</pre><br />'; // working (debug)
-
-            echo 'req->all()=<pre>';
-            var_dump($req->all());
-            echo '</pre><br />';
-
-            //echo 'tblCategoriesID=' . $tblCategoriesID . '<br />';
-            //echo 'tblCategoriesIdParent=' . $tblCategoriesIdParent . '<br />';
-            //echo 'tblCategoriesSortOrder=' . $tblCategoriesSortOrder . '<br />';
-            //echo 'tblCategoriesCategoryType=' . $tblCategoriesCategoryType . '<br />';
-
-            //echo 'idParentCategories=' . $this->idParentCategories . '<br />';
-            //echo 'pageNumber=' . $this->pageNumber . '<br />';
-            //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
-            //exit();
-
-        } catch (Error $adminCategoriesDeleteError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('adminCategoriesDeleteError: ' . $adminCategoriesDeleteError->message());
-            }
-        } finally {
-
-        }
-
-        return $this->arrCategoriesDeleteJson;
-        
-    }
+    // **************************************************************************************
 }

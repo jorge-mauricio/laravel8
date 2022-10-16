@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\RedirectResponse;
 
 class AdminRecordsController extends AdminBaseController
 {
     // Properties.
     // ----------------------
+    /*
     private float|null $idParent = null;
     private float|null $fileType = null;
     private float|null $idQuizzes = null;
@@ -23,6 +25,7 @@ class AdminRecordsController extends AdminBaseController
     private string $pageReturn = '';
     private float|null $pageNumber = null;
     private string|null $masterPageSelect = 'layout-backend-main';
+    */
 
     private string $messageSuccess = '';
     private string $messageError = '';
@@ -40,7 +43,9 @@ class AdminRecordsController extends AdminBaseController
     }
     // **************************************************************************************
 
-    public function adminRecordsDelete(Request $req): mixed //TODO: change to the right type
+    // Handle records delete.
+    // **************************************************************************************
+    public function adminRecordsDelete(Request $req): RedirectResponse
     {
         //TODO: move this to it´s own controller: ex: adminRecordsController
 
@@ -57,11 +62,11 @@ class AdminRecordsController extends AdminBaseController
         //$tblRecordsSortOrder = $req->post('sort_order');
         //$tblRecordsCategoryType = $req->post('category_type');
 
-        $this->idParent = $req->post('idParent');
+        //$this->idParent = $req->post('idParent');
 
-        $this->pageReturn = $req->post('pageReturn');
-        $this->pageNumber = $req->post('pageNumber');
-        $this->masterPageSelect = $req->post('masterPageSelect');
+        //$this->pageReturn = $req->post('pageReturn');
+        //$this->pageNumber = $req->post('pageNumber');
+        //$this->masterPageSelect = $req->post('masterPageSelect');
 
         $this->apiKey = $req->post('apiKey');
         // ----------------------
@@ -77,6 +82,7 @@ class AdminRecordsController extends AdminBaseController
         }
         */
 
+        /*
         $this->returnURL = '/' . $this->pageReturn;
         if ($this->idParent) {
             $this->returnURL .= '/' . $this->idParent;
@@ -104,6 +110,13 @@ class AdminRecordsController extends AdminBaseController
         if ($this->filterIndex) {
             $this->returnURL .= '&filterIndex=' . $this->filterIndex;
         }
+        */
+
+        $this->returnURL = $this->returnURLBuild($req);
+
+        // Debug.
+        //var_dump($this->returnURLBuild($req));
+        //exit();
         // ----------------------
 
         // Logic.
@@ -149,7 +162,7 @@ class AdminRecordsController extends AdminBaseController
             var_dump($arrRecordsDeleteJson);
             echo '</pre><br />'; // working (debug)
             */
-            
+
             //echo 'req->all()=<pre>';
             //var_dump($req->all());
             //echo '</pre><br />';
@@ -179,4 +192,5 @@ class AdminRecordsController extends AdminBaseController
             return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage10e'));
         }
     }
+    // **************************************************************************************
 }

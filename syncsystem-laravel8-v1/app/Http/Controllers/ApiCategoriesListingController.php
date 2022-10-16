@@ -68,8 +68,8 @@ class ApiCategoriesListingController extends Controller
     }
     // **************************************************************************************
 
-
-
+    // Handle categories listing.
+    // **************************************************************************************
     //public function getCategoriesListing(float|string $idParent = null): string|array //TODO: change to the right type
     //public function getCategoriesListing(): array //TODO: change to the right type
     public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): array
@@ -196,17 +196,16 @@ class ApiCategoriesListingController extends Controller
             //echo '</pre><br />'; // ref: https://stackoverflow.com/questions/40647661/laravel-route-get-controllers-construct-without-method
             
             
-            return $backendCategoriesListing; // debug
-            // return response()->json();
-            // return Response::json($backendCategoriesListing); // worked - needs to change method´s return type to mixed
         } catch (Error $getCategoriesListingError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('getCategoriesListingError: ' . $getCategoriesListingError->message());
             }
         } finally {
-
+            //
         }
-        
-    }
 
+        return $backendCategoriesListing; // debug
+        // return response()->json();
+        // return Response::json($backendCategoriesListing); // worked - needs to change method´s return type to mixed
+    }
 }
