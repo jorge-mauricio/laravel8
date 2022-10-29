@@ -183,6 +183,13 @@ class AdminCategoriesController extends AdminBaseController
 
         // Variables.
         // ----------------------
+        $tblCategoriesImageMain = '';
+        $tblCategoriesImageFile1 = '';
+        $tblCategoriesImageFile2 = '';
+        $tblCategoriesImageFile3 = '';
+        $tblCategoriesImageFile4 = '';
+        $tblCategoriesImageFile5 = '';
+
         $apiCategoriesInsertResponse = null;
         $arrCategoriesInsertJson = null;
         
@@ -221,23 +228,146 @@ class AdminCategoriesController extends AdminBaseController
             /**/
             //array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
             //$arrData = array_merge($arrData, $req->all());
-            $apiCategoriesInsertResponse = Http::withOptions(['verify' => false])->post(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/', 
-                array_merge(
-                    ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
-                    $req->all()
-                ) // ...$req->all() (splat only works on php 8.1 and up)
-                /*'tblCategoriesID' => $tblCategoriesID,
-                'tblCategoriesIdParent' => $tblCategoriesIdParent,
-                'tblCategoriesSortOrder' => $tblCategoriesSortOrder,
-                'tblCategoriesCategoryType' => $tblCategoriesCategoryType,
-                */
-                
+            /*
+            withHeaders([ 
+                    'Content-Type' => 'multipart/form-data'
+                ])
+                ->
+            */
+            $apiCategoriesInsertResponse = Http::withOptions(['verify' => false])
+                //->attach('image_main', $req->file('image_main'))
+                //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
+                //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
+                ->post(
+                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/', 
+                    array_merge(
+                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
+                        $req->all()
+                    ) // ...$req->all() (splat only works on php 8.1 and up)
+                    /*'tblCategoriesID' => $tblCategoriesID,
+                    'tblCategoriesIdParent' => $tblCategoriesIdParent,
+                    'tblCategoriesSortOrder' => $tblCategoriesSortOrder,
+                    'tblCategoriesCategoryType' => $tblCategoriesCategoryType,
+                    */
             );
+            // Note: images can be sent through Http, but needs another architecture.
+            // ref: https://stackoverflow.com/questions/63897164/laravel-http-client-how-to-send-file
+            // ref: https://laracasts.com/discuss/channels/laravel/sending-uploaded-file-to-external-api-using-the-http-client
             $arrCategoriesInsertJson = $apiCategoriesInsertResponse->json();
 
-            // Files upload.
+            // Files upload (in frontend server).
+            $resultsFunctionsFiles = null;
+            $formfileFieldsReference = null;
+            $tblCategoriesID = $arrCategoriesInsertJson['idRecordInsert'];
 
+            // Build file fields references.
+            foreach (request()->allFiles() as $arrKey => $fileObject) {
+                $formfileFieldsReference[$arrKey] = [
+                    'originalFileName' => $fileObject->getClientOriginalName(),
+                    'fileSize' => $fileObject->getSize(),
+                    'temporaryFilePath' => $fileObject->getPathname(),
+                    'fileExtension' => $fileObject->extension(),
+                    'fileNamePrefix' => '',
+                    'fileNameSufix' => '',
+                    'fileDirectoryUpload' => '',
+                ];
 
+                // Set prefix.
+                switch($arrKey) {
+                    case 'file1':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f1-';
+                        break;
+                    case 'file2':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f2-';
+                        break;
+                    case 'file3':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f3-';
+                        break;
+                    case 'file4':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f4-';
+                        break;
+                    case 'file5':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f5-';
+                        break;
+                    default:
+                        break;
+                }
+
+                // Debug.
+                //echo 'arrKey=' . $arrKey . '<br />';
+                //echo 'fileObject=' . $fileObject->getClientOriginalName() . '<br />';
+                //array_push($formfileFieldsReference);
+            }
+
+            // image_main field.
+            //$imageMain = $req->file('image_main');
+            //dump($imageMain);
+            //$formfileFieldsReference['image_main'] = $req->file('image_main');
+            //$formfileFieldsReference['image_main']['originalFileName'] = $req->file('image_main')['originalName']; // not working.
+            //$formfileFieldsReference['image_main']['originalFileName'] = $req->file('image_main')->originalName; // not working.
+            //$formfileFieldsReference['image_main']['originalFileName'] = $imageMain->originalName; // not working
+            //$formfileFieldsReference['image_main']['originalFileName'] = $imageMain['originalName']; // not working
+            
+            /*
+            $formfileFieldsReference['postedFile'] = ['image_main'];
+            $formfileFieldsReference['image_main']['originalFileName'] = $req->file('image_main')->getClientOriginalName();
+            $formfileFieldsReference['image_main']['temporaryFilePath'] = $req->file('image_main')->getPathname();
+
+            if ($GLOBALS['enableCategoriesImageMain'] === 1) {
+
+            }
+            */
+
+            // Debug.
+            /**/
+            //echo 'allFiles=<pre>';
+            //var_dump(request()->allFiles());
+            //echo '</pre><br />';
+
+            echo 'formfileFieldsReference=<pre>';
+            var_dump($formfileFieldsReference);
+            echo '</pre><br />';
+            //exit();
+            
+            
+
+            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple($tblCategoriesID, 
+                                                                                        $req, 
+                                                                                        $GLOBALS['configDirectoryFilesUpload'], 
+                                                                                        '', 
+                                                                                        $formfileFieldsReference);
+
+            if ($resultsFunctionsFiles['returnStatus'] === true) {
+                $tblCategoriesImageMain = isset($resultsFunctionsFiles['image_main']) === true ? $resultsFunctionsFiles['image_main'] : $tblCategoriesImageMain;
+                $tblCategoriesImageFile1 = isset($resultsFunctionsFiles['file1']) === true ? $resultsFunctionsFiles['file1'] : $tblCategoriesImageFile1;
+                $tblCategoriesImageFile2 = isset($resultsFunctionsFiles['file2']) === true ? $resultsFunctionsFiles['file2'] : $tblCategoriesImageFile2;
+                $tblCategoriesImageFile3 = isset($resultsFunctionsFiles['file3']) === true ? $resultsFunctionsFiles['file3'] : $tblCategoriesImageFile3;
+                $tblCategoriesImageFile4 = isset($resultsFunctionsFiles['file4']) === true ? $resultsFunctionsFiles['file4'] : $tblCategoriesImageFile4;
+                $tblCategoriesImageFile5 = isset($resultsFunctionsFiles['file5']) === true ? $resultsFunctionsFiles['file5'] : $tblCategoriesImageFile5;
+
+                // API call (edit / patch).
+
+                // Resize images.
+                if ($tblCategoriesImageMain !== '') {
+                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageMain);
+                }
+                if ($tblCategoriesImageFile1 !== '') {
+                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile1);
+                }
+                if ($tblCategoriesImageFile2 !== '') {
+                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile2);
+                }
+                if ($tblCategoriesImageFile3 !== '') {
+                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile3);
+                }
+                if ($tblCategoriesImageFile4 !== '') {
+                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile4);
+                }
+                if ($tblCategoriesImageFile5 !== '') {
+                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile5);
+                }
+                
+            }
 
             // Debug.
             //echo 'req=<pre>';
@@ -257,10 +387,6 @@ class AdminCategoriesController extends AdminBaseController
             //var_dump(\SyncSystemNS\FunctionsGeneric::dateSQLWrite($req->post('date1'), $GLOBALS['configBackendDateFormat']));
             //echo '</pre><br />';
 
-            //echo 'this->arrCategoriesInsertJson=<pre>';
-            //var_dump($this->arrCategoriesInsertJson);
-            //echo '</pre><br />'; // working (debug)
-
             //echo 'req->all()=<pre>';
             //var_dump($req->all());
             //echo '</pre><br />';
@@ -273,7 +399,56 @@ class AdminCategoriesController extends AdminBaseController
             //echo 'idParentCategories=' . $this->idParentCategories . '<br />';
             //echo 'pageNumber=' . $this->pageNumber . '<br />';
             //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
-            //exit();
+
+            //echo 'image_main=<pre>';
+            //var_dump($req->file('image_main'));
+            // '</pre><br />';
+
+            //echo 'originalFileName=<pre>';
+            //var_dump($formfileFieldsReference['image_main']['originalFileName']);
+            //echo '</pre><br />';
+
+            //echo 'temporaryFilePath=<pre>';
+            //var_dump($formfileFieldsReference['image_main']['temporaryFilePath']);
+            //echo '</pre><br />';
+
+            //echo 'configDirectoryFilesUpload=<pre>';
+            //var_dump($GLOBALS['configDirectoryFilesUpload']);
+            //echo '</pre><br />';
+
+            //echo 'configDirectoryFilesUpload=<pre>';
+            //var_dump($GLOBALS['configDirectoryFilesUpload']);
+            //echo '</pre><br />';
+
+            //echo 'resultsFunctionsFiles=<pre>';
+            //var_dump($resultsFunctionsFiles);
+            //echo '</pre><br />';
+
+            echo 'tblCategoriesImageMain=<pre>';
+            var_dump($tblCategoriesImageMain);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile1=<pre>';
+            var_dump($tblCategoriesImageFile1);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile2=<pre>';
+            var_dump($tblCategoriesImageFile2);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile3=<pre>';
+            var_dump($tblCategoriesImageFile3);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile4=<pre>';
+            var_dump($tblCategoriesImageFile4);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile5=<pre>';
+            var_dump($tblCategoriesImageFile5);
+            echo '</pre><br />';
+            
+            exit();
 
         } catch (Error $adminCategoriesInsertError) {
             if ($GLOBALS['configDebug'] === true) {

@@ -261,6 +261,32 @@ $configCryptChaveDefusePHPEncryptionRandomKey = "def000006516cef316c508a843b1362
 $configCryptSalt = 'syncsystem'; // generate a salt data // TODO: think of a way to change salt and key and generate a new master user password
 // ----------------------
 
+// Image configuration.
+// ----------------------
+$configUploadType = 1; // 1 - Save Files Locally | 2 - Amazon S3
+$configUploadComponent = 1; // 1 - formidable | 2 - multer (TODO) | 3 - multyparty (TODO)
+$configImageComponent = 1; // 1 - sharp
+$configImageQuality = 100; // image quality percentage on resizing
+$configImageFormats = '.bmp, .gif, .jpg, .jpeg, .png'; // formats allowed for image resizing
+
+// Image size configuration.
+$enableDefaultImageSize = 1; // 0 - disable (image sizes different for each table) | 1 - enable (default image sizes)
+
+// prefix;w;h
+$configArrDefaultImageSize = ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrCategoriesImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrFilesImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrContentImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrProductsImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrPublicationsImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrRegistersImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrQuizzesImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrQuizzesOptionsImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrFormsFieldsOptionsImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrFiltersGenericImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+$configArrUsersImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImageSize : ['g;667;500', 'NULL;370;277', 'r;205;154', 't;120;90'];
+// ----------------------
+
 //e-mail configuration.
 //----------------------
 $configEmailComponent = 1; //1 - 

@@ -136,6 +136,17 @@ class ApiCategoriesInsertController extends Controller
             */
             $this->arrReturn = $this->ciAPI->addRecord();
 
+
+            // Image upload (backend server).
+            //$imageMain = $req->file('image_main');
+            //$this->arrReturn['imageMain'] = $imageMain;
+            //$this->arrReturn['req_image_main'] = $req->image_main;
+            //$this->arrReturn['image_main'] = $req->post('image_main'); // working (TODO: test how it´s going to behave once it´s in an online server)
+            //$this->arrReturn['req_all'] = $req->post();
+            //$this->arrReturn['req_postid_parent'] = $req->post('id_parent');
+            
+
+
             // Debug.
             //echo 'req->all() (inside api categories insert controller=<pre>';
             //var_dump($req->all());
@@ -178,11 +189,7 @@ class ApiCategoriesInsertController extends Controller
             '320',
             ["id;" . 2 . ";i"]));
             echo '</pre><br />'; //working
-
-            exit();
             */
-
-            
 
             // $this->arrReturn['debug'] = $req->all(); // working
             // $this->arrReturn['debug'] = $this->arrCategoriesInsertParameters; //working
@@ -193,6 +200,10 @@ class ApiCategoriesInsertController extends Controller
 
             //\SyncSystemNS\FunctionsDB::counterUniversalUpdate();
             //$this->arrReturn['categoriesInsertBuildParameters'] = $this->ciAPI->categoriesInsertBuildParameters($this->arrCategoriesInsertParameters);
+
+            //echo 'this->arrReturn=<pre>';
+            //var_dump($this->arrReturn);
+            //echo '</pre><br />';
 
             //exit();
         } catch (Error $insertCategoriesError) {
