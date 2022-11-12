@@ -36,6 +36,8 @@ class AdminBaseController extends Controller
         } 
 
         $pageNumber = '';
+        $queryDefault = ''; // TODO: evaluate if it will remain in base controller or move to blade template.
+        $cacheClear = '';
 
         $messageSuccess = '';
         isset($_GET['messageSuccess']) ? $messageSuccess = $_GET['messageSuccess'] : $messageSuccess = '';
@@ -51,10 +53,22 @@ class AdminBaseController extends Controller
         $dateNowHour = $dateNow->format('H');
         $dateNowMinute = $dateNow->format('i');
         $dateNowSecond = $dateNow->format('s');
+
+        // Build default return query.
+        $queryDefault .= 'masterPageSelect=' . $masterPageSelect;
+        if ($pageNumber !== '') {
+            $queryDefault .= '&pageNumber=' . $pageNumber;
+        }
+
+        // Define values.
+        $cacheClear = $dateNow->format('YmdHis'); // TODO: create a config option to enable.
             
         // Shere between views.
+        // TODO: check if can be changed to array.
         View::share('masterPageSelect', $masterPageSelect);
         View::share('pageNumber', $pageNumber);
+        View::share('cacheClear', $cacheClear);
+        View::share('queryDefault', $queryDefault);
 
         View::share('messageSuccess', $messageSuccess);
         View::share('messageError', $messageError);

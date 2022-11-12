@@ -12,7 +12,7 @@ class FunctionsImage
      * @static
      * @async
      * @param array arrImageSize ["g;667;500","NULL;370;277","r;205;154","t;120;90"]
-     * @param string directoryFiles  c:\directory\subdirectory | gSystemConfig.configDirectoryFilesUpload
+     * @param string directoryFiles  c:\directory\subdirectory | $GLOBALS['configDirectoryFilesUpload']
      * @param string fileName
      * @return boolean true (success) | false (error)
      * @example \SyncSystemNS\FunctionsImage::imageResize01($arrImageSize, 
@@ -64,5 +64,4 @@ class FunctionsImage
               
     }
     // **************************************************************************************
-
 }

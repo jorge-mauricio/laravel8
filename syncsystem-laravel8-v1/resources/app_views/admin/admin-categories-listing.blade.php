@@ -5,7 +5,7 @@
     $arrCategoriesDetails = $templateData['cphBody']['arrCategoriesDetails'];
     $arrCategoriesListing = $templateData['cphBody']['arrCategoriesListing'];
 
-    $cacheClear = '123';
+    $cacheClear = $dateNow->format('YmdHis');
 
     // Meta title.
     $metaTitle = '';
@@ -1322,7 +1322,7 @@
                                     @endif
 
                                     <td style="text-align: center;">
-                                        <a href="/${gSystemConfig.configRouteBackend + '/' + gSystemConfig.configRouteBackendCategories + '/' + gSystemConfig.configRouteBackendActionEdit + '/' + categoriesRow.id + '/?' + this.queryDefault}" class="ss-backend-links01">
+                                        <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $GLOBALS['configRouteBackendActionEdit'] . '/' . $categoriesRow['id'] . '/?' . $queryDefault }}" class="ss-backend-links01">
                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemEdit') }} 
                                         </a>
                                     </td>
