@@ -81,6 +81,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path(env('CONFIG_DIRECTORY_FILES_SD')) => storage_path('app/' . env('CONFIG_DIRECTORY_FILES')),
         // public_path('files-layout') => resource_path('app_files_layout'),
         // public_path($GLOBALS['configDirectoryFilesLayoutSD']) => resource_path('app_files_layout'),
         // public_path(config('app.configDirectoryFilesLayoutSD')) => resource_path('app_files_layout'), // working

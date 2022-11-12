@@ -72,7 +72,7 @@ $configCopyrightYear = "2015";
 $configSystemURL = "http://multiplatformv1.syncsystem.com.br"; // http://multiplatformv1.syncsystem.com.br
 $configSystemURLSSL = "http://multiplatformv1.syncsystem.com.br"; // http://multiplatformv1.syncsystem.com.br
 
-$configSystemURLImages = ".."; //".." = relative path | http://www.nomedodominio.com.br = absolute path
+$configSystemURLImages = "/"; //".." = relative path | http://www.nomedodominio.com.br = absolute path | "/" = laravel - public / local
 
 $configFrontendDefaultView = "frontend_php";
 $configFrontendMobileDefaultView = "frontend_php_mobile";
@@ -265,7 +265,7 @@ $configCryptSalt = 'syncsystem'; // generate a salt data // TODO: think of a way
 // ----------------------
 $configUploadType = 1; // 1 - Save Files Locally | 2 - Amazon S3
 $configUploadComponent = 1; // 1 - formidable | 2 - multer (TODO) | 3 - multyparty (TODO)
-$configImageComponent = 1; // 1 - sharp
+$configImageComponent = 12; // 1 - sharp | 11 - imageMagician | 12 - intervention/image
 $configImageQuality = 100; // image quality percentage on resizing
 $configImageFormats = '.bmp, .gif, .jpg, .jpeg, .png'; // formats allowed for image resizing
 
@@ -454,7 +454,7 @@ $configCategoriesInputOrder = [
   'inputRowCategories_id_restricted_access', 
   'inputRowCategories_id_status', 
   'inputRowCategories_notes'
-];
+]; // Note: check if all ids are enabled, or it will display warning in the console.
 
 //Basic resources.
 $enableCategoriesImageMain = 1; // 0 - disable | 1 - enable

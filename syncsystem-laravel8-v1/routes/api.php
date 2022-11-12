@@ -52,6 +52,19 @@ Route::patch('/records/',[ApiRecordsController::class, 'patchRecords'], function
 })->name('api.records.patch');
 // **************************************************************************************
 
+// API - Records - Edit (multiple fields).
+// **************************************************************************************
+// Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/', function() {
+Route::put('/records/',[ApiRecordsController::class, 'editRecords'], function($editRecordsResults) {
+//Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/',[ApiRecordsPatchController::class, 'patchRecords'], function($patchRecordsResults) {
+//Route::patch('/' . $GLOBALS['configRouteBackendRecords'] . '/',[ApiRecordsController::class, 'patchRecords'], function($patchRecordsResults) {
+    // Debug.
+    //return 'api records (patch)';
+
+    return response()->json($editRecordsResults);
+})->name('api.records.edit');
+// **************************************************************************************
+
 // API - Categories - listing - GET.
 // **************************************************************************************
 // Debug.

@@ -17,6 +17,10 @@ class ApiRecordsController extends Controller
 
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     * @param Request $req
+     */
     public function __construct(Request $req)
     {
         //
@@ -80,9 +84,14 @@ class ApiRecordsController extends Controller
     }
     // **************************************************************************************
 
-    // Handle record edit and return data.
-    // TODO: move to AdminRecordsController.
+    // Handle record edit (single field) and return data.
+    // TODO: move to AdminRecordsController (evaluate).
     // **************************************************************************************
+    /**
+     * Handle record edit (single field) and return data.
+     * @param Request $req
+     * @return array
+     */
     public function patchRecords(Request $req): array
     {
         // Variables.
@@ -174,6 +183,74 @@ class ApiRecordsController extends Controller
 
         //return $this->arrRecordsPatchParameters; // debug
         //return $req; // debug
+        return $this->arrReturn;
+    }
+    // **************************************************************************************
+
+    // Handle record edit (multiple fields) and return data.
+    // TODO: move to AdminRecordsController (evaluate).
+    // **************************************************************************************
+    /**
+     * Handle record edit (multiple fields) and return data.
+     * @param Request $req
+     * @return array
+     */
+    public function editRecords(Request $req): array
+    {
+        // Variables.
+        // ----------------------
+        $strTable = '';
+        $idRecord = null;
+        // $strField = '';
+        // $recordValue = null;
+        $arrData = null;
+        $patchType = '';
+        $ajaxFunction = '';
+        // $arrRecordsPatchParameters = [];
+        $resultsSQLRecordsUpdate = null;
+        // ----------------------
+
+        // Define values.
+        // ----------------------
+        $strTable = $req->post('strTable');
+        $idRecord = (float)$req->post('idRecord');
+        // $strField = $req->post('strField');
+        // $recordValue = $req->post('recordValue');
+        $arrData = $req->post('arrData');
+        $patchType = $req->post('patchType');
+        $ajaxFunction = (bool)$req->post('ajaxFunction');
+        $this->apiKey = $req->post('apiKey'); // TODO: evaluate if this is necessary
+        // ----------------------
+
+        // Debug.
+        //echo '$arrData (inside api records patch controller=<pre>';
+        //var_dump($arrData);
+        //echo '</pre><br />';
+        //exit();
+
+        // Logic.
+        try {
+            // Update parameters.
+            //$this->arrRecordsPatchParameters['_recordValue'] = $valueUpdate;
+
+            // update record.
+            $resultsSQLRecordsUpdate = \SyncSystemNS\FunctionsDBUpdate::updateRecordMultipleGeneric($strTable, $arrData, ['id;' . $idRecord . ';i']);
+            if ($resultsSQLRecordsUpdate['returnStatus'] === true) {
+                $this->arrReturn['returnStatus'] = $resultsSQLRecordsUpdate['returnStatus'];
+                $this->arrReturn['nRecords'] = $resultsSQLRecordsUpdate['nRecords'];
+                //$this->arrReturn['recordUpdatedValue'] = $valueUpdate;
+                
+            } else {
+                $this->arrReturn['errorMessage'] = 'statusMessageAPI2e';
+            }
+        } catch (Error $patchRecordsError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('patchRecordsError: ' . $patchRecordsError->message());
+            }
+        } finally {
+            //
+        }
+
         return $this->arrReturn;
     }
     // **************************************************************************************

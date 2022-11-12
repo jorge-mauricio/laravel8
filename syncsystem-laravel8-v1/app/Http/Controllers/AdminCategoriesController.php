@@ -234,6 +234,7 @@ class AdminCategoriesController extends AdminBaseController
                 ])
                 ->
             */
+            // TODO: evaluate moving file upload before insert records (to eliminate update later).
             $apiCategoriesInsertResponse = Http::withOptions(['verify' => false])
                 //->attach('image_main', $req->file('image_main'))
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
@@ -331,6 +332,7 @@ class AdminCategoriesController extends AdminBaseController
             
             
 
+
             $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple($tblCategoriesID, 
                                                                                         $req, 
                                                                                         $GLOBALS['configDirectoryFilesUpload'], 
@@ -338,6 +340,7 @@ class AdminCategoriesController extends AdminBaseController
                                                                                         $formfileFieldsReference);
 
             if ($resultsFunctionsFiles['returnStatus'] === true) {
+                $tblCategoriesArrDataFilesUpdate = null;
                 $tblCategoriesImageMain = isset($resultsFunctionsFiles['image_main']) === true ? $resultsFunctionsFiles['image_main'] : $tblCategoriesImageMain;
                 $tblCategoriesImageFile1 = isset($resultsFunctionsFiles['file1']) === true ? $resultsFunctionsFiles['file1'] : $tblCategoriesImageFile1;
                 $tblCategoriesImageFile2 = isset($resultsFunctionsFiles['file2']) === true ? $resultsFunctionsFiles['file2'] : $tblCategoriesImageFile2;
@@ -345,28 +348,51 @@ class AdminCategoriesController extends AdminBaseController
                 $tblCategoriesImageFile4 = isset($resultsFunctionsFiles['file4']) === true ? $resultsFunctionsFiles['file4'] : $tblCategoriesImageFile4;
                 $tblCategoriesImageFile5 = isset($resultsFunctionsFiles['file5']) === true ? $resultsFunctionsFiles['file5'] : $tblCategoriesImageFile5;
 
-                // API call (edit / patch).
-
                 // Resize images.
                 if ($tblCategoriesImageMain !== '') {
-                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageMain);
+                    $tblCategoriesArrDataFilesUpdate['image_main'] = $tblCategoriesImageMain;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageMain);
                 }
                 if ($tblCategoriesImageFile1 !== '') {
-                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile1);
+                    $tblCategoriesArrDataFilesUpdate['file1'] = $tblCategoriesImageFile1;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile1);
                 }
                 if ($tblCategoriesImageFile2 !== '') {
-                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile2);
+                    $tblCategoriesArrDataFilesUpdate['file2'] = $tblCategoriesImageFile2;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile2);
                 }
                 if ($tblCategoriesImageFile3 !== '') {
-                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile3);
+                    $tblCategoriesArrDataFilesUpdate['file3'] = $tblCategoriesImageFile3;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile3);
                 }
                 if ($tblCategoriesImageFile4 !== '') {
-                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile4);
+                    $tblCategoriesArrDataFilesUpdate['file4'] = $tblCategoriesImageFile4;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile4);
                 }
                 if ($tblCategoriesImageFile5 !== '') {
-                    //$resultsFunctionsImageResize01 = await SyncSystemNS.FunctionsImage.imageResize01(gSystemConfig.configArrCategoriesImageSize, gSystemConfig.configDirectoryFiles, tblCategoriesImageFile5);
+                    $tblCategoriesArrDataFilesUpdate['file5'] = $tblCategoriesImageFile5;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile5);
                 }
-                
+
+                // TODO: error check for image upload and resize.
+                // API call (edit).
+                $apiCategoriesUpdateResponse = Http::withOptions(['verify' => false])
+                    ->put(
+                        env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIRecords'] . '/', 
+                        [
+                            'strTable' => $GLOBALS['configSystemDBTableCategories'],
+                            'idRecord' => $tblCategoriesID,
+                            'arrData' => $tblCategoriesArrDataFilesUpdate,
+                            'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                        ]
+                );
+                $arrCategoriesUpdateJson = $apiCategoriesUpdateResponse->json();
+                // TODO: error check for update.
+
+                // Debug.
+                //echo 'arrCategoriesUpdateJson=<pre>';
+                //var_dump($arrCategoriesUpdateJson);
+                //echo '</pre><br />';
             }
 
             // Debug.
@@ -423,7 +449,7 @@ class AdminCategoriesController extends AdminBaseController
             //echo 'resultsFunctionsFiles=<pre>';
             //var_dump($resultsFunctionsFiles);
             //echo '</pre><br />';
-
+            /*
             echo 'tblCategoriesImageMain=<pre>';
             var_dump($tblCategoriesImageMain);
             echo '</pre><br />';
@@ -447,8 +473,9 @@ class AdminCategoriesController extends AdminBaseController
             echo 'tblCategoriesImageFile5=<pre>';
             var_dump($tblCategoriesImageFile5);
             echo '</pre><br />';
+            */
             
-            exit();
+            //exit();
 
         } catch (Error $adminCategoriesInsertError) {
             if ($GLOBALS['configDebug'] === true) {

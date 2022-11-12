@@ -267,7 +267,7 @@
                                                         gLightboxBackendConfigOptions.selector = "glightbox_categories_image_main{{ $categoriesRow['id'] }}";
                                                         // Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
                                                         // data-glightbox="title: Title example.; description: Description example."
-                                                        let glightboxCategoriesImageMain = GLightbox(gLightboxBackendConfigOptions);
+                                                        let glightboxCategoriesImageMain{{ $categoriesRow['id'] }} = GLightbox(gLightboxBackendConfigOptions);
                                                     </script>
                                                 @endif
                                             @endif
