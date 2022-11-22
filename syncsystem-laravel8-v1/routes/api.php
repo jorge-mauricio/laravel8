@@ -9,6 +9,7 @@ use App\Http\Controllers\ApiRecordsController;
 
 use App\Http\Controllers\ApiCategoriesListingController;
 use App\Http\Controllers\ApiCategoriesInsertController;
+use App\Http\Controllers\ApiCategoriesDetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,12 @@ Route::get('/categories/{idTbCategories?}',[ApiCategoriesListingController::clas
 // only alphabet: [a-zA-Z]
 // **************************************************************************************
 
+// API - Categories - details - GET.
+// **************************************************************************************
+Route::get('/categories/details/{idTbCategories?}',[ApiCategoriesDetailsController::class, 'getCategoriesDetails'], function($detailsCategoriesResults) {
+    return response()->json($detailsCategoriesResults);
+})->name('api.categories.details');
+// **************************************************************************************
 
 // API - Categories - POST (insert record).
 // **************************************************************************************

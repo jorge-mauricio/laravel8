@@ -5,8 +5,6 @@
     $arrCategoriesDetails = $templateData['cphBody']['arrCategoriesDetails'];
     $arrCategoriesListing = $templateData['cphBody']['arrCategoriesListing'];
 
-    $cacheClear = $dateNow->format('YmdHis');
-
     // Meta title.
     $metaTitle = '';
     $metaTitle .= \SyncSystemNS\FunctionsGeneric::contentMaskRead($GLOBALS['configSystemClientName'], 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesTitleMain');

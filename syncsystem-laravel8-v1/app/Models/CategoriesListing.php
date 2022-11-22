@@ -13,15 +13,23 @@ class CategoriesListing extends Model
 {
     use HasFactory;
 
+    // Properties.
+    // ----------------------
     //private float|string|null $_idParent = null;
     private array|null $ocdRecordParameters = null;
     private array|null $oclRecordsParameters = null;
 
     protected $objCategoriesListing;
     protected $arrCategoriesListing;
+    // ----------------------
 
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     * @param ?array $_ocdRecordParameters
+     * @param ?array $_oclRecordsParameters
+     */
     //public function __construct(?float $idParent = null)
     public function __construct(?array $_ocdRecordParameters = null, ?array $_oclRecordsParameters = null)
     {
@@ -39,7 +47,12 @@ class CategoriesListing extends Model
     }
     // **************************************************************************************
 
-
+    // Build content placeholder body.
+    // **************************************************************************************
+    /**
+     * Build content placeholder body.
+     * @return array
+     */
     public function cphBodyBuild(): array
     {
 
@@ -113,9 +126,6 @@ class CategoriesListing extends Model
             //echo 'oclRecords=<pre>';
             //var_dump($oclRecords);
             //echo '</pre><br />';
-
-            //return 'content inside model: ' . $this->_idParent; // debug.
-            return $arrReturn;
         } catch (Error $cphBodyBuildError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('cphBodyBuildError: ' . $cphBodyBuildError->message());
@@ -123,5 +133,9 @@ class CategoriesListing extends Model
         } finally {
 
         }
+
+        //return 'content inside model: ' . $this->_idParent; // debug.
+        return $arrReturn;
     }
+    // **************************************************************************************
 }

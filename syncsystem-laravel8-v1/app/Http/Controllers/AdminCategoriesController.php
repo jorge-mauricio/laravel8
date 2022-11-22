@@ -45,10 +45,10 @@ class AdminCategoriesController extends AdminBaseController
     }
     // **************************************************************************************
 
-    // Admin Categories Listing Controller.
+    // Admin categories listing.
     // **************************************************************************************
     /**
-     * Admin Categories Listing Controller.
+     * Admin categories listing.
      * @param float|string $_idParentCategories
      * @return View
      */
@@ -112,7 +112,7 @@ class AdminCategoriesController extends AdminBaseController
                 // Build template data.
                 $this->templateData['idParentCategories'] = $this->idParentCategories;
 
-                // Title current - content place holder.
+                // Title - current - content place holder.
                 $this->templateData['cphTitleCurrent'] = $this->arrCategoriesDetails['tblCategoriesTitle'];
                 
                 // Title - content place holder.
@@ -167,6 +167,60 @@ class AdminCategoriesController extends AdminBaseController
         // return view('layout-backend-main')->with('templateData', $this->templateData); // working
         // return view('admin.layout-admin-main')->with('templateData', $this->templateData); // working
         return view('admin.admin-categories-listing')->with('templateData', $this->templateData); // working
+    }
+    // **************************************************************************************
+
+    // Admin Categories Edit.
+    // **************************************************************************************
+    /**
+     * Admin Categories Listing Controller.
+     * @param float|string $_idTbCategories
+     * @return View
+     */
+    public function adminCategoriesEdit(float|string $_idTbCategories = null): View
+    {
+        // Variables.
+        // ----------------------
+        $idTbCategories = null;
+
+        $arrCategoriesDetailsJson = null;
+        $arrCategoriesDetails = null;
+
+        $apiURLCategoriesDetailsCurrent = null;
+        $apiCategoriesDetailsCurrentResponse = null;
+        // ----------------------
+
+        // Value definition.
+        // ----------------------
+        $idTbCategories = $_idTbCategories;
+        // ----------------------
+
+
+        // Logic.
+        try {
+
+            // Build template data.
+            $this->templateData['idParentCategories'] = $this->idParentCategories;
+
+            // Title - current - content place holder.
+            $this->templateData['cphTitleCurrent'] = '';
+            
+            // Title - content place holder.
+            $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
+
+        } catch(Exception $adminCategoriesEditError) {
+            echo 'Error reading API: ' . $apiError->getMessage();     
+            
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('adminCategoriesEditError: ' . $adminCategoriesEditError->message());
+            }
+        } finally {
+
+        }
+
+
+        // Return with view.
+        return view('admin.admin-categories-edit')->with('templateData', $this->templateData);
     }
     // **************************************************************************************
 

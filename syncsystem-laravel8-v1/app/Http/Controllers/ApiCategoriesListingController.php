@@ -16,7 +16,7 @@ class ApiCategoriesListingController extends Controller
 {
     // Properties.
     // ----------------------
-    private array|null $arrReturn = array('returnStatus' => false);
+    private array|null $arrReturn = ['returnStatus' => false];
     private string $configAPIKey = '';
 
     private object|null $ocdRecord = null;
@@ -74,16 +74,17 @@ class ApiCategoriesListingController extends Controller
      * Handle categories listing.
      * @param Request $req
      * @param float|string $_idTbCategories
-     * @return array
+     * @return ?array
      */
     //public function getCategoriesListing(float|string $idParent = null): string|array //TODO: change to the right type
     //public function getCategoriesListing(): array //TODO: change to the right type
-    public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): array
+    public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): ?array
     //public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): mixed //TODO: change to the right type
     {
         // Variables.
         // ----------------------
         // float|string $idParent = null;
+        $backendCategoriesListing = null;
         // ----------------------
 
         // Define values.

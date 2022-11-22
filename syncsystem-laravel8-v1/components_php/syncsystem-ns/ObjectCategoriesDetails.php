@@ -108,32 +108,32 @@ class ObjectCategoriesDetails
     // private DateTime $tblCategoriesDate2DateObj = new DateTime();
     // private object $tblCategoriesDate1DateObj = new DateTime();
     private object|null $tblCategoriesDate1DateObj = null;
-    private string|null $tblCategoriesDate1DateYear, $tblCategoriesDate1DateDay, $tblCategoriesDate1DateMonth;
-    private string|null $tblCategoriesDate1DateHour, $tblCategoriesDate1DateHour_print, $tblCategoriesDate1DateMinute, $tblCategoriesDate1DateMinute_print, $tblCategoriesDate1DateSecond, $tblCategoriesDate1DateSecond_print;
+    private string|null $tblCategoriesDate1DateYear = null, $tblCategoriesDate1DateDay = null, $tblCategoriesDate1DateMonth = null;
+    private string|null $tblCategoriesDate1DateHour = null, $tblCategoriesDate1DateHour_print = '', $tblCategoriesDate1DateMinute = null, $tblCategoriesDate1DateMinute_print = '', $tblCategoriesDate1DateSecond = null, $tblCategoriesDate1DateSecond_print = '';
 
     private string|null $tblCategoriesDate2 = null;
     private string $tblCategoriesDate2_print = '';
     private object|null $tblCategoriesDate2DateObj = null;
-    private string|null $tblCategoriesDate2DateYear, $tblCategoriesDate2DateDay, $tblCategoriesDate2DateMonth;
-    private string|null $tblCategoriesDate2DateHour, $tblCategoriesDate2DateHour_print, $tblCategoriesDate2DateMinute, $tblCategoriesDate2DateMinute_print, $tblCategoriesDate2DateSecond, $tblCategoriesDate2DateSecond_print;
+    private string|null $tblCategoriesDate2DateYear = null, $tblCategoriesDate2DateDay = null, $tblCategoriesDate2DateMonth = null;
+    private string|null $tblCategoriesDate2DateHour = null, $tblCategoriesDate2DateHour_print = '', $tblCategoriesDate2DateMinute = null, $tblCategoriesDate2DateMinute_print = '', $tblCategoriesDate2DateSecond = null, $tblCategoriesDate2DateSecond_print = '';
 
     private string|null $tblCategoriesDate3 = null;
     private string $tblCategoriesDate3_print = '';
     private object|null $tblCategoriesDate3DateObj = null;
-    private string|null $tblCategoriesDate3DateYear, $tblCategoriesDate3DateDay, $tblCategoriesDate3DateMonth;
-    private string|null $tblCategoriesDate3DateHour, $tblCategoriesDate3DateHour_print, $tblCategoriesDate3DateMinute, $tblCategoriesDate3DateMinute_print, $tblCategoriesDate3DateSecond, $tblCategoriesDate3DateSecond_print;
+    private string|null $tblCategoriesDate3DateYear = null, $tblCategoriesDate3DateDay = null, $tblCategoriesDate3DateMonth = null;
+    private string|null $tblCategoriesDate3DateHour = null, $tblCategoriesDate3DateHour_print = '', $tblCategoriesDate3DateMinute = null, $tblCategoriesDate3DateMinute_print = '', $tblCategoriesDate3DateSecond = null, $tblCategoriesDate3DateSecond_print = '';
 
     private string|null $tblCategoriesDate4 = null;
     private string $tblCategoriesDate4_print = '';
     private object|null $tblCategoriesDate4DateObj = null;
-    private string|null $tblCategoriesDate4DateYear, $tblCategoriesDate4DateDay, $tblCategoriesDate4DateMonth;
-    private string|null $tblCategoriesDate4DateHour, $tblCategoriesDate4DateHour_print, $tblCategoriesDate4DateMinute, $tblCategoriesDate4DateMinute_print, $tblCategoriesDate4DateSecond, $tblCategoriesDate4DateSecond_print;
+    private string|null $tblCategoriesDate4DateYear = null, $tblCategoriesDate4DateDay = null, $tblCategoriesDate4DateMonth = null;
+    private string|null $tblCategoriesDate4DateHour = null, $tblCategoriesDate4DateHour_print = '', $tblCategoriesDate4DateMinute = null, $tblCategoriesDate4DateMinute_print = '', $tblCategoriesDate4DateSecond = null, $tblCategoriesDate4DateSecond_print = '';
 
     private string|null $tblCategoriesDate5 = null;
     private string $tblCategoriesDate5_print = '';
     private object|null $tblCategoriesDate5DateObj = null;
-    private string|null $tblCategoriesDate5DateYear, $tblCategoriesDate5DateDay, $tblCategoriesDate5DateMonth;
-    private string|null $tblCategoriesDate5DateHour, $tblCategoriesDate5DateHour_print, $tblCategoriesDate5DateMinute, $tblCategoriesDate5DateMinute_print, $tblCategoriesDate5DateSecond, $tblCategoriesDate5DateSecond_print;
+    private string|null $tblCategoriesDate5DateYear = null, $tblCategoriesDate5DateDay = null, $tblCategoriesDate5DateMonth = null;
+    private string|null $tblCategoriesDate5DateHour = null, $tblCategoriesDate5DateHour_print = '', $tblCategoriesDate5DateMinute = null, $tblCategoriesDate5DateMinute_print = '', $tblCategoriesDate5DateSecond = null, $tblCategoriesDate5DateSecond_print = '';
 
     private float $tblCategoriesIdItem1 = 0;
     private float $tblCategoriesIdItem2 = 0;
@@ -583,12 +583,12 @@ class ObjectCategoriesDetails
                 $this->tblCategoriesIdItem5 = $this->resultsCategoryDetails[0]->id_item5;
                 */
                 
-                $this->tblCategoriesImageMain = $this->resultsCategoryDetails[0]->image_main;
-                $this->tblCategoriesFile1 = $this->resultsCategoryDetails[0]->file1;
-                $this->tblCategoriesFile2 = $this->resultsCategoryDetails[0]->file2;
-                $this->tblCategoriesFile3 = $this->resultsCategoryDetails[0]->file3;
-                $this->tblCategoriesFile4 = $this->resultsCategoryDetails[0]->file4;
-                $this->tblCategoriesFile5 = $this->resultsCategoryDetails[0]->file5;
+                $this->tblCategoriesImageMain = (string)$this->resultsCategoryDetails[0]->image_main;
+                $this->tblCategoriesFile1 = (string)$this->resultsCategoryDetails[0]->file1;
+                $this->tblCategoriesFile2 = (string)$this->resultsCategoryDetails[0]->file2;
+                $this->tblCategoriesFile3 = (string)$this->resultsCategoryDetails[0]->file3;
+                $this->tblCategoriesFile4 = (string)$this->resultsCategoryDetails[0]->file4;
+                $this->tblCategoriesFile5 = (string)$this->resultsCategoryDetails[0]->file5;
 
                 $this->tblCategoriesActivation = $this->resultsCategoryDetails[0]->activation;
                 $this->tblCategoriesActivation_print = $this->tblCategoriesActivation === 0 ? 
