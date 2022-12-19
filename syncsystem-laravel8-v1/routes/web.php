@@ -104,9 +104,7 @@ Route::delete('/system/records/',[AdminRecordsController::class, 'adminRecordsDe
 
 // Admin - Categories - edit - GET.
 // **************************************************************************************
-// Debug: http://127.0.0.1:8000/admin/categories/123
-// Debug: http://127.0.0.1:8000/admin/categories/781
-// Debug: http://localhost:8000/system/categories/781
+// Debug: http://localhost:8000/system/categories/edit/1999/?masterPageSelect=layout-admin-main
 Route::get('/system/categories/edit/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesEdit'])->name('admin.categories.edit');
 //Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
 //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');

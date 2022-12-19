@@ -85,7 +85,8 @@ class ApiCategoriesDetailsController extends Controller
 
             $ocdRecord = new CategoriesDetails($ocdRecordParameters);
             //$ocdRecordDetails = $ocdRecord->cphBodyBuild();
-            $arrReturn['ocdRecord'] = $ocdRecord->cphBodyBuild();
+            //$arrReturn['ocdRecord'] = $ocdRecord->cphBodyBuild();
+            $arrReturn = $ocdRecord->cphBodyBuild();
 
             // Debug.
             $arrReturn['debug-idTbCategories'] = $idTbCategories;

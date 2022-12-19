@@ -198,16 +198,33 @@ class AdminCategoriesController extends AdminBaseController
 
         // Logic.
         try {
+            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $GLOBALS['configRouteAPIDetails'] . '/' . $idTbCategories . '/', [
+                'apiKey' => env('CONFIG_API_KEY_SYSTEM')
+            ]);
+            $arrCategoriesDetailsJson = $apiCategoriesDetailsCurrentResponse->json();
 
-            // Build template data.
-            $this->templateData['idParentCategories'] = $this->idParentCategories;
+            if ($arrCategoriesDetailsJson['returnStatus'] === true) {
+                //$arrCategoriesDetails = $arrCategoriesDetailsJson['ocdRecord'];
 
-            // Title - current - content place holder.
-            $this->templateData['cphTitleCurrent'] = '';
+                // Build template data.
+                //$this->templateData['idParentCategories'] = $this->idParentCategories;
+                $this->templateData['idTbCategories'] = $idTbCategories;
+
+                // Title - current - content place holder.
+                $this->templateData['cphTitleCurrent'] = '';
+                
+                // Title - content place holder.
+                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
+
+                $this->templateData['cphBody']['ocdRecord'] = $arrCategoriesDetailsJson['ocdRecord'];
+            }
             
-            // Title - content place holder.
-            $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
-
+            // Debug.
+            /*
+            echo 'idTbCategories=<pre>';
+            var_dump($idTbCategories);
+            echo '</pre><br />';
+            */
         } catch(Exception $adminCategoriesEditError) {
             echo 'Error reading API: ' . $apiError->getMessage();     
             

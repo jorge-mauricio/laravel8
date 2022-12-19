@@ -1354,7 +1354,7 @@
         @endif
     </section>
 
-    {{-- TODO: check for id parent in order to show insert form. --}}
+    @if ($idParentCategories !== '')
         {{-- Form. --}}
         <section class="ss-backend-layout-section-form01">
             <form id="formCategories" name="formCategories" method="POST" action="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] }}" enctype="multipart/form-data">
@@ -1384,7 +1384,7 @@
                             
                         </thead>
                         <tbody class="ss-backend-table-listing-text01">
-                             @if ($GLOBALS['enableCategoriesSortOrder'] === 1)
+                            @if ($GLOBALS['enableCategoriesSortOrder'] === 1)
                                 <tr id="inputRowCategories_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemSortOrder') }}: 
@@ -2407,6 +2407,7 @@
                                 </tr>
                             @endif
 
+                            {{-- TODO: test and change comparison (==  to ===). --}}
                             @if ($GLOBALS['enableCategoriesDate1'] === 1)
                                 <tr id="inputRowCategories_date1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
@@ -3329,5 +3330,5 @@
                 <input type="hidden" id="categories_masterPageSelect" name="masterPageSelect" value="{{ $masterPageSelect }}" />
             </form>
         </section>
-
+    @endif
 @endsection

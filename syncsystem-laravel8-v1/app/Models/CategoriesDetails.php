@@ -273,6 +273,10 @@ class CategoriesDetails extends Model
             if ($this->ocdRecordParameters !== null) {
                 $ocdRecord = new \SyncSystemNS\ObjectCategoriesDetails($this->ocdRecordParameters);
                 $arrReturn['ocdRecord'] = $ocdRecord->recordDetailsGet(0, 1);
+
+                if ($arrReturn['ocdRecord']['returnStatus'] === true) {
+                    $arrReturn['returnStatus'] = true;
+                }
             }
         } catch (Error $cphBodyBuildError) {
             if ($GLOBALS['configDebug'] === true) {
