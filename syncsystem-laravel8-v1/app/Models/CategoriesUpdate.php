@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class CategoriesInsert extends Model
+class CategoriesUpdate extends Model
 {
     use HasFactory;
 
@@ -84,13 +84,8 @@ class CategoriesInsert extends Model
 
     private string $tblCategoriesNotes = '';
 
-    private array $arrSQLCategoriesInsertParams = [];
-    private mixed $resultsSQLCategoriesInsert;
-    
-    protected $fillable = [
-        '_tblCategoriesID',
-    ]; // TODO: double check if this will be needed.
-    // ----------------------
+    private array $arrSQLCategoriesUpdateParams = [];
+    private mixed $resultsSQLCategoriesUpdate;
 
     // Constructor.
     // **************************************************************************************
@@ -99,37 +94,12 @@ class CategoriesInsert extends Model
      * @param array $arrParameters
      */
     public function __construct(array $arrParameters = [])
-    //public function __construct()
     {
-        //parent::__construct($attributes);
-        // Debug.
-        /*
-        echo 'objParameters (inside model)=<pre>';
-        var_dump($objParameters);
-        echo '</pre><br />';
-
-        echo 'testing (inside model)=<pre>';
-        var_dump($testing);
-        echo '</pre><br />';
-
-        echo 'attributes=<pre>';
-        var_dump($attributes);
-        echo '</pre><br />';
-        */
-        
-        //echo 'xxxyyy';
-        
-        //echo 'testing';
         if (count($arrParameters) > 0) {
             if (!$this->buildParameters($arrParameters)['returnStatus'] === true) {
                 // Change flag to error.
             }
-            
-            // Debug.
-            // $this->buildParameters($arrParameters);
         }
-        //$this->categoriesInsertBuildParameters($attributes);
-        
     }
     // **************************************************************************************
 
@@ -140,9 +110,7 @@ class CategoriesInsert extends Model
      * @param array $arrParameters
      * @return array
      */
-    //public function buildParameters(array $arrParameters): array
     private function buildParameters(array $arrParameters): array
-    //public function categoriesInsertBuildParameters(Request $req): void
     {
         // Variables.
         // ----------------------
@@ -153,16 +121,19 @@ class CategoriesInsert extends Model
 
         // Define values.
         // ----------------------
-        $this->tblCategoriesID = isset($arrParameters['_tblCategoriesID']) ? $arrParameters['_tblCategoriesID'] : \SyncSystemNS\FunctionsDB::counterUniversalUpdate();
+        // $this->tblCategoriesID = isset($arrParameters['_tblCategoriesID']) ? $arrParameters['_tblCategoriesID'] : \SyncSystemNS\FunctionsDB::counterUniversalUpdate();
+        $this->tblCategoriesID = $arrParameters['_tblCategoriesID'];
         $this->tblCategoriesIdParent = isset($arrParameters['_tblCategoriesIdParent']) ? $arrParameters['_tblCategoriesIdParent'] : $this->tblCategoriesIdParent;
         $this->tblCategoriesSortOrder = isset($arrParameters['_tblCategoriesSortOrder']) ? $arrParameters['_tblCategoriesSortOrder'] : $this->tblCategoriesSortOrder;
         $this->tblCategoriesCategoryType = isset($arrParameters['_tblCategoriesCategoryType']) ? $arrParameters['_tblCategoriesCategoryType'] : $this->tblCategoriesCategoryType;
 
+        /*
         $this->tblCategoriesDateCreation = isset($arrParameters['_tblCategoriesDateCreation']) ? $arrParameters['_tblCategoriesDateCreation'] : $this->tblCategoriesDateCreation;
         if ($this->tblCategoriesDateCreation === '') {
             $tblCategoriesDateCreation_dateObj = new \DateTime();
             $this->tblCategoriesDateCreation = \SyncSystemNS\FunctionsGeneric::dateSQLWrite($tblCategoriesDateCreation_dateObj);
         }
+        */
 
         $this->tblCategoriesDateTimezone = isset($arrParameters['_tblCategoriesDateTimezone']) ? $arrParameters['_tblCategoriesDateTimezone'] : $this->tblCategoriesDateTimezone;
 
@@ -298,148 +269,130 @@ class CategoriesInsert extends Model
 
         // Build insert parameters.
         // ----------------------
-        //$this->arrSQLCategoriesInsertParams['id'] = 123123123;
-        //$this->tblCategoriesID ? $this->arrSQLCategoriesInsertParams['id'] = $this->tblCategoriesID : $this->arrSQLCategoriesInsertParams['id'] = \SyncSystemNS\FunctionsDB::counterUniversalUpdate();
-        $this->arrSQLCategoriesInsertParams['id'] = $this->tblCategoriesID;
-        $this->arrSQLCategoriesInsertParams['id_parent'] = $this->tblCategoriesIdParent;
-        $this->arrSQLCategoriesInsertParams['sort_order'] = $this->tblCategoriesSortOrder;
-        $this->arrSQLCategoriesInsertParams['category_type'] = $this->tblCategoriesCategoryType;
+        $this->arrSQLCategoriesUpdateParams['id'] = $this->tblCategoriesID;
+        $this->arrSQLCategoriesUpdateParams['id_parent'] = $this->tblCategoriesIdParent;
+        $this->arrSQLCategoriesUpdateParams['sort_order'] = $this->tblCategoriesSortOrder;
+        $this->arrSQLCategoriesUpdateParams['category_type'] = $this->tblCategoriesCategoryType;
 
-        $this->arrSQLCategoriesInsertParams['date_creation'] = $this->tblCategoriesDateCreation;
-        $this->arrSQLCategoriesInsertParams['date_timezone'] = $this->tblCategoriesDateTimezone;
-        $this->arrSQLCategoriesInsertParams['date_edit'] = $this->tblCategoriesDateEdit;
+        // $this->arrSQLCategoriesUpdateParams['date_creation'] = $this->tblCategoriesDateCreation;
+        $this->arrSQLCategoriesUpdateParams['date_timezone'] = $this->tblCategoriesDateTimezone;
+        $this->arrSQLCategoriesUpdateParams['date_edit'] = $this->tblCategoriesDateEdit;
 
-        $this->arrSQLCategoriesInsertParams['id_register_user'] = $this->tblCategoriesIdRegisterUser;
-        $this->arrSQLCategoriesInsertParams['id_register1'] = $this->tblCategoriesIdRegister1;
-        $this->arrSQLCategoriesInsertParams['id_register2'] = $this->tblCategoriesIdRegister2;
-        $this->arrSQLCategoriesInsertParams['id_register3'] = $this->tblCategoriesIdRegister3;
-        $this->arrSQLCategoriesInsertParams['id_register4'] = $this->tblCategoriesIdRegister4;
-        $this->arrSQLCategoriesInsertParams['id_register5'] = $this->tblCategoriesIdRegister5;
+        $this->arrSQLCategoriesUpdateParams['id_register_user'] = $this->tblCategoriesIdRegisterUser;
+        $this->arrSQLCategoriesUpdateParams['id_register1'] = $this->tblCategoriesIdRegister1;
+        $this->arrSQLCategoriesUpdateParams['id_register2'] = $this->tblCategoriesIdRegister2;
+        $this->arrSQLCategoriesUpdateParams['id_register3'] = $this->tblCategoriesIdRegister3;
+        $this->arrSQLCategoriesUpdateParams['id_register4'] = $this->tblCategoriesIdRegister4;
+        $this->arrSQLCategoriesUpdateParams['id_register5'] = $this->tblCategoriesIdRegister5;
 
-        $this->arrSQLCategoriesInsertParams['title'] = $this->tblCategoriesTitle;
-        $this->arrSQLCategoriesInsertParams['description'] = $this->tblCategoriesDescription;
+        $this->arrSQLCategoriesUpdateParams['title'] = $this->tblCategoriesTitle;
+        $this->arrSQLCategoriesUpdateParams['description'] = $this->tblCategoriesDescription;
 
-        $this->arrSQLCategoriesInsertParams['url_alias'] = $this->tblCategoriesURLAlias;
-        $this->arrSQLCategoriesInsertParams['keywords_tags'] = $this->tblCategoriesKeywordsTags;
-        $this->arrSQLCategoriesInsertParams['meta_description'] = $this->tblCategoriesMetaDescription;
-        $this->arrSQLCategoriesInsertParams['meta_title'] = $this->tblCategoriesMetaTitle;
-        $this->arrSQLCategoriesInsertParams['meta_info'] = $this->tblCategoriesMetaInfo;
+        $this->arrSQLCategoriesUpdateParams['url_alias'] = $this->tblCategoriesURLAlias;
+        $this->arrSQLCategoriesUpdateParams['keywords_tags'] = $this->tblCategoriesKeywordsTags;
+        $this->arrSQLCategoriesUpdateParams['meta_description'] = $this->tblCategoriesMetaDescription;
+        $this->arrSQLCategoriesUpdateParams['meta_title'] = $this->tblCategoriesMetaTitle;
+        $this->arrSQLCategoriesUpdateParams['meta_info'] = $this->tblCategoriesMetaInfo;
 
-        $this->arrSQLCategoriesInsertParams['info1'] = $this->tblCategoriesInfo1;
-        $this->arrSQLCategoriesInsertParams['info2'] = $this->tblCategoriesInfo2;
-        $this->arrSQLCategoriesInsertParams['info3'] = $this->tblCategoriesInfo3;
-        $this->arrSQLCategoriesInsertParams['info4'] = $this->tblCategoriesInfo4;
-        $this->arrSQLCategoriesInsertParams['info5'] = $this->tblCategoriesInfo5;
-        $this->arrSQLCategoriesInsertParams['info6'] = $this->tblCategoriesInfo6;
-        $this->arrSQLCategoriesInsertParams['info7'] = $this->tblCategoriesInfo7;
-        $this->arrSQLCategoriesInsertParams['info8'] = $this->tblCategoriesInfo8;
-        $this->arrSQLCategoriesInsertParams['info9'] = $this->tblCategoriesInfo9;
-        $this->arrSQLCategoriesInsertParams['info10'] = $this->tblCategoriesInfo10;
+        $this->arrSQLCategoriesUpdateParams['info1'] = $this->tblCategoriesInfo1;
+        $this->arrSQLCategoriesUpdateParams['info2'] = $this->tblCategoriesInfo2;
+        $this->arrSQLCategoriesUpdateParams['info3'] = $this->tblCategoriesInfo3;
+        $this->arrSQLCategoriesUpdateParams['info4'] = $this->tblCategoriesInfo4;
+        $this->arrSQLCategoriesUpdateParams['info5'] = $this->tblCategoriesInfo5;
+        $this->arrSQLCategoriesUpdateParams['info6'] = $this->tblCategoriesInfo6;
+        $this->arrSQLCategoriesUpdateParams['info7'] = $this->tblCategoriesInfo7;
+        $this->arrSQLCategoriesUpdateParams['info8'] = $this->tblCategoriesInfo8;
+        $this->arrSQLCategoriesUpdateParams['info9'] = $this->tblCategoriesInfo9;
+        $this->arrSQLCategoriesUpdateParams['info10'] = $this->tblCategoriesInfo10;
 
-        $this->arrSQLCategoriesInsertParams['info_small1'] = $this->tblCategoriesInfoSmall1;
-        $this->arrSQLCategoriesInsertParams['info_small2'] = $this->tblCategoriesInfoSmall2;
-        $this->arrSQLCategoriesInsertParams['info_small3'] = $this->tblCategoriesInfoSmall3;
-        $this->arrSQLCategoriesInsertParams['info_small4'] = $this->tblCategoriesInfoSmall4;
-        $this->arrSQLCategoriesInsertParams['info_small5'] = $this->tblCategoriesInfoSmall5;
+        $this->arrSQLCategoriesUpdateParams['info_small1'] = $this->tblCategoriesInfoSmall1;
+        $this->arrSQLCategoriesUpdateParams['info_small2'] = $this->tblCategoriesInfoSmall2;
+        $this->arrSQLCategoriesUpdateParams['info_small3'] = $this->tblCategoriesInfoSmall3;
+        $this->arrSQLCategoriesUpdateParams['info_small4'] = $this->tblCategoriesInfoSmall4;
+        $this->arrSQLCategoriesUpdateParams['info_small5'] = $this->tblCategoriesInfoSmall5;
 
-        $this->arrSQLCategoriesInsertParams['number1'] = $this->tblCategoriesNumber1;
-        $this->arrSQLCategoriesInsertParams['number2'] = $this->tblCategoriesNumber2;
-        $this->arrSQLCategoriesInsertParams['number3'] = $this->tblCategoriesNumber3;
-        $this->arrSQLCategoriesInsertParams['number4'] = $this->tblCategoriesNumber4;
-        $this->arrSQLCategoriesInsertParams['number5'] = $this->tblCategoriesNumber5;
+        $this->arrSQLCategoriesUpdateParams['number1'] = $this->tblCategoriesNumber1;
+        $this->arrSQLCategoriesUpdateParams['number2'] = $this->tblCategoriesNumber2;
+        $this->arrSQLCategoriesUpdateParams['number3'] = $this->tblCategoriesNumber3;
+        $this->arrSQLCategoriesUpdateParams['number4'] = $this->tblCategoriesNumber4;
+        $this->arrSQLCategoriesUpdateParams['number5'] = $this->tblCategoriesNumber5;
 
-        $this->arrSQLCategoriesInsertParams['number_small1'] = $this->tblCategoriesNumberSmall1;
-        $this->arrSQLCategoriesInsertParams['number_small2'] = $this->tblCategoriesNumberSmall2;
-        $this->arrSQLCategoriesInsertParams['number_small3'] = $this->tblCategoriesNumberSmall3;
-        $this->arrSQLCategoriesInsertParams['number_small4'] = $this->tblCategoriesNumberSmall4;
-        $this->arrSQLCategoriesInsertParams['number_small5'] = $this->tblCategoriesNumberSmall5;
+        $this->arrSQLCategoriesUpdateParams['number_small1'] = $this->tblCategoriesNumberSmall1;
+        $this->arrSQLCategoriesUpdateParams['number_small2'] = $this->tblCategoriesNumberSmall2;
+        $this->arrSQLCategoriesUpdateParams['number_small3'] = $this->tblCategoriesNumberSmall3;
+        $this->arrSQLCategoriesUpdateParams['number_small4'] = $this->tblCategoriesNumberSmall4;
+        $this->arrSQLCategoriesUpdateParams['number_small5'] = $this->tblCategoriesNumberSmall5;
         
-        $this->arrSQLCategoriesInsertParams['date1'] = $this->tblCategoriesDate1;
-        $this->arrSQLCategoriesInsertParams['date2'] = $this->tblCategoriesDate2;
-        $this->arrSQLCategoriesInsertParams['date3'] = $this->tblCategoriesDate3;
-        $this->arrSQLCategoriesInsertParams['date4'] = $this->tblCategoriesDate4;
-        $this->arrSQLCategoriesInsertParams['date5'] = $this->tblCategoriesDate5;
+        $this->arrSQLCategoriesUpdateParams['date1'] = $this->tblCategoriesDate1;
+        $this->arrSQLCategoriesUpdateParams['date2'] = $this->tblCategoriesDate2;
+        $this->arrSQLCategoriesUpdateParams['date3'] = $this->tblCategoriesDate3;
+        $this->arrSQLCategoriesUpdateParams['date4'] = $this->tblCategoriesDate4;
+        $this->arrSQLCategoriesUpdateParams['date5'] = $this->tblCategoriesDate5;
 
-        $this->arrSQLCategoriesInsertParams['activation'] = $this->tblCategoriesActivation;
-        $this->arrSQLCategoriesInsertParams['activation1'] = $this->tblCategoriesActivation1;
-        $this->arrSQLCategoriesInsertParams['activation2'] = $this->tblCategoriesActivation2;
-        $this->arrSQLCategoriesInsertParams['activation3'] = $this->tblCategoriesActivation3;
-        $this->arrSQLCategoriesInsertParams['activation4'] = $this->tblCategoriesActivation4;
-        $this->arrSQLCategoriesInsertParams['activation5'] = $this->tblCategoriesActivation5;
+        $this->arrSQLCategoriesUpdateParams['activation'] = $this->tblCategoriesActivation;
+        $this->arrSQLCategoriesUpdateParams['activation1'] = $this->tblCategoriesActivation1;
+        $this->arrSQLCategoriesUpdateParams['activation2'] = $this->tblCategoriesActivation2;
+        $this->arrSQLCategoriesUpdateParams['activation3'] = $this->tblCategoriesActivation3;
+        $this->arrSQLCategoriesUpdateParams['activation4'] = $this->tblCategoriesActivation4;
+        $this->arrSQLCategoriesUpdateParams['activation5'] = $this->tblCategoriesActivation5;
 
-        $this->arrSQLCategoriesInsertParams['id_status'] = $this->tblCategoriesIdStatus;
-        $this->arrSQLCategoriesInsertParams['restricted_access'] = $this->tblCategoriesRestrictedAccess;
+        $this->arrSQLCategoriesUpdateParams['id_status'] = $this->tblCategoriesIdStatus;
+        $this->arrSQLCategoriesUpdateParams['restricted_access'] = $this->tblCategoriesRestrictedAccess;
 
-        $this->arrSQLCategoriesInsertParams['notes'] = $this->tblCategoriesNotes;
+        $this->arrSQLCategoriesUpdateParams['notes'] = $this->tblCategoriesNotes;
         // ----------------------
 
         $arrReturn = [
             'returnStatus' => true
         ];
 
-
-        // Debug.
-        /*
-        echo 'objParameters (inside model)=<pre>';
-        var_dump($objParameters);
-        echo '</pre><br />';
-        */
-
-        //echo 'objParameters (inside model)=<pre>';
-        //var_dump($this->tblCategoriesDateCreation);
-        //echo '</pre><br />';
-        //exit();
-
-
-        //echo 'xxxyyy';
-        /*
-        return [
-            'testing return' => $arrParameters,
-            //'this->arrSQLCategoriesInsertParams' => $this->arrSQLCategoriesInsertParams, // debug
-            'tblCategoriesID' => $this->tblCategoriesID,
-            'tblCategoriesIdParent' => $this->tblCategoriesIdParent,
-            'tblCategoriesSortOrder' => $this->tblCategoriesSortOrder,
-            'tblCategoriesCategoryType' => $this->tblCategoriesCategoryType
-        ];
-        */
-
         return $arrReturn;
     }
     // **************************************************************************************
 
-    // Add record to database.
+    // Update record to database.
     // **************************************************************************************
     /**
-     * Add record to database.
+     * Update record to database.
      * @return array
      */
-    public function addRecord(): array
+    public function updateRecord(): array
     {
         // Variables.
         // ----------------------
         $arrReturn = [
             'returnStatus' => false, 
             'nRecords' => 0, 
-            'idRecordInsert' => null
+            'idRecordUpdate' => null
         ];
         // ----------------------
 
         // Logic.
         try {
-            $this->resultsSQLCategoriesInsert = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableCategories']);
-            $this->resultsSQLCategoriesInsert = $this->resultsSQLCategoriesInsert->insert($this->arrSQLCategoriesInsertParams);
+            $this->resultsSQLCategoriesUpdate = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableCategories']);
+            $this->resultsSQLCategoriesUpdate = $this->resultsSQLCategoriesUpdate->where('id', '=', (float)\SyncSystemNS\FunctionsGeneric::contentMaskWrite($this->arrSQLCategoriesUpdateParams['id'], 'db_sanitize'));
+            $this->resultsSQLCategoriesUpdate = $this->resultsSQLCategoriesUpdate->update($this->arrSQLCategoriesUpdateParams);
 
-            if ($this->resultsSQLCategoriesInsert === true) {
+            // Debug.
+            /*
+            echo 'this->resultsSQLCategoriesUpdate=<pre>';
+            var_dump($this->resultsSQLCategoriesUpdate);
+            echo '</pre><br />';
+            */
+            // exit();
+
+            // if ($this->resultsSQLCategoriesUpdate === true) {
+            if ($this->resultsSQLCategoriesUpdate > 0) {
                 $arrReturn = [
                     'returnStatus' => true, 
-                    'nRecords' => 1, 
-                    'idRecordInsert' => $this->arrSQLCategoriesInsertParams['id']
-                    //'idRecordInsert' => \SyncSystemNS\FunctionsDB::counterUniversalUpdate()
+                    // 'nRecords' => 1, 
+                    'nRecords' => $this->resultsSQLCategoriesUpdate, 
+                    'idRecordUpdate' => $this->arrSQLCategoriesUpdateParams['id']
                 ];
             }
-        } catch (Error $addRecordError) {
+        } catch (Error $updateRecordError) {
             if ($GLOBALS['configDebug'] === true) {
-                throw new Error('addRecordError: ' . $addRecordError->message());
+                throw new Error('updateRecordError: ' . $updateRecordError->message());
             }
         } finally {
             //

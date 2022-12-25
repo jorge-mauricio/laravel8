@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; // TODO: delete this import and test.
 
 // Custom models.
 use App\Models\CategoriesInsert;
-
 
 class ApiCategoriesInsertController extends Controller
 {
@@ -31,6 +30,9 @@ class ApiCategoriesInsertController extends Controller
 
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     */
     public function __construct(Request $req)
     {
         //

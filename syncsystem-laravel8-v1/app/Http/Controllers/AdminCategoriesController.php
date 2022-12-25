@@ -39,6 +39,9 @@ class AdminCategoriesController extends AdminBaseController
 
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -170,77 +173,6 @@ class AdminCategoriesController extends AdminBaseController
     }
     // **************************************************************************************
 
-    // Admin Categories Edit.
-    // **************************************************************************************
-    /**
-     * Admin Categories Listing Controller.
-     * @param float|string $_idTbCategories
-     * @return View
-     */
-    public function adminCategoriesEdit(float|string $_idTbCategories = null): View
-    {
-        // Variables.
-        // ----------------------
-        $idTbCategories = null;
-
-        $arrCategoriesDetailsJson = null;
-        $arrCategoriesDetails = null;
-
-        $apiURLCategoriesDetailsCurrent = null;
-        $apiCategoriesDetailsCurrentResponse = null;
-        // ----------------------
-
-        // Value definition.
-        // ----------------------
-        $idTbCategories = $_idTbCategories;
-        // ----------------------
-
-
-        // Logic.
-        try {
-            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $GLOBALS['configRouteAPIDetails'] . '/' . $idTbCategories . '/', [
-                'apiKey' => env('CONFIG_API_KEY_SYSTEM')
-            ]);
-            $arrCategoriesDetailsJson = $apiCategoriesDetailsCurrentResponse->json();
-
-            if ($arrCategoriesDetailsJson['returnStatus'] === true) {
-                //$arrCategoriesDetails = $arrCategoriesDetailsJson['ocdRecord'];
-
-                // Build template data.
-                //$this->templateData['idParentCategories'] = $this->idParentCategories;
-                $this->templateData['idTbCategories'] = $idTbCategories;
-
-                // Title - current - content place holder.
-                $this->templateData['cphTitleCurrent'] = '';
-                
-                // Title - content place holder.
-                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
-
-                $this->templateData['cphBody']['ocdRecord'] = $arrCategoriesDetailsJson['ocdRecord'];
-            }
-            
-            // Debug.
-            /*
-            echo 'idTbCategories=<pre>';
-            var_dump($idTbCategories);
-            echo '</pre><br />';
-            */
-        } catch(Exception $adminCategoriesEditError) {
-            echo 'Error reading API: ' . $apiError->getMessage();     
-            
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('adminCategoriesEditError: ' . $adminCategoriesEditError->message());
-            }
-        } finally {
-
-        }
-
-
-        // Return with view.
-        return view('admin.admin-categories-edit')->with('templateData', $this->templateData);
-    }
-    // **************************************************************************************
-
     // Handle categories insert.
     // **************************************************************************************
     /**
@@ -250,7 +182,7 @@ class AdminCategoriesController extends AdminBaseController
      */
     public function adminCategoriesInsert(Request $req): RedirectResponse
     {
-        //TODO: create option for load method (api / monolithic)
+        //TODO: create option for "load / architecture" method (api / monolithic).
 
         // Variables.
         // ----------------------
@@ -285,7 +217,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Return URL build.
         // ----------------------
-        // TODO: think about using returnURLBuild method.
+        // TODO: think about using returnURLBuild method (base controller).
         $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
         $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
         if ($this->pageNumber) {
@@ -396,9 +328,9 @@ class AdminCategoriesController extends AdminBaseController
             //var_dump(request()->allFiles());
             //echo '</pre><br />';
 
-            echo 'formfileFieldsReference=<pre>';
-            var_dump($formfileFieldsReference);
-            echo '</pre><br />';
+            //echo 'formfileFieldsReference=<pre>';
+            //var_dump($formfileFieldsReference);
+            //echo '</pre><br />';
             //exit();
             
             
@@ -447,7 +379,7 @@ class AdminCategoriesController extends AdminBaseController
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
-                $apiCategoriesUpdateResponse = Http::withOptions(['verify' => false])
+                $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
                     ->put(
                         env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIRecords'] . '/', 
                         [
@@ -457,7 +389,7 @@ class AdminCategoriesController extends AdminBaseController
                             'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
                         ]
                 );
-                $arrCategoriesUpdateJson = $apiCategoriesUpdateResponse->json();
+                $arrCategoriesFilesUpdateJson = $apiCategoriesFilesUpdateResponse->json();
                 // TODO: error check for update.
 
                 // Debug.
@@ -566,4 +498,292 @@ class AdminCategoriesController extends AdminBaseController
         }
     }
     // **************************************************************************************
+
+    // Admin Categories Edit.
+    // **************************************************************************************
+    /**
+     * Admin Categories Listing Controller.
+     * @param float|string $_idTbCategories
+     * @return View
+     */
+    public function adminCategoriesEdit(float|string $_idTbCategories = null): View
+    {
+        // Variables.
+        // ----------------------
+        $idTbCategories = null;
+
+        $arrCategoriesDetailsJson = null;
+        $arrCategoriesDetails = null;
+
+        $apiURLCategoriesDetailsCurrent = null;
+        $apiCategoriesDetailsCurrentResponse = null;
+        // ----------------------
+
+        // Value definition.
+        // ----------------------
+        $idTbCategories = $_idTbCategories;
+        // ----------------------
+
+
+        // Logic.
+        try {
+            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $GLOBALS['configRouteAPIDetails'] . '/' . $idTbCategories . '/', [
+                'apiKey' => env('CONFIG_API_KEY_SYSTEM')
+            ]);
+            $arrCategoriesDetailsJson = $apiCategoriesDetailsCurrentResponse->json();
+
+            if ($arrCategoriesDetailsJson['returnStatus'] === true) {
+                //$arrCategoriesDetails = $arrCategoriesDetailsJson['ocdRecord'];
+
+                // Build template data.
+                //$this->templateData['idParentCategories'] = $this->idParentCategories;
+                $this->templateData['idTbCategories'] = $idTbCategories;
+
+                // Title - current - content place holder.
+                $this->templateData['cphTitleCurrent'] = '';
+                
+                // Title - content place holder.
+                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
+
+                $this->templateData['cphBody']['ocdRecord'] = $arrCategoriesDetailsJson['ocdRecord'];
+            }
+            
+            // Debug.
+            /*
+            echo 'idTbCategories=<pre>';
+            var_dump($idTbCategories);
+            echo '</pre><br />';
+            */
+        } catch(Exception $adminCategoriesEditError) {
+            echo 'Error reading API: ' . $apiError->getMessage();     
+            
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('adminCategoriesEditError: ' . $adminCategoriesEditError->message());
+            }
+        } finally {
+
+        }
+
+
+        // Return with view.
+        return view('admin.admin-categories-edit')->with('templateData', $this->templateData);
+    }
+    // **************************************************************************************
+
+    // Handle categories edit update.
+    // **************************************************************************************
+    /**
+     * Handle categories edit update.
+     * @param Request $req
+     * @return RedirectResponse
+     */
+    public function adminCategoriesUpdate(Request $req): RedirectResponse
+    {
+        // Variables.
+        // ----------------------
+        $idTbCategories = null;
+        
+        $tblCategoriesImageMain = '';
+        $tblCategoriesImageFile1 = '';
+        $tblCategoriesImageFile2 = '';
+        $tblCategoriesImageFile3 = '';
+        $tblCategoriesImageFile4 = '';
+        $tblCategoriesImageFile5 = '';
+
+        $apiCategoriesUpdateResponse = null;
+        $arrCategoriesUpdateJson = null;
+        
+        //$tblCategoriesID = null;
+        //$tblCategoriesIdParent = null;
+        //$tblCategoriesSortOrder = 0;
+        //$tblCategoriesCategoryType = null;
+        // ----------------------
+
+        // Define values.
+        // ----------------------
+        $idTbCategories = $req->post('id');
+        // $tblCategoriesID = null;
+        //$tblCategoriesIdParent = $req->post('id_parent');
+        //$tblCategoriesSortOrder = $req->post('sort_order');
+        //$tblCategoriesCategoryType = $req->post('category_type');
+
+
+        $this->idParentCategories = $req->post('idParent');
+        $this->pageNumber = $req->post('pageNumber');
+        $this->masterPageSelect = $req->post('masterPageSelect');
+        // ----------------------
+
+        // Return URL build.
+        // ----------------------
+        // TODO: think about using returnURLBuild method (base controller).
+        $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
+        $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
+        if ($this->pageNumber) {
+            $this->returnURL .= '&pageNumber=' . $this->pageNumber;
+        }
+        // ----------------------
+
+        // Logic.
+        try {
+            // API call.
+            // TODO: evaluate moving file upload before insert records (to eliminate update later).
+            $apiCategoriesUpdateResponse = Http::withOptions(['verify' => false])
+                //->attach('image_main', $req->file('image_main'))
+                //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
+                //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
+                ->put(
+                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/'. $GLOBALS['configRouteAPIActionEdit'] . '/', 
+                    array_merge(
+                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
+                        $req->all()
+                    ) // ...$req->all() (splat only works on php 8.1 and up)
+                    /*'tblCategoriesID' => $tblCategoriesID,
+                    'tblCategoriesIdParent' => $tblCategoriesIdParent,
+                    'tblCategoriesSortOrder' => $tblCategoriesSortOrder,
+                    'tblCategoriesCategoryType' => $tblCategoriesCategoryType,
+                    */
+            );
+            $arrCategoriesUpdateJson = $apiCategoriesUpdateResponse->json();
+
+            // Files upload (in frontend server).
+            $resultsFunctionsFiles = null;
+            $formfileFieldsReference = null;
+            $tblCategoriesID = $arrCategoriesUpdateJson['idRecordUpdate'];
+
+            // Build file fields references.
+            foreach (request()->allFiles() as $arrKey => $fileObject) {
+                $formfileFieldsReference[$arrKey] = [
+                    'originalFileName' => $fileObject->getClientOriginalName(),
+                    'fileSize' => $fileObject->getSize(),
+                    'temporaryFilePath' => $fileObject->getPathname(),
+                    'fileExtension' => $fileObject->extension(),
+                    'fileNamePrefix' => '',
+                    'fileNameSufix' => '',
+                    'fileDirectoryUpload' => '',
+                ];
+
+                // Set prefix.
+                switch($arrKey) {
+                    case 'file1':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f1-';
+                        break;
+                    case 'file2':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f2-';
+                        break;
+                    case 'file3':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f3-';
+                        break;
+                    case 'file4':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f4-';
+                        break;
+                    case 'file5':
+                        $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f5-';
+                        break;
+                    default:
+                        break;
+                }
+
+                // Debug.
+                //echo 'arrKey=' . $arrKey . '<br />';
+                //echo 'fileObject=' . $fileObject->getClientOriginalName() . '<br />';
+                //array_push($formfileFieldsReference);
+            }
+
+            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple($tblCategoriesID, 
+                                                                                        $req, 
+                                                                                        $GLOBALS['configDirectoryFilesUpload'], 
+                                                                                        '', 
+                                                                                        $formfileFieldsReference);
+
+            if ($resultsFunctionsFiles['returnStatus'] === true) {
+                $tblCategoriesArrDataFilesUpdate = null;
+                $tblCategoriesImageMain = isset($resultsFunctionsFiles['image_main']) === true ? $resultsFunctionsFiles['image_main'] : $tblCategoriesImageMain;
+                $tblCategoriesImageFile1 = isset($resultsFunctionsFiles['file1']) === true ? $resultsFunctionsFiles['file1'] : $tblCategoriesImageFile1;
+                $tblCategoriesImageFile2 = isset($resultsFunctionsFiles['file2']) === true ? $resultsFunctionsFiles['file2'] : $tblCategoriesImageFile2;
+                $tblCategoriesImageFile3 = isset($resultsFunctionsFiles['file3']) === true ? $resultsFunctionsFiles['file3'] : $tblCategoriesImageFile3;
+                $tblCategoriesImageFile4 = isset($resultsFunctionsFiles['file4']) === true ? $resultsFunctionsFiles['file4'] : $tblCategoriesImageFile4;
+                $tblCategoriesImageFile5 = isset($resultsFunctionsFiles['file5']) === true ? $resultsFunctionsFiles['file5'] : $tblCategoriesImageFile5;
+
+                // Resize images.
+                if ($tblCategoriesImageMain !== '') {
+                    $tblCategoriesArrDataFilesUpdate['image_main'] = $tblCategoriesImageMain;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageMain);
+                }
+                if ($tblCategoriesImageFile1 !== '') {
+                    $tblCategoriesArrDataFilesUpdate['file1'] = $tblCategoriesImageFile1;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile1);
+                }
+                if ($tblCategoriesImageFile2 !== '') {
+                    $tblCategoriesArrDataFilesUpdate['file2'] = $tblCategoriesImageFile2;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile2);
+                }
+                if ($tblCategoriesImageFile3 !== '') {
+                    $tblCategoriesArrDataFilesUpdate['file3'] = $tblCategoriesImageFile3;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile3);
+                }
+                if ($tblCategoriesImageFile4 !== '') {
+                    $tblCategoriesArrDataFilesUpdate['file4'] = $tblCategoriesImageFile4;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile4);
+                }
+                if ($tblCategoriesImageFile5 !== '') {
+                    $tblCategoriesArrDataFilesUpdate['file5'] = $tblCategoriesImageFile5;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile5);
+                }
+
+                // TODO: error check for image upload and resize.
+                // API call (edit).
+                $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
+                    ->put(
+                        env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIRecords'] . '/', 
+                        [
+                            'strTable' => $GLOBALS['configSystemDBTableCategories'],
+                            'idRecord' => $tblCategoriesID,
+                            'arrData' => $tblCategoriesArrDataFilesUpdate,
+                            'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                        ]
+                );
+                $arrCategoriesFilesUpdateJson = $apiCategoriesFilesUpdateResponse->json();
+                // TODO: error check for update.
+
+                // Debug.
+                //echo 'arrCategoriesUpdateJson=<pre>';
+                //var_dump($arrCategoriesUpdateJson);
+                //echo '</pre><br />';
+            }
+
+            // Debug.
+            /*
+            echo 'idTbCategories=<pre>';
+            var_dump($idTbCategories);
+            echo '</pre><br />';
+
+            echo 'arrCategoriesUpdateJson=<pre>';
+            var_dump($arrCategoriesUpdateJson);
+            echo '</pre><br />';
+            */
+            // exit();
+
+        } catch (Error $adminCategoriesUpdateError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('adminCategoriesUpdateError: ' . $adminCategoriesUpdateError->message());
+            }
+        } finally {
+            //
+        }
+
+        // Redirect.
+        $redirectParameters = [];
+        if ($arrCategoriesUpdateJson['returnStatus'] === true) {
+            $redirectParameters = [
+                'messageSuccess' => $arrCategoriesUpdateJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage7')
+            ];
+        } else {
+            $redirectParameters = [
+                'messageError' => \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage8')
+            ];
+        }
+
+        return redirect($this->returnURL)->with($redirectParameters);
+    }
+    // **************************************************************************************    
 }

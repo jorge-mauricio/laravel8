@@ -2407,7 +2407,7 @@
                     </a>
                 </div>
 
-                <input type="hidden" id="categories_id" name="id_parent" value="{{ $ocdRecord['tblCategoriesID'] }}" />
+                <input type="hidden" id="categories_id" name="id" value="{{ $ocdRecord['tblCategoriesID'] }}" />
                 @if ($GLOBALS['enableCategoriesIdParentEdit'] === 1)
                     <input type="hidden" id="categories_id_parent" name="id_parent" value="{{ $ocdRecord['tblCategoriesIdParent'] }}" />
                 @endif

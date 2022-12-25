@@ -10,6 +10,7 @@ use App\Http\Controllers\ApiRecordsController;
 use App\Http\Controllers\ApiCategoriesListingController;
 use App\Http\Controllers\ApiCategoriesInsertController;
 use App\Http\Controllers\ApiCategoriesDetailsController;
+use App\Http\Controllers\ApiCategoriesUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,7 @@ Route::get('/categories/{idTbCategories?}',[ApiCategoriesListingController::clas
 // **************************************************************************************
 
 // API - Categories - details - GET.
+// TODO: create another endpoint with /edit
 // **************************************************************************************
 Route::get('/categories/details/{idTbCategories?}',[ApiCategoriesDetailsController::class, 'getCategoriesDetails'], function($detailsCategoriesResults) {
     return response()->json($detailsCategoriesResults);
@@ -113,6 +115,22 @@ Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategor
 
     return response()->json($insertCategoriesResults);
 })->name('api.categories.insert');
+
+//Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
+// **************************************************************************************
+
+// API - Categories - PUT (update record).
+// **************************************************************************************
+// dev: http://localhost:8001/api/admin/categories/
+//Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/'. $GLOBALS['configRouteAPIActionEdit'] . '/' ,[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
+/**/
+Route::put('/categories/edit/{idTbCategories?}',[ApiCategoriesUpdateController::class, 'updateCategories'], function($updateCategoriesResults) {
+    // Debug.
+    //return 'api categories (post) - ' . $idTbCategories;
+    //return 'api categories (post)';
+
+    return response()->json($updateCategoriesResults);
+})->name('api.categories.update');
 
 //Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
 // **************************************************************************************

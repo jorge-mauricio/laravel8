@@ -110,3 +110,12 @@ Route::get('/system/categories/edit/{idTbCategories?}',[AdminCategoriesControlle
 //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
 // **************************************************************************************
 
+// Admin - Categories - edit - PUT.
+// TODO: reflect this pattern in node version.
+// **************************************************************************************
+// Debug: http://localhost:8000/system/categories/edit/1999/?masterPageSelect=layout-admin-main
+Route::put('/system/categories/edit/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesUpdate'])->name('admin.categories.update');
+//Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+//Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
+// **************************************************************************************
+
