@@ -22,7 +22,8 @@
     $metaURLCurrent = $GLOBALS['configSystemURL'] . '/';
     $metaURLCurrent .= $GLOBALS['configRouteBackend'] . '/';
     $metaURLCurrent .= $GLOBALS['configRouteBackendCategories'] . '/';
-    $metaURLCurrent .= $templateData['cphBody']['arrCategoriesDetails']['tblCategoriesIdParent'] . '/';
+    // $metaURLCurrent .= $templateData['cphBody']['arrCategoriesDetails']['tblCategoriesIdParent'] . '/';
+    $metaURLCurrent .= $idParentCategories . '/';
     // if ($masterPageSelect !== '') {
         $metaURLCurrent .= '?masterPageSelect=' . $masterPageSelect;
     // }
@@ -286,7 +287,9 @@
                                             </div>
                                         @endif
 
-                                        <div style="display: block;">
+                                        <!-- Debug. -->
+                                        <!-- // TODO: delete. -->
+                                        {{-- <div style="display: block;">
                                             @if ($GLOBALS['enableCategoriesInfo1'] === 1)
                                                 <div>
                                                     <strong>
@@ -298,7 +301,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo1FieldType'] === 11 || $GLOBALS['configCategoriesInfo1FieldType'] === 12 ? 
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info1'], 'db'), 2)
@@ -318,7 +321,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo2FieldType'] === 11 || $GLOBALS['configCategoriesInfo2FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info2'], 'db'), 2)
@@ -338,7 +341,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo3FieldType'] === 11 || $GLOBALS['configCategoriesInfo3FieldType'] === 12 ? 
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info3'], 'db'), 2)
@@ -358,7 +361,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo4FieldType'] === 11 || $GLOBALS['configCategoriesInfo4FieldType'] === 12 ? 
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info4'], 'db'), 2)
@@ -378,7 +381,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo5FieldType'] === 11 || $GLOBALS['configCategoriesInfo5FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info5'], 'db'), 2)
@@ -398,7 +401,7 @@
                                                         : ``
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo6FieldType'] === 11 || $GLOBALS['configCategoriesInfo6FieldType'] === 12 ? 
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info6'], 'db'), 2)
@@ -418,7 +421,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo7FieldType'] === 11 || $GLOBALS['configCategoriesInfo7FieldType'] === 12 ? 
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info7'], 'db'), 2)
@@ -438,7 +441,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                         $GLOBALS['configCategoriesInfo8FieldType'] === 11 || $GLOBALS['configCategoriesInfo8FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info8'], 'db'), 2)
@@ -458,7 +461,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                     $GLOBALS['configCategoriesInfo9FieldType'] === 11 || $GLOBALS['configCategoriesInfo9FieldType'] === 12 ? 
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info9'], 'db'), 2)
@@ -478,7 +481,7 @@
                                                         : ''
                                                     }}
 
-                                                    {{-- Encrypted. --}}
+                                                    <!-- Encrypted. -->
                                                     {{
                                                     $GLOBALS['configCategoriesInfo10FieldType'] === 11 || $GLOBALS['configCategoriesInfo10FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info10'], 'db'), 2)
@@ -749,7 +752,7 @@
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile1') }}:
                                                         </strong>
                                                         
-                                                        {{-- file (download). --}}
+                                                        <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile1Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file1'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file1'] }}
@@ -760,7 +763,7 @@
                                                             </a-->
                                                         @endif
 
-                                                        {{-- file (open direct). --}}
+                                                        <!-- file (open direct). -->
                                                         @if ($GLOBALS['configCategoriesFile1Type'] === 34)
                                                             <a href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file1'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file1'] }}
@@ -777,7 +780,7 @@
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile2') }}:
                                                         </strong>
                                                         
-                                                        {{-- file (download). --}}
+                                                        <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile2Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file2'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file2'] }}
@@ -788,7 +791,7 @@
                                                             </a-->
                                                         @endif
 
-                                                        {{-- file (open direct). --}}
+                                                        <!-- file (open direct). -->
                                                         @if ($GLOBALS['configCategoriesFile2Type'] === 34)
                                                             <a href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file2'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file2'] }}
@@ -805,7 +808,7 @@
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile3') }}:
                                                         </strong>
                                                         
-                                                        {{-- file (download). --}}
+                                                        <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile3Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file3'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file3'] }}
@@ -816,7 +819,7 @@
                                                             </a-->
                                                         @endif
 
-                                                        {{-- file (open direct). --}}
+                                                        <!-- file (open direct). -->
                                                         @if ($GLOBALS['configCategoriesFile3Type'] === 34)
                                                             <a href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file3'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file3'] }}
@@ -833,7 +836,7 @@
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile4') }}:
                                                         </strong>
                                                         
-                                                        {{-- file (download). --}}
+                                                        <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile4Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file4'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file4'] }}
@@ -844,7 +847,7 @@
                                                             </a-->
                                                         @endif
 
-                                                        {{-- file (open direct). --}}
+                                                        <!-- file (open direct). -->
                                                         @if ($GLOBALS['configCategoriesFile4Type'] === 34)
                                                             <a href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file4'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file4'] }}
@@ -861,7 +864,7 @@
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile5') }}:
                                                         </strong>
                                                         
-                                                        {{-- file (download). --}}
+                                                        <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile5Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file5'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file5'] }}
@@ -872,7 +875,7 @@
                                                             </a-->
                                                         @endif
 
-                                                        {{-- file (open direct). --}}
+                                                        <!-- file (open direct). -->
                                                         @if ($GLOBALS['configCategoriesFile5Type'] === 34)
                                                             <a href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file5'] }}" target="_blank" class="ss-backend-links01">
                                                                 {{ $categoriesRow['file5'] }}
@@ -891,7 +894,7 @@
                                                     {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['notes'], 'db') }}
                                                 </div>
                                             @endif
-                                        </div>
+                                        </div> --}}
                                     </td>
 
                                     <td style="text-align: center;">
@@ -1354,7 +1357,7 @@
         @endif
     </section>
 
-    @if ($idParentCategories !== '')
+    @if ($idParentCategories !== '' && $idParentCategories > 0)
         {{-- Form. --}}
         <section class="ss-backend-layout-section-form01">
             <form id="formCategories" name="formCategories" method="POST" action="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] }}" enctype="multipart/form-data">

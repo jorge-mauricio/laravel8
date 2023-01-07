@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -116,7 +117,19 @@ class AdminCategoriesController extends AdminBaseController
                 $this->templateData['idParentCategories'] = $this->idParentCategories;
 
                 // Title - current - content place holder.
-                $this->templateData['cphTitleCurrent'] = $this->arrCategoriesDetails['tblCategoriesTitle'];
+                //$this->idParentCategories = (float) $this->idParentCategories;
+                // Debug.
+                //echo 'idParentCategories=' . $this->idParentCategories . '<br />';
+                //echo 'idParentCategories=<pre>';
+                //var_dump((float) $this->idParentCategories);
+                //echo '</pre><br />';
+
+                // if (floatval($this->idParentCategories) !== 0) {
+                if ((float) $this->idParentCategories > 0) {
+                    $this->templateData['cphTitleCurrent'] = $this->arrCategoriesDetails['tblCategoriesTitle'];
+                } else {
+                    $this->templateData['cphTitleCurrent'] = '';
+                }
                 
                 // Title - content place holder.
                 $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
@@ -146,12 +159,10 @@ class AdminCategoriesController extends AdminBaseController
             }    
 
 
-
             // Debug.
             // return 'admin categories listing (controller) idTbCategories = ' . $idTbCategories;
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
-
         } catch(Exception $adminCategoriesListingError) {
             echo 'Error reading API: ' . $apiError->getMessage();     
             

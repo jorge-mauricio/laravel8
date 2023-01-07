@@ -268,7 +268,13 @@ class ObjectCategoriesDetails
                 $this->arrSpecialParameters
             );
 
-            if ($this->resultsCategoryDetails['returnStatus'] === true) {
+            // Debug.
+            //echo 'resultsCategoryDetails=<pre>';
+            //var_dump($this->resultsCategoryDetails);
+            //echo '</pre><br />';    
+
+            // if ($this->resultsCategoryDetails['returnStatus'] === true) {
+            if ($this->resultsCategoryDetails['returnStatus'] === true && isset($this->resultsCategoryDetails[0])) {
                 // $arrReturn = ['returnStatus' => true, ...$this->resultsCategoriesListing]; // error - research
                 // $arrReturn = array_merge(['returnStatus' => true], $this->resultsCategoryDetails); // working
                 $arrReturn['returnStatus'] = true;
