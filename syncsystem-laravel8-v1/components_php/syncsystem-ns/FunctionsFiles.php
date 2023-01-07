@@ -29,7 +29,7 @@ class FunctionsFiles
     {
         // Variables.
         // ----------------------
-        $strReturn = ['returnStatus' => false ]; // ['returnStatus' => false, 'returnFileName' => ""]
+        $strReturn = ['returnStatus' => false]; // ['returnStatus' => false, 'returnFileName' => ""]
         // ----------------------
 
         // Loop through postedFile.

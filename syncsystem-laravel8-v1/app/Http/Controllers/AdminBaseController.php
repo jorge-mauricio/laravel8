@@ -132,10 +132,23 @@ class AdminBaseController extends Controller
         $masterPageSelect = $req->masterPageSelect;
         // ----------------------
 
+        // Debug.
+        /*
+        echo 'idParent=<pre>';
+        var_dump($idParent);
+        echo '</pre><br />';
+        if ($idParent) {
+            echo 'idParent = true';
+        } else {
+            echo 'idParent = false';
+        }
+        exit();
+        */
+
         // Logic.
         // ----------------------
         $strReturn = '/' . $pageReturn;
-        if ($idParent) {
+        if ($idParent !== null) {
             $strReturn .= '/' . $idParent;
         }
         if ($idQuizzes) {
