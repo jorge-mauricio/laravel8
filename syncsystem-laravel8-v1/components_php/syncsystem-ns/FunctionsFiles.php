@@ -25,7 +25,7 @@ class FunctionsFiles
      *                                              '');
      * 
      */
-    static function filesUploadMultiple(float $idRecord, Request $postedFile, string $directoryUpload, string $fileNameFinal = '', array $formfileFieldsReference = []): array
+    static function filesUploadMultiple(float $idRecord, Request $postedFile, string $directoryUpload, string $fileNameFinal = '', ?array $formfileFieldsReference = []): array
     {
         // Variables.
         // ----------------------
@@ -40,48 +40,49 @@ class FunctionsFiles
             echo '</pre><br />';
         }
         */
+        if ($formfileFieldsReference) {
+            foreach($formfileFieldsReference as $formfileFieldsReferenceKey => $formfileFieldsReferenceData) {
+                // Variables.
+                $fileName = '';
 
-        foreach($formfileFieldsReference as $formfileFieldsReferenceKey => $formfileFieldsReferenceData) {
-            // Variables.
-            $fileName = '';
+                // Define values.
+                $fileName = $formfileFieldsReferenceData['fileNamePrefix'] . $idRecord . '.' . $formfileFieldsReferenceData['fileExtension'];
+                
+                // Set return values.
+                $strReturn[$formfileFieldsReferenceKey] = $fileName;
 
-            // Define values.
-            $fileName = $formfileFieldsReferenceData['fileNamePrefix'] . $idRecord . '.' . $formfileFieldsReferenceData['fileExtension'];
-            
-            // Set return values.
-            $strReturn[$formfileFieldsReferenceKey] = $fileName;
-
-            // Check if it´s an image (for resizing and copying an original file size).
-            if (strpos($GLOBALS['configImageFormats'], $formfileFieldsReferenceData['fileExtension']) !== false) {
-                $fileName = 'o' . $fileName;
-            }
-
-            // Copy file (local).
-            // ----------------------
-            if ($GLOBALS['configUploadType'] === 1) {
-                try {
-                    //$postedFile->file('image_main')->storeAs('public/app_files_public/', 'testing.jpg'); // Debug.
-                    $postedFile->file($formfileFieldsReferenceKey)->storeAs($GLOBALS['configDirectoryFiles'] . '/', $fileName);
-                } catch (Error $filesUploadMultipleError) {
-                    if ($GLOBALS['configDebug'] === true) {
-                        throw new Error('filesUploadMultipleError: ' . $filesUploadMultipleError->message());
-                    }
-                } finally {
-                    $strReturn['returnStatus'] = true;
+                // Check if it´s an image (for resizing and copying an original file size).
+                if (strpos($GLOBALS['configImageFormats'], $formfileFieldsReferenceData['fileExtension']) !== false) {
+                    $fileName = 'o' . $fileName;
                 }
-            }
-            // ----------------------
 
-            // Copy file (local).
-            // ----------------------
-            if ($GLOBALS['configUploadType'] === 2) {
-                // TODO:
-            }
-            // ----------------------
+                // Copy file (local).
+                // ----------------------
+                if ($GLOBALS['configUploadType'] === 1) {
+                    try {
+                        //$postedFile->file('image_main')->storeAs('public/app_files_public/', 'testing.jpg'); // Debug.
+                        $postedFile->file($formfileFieldsReferenceKey)->storeAs($GLOBALS['configDirectoryFiles'] . '/', $fileName);
+                    } catch (Error $filesUploadMultipleError) {
+                        if ($GLOBALS['configDebug'] === true) {
+                            throw new Error('filesUploadMultipleError: ' . $filesUploadMultipleError->message());
+                        }
+                    } finally {
+                        $strReturn['returnStatus'] = true;
+                    }
+                }
+                // ----------------------
 
-            // Delete temporary file.
-            //Storage::disk('tmp')->delete($formfileFieldsReferenceData['temporaryFilePath']);
-            Storage::delete($formfileFieldsReferenceData['temporaryFilePath']);
+                // Copy file (local).
+                // ----------------------
+                if ($GLOBALS['configUploadType'] === 2) {
+                    // TODO:
+                }
+                // ----------------------
+
+                // Delete temporary file.
+                //Storage::disk('tmp')->delete($formfileFieldsReferenceData['temporaryFilePath']);
+                Storage::delete($formfileFieldsReferenceData['temporaryFilePath']);
+            }
         }
 
         return $strReturn;

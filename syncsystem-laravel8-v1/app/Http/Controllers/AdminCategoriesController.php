@@ -273,6 +273,7 @@ class AdminCategoriesController extends AdminBaseController
             // Files upload (in frontend server).
             $resultsFunctionsFiles = null;
             $formfileFieldsReference = null;
+            //$formfileFieldsReference = [];
             $tblCategoriesID = $arrCategoriesInsertJson['idRecordInsert'];
 
             // Build file fields references.

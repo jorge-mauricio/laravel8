@@ -1357,7 +1357,7 @@
         @endif
     </section>
 
-    @if ($idParentCategories !== '' && $idParentCategories > 0)
+    @if ((string) $idParentCategories !== '')
         {{-- Form. --}}
         <section class="ss-backend-layout-section-form01">
             <form id="formCategories" name="formCategories" method="POST" action="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] }}" enctype="multipart/form-data">
@@ -3206,8 +3206,8 @@
                                     </td>
                                     <td>
                                         <select id="categories_activation1" name="activation1" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
-                                            <option value="0">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
+                                            <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
+                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -3220,8 +3220,8 @@
                                     </td>
                                     <td>
                                         <select id="categories_activation2" name="activation2" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
-                                            <option value="0">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
+                                            <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
+                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -3234,8 +3234,8 @@
                                     </td>
                                     <td>
                                         <select id="categories_activation3" name="activation3" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
-                                            <option value="0">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
+                                            <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
+                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -3248,8 +3248,8 @@
                                     </td>
                                     <td>
                                         <select id="categories_activation4" name="activation4" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
-                                            <option value="0">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
+                                            <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
+                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -3262,8 +3262,8 @@
                                     </td>
                                     <td>
                                         <select id="categories_activation5" name="activation5" class="ss-backend-field-dropdown01">
-                                            <option value="1" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
-                                            <option value="0">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
+                                            <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1') }}</option>
+                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0') }}</option>
                                         </select>
                                     </td>
                                 </tr>
