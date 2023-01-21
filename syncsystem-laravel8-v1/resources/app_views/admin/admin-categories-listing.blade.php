@@ -1,6 +1,22 @@
 @php
     // Variables.
     $idParentCategories = $templateData['idParentCategories'];
+
+    // TODO: Grab value from templateData
+    $_pagingNRecords = $GLOBALS['configCategoriesBackendPaginationNRecords'];
+    $_pagingTotalRecords = 0;
+    $_pagingTotal = 0;
+    $_pageNumber = (int) $pageNumber;
+    if ($GLOBALS['enableCategoriesBackendPagination'] === 1) {
+        $_pagingTotalRecords = $templateData['_pagingTotalRecords'];
+        $_pagingTotal = intval(ceil($_pagingTotalRecords / $_pagingNRecords));
+        // if (!$_pageNumber) { // TODO: double check this logic.
+        // if ($_pageNumber === '') { // TODO: double check this logic. // Verified - 0 (null) changes to 1
+        if (!$_pageNumber) {
+            $_pageNumber = 1;
+        }
+    }
+
     $titleCurrent = $templateData['cphTitleCurrent'];
     $arrCategoriesDetails = $templateData['cphBody']['arrCategoriesDetails'];
     $arrCategoriesListing = $templateData['cphBody']['arrCategoriesListing'];
@@ -87,6 +103,9 @@
 
             // var_dump($templateData['cphBody']);
             // var_dump($templateData['additionalData']);
+            // var_dump($_pageNumber);
+            // var_dump($_pagingTotalRecords);
+            // var_dump($_pagingTotal);
         @endphp
     </pre>
 
@@ -1352,7 +1371,92 @@
                     </table>
                 </div>
 
-                {{-- pagination --}}
+                {{-- Pagination. --}}
+                {{-- ---------------------- --}}
+                @if ($GLOBALS['enableCategoriesBackendPagination'] === 1)
+                    <div class="ss-backend-paging" style="position: relative; display: block; overflow: hidden; text-align: center;">
+                        {{-- Page numbers. --}}
+                        @if ($GLOBALS['enableCategoriesBackendPaginationNumbering'] === 1)
+                            <div class="ss-backend-paging-number-link-a" style="position: relative; display: block; overflow: hidden;">
+                                {{-- @foreach ($_pagingTotal as $pageNumberOutput) --}}
+                                {{-- @foreach (range(0, $_pagingTotal, 1) as $pageNumberOutput)
+                                    <?php
+                                    // Debug.
+                                    /*
+                                    echo '_pageNumber=';
+                                    var_dump($_pageNumber);
+                                    echo '<br />';
+
+                                    echo 'pageNumberOutput=';
+                                    var_dump($pageNumberOutput);
+                                    echo '<br />';
+                                    */
+                                    ?>
+                                    @if ($pageNumberOutput + 1 === $_pageNumber)
+                                        {{ $pageNumberOutput + 1 }}
+                                    @else
+                                        <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . $pageNumberOutput + 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPageCounter01') . ' ' . $pageNumberOutput + 1 }}" class="ss-backend-paging-number-link">
+                                            {{ $pageNumberOutput + 1 }}
+                                        </a>
+                                    @endif
+                                @endforeach --}}
+                                @for ($pageNumberOutput = 0; $pageNumberOutput <  $_pagingTotal; $pageNumberOutput++)
+                                    @if ($pageNumberOutput + 1 === $_pageNumber)
+                                        {{ $pageNumberOutput + 1 }}
+                                    @else
+                                        <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . $pageNumberOutput + 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPageCounter01') . ' ' . $pageNumberOutput + 1 }}" class="ss-backend-paging-number-link">
+                                            {{ $pageNumberOutput + 1 }}
+                                        </a>
+                                    @endif
+                                @endfor
+                            </div>
+                        @endif
+
+                        {{-- Page controls. --}}
+                        {{-- TODO: optimize this logic. --}}
+                        {{-- TODO: evaluate slash before ?. --}}
+                        {{-- TODO: evaluate slash URL (for everything  / change node version to match). --}}
+                        {{-- NOTE: $idParentCategories used to be $_idParent - re-aveluate.  --}}
+                        <div style="position: relative; display: block; overflow: hidden;">
+                            @if ($_pageNumber === 1)
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=1' }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingFirst') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingFirst') }}
+                                </a>
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . (int) $_pageNumber - 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPrevious') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPrevious') }} 
+                                </a>
+                            @else
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=1' }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingFirst') }}" class="ss-backend-paging-btn">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingFirst') }}
+                                </a>
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . (int) $_pageNumber - 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPrevious') }}" class="ss-backend-paging-btn">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPrevious') }}
+                                </a>
+                            @endif
+
+                            @if ($_pageNumber === $_pagingTotal)
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . (int) $_pageNumber + 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingNext') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingNext') }}
+                                </a>
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . $_pagingTotal }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingLast') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingLast') }}
+                                </a>
+                            @else
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . (int) $_pageNumber + 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingNext') }}" class="ss-backend-paging-btn">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingNext') }}
+                                </a>
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . $_pagingTotal }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingLast') }}" class="ss-backend-paging-btn">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingLast') }}
+                                </a>
+                            @endif
+                        </div>
+
+                        <div style="position: relative; display: block; overflow: hidden;">
+                            {{ $_pageNumber }} / {{ $_pagingTotal }}
+                        </div>
+                    </div>
+                @endif
+                {{-- ---------------------- --}}
             </form>
         @endif
     </section>

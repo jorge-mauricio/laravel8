@@ -15,6 +15,7 @@
 
 $configDebug = true; // true (debug mode) | false (production mode)
 $configCache = true; // false (no chache) | true (cache)
+$configCacheForce = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic. 
 
 // Error handling / displaying.
 //----------------------

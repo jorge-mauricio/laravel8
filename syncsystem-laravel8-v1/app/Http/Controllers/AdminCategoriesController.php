@@ -57,7 +57,7 @@ class AdminCategoriesController extends AdminBaseController
      * @return View
      */
     // public function adminCategoriesListing(float|string $idParent = null): string //TODO: change to the right type
-    public function adminCategoriesListing(float|string $_idParentCategories = null): View
+    public function adminCategoriesListing(float|string $_idParentCategories = null, Request $req): View
     {
         // Variables.
         // ----------------------
@@ -79,9 +79,20 @@ class AdminCategoriesController extends AdminBaseController
 
             // $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get('http://127.0.0.1:8000/api/categories/' . $this->idParentCategories . '/?apiKey=fswd@2008');
             // $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get('http://localhost:8001/api/categories/' . $this->idParentCategories . '/?apiKey=fswd@2008');
+            /*
             $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $this->idParentCategories . '/', [
                 'apiKey' => env('CONFIG_API_KEY_SYSTEM')
             ]);
+            */
+            $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])
+                ->get(
+                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $this->idParentCategories . '/',
+                    array_merge(
+                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
+                        $req->all()
+                    )
+            );
+
             // Note / TODO: On production, set verify to true.
             //return $apiCategoriesDetailsCurrentResponse->json();
             $this->arrCategoriesListingJson = $apiCategoriesListingCurrentResponse->json();
@@ -148,6 +159,11 @@ class AdminCategoriesController extends AdminBaseController
                 $this->templateData['cphBody']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
                 $this->templateData['cphBody']['arrCategoriesListing'] = $this->arrCategoriesListing;
                 unset($this->templateData['cphBody']['arrCategoriesListing']['returnStatus']); // Clean extra data.
+
+                // TODO: pass _pagingTotalRecords and _pagingTotal values
+                if ($GLOBALS['enableCategoriesBackendPagination'] === 1) {
+                    $this->templateData['_pagingTotalRecords'] = $this->arrCategoriesListingJson['_pagingTotalRecords'];
+                }
 
                 // Dynamic data.
                 //$this->templateData['additionalData']['arrCategoriesDetails'] = $this->arrCategoriesDetails;

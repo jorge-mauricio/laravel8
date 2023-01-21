@@ -11,7 +11,7 @@ class FunctionsDB
     /**
      * Universal counter - update.
      * @static
-     * @param int idTbCounter 1 - Universal Counter | 5 - Import
+     * @param int $idTbCounter 1 - Universal Counter | 5 - Import
      * @return float|null
      * @example
      * \SyncSystemNS\FunctionsDB::counterUniversalUpdate(1)
@@ -139,13 +139,13 @@ class FunctionsDB
     /**
      * Function to return results from any table.
      * @static
-     * @param string strTable categories | content | files | publications | products | registers | quizzes | forms | forms_fields | forms_fields_options
-     * @param array arrSearchParameters ["fieldNameSearch1;fieldValueSearch1;fieldTypeSearch1", "fieldNameSearch2;fieldValueSearch2;fieldTypeSearch2", "fieldNameSearch3;fieldValueSearch3;fieldTypeSearch3"]
-     * @param string configSortOrder
-     * @param string strNRecords
-     * @param string strReturnFields field names, separated by commas. Ex: id, id_parent
-     * @param float searchType 1 - all results | 2 - first result | 3 - count records
-     * @param object arrSpecialParameters ['returnType' => 3, 'pageNumber' => 2, 'pagingNRecords' => 20]
+     * @param string $strTable categories | content | files | publications | products | registers | quizzes | forms | forms_fields | forms_fields_options
+     * @param array $arrSearchParameters ["fieldNameSearch1;fieldValueSearch1;fieldTypeSearch1", "fieldNameSearch2;fieldValueSearch2;fieldTypeSearch2", "fieldNameSearch3;fieldValueSearch3;fieldTypeSearch3"]
+     * @param string $configSortOrder
+     * @param string $strNRecords
+     * @param string $strReturnFields field names, separated by commas. Ex: id, id_parent
+     * @param int $searchType 1 - all results | 2 - first result | 3 - count records
+     * @param array $arrSpecialParameters ['returnType' => 3, 'pageNumber' => 2, 'pagingNRecords' => 20]
      * @return array
      */
     static function genericTableGet02(string $strTable,
@@ -153,9 +153,9 @@ class FunctionsDB
         string $configSortOrder = '',
         string $strNRecords = '',
         string $strReturnFields = '',
-        float $searchType = 1,
-        array $arrSpecialParameters = [ 'returnType' => 1 ]
-    ): array|null
+        int $searchType = 1,
+        array $arrSpecialParameters = ['returnType' => 1]
+    ): array|int|null
     {
         // Variables.
         // ----------------------
@@ -250,12 +250,24 @@ class FunctionsDB
                 $resultsSQLGenericTable = $resultsSQLGenericTable->toArray();
             }
 
-
+            // Build return data.
             if ($resultsSQLGenericTable !== null) {
-                //$arrReturn = $resultsSQLGenericTable;
-                // $arrReturn = ['returnStatus' => true, ...$resultsSQLGenericTable]; // worked
-                $arrReturn = array_merge(['returnStatus' => true], $resultsSQLGenericTable);
-                //$arrReturn = $resultsSQLGenericTable["items"];
+                if ($searchType === 1) {
+                    //$arrReturn = $resultsSQLGenericTable;
+                    // $arrReturn = ['returnStatus' => true, ...$resultsSQLGenericTable]; // worked
+                    $arrReturn = array_merge(['returnStatus' => true], $resultsSQLGenericTable);
+                    //$arrReturn = $resultsSQLGenericTable["items"];
+                }
+
+                if ($searchType === 3) {
+                    // TODO: check if it´s worth changing this to a returnStatus structure.
+                    //$arrReturn = array_merge(['returnStatus' => true], count($resultsSQLGenericTable));
+                    $arrReturn = count($resultsSQLGenericTable);
+                }
+            } else {
+                if ($searchType === 3) {
+                    $arrReturn = 0;
+                }
             }
 
             // Debug.

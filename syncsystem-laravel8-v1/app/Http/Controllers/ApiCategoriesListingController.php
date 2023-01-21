@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //use Response;
 //use Route;
 use Illuminate\Support\Facades\Route;
+//use Illuminate\Support\Facades\Log;
 
 // Custom models.
 use App\Models\CategoriesListing;
@@ -35,8 +36,8 @@ class ApiCategoriesListingController extends Controller
     private float|null $activation5 = null;
 
     private float|string|null $idTbCategories = null;
-    private float|null $pageNumber = null;
-    private float|null $pagingNRecords = null;
+    private float|null $pageNumber = 1; // TODO: maybe, dele null
+    private float|null $pagingNRecords = 0;
 
     private float|null $terminal = 0;
     private string $apiKey = '';
@@ -114,9 +115,12 @@ class ApiCategoriesListingController extends Controller
         if ($req->query('pageNumber') !== null) {
             $this->pageNumber = $req->query('pageNumber');
         }
+        /*
         if ($req->query('pagingNRecords') !== null) {
             $this->pagingNRecords = $req->query('pagingNRecords');
         }
+        */
+        $this->pagingNRecords = $GLOBALS['configCategoriesBackendPaginationNRecords'];
         // ----------------------
 
         // Logic.
@@ -196,6 +200,13 @@ class ApiCategoriesListingController extends Controller
 
             //echo 'this->arrSearchParameters (inside getCategoriesListing)=<pre>';
             //var_dump($this->arrSearchParameters);
+            //echo '</pre><br />';
+            //Log::debug($this->oclRecordsParameters);
+            \SyncSystemNS\FunctionsLog::logLaravel($this->oclRecordsParameters, 'debug');
+
+
+            //echo 'this->oclRecordsParameters (inside getCategoriesListing)=<pre>';
+            //var_dump( $this->oclRecordsParameters);
             //echo '</pre><br />';
 
             //echo 'Route::current()->getParameter (inside getCategoriesListing)=<pre>';

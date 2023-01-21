@@ -35,14 +35,15 @@ class AdminBaseController extends Controller
             $masterPageSelect = $_POST['masterPageSelect'];
         } 
 
-        $pageNumber = '';
+        $pageNumber = isset($_GET['pageNumber']) ? $_GET['pageNumber'] : '';
         $queryDefault = ''; // TODO: evaluate if it will remain in base controller or move to blade template.
         $cacheClear = '';
 
-        $messageSuccess = '';
-        isset($_GET['messageSuccess']) ? $messageSuccess = $_GET['messageSuccess'] : $messageSuccess = '';
-        $messageError = '';
-        $messageAlert = '';
+        //$messageSuccess = '';
+        //isset($_GET['messageSuccess']) ? $messageSuccess = $_GET['messageSuccess'] : $messageSuccess = '';
+        $messageSuccess = isset($_GET['messageSuccess']) ? $_GET['messageSuccess'] : '';
+        $messageError = isset($_GET['messageError']) ? $_GET['messageError'] : '';
+        $messageAlert = isset($_GET['messageAlert']) ? $_GET['messageAlert'] : '';
 
         // Current date values.
         $dateNow = new \DateTime(); // Y-m-d H:i:s
