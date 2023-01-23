@@ -873,6 +873,13 @@
                                                 Inputmask(inputmaskDecimalBackendConfigOptions).mask("categories_number1");
                                             </script>
                                         @endif
+
+                                        {{-- Debug. --}}
+                                        {{-- 
+                                        @dump($ocdRecord['tblCategoriesNumber1'])
+                                        @dump(\SyncSystemNS\FunctionsGeneric::valueMaskRead($ocdRecord['tblCategoriesNumber1'], $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber1FieldType']))
+                                        @dump(SS_VALUE_TYPE_SYSTEM_CURRENCY) 
+                                        --}}
                                     </td>
                                 </tr>
                             @endif

@@ -600,6 +600,7 @@ class FunctionsGeneric
         if ($strReturn) {
             // system currency
             if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY) {
+                
                 $strReturn = preg_replace('/\,/', '', $strReturn);
                 $strReturn = preg_replace('/\./', '', $strReturn);
             }
@@ -644,6 +645,7 @@ class FunctionsGeneric
     //static function valueMaskRead($valueData, $configCurrency = '$', $valueType = 2, $specialInstructions = null): float
     static function valueMaskRead(float $valueData, string $configCurrency = '$', int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, ?array $specialInstructions = null): mixed
     {
+        // TODO: unit test (decimals, system decimals (. / ,)).
         // Variables.
         // ----------------------
         $strReturn = '';
@@ -660,14 +662,22 @@ class FunctionsGeneric
 
             // System currency.
             if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY) {
+                // Check if it´s a decimal.
+                if (strpos($strValue, '.')) {
+                    (string) $strValue = number_format((float) $strValue, 2, '.', '');
+                    $strValue = preg_replace('/\./', '', $strValue);
+                } else {
+                    $strValue = $strValue . '00';
+                }
+
                 if(strlen($strValue) < 3)
                 {
                     $strValue = '00' . $strValue;
                 }
-                
+
                 $strDecimal = substr($strValue, (strlen($strValue) - 2), strlen($strValue));
                 $strValue = substr($strValue, 0, strlen($strValue) - 2) . '.' . $strDecimal;
-                
+
                 // R$ (Real)
                 if($configCurrency === 'R$')
                 {

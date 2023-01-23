@@ -89,8 +89,7 @@ class ApiCategoriesDetailsController extends Controller
             $arrReturn = $ocdRecord->cphBodyBuild();
 
             // Debug.
-            $arrReturn['debug-idTbCategories'] = $idTbCategories;
-
+            // $arrReturn['debug-idTbCategories'] = $idTbCategories;
         } catch (Error $getCategoriesDetailsError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('getCategoriesDetailsError: ' . $getCategoriesDetailsError->message());

@@ -132,8 +132,8 @@ class ApiCategoriesListingController extends Controller
                 '_terminal' => $this->terminal,
                 '_arrSpecialParameters' => [
                     'returnType' => 1, 
-                    'pageNumber' => $this->pageNumber, 
-                    'pagingNRecords' => $this->pagingNRecords
+                    // 'pageNumber' => $this->pageNumber, 
+                    // 'pagingNRecords' => $this->pagingNRecords
                 ],
             ];            
 
@@ -202,7 +202,7 @@ class ApiCategoriesListingController extends Controller
             //var_dump($this->arrSearchParameters);
             //echo '</pre><br />';
             //Log::debug($this->oclRecordsParameters);
-            \SyncSystemNS\FunctionsLog::logLaravel($this->oclRecordsParameters, 'debug');
+            //\SyncSystemNS\FunctionsLog::logLaravel($this->oclRecordsParameters, 'debug');
 
 
             //echo 'this->oclRecordsParameters (inside getCategoriesListing)=<pre>';

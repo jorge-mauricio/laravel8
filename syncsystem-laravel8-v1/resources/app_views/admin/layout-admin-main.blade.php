@@ -128,7 +128,7 @@
                     <nav style="position: relative; display: block; padding-top: 20px; margin-left: 37px; z-index: 1;">
                         <ul class="ss-backend-menu-ul01">
                             <li class="ss-backend-menu-li01">
-                                <a href="/admin/categories/0" 
+                                <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/0' }}" 
                                     class="ss-backend-menu-link" 
                                     title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuStartToolTip'); ?>">
                                         <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuStart'); ?>

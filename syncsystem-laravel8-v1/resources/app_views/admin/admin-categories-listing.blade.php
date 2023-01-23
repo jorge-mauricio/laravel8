@@ -249,7 +249,7 @@
 
                                     @if ($GLOBALS['enableCategoriesImageMain'] === 1)
                                         <td style="text-align: center;">
-                                            @if ($categoriesRow['image_main'] !== '')
+                                            @if ((string) $categoriesRow['image_main'] !== '')
                                                 {{-- No pop-up. --}}
                                                 @if ($GLOBALS['configImagePopup'] === 0)
                                                     <img src="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/t' . $categoriesRow['image_main'] . '?v=' . $cacheClear }}" 

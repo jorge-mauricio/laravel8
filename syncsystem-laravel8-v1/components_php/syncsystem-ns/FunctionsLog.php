@@ -14,7 +14,7 @@ class FunctionsLog
      * @param string $logType emergency | alert | critical | error | warning | notice | info | debug
      * @return void
      * @example
-     * \SyncSystemNS\FunctionsDB::counterUniversalUpdate(1)
+     * \SyncSystemNS\FunctionsLog::logLaravel($logData, 'debug');
      */
     static function logLaravel(mixed $logData, string $logType = 'debug'): void
     {
