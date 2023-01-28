@@ -106,6 +106,11 @@
             // var_dump($_pageNumber);
             // var_dump($_pagingTotalRecords);
             // var_dump($_pagingTotal);
+            var_dump(config('app.gSystemConfig')); // working
+            var_dump(config('gSystemConfig.configDebug')); // working
+            var_dump(config('gSystemConfig.configDebugArr.info1')); // working
+            var_dump(config('gSystemConfig')); 
+            
         @endphp
     </pre>
 

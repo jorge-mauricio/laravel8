@@ -1,4 +1,6 @@
 <?php
+//require __DIR__ . '/../config-application.php'; // SyncSystem customized configuration.
+
 
 return [
 
@@ -67,8 +69,9 @@ return [
     |
     */
 
-    //'timezone' => 'UTC',
-    'timezone' => $GLOBALS['configSystemTimeZone'],
+    'timezone' => 'UTC',
+    //'timezone' => $GLOBALS['configSystemTimeZone'],
+    //'timezone' => $gSystemConfig['configSystemTimeZone'],
     
 
     /*
@@ -124,6 +127,24 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Configuration - SyncSystem Multiplatform
+    |--------------------------------------------------------------------------
+    |
+    | Configuration parameters for SyncSystem Multiplatform
+    |
+    */
+
+    'gSystemConfig' => 'testing configuration',
+    /*
+    'gSystemConfig' => [
+        'configDebug' => true,
+    ],
+    */
+    //'gSystemConfig' => $GLOBALS['gSystemConfig'],
+    //'gSystemConfig' => $gSystemConfig,
 
     /*
     |--------------------------------------------------------------------------

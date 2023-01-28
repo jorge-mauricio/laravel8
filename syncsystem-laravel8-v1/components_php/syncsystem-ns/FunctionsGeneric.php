@@ -678,13 +678,13 @@ class FunctionsGeneric
                 $strDecimal = substr($strValue, (strlen($strValue) - 2), strlen($strValue));
                 $strValue = substr($strValue, 0, strlen($strValue) - 2) . '.' . $strDecimal;
 
-                // R$ (Real)
+                // R$ (Real).
                 if($configCurrency === 'R$')
                 {
                     $strReturn = number_format($strValue, 2, ',', '.');
                 }
                 
-                // $ (dolar)
+                // $ (dolar).
                 if($configCurrency === '$')
                 {
                     $strReturn = number_format($strValue, 2, '.', ',');

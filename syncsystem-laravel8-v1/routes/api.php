@@ -23,6 +23,10 @@ use App\Http\Controllers\ApiCategoriesUpdateController;
 |
 */
 
+// Debug.
+// \SyncSystemNS\FunctionsLog::logLaravel(config('gSystemConfig.configDebug'), 'debug'); // working
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
