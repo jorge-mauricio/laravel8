@@ -9,6 +9,7 @@ class AdminBaseController extends Controller
 {
     // Properties.
     // ----------------------
+    protected string|null $masterPageSelect = 'layout-admin-main';
     /*
     protected float|null $idParent = null;
     protected float|null $fileType = null;
@@ -27,12 +28,12 @@ class AdminBaseController extends Controller
     // **************************************************************************************
     protected function __construct() {
         // Admin master page select priority.
-        $masterPageSelect = 'layout-admin-main';
+        //$masterPageSelect = 'layout-admin-main';
         if (!empty($_GET['masterPageSelect'])) {
-            $masterPageSelect = $_GET['masterPageSelect'];
+            $this->masterPageSelect = $_GET['masterPageSelect'];
         } 
         if (!empty($_POST['masterPageSelect'])) {
-            $masterPageSelect = $_POST['masterPageSelect'];
+            $this->masterPageSelect = $_POST['masterPageSelect'];
         } 
 
         $pageNumber = isset($_GET['pageNumber']) ? $_GET['pageNumber'] : '';
@@ -56,7 +57,7 @@ class AdminBaseController extends Controller
         $dateNowSecond = $dateNow->format('s');
 
         // Build default return query.
-        $queryDefault .= 'masterPageSelect=' . $masterPageSelect;
+        $queryDefault .= 'masterPageSelect=' . $this->masterPageSelect;
         if ($pageNumber !== '') {
             $queryDefault .= '&pageNumber=' . $pageNumber;
         }
@@ -66,7 +67,7 @@ class AdminBaseController extends Controller
             
         // Shere between views.
         // TODO: check if can be changed to array.
-        View::share('masterPageSelect', $masterPageSelect);
+        View::share('masterPageSelect', $this->masterPageSelect);
         View::share('pageNumber', $pageNumber);
         View::share('cacheClear', $cacheClear);
         View::share('queryDefault', $queryDefault);

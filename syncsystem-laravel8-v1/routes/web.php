@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 // Controllers.
+use App\Http\Controllers\AdminLoginController;
+
 use App\Http\Controllers\AdminCategoriesController;
 use App\Http\Controllers\AdminRecordsController;
 use App\Http\Controllers\FrontendCategoriesListingController;
@@ -58,6 +60,12 @@ Route::get('/', function () {
 Route::get('/admin/layout', function () {
     return view('layout-backend-main');
 });
+
+
+// Admin - Home - Login.
+// **************************************************************************************
+Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.login');
+// **************************************************************************************
 
 
 // Frontend - Categories - listing - GET.

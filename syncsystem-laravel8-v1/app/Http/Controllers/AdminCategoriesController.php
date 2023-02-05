@@ -20,7 +20,7 @@ class AdminCategoriesController extends AdminBaseController
     // private float|string|null $_idParent = null;
     private float|string|null $idParentCategories = null;
     private float|null $pageNumber = null;
-    private string|null $masterPageSelect = 'layout-backend-main';
+    protected string|null $masterPageSelect = 'layout-backend-main';
     private string|null $returnURL = null;
 
     private array $cookiesData;
@@ -186,7 +186,7 @@ class AdminCategoriesController extends AdminBaseController
                 throw new Error('adminCategoriesListingError: ' . $adminCategoriesListingError->message());
             }
         } finally {
-
+            //
         }
 
         // Return with view.

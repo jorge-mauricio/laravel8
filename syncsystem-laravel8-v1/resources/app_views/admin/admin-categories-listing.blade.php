@@ -2,7 +2,6 @@
     // Variables.
     $idParentCategories = $templateData['idParentCategories'];
 
-    // TODO: Grab value from templateData
     $_pagingNRecords = $GLOBALS['configCategoriesBackendPaginationNRecords'];
     $_pagingTotalRecords = 0;
     $_pagingTotal = 0;
