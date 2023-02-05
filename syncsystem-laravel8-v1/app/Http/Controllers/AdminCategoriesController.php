@@ -21,7 +21,7 @@ class AdminCategoriesController extends AdminBaseController
     private float|string|null $idParentCategories = null;
     private float|null $pageNumber = null;
     protected string|null $masterPageSelect = 'layout-backend-main';
-    private string|null $returnURL = null;
+    private string|null $returnURL = null; // TODO: evaluate moving this to the method level.
 
     private array $cookiesData;
     private array $templateData;
@@ -180,8 +180,6 @@ class AdminCategoriesController extends AdminBaseController
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
         } catch(Exception $adminCategoriesListingError) {
-            echo 'Error reading API: ' . $apiError->getMessage();     
-            
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('adminCategoriesListingError: ' . $adminCategoriesListingError->message());
             }
@@ -583,8 +581,6 @@ class AdminCategoriesController extends AdminBaseController
             echo '</pre><br />';
             */
         } catch(Exception $adminCategoriesEditError) {
-            echo 'Error reading API: ' . $apiError->getMessage();     
-            
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('adminCategoriesEditError: ' . $adminCategoriesEditError->message());
             }

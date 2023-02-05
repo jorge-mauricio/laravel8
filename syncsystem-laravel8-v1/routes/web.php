@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers.
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminDashboardController;
 
 use App\Http\Controllers\AdminCategoriesController;
 use App\Http\Controllers\AdminRecordsController;
@@ -62,12 +63,6 @@ Route::get('/admin/layout', function () {
 });
 
 
-// Admin - Home - Login.
-// **************************************************************************************
-Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.login');
-// **************************************************************************************
-
-
 // Frontend - Categories - listing - GET.
 // **************************************************************************************
 // Debug: http://127.0.0.1:8000/admin/categories/123
@@ -84,6 +79,22 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/orders', 'store');
 });
 */
+
+// Admin - Home - Login.
+// **************************************************************************************
+Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.login');
+// **************************************************************************************
+
+// Admin - Login - POST (check username and password).
+// **************************************************************************************
+Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->name('admin.login.check');
+// **************************************************************************************
+
+// Admin - Dashboard.
+// **************************************************************************************
+Route::get('/system/dashboard/',[AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+// **************************************************************************************
+
 
 // Admin - Categories - listing - GET.
 // **************************************************************************************

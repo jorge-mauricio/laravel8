@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class AdminLoginController extends AdminBaseController
 {
@@ -50,8 +51,6 @@ class AdminLoginController extends AdminBaseController
             // Body - content place holder.
             $this->templateData['cphBody'] = '';
         } catch(Exception $adminLoginError) {
-            echo 'Error reading API: ' . $apiError->getMessage();     
-            
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('adminLoginError: ' . $adminLoginError->message());
             }
@@ -62,4 +61,39 @@ class AdminLoginController extends AdminBaseController
         return view('admin.login')->with('templateData', $this->templateData);
     }
     // **************************************************************************************
+
+    // Admin login post data and check credentials.
+    // **************************************************************************************
+    /**
+     * Admin login post data and check credentials.
+     * @param Request $req
+     * @return RedirectResponse
+     */
+    public function adminLoginCheck(Request $req): RedirectResponse
+    {
+        // Variables.
+        $returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendDashboard'] . '/';
+
+        // Logic.
+        try {
+            //
+        } catch (Error $adminLoginEchckError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('adminLoginEchckError: ' . $adminLoginEchckError->message());
+            }
+        } finally {
+            //
+        }
+
+        // Redirect.
+        //if ($arrCategoriesInsertJson['returnStatus'] === true) {
+            return redirect($returnURL)->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10'));
+        //} else {
+            //return redirect($returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2e'));
+                // User name
+        //}
+        
+    }
+    // **************************************************************************************
+    
 }

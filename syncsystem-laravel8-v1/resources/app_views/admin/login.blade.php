@@ -18,11 +18,8 @@
     // Meta URL current.
     $metaURLCurrent = $GLOBALS['configSystemURL'] . '/';
     $metaURLCurrent .= $GLOBALS['configRouteBackend'] . '/';
-    // if ($masterPageSelect !== '') {
+    if ($masterPageSelect !== '') {
         $metaURLCurrent .= '?masterPageSelect=' . $masterPageSelect;
-    // }
-    if ($pageNumber && $pageNumber !== '') {
-        $metaURLCurrent .= '&pageNumber=' . $pageNumber;
     }
 @endphp
 
@@ -82,6 +79,8 @@
             @include('admin.partial-messages-status')
             
             <form id="formLogin" name="formLogin" method="POST" action="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendLogin'] }}" enctype="multipart/form-data">
+                @csrf
+                
                 <div style="position: relative; display: block;">
                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendLoginUser') }}:
                     <input type="text" id="username" name="username" class="ss-backend-field-text01" />
