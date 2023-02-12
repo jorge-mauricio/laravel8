@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Controllers.
+use App\Http\Controllers\ApiAuthenticationController;
 use App\Http\Controllers\ApiRecordsController;
 //use App\Http\Controllers\ApiRecordsDeleteController;
 
@@ -32,6 +33,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // TODO: route group with middleware
+
+
+// API - Authentication - POST.
+// **************************************************************************************
+Route::post('/authentication/',[ApiAuthenticationController::class, 'authenticationCheck'], function($authenticationCheckResults) {
+    // Debug.
+    //return 'api categories (post) - ' . $idTbCategories;
+    //return 'api categories (post)';
+
+    return response()->json($authenticationCheckResults);
+})->name('api.authentication.authenticationCheck');
+// **************************************************************************************
 
 // Backend - Records - Delete.
 // TODO: middleware function to check user_root or user_backend

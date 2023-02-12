@@ -214,11 +214,17 @@ class FunctionsDB
             } else {
                 $resultsSQLGenericTable = $resultsSQLGenericTable->where('id', '=', 0);
             }
-            //$resultsSQLGenericTable = $resultsSQLGenericTable->where('id_parent', '=', 781); //debug
+            //$resultsSQLGenericTable = $resultsSQLGenericTable->where('id_parent', '=', 781); // debug
 
             // Sort order.
+            // TODO: detect multiple order (,).
             if ($configSortOrder !== '') {
-                $resultsSQLGenericTable = $resultsSQLGenericTable->orderBy($configSortOrder); // sortBy
+                if (strpos($configSortOrder, ' ')) {
+                    $arrConfigSortOrder = explode(' ', $configSortOrder);
+                    $resultsSQLGenericTable = $resultsSQLGenericTable->orderBy($arrConfigSortOrder[0], $arrConfigSortOrder[1]); // sortBy
+                } else {
+                    $resultsSQLGenericTable = $resultsSQLGenericTable->orderBy($configSortOrder); // sortBy
+                }
             }
 
             // Limit.

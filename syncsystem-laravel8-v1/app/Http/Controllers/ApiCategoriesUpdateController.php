@@ -11,7 +11,7 @@ class ApiCategoriesUpdateController extends Controller
 {
     // Properties.
     // ----------------------
-    private array|null $arrReturn = ['returnStatus' => false];
+    private array|null $arrReturn = ['returnStatus' => false]; // TODO: move this to method.
     private string $configAPIKey = '';
 
     private array|null $arrCategoriesUpdateParameters = [];
@@ -23,6 +23,10 @@ class ApiCategoriesUpdateController extends Controller
 
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     * @param Request $req
+     */
     public function __construct(Request $req)
     {
         //

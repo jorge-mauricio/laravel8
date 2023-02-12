@@ -1,7 +1,7 @@
 <?php
 namespace SyncSystemNS;
 
-class ObjectCategoriesListing
+class ObjectUsersListing
 {
     // Properties.
     // ----------------------
@@ -10,10 +10,9 @@ class ObjectCategoriesListing
     private string $strNRecords = '';
     private array|null $arrSpecialParameters = null;
 
-    private array|null $resultsCategoriesListing = null;
-    //private mixed $resultsCategoriesListing = null;
+    private array|null $resultsUsersListing = null;
     // ----------------------
-    
+
     // Constructor.
     // **************************************************************************************
     /**
@@ -22,6 +21,7 @@ class ObjectCategoriesListing
      */
     public function __construct(array|null $arrParameters = null)
     {
+        // TODO: create a base object and extend the construct.
         // Define values.
         // ----------------------
         $this->arrSearchParameters = array_key_exists('_arrSearchParameters', $arrParameters) ? $arrParameters['_arrSearchParameters'] : [];
@@ -29,36 +29,6 @@ class ObjectCategoriesListing
         $this->strNRecords = array_key_exists('_strNRecords', $arrParameters) ? $arrParameters['_strNRecords'] : '';
         $this->arrSpecialParameters = array_key_exists('_arrSpecialParameters', $arrParameters) ? $arrParameters['_arrSpecialParameters'] : [];
         // ----------------------
-
-        // Debug.
-        /*
-        echo 'Testing arquitecture (ObjectCategoriesListing)' . '<br />';
-        echo 'configSystemClientName=' . $GLOBALS['configSystemClientName'] . '<br />';
-
-        echo 'arrParameters=<pre>';
-        var_dump($arrParameters);
-        echo '</pre><br />';
-        
-        echo 'arrSearchParameters=<pre>';
-        var_dump($this->arrSearchParameters);
-        echo '</pre><br />';
-
-        echo 'configSortOrder=<pre>';
-        var_dump($this->configSortOrder);
-        echo '</pre><br />';
-
-        echo 'strNRecords=<pre>';
-        var_dump($this->strNRecords);
-        echo '</pre><br />';
-
-        echo 'arrSpecialParameters=<pre>';
-        var_dump($this->arrSpecialParameters);
-        echo '</pre><br />';
-
-        echo 'resultsCategoriesListing=<pre>';
-        var_dump($this->resultsCategoriesListing);
-        echo '</pre><br />';
-        */
     }
     // **************************************************************************************
 
@@ -82,30 +52,24 @@ class ObjectCategoriesListing
 
         // Logic.
         try {
-            $this->resultsCategoriesListing = \SyncSystemNS\FunctionsDB::genericTableGet02(
-                $GLOBALS['configSystemDBTableCategories'],
+            $this->resultsUsersListing = \SyncSystemNS\FunctionsDB::genericTableGet02(
+                $GLOBALS['configSystemDBTableUsers'],
                 $this->arrSearchParameters,
                 $this->configSortOrder,
                 $this->strNRecords,
-                // FunctionsGeneric.tableFieldsQueryBuild01("categories", "all", "string"),
-                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01($GLOBALS['configSystemDBTableCategories'], 'all', 'string'),
-                // 'id,title,description', // debug
+                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01($GLOBALS['configSystemDBTableUsers'], 'all', 'string'),
                 1,
                 $this->arrSpecialParameters
             );
 
-            if ($this->resultsCategoriesListing['returnStatus'] === true) {
-                // $arrReturn = ['returnStatus' => true, ...$this->resultsCategoriesListing]; // error - research
-                $arrReturn = array_merge(['returnStatus' => true], $this->resultsCategoriesListing);
+            if ($this->resultsUsersListing['returnStatus'] === true) {
+                $arrReturn = array_merge(['returnStatus' => true], $this->resultsUsersListing);
             }
 
             // Debug.
-            //echo 'resultsCategoriesListing(inside recordsListingGet)=<pre>';
-            //var_dump($this->resultsCategoriesListing);
+            //echo 'resultsUsersListing(inside recordsListingGet)=<pre>';
+            //var_dump($this->resultsUsersListing);
             //echo '</pre><br />';
-
-            //return $this->resultsCategoriesListing;
-            return $arrReturn;
         } catch (Error $recordsListingGetError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('recordsListingGetError: ' . $recordsListingGetError->message());
@@ -113,6 +77,8 @@ class ObjectCategoriesListing
         } finally {
             //
         }
+
+        return $arrReturn;
     }
     // **************************************************************************************
 }

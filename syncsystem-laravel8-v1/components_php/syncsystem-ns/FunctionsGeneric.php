@@ -1792,55 +1792,58 @@ class FunctionsGeneric
         }
         }
         // ----------------------
-
+        */
         // Users.
         // ----------------------
-        if (strTable == gSystemConfig.configSystemDBTableUsers) {
-        if (buildType == 'all') {
-            arrTableFieldsQueryBuild = ['id', 'id_parent'];
-            gSystemConfig.enableUsersSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
-            arrTableFieldsQueryBuild.push('date_creation', 'date_timezone', 'date_edit');
-            gSystemConfig.enableUsersType == 1 ? arrTableFieldsQueryBuild.push('id_type') : '';
+        if ($strTable === $GLOBALS['configSystemDBTableUsers']) {
+            if ($buildType === 'all') {
+                $arrTableFieldsQueryBuild = ['id', 'id_parent'];
+                $GLOBALS['enableUsersSortOrder'] === 1 ? array_push($arrTableFieldsQueryBuild, 'sort_order') : '';
+                array_push($arrTableFieldsQueryBuild, 'date_creation', 'date_timezone', 'date_edit');
+                $GLOBALS['enableUsersType'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_type') : '';
 
-            gSystemConfig.enableUsersNameTitle == 1 ? arrTableFieldsQueryBuild.push('name_title') : '';
-            gSystemConfig.enableUsersNameFull == 1 ? arrTableFieldsQueryBuild.push('name_full') : '';
-            gSystemConfig.enableUsersNameFirst == 1 ? arrTableFieldsQueryBuild.push('name_first') : '';
-            gSystemConfig.enableUsersNameLast == 1 ? arrTableFieldsQueryBuild.push('name_last') : '';
-            gSystemConfig.enableUsersDateBirth != 0 ? arrTableFieldsQueryBuild.push('date_birth') : '';
-            gSystemConfig.enableUsersGender == 1 ? arrTableFieldsQueryBuild.push('gender') : '';
-            gSystemConfig.enableUsersDocument == 1 ? arrTableFieldsQueryBuild.push('document') : '';
-            gSystemConfig.enableUsersAddress == 1 ? arrTableFieldsQueryBuild.push('address_street', 'address_number', 'address_complement', 'neighborhood', 'district', 'county', 'city', 'state', 'country', 'zip_code') : '';
-            gSystemConfig.enableUsersPhone1 == 1 ? arrTableFieldsQueryBuild.push('phone1_international_code', 'phone1_area_code', 'phone1') : '';
-            gSystemConfig.enableUsersPhone2 == 1 ? arrTableFieldsQueryBuild.push('phone2_international_code', 'phone2_area_code', 'phone2') : '';
-            gSystemConfig.enableUsersPhone3 == 1 ? arrTableFieldsQueryBuild.push('phone3_international_code', 'phone3_area_code', 'phone3') : '';
-            gSystemConfig.enableUsersUsername == 1 ? arrTableFieldsQueryBuild.push('username') : '';
-            gSystemConfig.enableUsersEmail == 1 ? arrTableFieldsQueryBuild.push('email') : '';
+                $GLOBALS['enableUsersNameTitle'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_title') : '';
+                $GLOBALS['enableUsersNameFull'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_full') : '';
+                $GLOBALS['enableUsersNameFirst'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_first') : '';
+                $GLOBALS['enableUsersNameLast'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_last') : '';
+                $GLOBALS['enableUsersDateBirth'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date_birth') : '';
+                $GLOBALS['enableUsersGender'] === 1 ? array_push($arrTableFieldsQueryBuild, 'gender') : '';
+                $GLOBALS['enableUsersDocument'] === 1 ? array_push($arrTableFieldsQueryBuild, 'document') : '';
+                $GLOBALS['enableUsersAddress'] === 1 ? array_push($arrTableFieldsQueryBuild, 'address_street', 'address_number', 'address_complement', 'neighborhood', 'district', 'county', 'city', 'state', 'country', 'zip_code') : '';
+                $GLOBALS['enableUsersPhone1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'phone1_international_code', 'phone1_area_code', 'phone1') : '';
+                $GLOBALS['enableUsersPhone2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'phone2_international_code', 'phone2_area_code', 'phone2') : '';
+                $GLOBALS['enableUsersPhone3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'phone3_international_code', 'phone3_area_code', 'phone3') : '';
+                $GLOBALS['enableUsersUsername'] === 1 ? array_push($arrTableFieldsQueryBuild, 'username') : '';
+                $GLOBALS['enableUsersEmail'] === 1 ? array_push($arrTableFieldsQueryBuild, 'email') : '';
 
-            arrTableFieldsQueryBuild.push('password', 'password_hint', 'password_length');
+                array_push($arrTableFieldsQueryBuild, 'password', 'password_hint', 'password_length');
 
-            gSystemConfig.enableUsersInfo1 == 1 ? arrTableFieldsQueryBuild.push('info1') : '';
-            gSystemConfig.enableUsersInfo2 == 1 ? arrTableFieldsQueryBuild.push('info2') : '';
-            gSystemConfig.enableUsersInfo3 == 1 ? arrTableFieldsQueryBuild.push('info3') : '';
-            gSystemConfig.enableUsersInfo4 == 1 ? arrTableFieldsQueryBuild.push('info4') : '';
-            gSystemConfig.enableUsersInfo5 == 1 ? arrTableFieldsQueryBuild.push('info5') : '';
-            gSystemConfig.enableUsersInfo6 == 1 ? arrTableFieldsQueryBuild.push('info6') : '';
-            gSystemConfig.enableUsersInfo7 == 1 ? arrTableFieldsQueryBuild.push('info7') : '';
-            gSystemConfig.enableUsersInfo8 == 1 ? arrTableFieldsQueryBuild.push('info8') : '';
-            gSystemConfig.enableUsersInfo9 == 1 ? arrTableFieldsQueryBuild.push('info9') : '';
-            gSystemConfig.enableUsersInfo10 == 1 ? arrTableFieldsQueryBuild.push('info10') : '';
+                $GLOBALS['enableUsersInfo1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info1') : '';
+                $GLOBALS['enableUsersInfo2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info2') : '';
+                $GLOBALS['enableUsersInfo3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info3') : '';
+                $GLOBALS['enableUsersInfo4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info4') : '';
+                $GLOBALS['enableUsersInfo5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info5') : '';
+                $GLOBALS['enableUsersInfo6'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info6') : '';
+                $GLOBALS['enableUsersInfo7'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info7') : '';
+                $GLOBALS['enableUsersInfo8'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info8') : '';
+                $GLOBALS['enableUsersInfo9'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info9') : '';
+                $GLOBALS['enableUsersInfo10'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
 
-            gSystemConfig.enableUsersImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
-
-            arrTableFieldsQueryBuild.push('activation');
-            gSystemConfig.enableUsersActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
-            gSystemConfig.enableUsersActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
-            gSystemConfig.enableUsersActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
-            gSystemConfig.enableUsersActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
-            gSystemConfig.enableUsersActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
-            gSystemConfig.enableUsersStatus == 1 ? arrTableFieldsQueryBuild.push('id_status') : '';
-            gSystemConfig.enableUsersNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
+                $GLOBALS['enableUsersImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+                
+                array_push($arrTableFieldsQueryBuild, 'activation');
+                $GLOBALS['enableUsersActivation1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
+                $GLOBALS['enableUsersActivation2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
+                $GLOBALS['enableUsersActivation3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
+                $GLOBALS['enableUsersActivation4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
+                $GLOBALS['enableUsersActivation5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
+                
+                $GLOBALS['enableUsersStatus'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
+                $GLOBALS['enableUsersNotes'] === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
+            }
         }
 
+        /*
         // File fields.
         if (buildType == 'files') {
             // arrTableFieldsQueryBuild.push("image_main");

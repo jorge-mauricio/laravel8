@@ -1441,18 +1441,19 @@ $enablePublicationsActivation5 = 1; // 0 - disable | 1 - enable
 // **************************************************************************************
 $configRegistersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | name_full
 $enableRegistersSortCustom = 1; // 0 - disable | 1 - enable
-$configRegistersInputOrder = ["inputRowRegisters_id_parent", 
-                                        "inputRowRegisters_sort_order", 
-                                        "inputRowRegisters_name", 
-                                        "inputRowRegisters_info1", 
-                                        "inputRowRegisters_image_main", 
-                                        "inputRowRegisters_activation", 
-                                        "inputRowRegisters_id_status", 
-                                        "inputRowRegisters_notes"
-                                      ];
+$configRegistersInputOrder = [
+                                "inputRowRegisters_id_parent", 
+                                "inputRowRegisters_sort_order", 
+                                "inputRowRegisters_name", 
+                                "inputRowRegisters_info1", 
+                                "inputRowRegisters_image_main", 
+                                "inputRowRegisters_activation", 
+                                "inputRowRegisters_id_status", 
+                                "inputRowRegisters_notes"
+                            ];
 
 //Authentication method.
-$configRegistersAuthenticationMethod = 1; //1 - cookie | 2 session
+$configRegistersAuthenticationMethod = 3; // 1 - cookie | 2 - session | 3 - token (API)
 $configRegistersAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
 
 //Basic resources.

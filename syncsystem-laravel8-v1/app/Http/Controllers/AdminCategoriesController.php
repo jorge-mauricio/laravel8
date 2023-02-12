@@ -358,8 +358,6 @@ class AdminCategoriesController extends AdminBaseController
             //var_dump($formfileFieldsReference);
             //echo '</pre><br />';
             //exit();
-            
-            
 
 
             $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple($tblCategoriesID, 
