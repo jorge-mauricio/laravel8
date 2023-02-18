@@ -196,11 +196,25 @@ class FunctionsDB
     
                     // Integer.
                     if ($searchParametersFieldType === 'i') {
-                        $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '=', (float)\SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
+                        $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '=', (float) \SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
     
                         //$strSQLGenericTableSelect += ' ' + $strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' = ?';
                         //$strSQLGenericTableSelectParams.push(searchParametersFieldValue);
                     }
+
+                    // Integer (not equal).
+                    if ($searchParametersFieldType === '!i') {
+                        $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '!=', (float) \SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
+                    }
+
+                    // String.
+                    if ($searchParametersFieldType === 's') {
+                        $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '=', (string) \SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
+    
+                        //$strSQLGenericTableSelect += ' ' + $strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' = ?';
+                        //$strSQLGenericTableSelectParams.push(searchParametersFieldValue);
+                    }
+
                     // ->whereRaw
 
                     // Debug.

@@ -105,7 +105,7 @@ class ObjectCategoriesListing
             //echo '</pre><br />';
 
             //return $this->resultsCategoriesListing;
-            return $arrReturn;
+            //return $arrReturn;
         } catch (Error $recordsListingGetError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('recordsListingGetError: ' . $recordsListingGetError->message());
@@ -113,6 +113,8 @@ class ObjectCategoriesListing
         } finally {
             //
         }
+
+        return $arrReturn;
     }
     // **************************************************************************************
 }

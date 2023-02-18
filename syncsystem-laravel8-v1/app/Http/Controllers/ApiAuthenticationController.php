@@ -51,11 +51,20 @@ class ApiAuthenticationController extends Controller
         */
 
         $username = '';
-        $email = '';
+        //$email = '';
         $password = '';
-
         $loginVerification = false;
-        $registerVerification = false;
+
+        $tblUsersID = '';
+        $tblUsersIDCrypt = '';
+        $tblUsersUsername = '';
+        $tblUsersEmail = '';
+        $tblUsersPassword = '';
+        $tblUsersPasswordDecrypt = '';
+      
+
+
+        //$registerVerification = false;
 
         $arrSearchParameters = [];
         $arrUsersLoginParameters = [];
@@ -90,15 +99,53 @@ class ApiAuthenticationController extends Controller
         try {
             // Object build.
             $objUsersLogin = new \SyncSystemNS\ObjectUsersListing($arrUsersLoginParameters);
-            $objUsersLogin->recordsListingGet(0, 3);
-                  
+            $resultsUsersListing = $objUsersLogin->recordsListingGet(0, 3);
+            //$resultsUsersListing = (array) json_decode($objUsersLogin->recordsListingGet(0, 3), true);
+            //$resultsUsersListing = json_decode(json_encode($objUsersLogin->recordsListingGet(0, 3)), true); // working
+            
+            // Loop through results.
+            /**/
+            if ($resultsUsersListing['returnStatus'] === true) {
+                unset($resultsUsersListing['returnStatus']);
+                for ($countArray = 0; count($resultsUsersListing) > $countArray; $countArray++) {
+                    // Clean values.
+                    $tblUsersUsername = '';
+                    $tblUsersEmail = '';
+                    $tblUsersPassword = '';
+                    $tblUsersPasswordDecrypt = '';
+            
+                    // Value definition.
+                    $tblUsersPassword = $resultsUsersListing[$countArray]['password'];
+                    
+                    $tblUsersPasswordDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersPassword, 'db'), 2);
+            /*
+                    if ($tblUsersPasswordDecrypt === $password && $tblUsersPasswordDecrypt !== '') {
+                    $loginVerification = true;
+                    $tblUsersID = $resultsUsersListing[$countArray]['id'];
+                    $tblUsersIDCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($tblUsersID, 'db_write_text'), 2);
+                    }
+                    */
+            
+                    // Debug.
+                    // console.log('tblUsersID=', tblUsersID);
+                    // console.log('tblUsersIDCrypt=', tblUsersIDCrypt);
+                    // console.log('tblUsersPasswordDecrypt=', tblUsersPasswordDecrypt);
+                    // console.log('objUsersLogin.resultsUsersListing[countArray].password=', objUsersLogin.resultsUsersListing[countArray].password);
+                }              
+            }
+                          
 
             // Debug.
             $arrReturn['debug']['username'] = $username;
             $arrReturn['debug']['password'] = $password;
             $arrReturn['debug']['actionType'] = $actionType;
             $arrReturn['debug']['objUsersLogin'] = $objUsersLogin;
+            $arrReturn['debug']['resultsUsersListing'] = $resultsUsersListing;
             $arrReturn['debug']['verificationType'] = $verificationType;
+            $arrReturn['debug']['tblUsersUsername'] = $tblUsersUsername;
+            $arrReturn['debug']['tblUsersEmail'] = $tblUsersEmail;
+            $arrReturn['debug']['tblUsersPassword'] = $tblUsersPassword;
+            $arrReturn['debug']['tblUsersPasswordDecrypt'] = $tblUsersPasswordDecrypt;
 
         } catch(Exception $apiAuthenticationCheckError) {
             if ($GLOBALS['configDebug'] === true) {

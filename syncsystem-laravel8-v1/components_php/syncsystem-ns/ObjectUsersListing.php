@@ -78,7 +78,8 @@ class ObjectUsersListing
             //
         }
 
-        return $arrReturn;
+        //return $arrReturn;
+        return json_decode(json_encode($arrReturn), true);
     }
     // **************************************************************************************
 }
