@@ -117,7 +117,7 @@ class ApiAuthenticationController extends Controller
                     // Value definition.
                     $tblUsersPassword = $resultsUsersListing[$countArray]['password'];
                     
-                    $tblUsersPasswordDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersPassword, 'db'), 2);
+                    $tblUsersPasswordDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersPassword, 'db'), SS_ENCRYPT_METHOD_DATA);
             /*
                     if ($tblUsersPasswordDecrypt === $password && $tblUsersPasswordDecrypt !== '') {
                     $loginVerification = true;
