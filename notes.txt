@@ -1,3 +1,20 @@
+- PHP versions
+	- if composer require complains about PHP 8 for installation of any package:
+		- Windows 10:
+			- search -> control panel -> search -> variables
+				- Edit the system environment variables (admin access)
+				- Environment Variables (bottom)
+				- User Variables
+					- Path
+						- Edit the path for ex: php7.4.27
+					- System Variables
+						- Edit the path for ex: php7.4.27
+
+			- open new terminal (open / close vs code)
+				- terminal: cd K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1
+				- terminal: k:
+			- go back to PHP 8 version - ex: php8.0.16			
+
 - run dev environment:
 	- clean up and rebuild:
 	TODO: maybe, put inside a composer script.
@@ -22,8 +39,15 @@
 	- open 3 terminals in syncsystem-laravel8-v1 path
 		- terminal 1 (webpack compile): npm run watch
 		- terminal 2 (split): php -S localhost:8000 -t public/
+			- terminal (root - composer script): start-frontend
 		- terminal 3 (split): php -S localhost:8001 -t public/
+			- terminal (root - composer script): start-backend
 
 	- dev address:
 		http://localhost:8000/admin/categories/781?masterPageSelect=layout-admin-main
 		http://localhost:8000/system/categories/781?masterPageSelect=layout-admin-main
+		http://localhost:8000/system/categories/edit/1825/?masterPageSelect=layout-admin-main
+		http://localhost:8000/system/categories/edit/1999/?masterPageSelect=layout-admin-main
+			- not so many fields with data
+		http://localhost:8000/system/categories/edit/1888/?masterPageSelect=layout-admin-main
+			- data in fields

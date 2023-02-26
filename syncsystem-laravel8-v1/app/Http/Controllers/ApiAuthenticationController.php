@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Custom models.
+use App\Models\UsersDetails;
+
 class ApiAuthenticationController extends Controller
 {
     // Properties.
@@ -141,8 +144,13 @@ class ApiAuthenticationController extends Controller
                                 '_arrSpecialParameters' => ['returnType' => 1],
                             ];
 
-                            $oudRecord = new \SyncSystemNS\ObjectUsersDetails($oudRecordParameters);
-                            $arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->recordDetailsGet(0, 1);
+                            // Object method.
+                            //$oudRecord = new \SyncSystemNS\ObjectUsersDetails($oudRecordParameters);
+                            //$arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->recordDetailsGet(0, 1);
+
+                            // Model method.
+                            $oudRecord = new UsersDetails($oudRecordParameters);
+                            $arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->cphBodyBuild();
                         }
                 
                         // Debug.

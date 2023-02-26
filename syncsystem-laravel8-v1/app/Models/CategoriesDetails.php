@@ -254,7 +254,7 @@ class CategoriesDetails extends Model
     // **************************************************************************************
 
     // Build content placeholder body.
-    // TODO: eveluate changing name to build().
+    // TODO: eveluate changing name to build() or recordDetailsBuild() or separate - build() dataGet().
     // **************************************************************************************
     /**
      * Build content placeholder body.
@@ -283,7 +283,7 @@ class CategoriesDetails extends Model
                 throw new Error('cphBodyBuildError: ' . $cphBodyBuildError->message());
             }
         } finally {
-
+            //
         }
         
         //return 'content inside model: ' . $this->_idParent; // debug.

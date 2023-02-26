@@ -7,3 +7,68 @@
 - change term backend to admin
 
 - admin meta tags - limit characters
+
+- glightboxCategoriesImageMain
+	ref: K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\resources\app_views\admin\admin-categories-listing.blade.php
+	- it´s looping with the same variable name
+
+- transfer config variables to laravel config structure
+
+- Categories
+	- Field "Number 1": R$ 0,02 - check number formating (insert and update)
+
+- blade template
+	- change some <?php echo to  {{ }}
+
+	- evaluate structure change
+		- app_views
+			- admin
+				- layout
+				- partials
+
+- Pagination
+	- test case: last page - 1 record
+		- delete record
+		- change code to verify if records is empty and redirect to page number - 1
+		- maybe is because the array is returning the returnStatus - true and is adding one additional record
+
+
+
+- data validation:
+ref: https://youtu.be/T9q1uT2BEZI?t=1337
+	validate([
+		'name' => 'required|email|unique:table_name'
+])
+		- inside method
+
+
+	@old
+		- double check
+		- inside view
+	@error('name_of_field')
+		elements
+	@enderror
+	
+		- inside view
+
+
+
+
+- hash
+	use Hash
+
+	Hash::make(password)
+
+	Hash::check(password, passwordCompare)
+
+
+- middleware:
+	https://youtu.be/T9q1uT2BEZI?t=3020
+
+
+- token based authentication
+	- laravel sanctum
+
+- sanctum / passport tables
+	- find a way to incorportate que table prefix
+
