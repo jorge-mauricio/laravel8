@@ -62,13 +62,14 @@ class ApiAuthenticationController extends Controller
         $tblUsersPassword = '';
         $tblUsersPasswordDecrypt = '';
       
-
-
         //$registerVerification = false;
 
         $arrSearchParameters = [];
         $arrUsersLoginParameters = [];
         $objUsersLogin = null;
+
+        $oudRecordParameters = [];
+        $oudRecord = null;
         
         $actionType = '';
         $verificationType = '';
@@ -110,7 +111,6 @@ class ApiAuthenticationController extends Controller
                 //$resultsUsersListing = json_decode(json_encode($objUsersLogin->recordsListingGet(0, 3)), true); // working
                 
                 // Loop through results.
-                /**/
                 if ($resultsUsersListing['returnStatus'] === true) {
                     unset($resultsUsersListing['returnStatus']);
                     for ($countArray = 0; count($resultsUsersListing) > $countArray; $countArray++) {
@@ -131,6 +131,18 @@ class ApiAuthenticationController extends Controller
                             $loginActivation = true;
                             $tblUsersID = $resultsUsersListing[$countArray]['id'];
                             $tblUsersIDCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($tblUsersID, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
+
+                            // Create user objetc.
+                            $oudRecord = null;
+                            $oudRecordParameters = [
+                                '_arrSearchParameters' => ['id;' . $tblUsersID . ';i'],
+                                '_idTbUsers' => $tblUsersID,
+                                '_terminal' => $this->terminal,
+                                '_arrSpecialParameters' => ['returnType' => 1],
+                            ];
+
+                            $oudRecord = new \SyncSystemNS\ObjectUsersDetails($oudRecordParameters);
+                            $arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->recordDetailsGet(0, 1);
                         }
                 
                         // Debug.
@@ -172,6 +184,9 @@ class ApiAuthenticationController extends Controller
                 $arrReturn['debug']['tblUsersID'] = $tblUsersID;
                 $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
                 */
+                
+
+
             }
         } catch(Exception $apiAuthenticationCheckError) {
             if ($GLOBALS['configDebug'] === true) {

@@ -2256,10 +2256,10 @@ $enableUsersNotes = 1; // 0 - disable | 1 - enable
 
 //Big information fields.
 $enableUsersInfo1 = 1; // 0 - disable | 1 - enable
-$configUsersInfo1FieldType = 12; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$configUsersInfo1FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
 $enableUsersInfo2 = 1; // 0 - disable | 1 - enable
-$configUsersInfo2FieldType = 11; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
+$configUsersInfo2FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)
 
 $enableUsersInfo3 = 1; // 0 - disable | 1 - enable
 $configUsersInfo3FieldType = 1; //1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)

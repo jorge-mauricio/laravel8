@@ -112,7 +112,7 @@ class AdminBaseController extends Controller
 
         $pageReturn = '';
         $pageNumber = null;
-        $masterPageSelect = 'layout-backend-main';
+        $masterPageSelect = 'layout-admin-main';
         // ----------------------
 
         // Define values.

@@ -10,12 +10,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "defuse/php-encryption": "2.1.0",
+        "defuse/php-encryption": "2.2.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
-        "laravel/framework": "^8.0",
+        "laravel/framework": "^8.37",
+        "laravel/passport": "10.4.2",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.0"
     },

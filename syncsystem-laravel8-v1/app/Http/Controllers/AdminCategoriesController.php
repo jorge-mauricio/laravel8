@@ -20,7 +20,7 @@ class AdminCategoriesController extends AdminBaseController
     // private float|string|null $_idParent = null;
     private float|string|null $idParentCategories = null;
     private float|null $pageNumber = null;
-    protected string|null $masterPageSelect = 'layout-backend-main';
+    protected string|null $masterPageSelect = 'layout-admin-main';
     private string|null $returnURL = null; // TODO: evaluate moving this to the method level.
 
     private array $cookiesData;

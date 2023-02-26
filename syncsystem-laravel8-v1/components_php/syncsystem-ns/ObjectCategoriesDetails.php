@@ -222,6 +222,10 @@ class ObjectCategoriesDetails
 
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     * @param ?array $arrParameters
+     */
     public function __construct(array|null $arrParameters = null)
     {
         // Value definition.
@@ -242,11 +246,10 @@ class ObjectCategoriesDetails
 
     // Get category details according to search parameters.
     // **************************************************************************************
-    // async recordsListingGet(idParent = null, terminal = 0, returnType = 1)
     /**
      * Get categories details according to search parameters.
-     * @param float terminal 0 - backend | 1 - frontend
-     * @param float returnType 1 - array | 3 - Json Object | 10 - html
+     * @param float $terminal 0 - backend | 1 - frontend
+     * @param float $returnType 1 - array | 3 - Json Object | 10 - html
      * @return array
      */
     public function recordDetailsGet(float $terminal = 0, float $returnType = 1): array
@@ -863,15 +866,16 @@ class ObjectCategoriesDetails
             //echo '</pre><br />';
 
             //return ['data' => 'testing recordDetailsGet'];
-            return $arrReturn;
+            //return $arrReturn;
         } catch (Error $recordDetailsGetError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('recordDetailsGetError: ' . $recordDetailsGetError->message());
             }
         } finally {
-
+            //
         }
 
+        return $arrReturn;
     }
     // **************************************************************************************
 }

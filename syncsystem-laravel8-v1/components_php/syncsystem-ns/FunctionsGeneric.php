@@ -1806,7 +1806,7 @@ class FunctionsGeneric
                 $GLOBALS['enableUsersNameFull'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_full') : '';
                 $GLOBALS['enableUsersNameFirst'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_first') : '';
                 $GLOBALS['enableUsersNameLast'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_last') : '';
-                $GLOBALS['enableUsersDateBirth'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date_birth') : '';
+                $GLOBALS['enableUsersDateBirth'] !== 0 ? array_push($arrTableFieldsQueryBuild, 'date_birth') : '';
                 $GLOBALS['enableUsersGender'] === 1 ? array_push($arrTableFieldsQueryBuild, 'gender') : '';
                 $GLOBALS['enableUsersDocument'] === 1 ? array_push($arrTableFieldsQueryBuild, 'document') : '';
                 $GLOBALS['enableUsersAddress'] === 1 ? array_push($arrTableFieldsQueryBuild, 'address_street', 'address_number', 'address_complement', 'neighborhood', 'district', 'county', 'city', 'state', 'country', 'zip_code') : '';
@@ -1840,6 +1840,11 @@ class FunctionsGeneric
                 
                 $GLOBALS['enableUsersStatus'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
                 $GLOBALS['enableUsersNotes'] === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
+            }
+
+            // File fields.
+            if ($buildType === 'files') {
+                $GLOBALS['enableUsersImageMain'] == 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
             }
         }
 
