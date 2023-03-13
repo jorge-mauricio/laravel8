@@ -68,6 +68,8 @@ ref: https://youtu.be/T9q1uT2BEZI?t=1337
 
 - token based authentication
 	- laravel sanctum
+	research:
+		https://stackoverflow.com/questions/68254516/how-can-i-handle-both-spa-and-token-based-authentication-with-laravel-sanctum?rq=1
 
 - sanctum / passport tables
 	- find a way to incorportate que table prefix

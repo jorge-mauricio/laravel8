@@ -49,6 +49,7 @@ class ApiAuthenticationController extends Controller
             'registerVerification' => false,
             'loginVerification' => false,
             'loginActivation' => false,
+            'loginToken' => '',
             'tblRegistersIDCrypt' => '',
             'loginType' => []
         ];
@@ -56,7 +57,10 @@ class ApiAuthenticationController extends Controller
         $username = '';
         //$email = '';
         $password = '';
+
+        $registerVerification = false;
         $loginVerification = false;
+        $loginActivation = false;
 
         $tblUsersID = '';
         $tblUsersIDCrypt = '';
@@ -64,13 +68,16 @@ class ApiAuthenticationController extends Controller
         $tblUsersEmail = '';
         $tblUsersPassword = '';
         $tblUsersPasswordDecrypt = '';
-      
+        $tblUsersPasswordHint = '';
+        $tblUsersPasswordLength = '';
+
         //$registerVerification = false;
 
         $arrSearchParameters = [];
         $arrUsersLoginParameters = [];
         $objUsersLogin = null;
 
+        $arrRecordSearchParameters = [];
         $oudRecordParameters = [];
         $oudRecord = null;
         
@@ -104,7 +111,7 @@ class ApiAuthenticationController extends Controller
             // TODO: Evaluate moving this to a function level.
             // User - Admin
             // ----------------------
-            if ($verificationType === 'user_backend') {
+            if ($verificationType === 'user_admin') {
                 $arrReturn['returnStatus'] = true;
 
                 // Object build.
@@ -117,41 +124,71 @@ class ApiAuthenticationController extends Controller
                 if ($resultsUsersListing['returnStatus'] === true) {
                     unset($resultsUsersListing['returnStatus']);
                     for ($countArray = 0; count($resultsUsersListing) > $countArray; $countArray++) {
+                        $registerVerification = true;
+
                         // Clean values.
                         $tblUsersUsername = '';
                         $tblUsersEmail = '';
                         $tblUsersPassword = '';
                         $tblUsersPasswordDecrypt = '';
-                
+                        $tblUsersPasswordHint = '';
+                        $tblUsersPasswordLength = '';
+
                         // Value definition.
                         $tblUsersPassword = $resultsUsersListing[$countArray]['password'];
-                        
                         $tblUsersPasswordDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersPassword, 'db'), SS_ENCRYPT_METHOD_DATA);
                         // TODO: adapt function to differentiate between info encryption and pasword encryption.
-                        
+                        $tblUsersPasswordHint = '';
+                        $tblUsersPasswordLength = '';
+                    
+                        // Verification method (SS_ENCRYPT_METHOD_DATA).
+                        // TODO: Include other verification methods (hash).
                         if ($tblUsersPasswordDecrypt === $password && $tblUsersPasswordDecrypt !== '') {
                             $loginVerification = true;
-                            $loginActivation = true;
+
+                            // Check activation.
+                            if ($resultsUsersListing[$countArray]['activation'] === 1) {
+                                $loginActivation = true;
+                            }                        
+
                             $tblUsersID = $resultsUsersListing[$countArray]['id'];
                             $tblUsersIDCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($tblUsersID, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
-
-                            // Create user objetc.
-                            $oudRecord = null;
+                            $tblUsersUsername = '';
+                            $tblUsersEmail = '';
+                            $tblUsersPassword = $resultsUsersListing[$countArray]['password'];
+                            $tblUsersPasswordHint = '';
+                            $tblUsersPasswordLength = '';
+                                            
+                            // Parameters build.
+                            $arrRecordSearchParameters = ['id;' . $tblUsersID . ';i'];
                             $oudRecordParameters = [
-                                '_arrSearchParameters' => ['id;' . $tblUsersID . ';i'],
+                                '_arrSearchParameters' => $arrRecordSearchParameters,
                                 '_idTbUsers' => $tblUsersID,
                                 '_terminal' => $this->terminal,
                                 '_arrSpecialParameters' => ['returnType' => 1],
                             ];
-
+                                                
                             // Object method.
                             //$oudRecord = new \SyncSystemNS\ObjectUsersDetails($oudRecordParameters);
                             //$arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->recordDetailsGet(0, 1);
 
-                            // Model method.
+                            // Model method (Sanctum).
                             $oudRecord = new UsersDetails($oudRecordParameters);
-                            $arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->cphBodyBuild();
+                            $oudRecordData = $oudRecord->cphBodyBuild();
+
+                            // TODO: delete previous tokens from the user.
+                            $oudRecordToken = $oudRecord->createToken($verificationType)->plainTextToken; // table: personal_access_tokens
+                            $arrReturn['loginToken'] = $oudRecordToken; // TODO: evaluate cryptography for passing the token via API.
+
+                            // Login type.
+                            // TODO: develop for register login.
+                            $arrReturn['loginType'] = [];
+
+                            // Debug.
+                            // $arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->cphBodyBuild();
+                            //$arrReturn['debug']['users_token'] = $oudRecordToken; 
                         }
+
                 
                         // Debug.
                         // console.log('tblUsersID=', tblUsersID);
@@ -161,13 +198,12 @@ class ApiAuthenticationController extends Controller
                     }
                     
                     // Build return data.
-                    $arrReturn['registerVerification'] = ''; // TODO: maybe, this would be the santum verification
+                    $arrReturn['registerVerification'] = $registerVerification; // TODO: maybe, this would be the santum verification
                     $arrReturn['loginVerification'] = $loginVerification;
                     $arrReturn['loginActivation'] = $loginActivation;
                     $arrReturn['tblRegistersIDCrypt'] = $tblUsersIDCrypt; // TODO: Change to tblIDCrypt
                         // TODO: maybe, the sanctum authentication can be a salt and grabbed at the other end
                     //$arrReturn['loginType'] = [];
-
                 }
                             
 

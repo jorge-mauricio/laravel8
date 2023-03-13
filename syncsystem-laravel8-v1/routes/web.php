@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 // Controllers.
 use App\Http\Controllers\AdminLoginController;
@@ -90,10 +91,21 @@ Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.
 Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->name('admin.login.check');
 // **************************************************************************************
 
-// Admin - Dashboard.
-// **************************************************************************************
-Route::get('/system/dashboard/',[AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
-// **************************************************************************************
+// Protected routes.
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    // Admin - Dashboard.
+    // **************************************************************************************
+    Route::get('/system/dashboard/',[AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
+
+    // Testing architecture.
+    // Route::get('/system/dashboard/',[AdminDashboardController::class, 'adminDashboard'], function($request) {
+    //     return view('admin.dashboard', [
+    //         'clients' => $request->user()->clients
+    //     ]);
+    // })->middleware(['auth'])->name('admin.dashboard');
+    // TODO: evaluate changing the arquitecture - return the data from the classes and bind with the views in the route´s functions.     
+    // **************************************************************************************
+});
 
 
 // Admin - Categories - listing - GET.

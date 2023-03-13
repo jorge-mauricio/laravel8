@@ -13,7 +13,12 @@
 			- open new terminal (open / close vs code)
 				- terminal: cd K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1
 				- terminal: k:
-			- go back to PHP 8 version - ex: php8.0.16			
+			- go back to PHP 8 version - ex: php8.0.16
+
+- Install:
+	- sanctum (check if it will need)
+	- passport
+
 
 - run dev environment:
 	- clean up and rebuild:
@@ -43,7 +48,7 @@
 		- terminal 3 (split): php -S localhost:8001 -t public/
 			- terminal (root - composer script): start-backend
 
-	- dev address:
+	- dev address / data:
 		http://localhost:8000/admin/categories/781?masterPageSelect=layout-admin-main
 		http://localhost:8000/system/categories/781?masterPageSelect=layout-admin-main
 		http://localhost:8000/system/categories/edit/1825/?masterPageSelect=layout-admin-main
@@ -51,3 +56,11 @@
 			- not so many fields with data
 		http://localhost:8000/system/categories/edit/1888/?masterPageSelect=layout-admin-main
 			- data in fields
+		http://localhost:8000/system/
+			- user: userlaravel
+			- password: laravel
+
+			- passport client:
+				- http://localhost:8000/system/passport/auth/callback
+				Client ID: 3
+				Client secret: JwEpOFupn0DvuM2iPKa1PpT0XuXr9JCOqKVoJdVA

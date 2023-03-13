@@ -1458,6 +1458,7 @@ $configRegistersInputOrder = [
 
 //Authentication method.
 $configRegistersAuthenticationMethod = 3; // 1 - cookie | 2 - session | 3 - token (API)
+$configRegistersAuthenticationType = 10; // (WIP) 10 - sanctum | 11 - passport
 $configRegistersAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
 
 //Basic resources.

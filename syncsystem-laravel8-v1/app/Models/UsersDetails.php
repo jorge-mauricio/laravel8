@@ -4,10 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
-class UsersDetails extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\Sanctum;
+
+//use Laravel\Passport\HasApiTokens;
+
+//class UsersDetails extends Model
+class UsersDetails extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens, Notifiable;
 
     // Properties.
     // ----------------------
@@ -27,17 +36,29 @@ class UsersDetails extends Model
     protected array|null $arrUsersListing = null;
     // ----------------------
 
+    // Laravel attributes (necessary for creating Sanctum token).
+    // ----------------------
+    // protected $attributes = [
+    //     'id' => 0,
+    // ];
+    // ----------------------
+
     // Constructor.
     // TODO: include $terminal as constructor parameter (or some other method).
     // **************************************************************************************
     /**
      * Constructor.
-     * @param ?array $_oudRecordParameters
+     * @param ?array $objParameters
      */
     public function __construct(?array $_oudRecordParameters = null)
     {
+        // Define values.
         if ($_oudRecordParameters !== null) {
             $this->oudRecordParameters = $_oudRecordParameters;
+
+            $this->idTbUsers = isset($this->oudRecordParameters['_idTbUsers']) ? $this->oudRecordParameters['_idTbUsers'] : $this->idTbUsers;
+            $this->attributes['id'] = $this->idTbUsers; // Laravel attribute (necessary for creating Sanctum token).
+            // TODO: research if needs to change tokenable_type data (maybe point to the users table).
         }
 
         if ($this->terminal === 1) {
@@ -83,6 +104,43 @@ class UsersDetails extends Model
         return $arrReturn;
     }
     // **************************************************************************************
+
+    /**
+     * Override getAuthIdentifier() method to return the user ID.
+     * @return mixed
+     */
+    // public function getAuthIdentifier()
+    // {
+    //     return $this->idTbUsers;
+    // }
     
 
+    // public function tokens()
+    // {
+    //     //return $this->morphMany(Sanctum::$personalAccessTokenModel, 'tokenable', "tokenable_type", "tokenable_id");
+    //     return $this->morphMany(Sanctum::$personalAccessTokenModel, 'tokenable', 'tokenable_type', 'tokenable_id');
+    //     //idTbUsers
+    // }
+
+    // Override createToken method.
+    // **************************************************************************************
+    /**
+     * Override createToken method.
+     */
+    // public function createToken(string $name, array $abilities = ['*'])
+    // {
+    //     $userId = $userId ?? $this->getKey();
+
+    //     $token = $this->tokens()->create([
+    //         'name' => $name,
+    //         'token' => hash('sha256', $plainTextToken = Str::random(40)),
+    //         'abilities' => $abilities,
+    //         'tokenable_id' => $userId,
+    //         'tokenable_type' => get_class($this),
+    //     ]);
+    
+    //     //return new NewAccessToken($token, $token->id.'|'.$plainTextToken);
+    //     return new \Laravel\Sanctum\NewAccessToken($token, $token->id.'|'.$plainTextToken);
+    // }    
+    // **************************************************************************************
 }
