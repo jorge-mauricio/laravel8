@@ -23,7 +23,7 @@ class FunctionsDBDelete
         // Variables.
         // ----------------------
         // let strReturn = false;
-        $arrReturn = [ 'returnStatus' => false, 'nRecords' => 0 ];
+        $arrReturn = ['returnStatus' => false, 'nRecords' => 0];
 
         $objSQLRecordsGenericDelete = '';
         $arrSQLRecordsGenericDeleteParams = [];

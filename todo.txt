@@ -74,3 +74,13 @@ ref: https://youtu.be/T9q1uT2BEZI?t=1337
 - sanctum / passport tables
 	- find a way to incorportate que table prefix
 
+- move any .env to config
+	- good practice
+
+- syncsystem-laravel8-v1\app\Http\Middleware\Authenticate.php
+	- change redirect to the respective routes
+
+- session
+	- review
+		- research redis
+

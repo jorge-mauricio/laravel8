@@ -14,8 +14,12 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        //dd($request);
         if (! $request->expectsJson()) {
-            return route('login');
+            // return route('login');
+            return route('admin.login');
+            //return route('admin.login')->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2e'));
+            
         }
     }
 }

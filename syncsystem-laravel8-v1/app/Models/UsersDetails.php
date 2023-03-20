@@ -43,6 +43,14 @@ class UsersDetails extends Authenticatable
     // ];
     // ----------------------
 
+    // Laravel properties (necessary for creating Sanctum token).
+    // ----------------------
+    //public $table = 'prefix_ssmv1_users';
+    // public string|null $table;
+    public $table; // working
+    //public $table = env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableUsers'];
+    // ----------------------
+
     // Constructor.
     // TODO: include $terminal as constructor parameter (or some other method).
     // **************************************************************************************
@@ -52,6 +60,8 @@ class UsersDetails extends Authenticatable
      */
     public function __construct(?array $_oudRecordParameters = null)
     {
+        $this->table = env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableUsers'];
+
         // Define values.
         if ($_oudRecordParameters !== null) {
             $this->oudRecordParameters = $_oudRecordParameters;
@@ -59,6 +69,8 @@ class UsersDetails extends Authenticatable
             $this->idTbUsers = isset($this->oudRecordParameters['_idTbUsers']) ? $this->oudRecordParameters['_idTbUsers'] : $this->idTbUsers;
             $this->attributes['id'] = $this->idTbUsers; // Laravel attribute (necessary for creating Sanctum token).
             // TODO: research if needs to change tokenable_type data (maybe point to the users table).
+            //$this->table = 'prefix_ssmv1_users';
+            //this->table = env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableUsers'];
         }
 
         if ($this->terminal === 1) {

@@ -21,6 +21,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+        // Custom middlewares.
+        //\App\Http\Middleware\SetHeadersTokenWeb::class,
     ];
 
     /**
@@ -54,6 +57,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        // Custom middlewares.
+        'setHeaders.token.web' => \App\Http\Middleware\SetHeadersTokenWeb::class,
+        
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -63,5 +69,16 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
     ];
+
+    /**
+     * Responsible for prioritizing the middleware
+     *
+     * @var array
+     */
+    protected $middlewarePriority = [
+        \App\Http\Middleware\SetHeadersTokenWeb::class,
+    ];
+
 }

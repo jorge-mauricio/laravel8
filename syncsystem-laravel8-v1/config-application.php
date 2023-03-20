@@ -253,6 +253,41 @@ $configRouteFrontendDashboardRegisters = 'dashboard-registers';
 $configRouteFrontendDashboardQuizzes = 'dashboard-quizzes';
 // ----------------------
 
+// Cookies.
+//----------------------
+$configCookieSetType = 1; // 0 - disabled (set without path / directory) | 1 - enabled (set with path / directory)
+$configCookieDirectory = '/'; // (/ - full website)
+
+$configCookiePrefix = 'ss';
+$configCookiePrefixUserRoot = 'user_root';
+$configCookiePrefixUserAdmin = 'user_admin';
+$configCookiePrefixUser = 'user';
+
+$configCookieDefaultOptions = [
+    'path' => $configCookieDirectory,
+    'overwrite' => true,
+    // domain => '127.0.0.1:4444',
+    // secure => process.env.NODE_ENV === 'production'? true : false, / Forces to use https in production.
+    // expires => new Date(Date.now() + 900000),
+    // maxAge => 1000 * 60 * 10,
+    'httpOnly' => true,
+]; // Not in use for now
+$configCookieDeleteDefaultOptions = [
+    'path' => $configCookieDirectory,
+    'overwrite' => true,
+    // domain => '127.0.0.1:4444',
+    // secure => process.env.NODE_ENV === 'production'? true : false, / Forces to use https in production.
+    'expires' => null, // new Date() new date
+    'maxAge' => 0,
+    'httpOnly' => true,
+]; // Not in use for now
+//----------------------
+
+// Sessions.
+//----------------------
+$configSessionBackendTimeout = 1440; // double check if is int or string
+//----------------------
+
 // Cryptography.
 // ----------------------
 $configCryptType = 2; // 0 - no cryptography | 1 - hash (doesn´t allow decryptography) | 2 - Data (allows decryptography)

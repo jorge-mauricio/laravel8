@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -68,9 +69,10 @@ class AdminLoginController extends AdminBaseController
     /**
      * Admin login post data and check credentials.
      * @param Request $req
+     * @param Response $req
      * @return RedirectResponse
      */
-    public function adminLoginCheck(Request $req): RedirectResponse
+    public function adminLoginCheck(Request $req, Response $res): RedirectResponse | Response
     {
         // Variables.
         // ----------------------
@@ -102,6 +104,15 @@ class AdminLoginController extends AdminBaseController
                 $returnURL .= $GLOBALS['configRouteBackendDashboard'] . '/';
 
                 $loginToken = $arrAuthenticationCheckJson['loginToken'];
+                // Store token in session.
+                // TODO: evaluate cookie / cache.
+                //Session::set('user_admin_login_token', $loginToken);
+                session(['user_admin_login_token' => $loginToken]);
+                session()->save();
+
+                // Store user id cryptographed in cookie.
+                // Function.
+                
             } else {
                 $returnURL .= '?username=' . $req->post('username');
                 // TODO: verify why it´s returning http://localhost:8000/system?username= (without slash)
@@ -135,10 +146,16 @@ class AdminLoginController extends AdminBaseController
         // Redirect.
         // TODO: eveluate loading views or moving to the route function (and load the views).
         if ($arrAuthenticationCheckJson['returnStatus'] === true) {
+            // echo 'redirect dashboard=true';
+            // echo 'user_admin_login_token=' . Session::get('user_admin_login_token');
+            // echo 'user_admin_login_token=' . session('user_admin_login_token');
+            // exit();
+
             return redirect($returnURL)
-                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10'))
-                ->header('Authorization', 'Bearer ' . $loginToken)
-                ->header('Accept', 'application/json');
+                //->header('Authorization', 'Bearer ' . $loginToken)
+                //->header('Accept', 'application/json')
+                //->header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7')
+                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10'));
                 //->header('Accept', 'application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7');
                 
             /*, 200, [
@@ -146,6 +163,20 @@ class AdminLoginController extends AdminBaseController
                 'Accept' => 'application/json',
             ]*/
             // TODO: header secure option.
+
+            // $contents = View::make('embedded')->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10'));
+            // $response = Response::make($contents, $statusCode);
+            // $response->header('Authorization', 'Bearer ' . $loginToken);
+            // return $response;
+
+
+            // return response()
+            //     ->view('admin.dashboard', [
+            //         'messageSuccess' => \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10')
+            //         ])
+            //     ->header('Authorization', 'Bearer ' . $loginToken)
+            //     ->header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7');
+
         } else {
             return redirect($returnURL, 401)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2e'));
         }

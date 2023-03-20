@@ -176,7 +176,7 @@ class ApiAuthenticationController extends Controller
                             $oudRecord = new UsersDetails($oudRecordParameters);
                             $oudRecordData = $oudRecord->cphBodyBuild();
 
-                            // TODO: delete previous tokens from the user.
+                            $oudRecord->tokens()->where('tokenable_id', $tblUsersID)->where('name', $verificationType)->delete(); // Delete all previous tokens.
                             $oudRecordToken = $oudRecord->createToken($verificationType)->plainTextToken; // table: personal_access_tokens
                             $arrReturn['loginToken'] = $oudRecordToken; // TODO: evaluate cryptography for passing the token via API.
 
