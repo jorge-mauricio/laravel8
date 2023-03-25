@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AdminLoginController extends AdminBaseController
 {
@@ -81,6 +82,11 @@ class AdminLoginController extends AdminBaseController
         $arrAuthenticationCheckJson = null;
 
         $loginToken = '';
+        $sanctumToken = null;
+
+        $objUsersLogin = null;
+        $tblUsersID = null;
+        $tblUsersIDCrypt = null;
         // ----------------------
 
         // Logic.
@@ -99,20 +105,35 @@ class AdminLoginController extends AdminBaseController
             );
             $arrAuthenticationCheckJson = $apiAuthenticationCheckResponse->json();
 
-            // Use FunctionsAuthentication to store id crypt cookie, token, etc.
+            // TODO: Use FunctionsAuthentication to store id crypt cookie, token, etc.
             if ($arrAuthenticationCheckJson['returnStatus'] === true && $arrAuthenticationCheckJson['loginVerification'] === true) {
                 $returnURL .= $GLOBALS['configRouteBackendDashboard'] . '/';
 
-                $loginToken = $arrAuthenticationCheckJson['loginToken'];
-                // Store token in session.
-                // TODO: evaluate cookie / cache.
-                //Session::set('user_admin_login_token', $loginToken);
-                session(['user_admin_login_token' => $loginToken]);
-                session()->save();
+                if ($GLOBALS['configUsersAuthenticationType'] === 11) {
+                    $loginToken = $arrAuthenticationCheckJson['loginToken'];
+                    // Store token in session.
+                    // TODO: evaluate cookie / cache (redis).
+                    //Session::set('user_admin_login_token', $loginToken);
+                    session(
+                        [
+                            $GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'] . '_login_token' => $loginToken
+                        ]
+                    );
+                    session()->save();
 
-                // Store user id cryptographed in cookie.
-                // Function.
-                
+                    // Get id from token.
+                    // TODO: evaluate moving to a function and grabbing the ID from it.
+                    $sanctumToken = PersonalAccessToken::findToken($loginToken);
+                    if ($sanctumToken) {
+                        $objUsersLogin = $sanctumToken->tokenable;
+                        $objUsersLoginData = json_decode($objUsersLogin, true);
+                        $tblUsersID = (float) $objUsersLoginData['id'];
+                        $tblUsersIDCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $tblUsersID, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
+                    }
+                }
+
+                // Store encrypted user ID.
+                \SyncSystemNS\FunctionsCookies::cookieCreate($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'], $tblUsersIDCrypt);
             } else {
                 $returnURL .= '?username=' . $req->post('username');
                 // TODO: verify why it´s returning http://localhost:8000/system?username= (without slash)
@@ -133,6 +154,40 @@ class AdminLoginController extends AdminBaseController
             // echo 'arrAuthenticationCheckJson=<pre>';
             // var_dump($arrAuthenticationCheckJson);
             // echo '</pre><br />';
+
+            // echo 'objUsersLogin=<pre>';
+            // var_dump($objUsersLogin);
+            // echo '</pre><br />';
+
+            // echo 'objUsersLoginData=<pre>';
+            // var_dump($objUsersLoginData);
+            // echo '</pre><br />';
+
+            // echo 'tblUsersID=<pre>';
+            // var_dump($tblUsersID);
+            // echo '</pre><br />';
+
+            // echo 'tblUsersIDCrypt=<pre>';
+            // var_dump($tblUsersIDCrypt);
+            // echo '</pre><br />';
+
+            // echo 'cookieRead=<pre>';
+            // var_dump(\SyncSystemNS\FunctionsCookies::cookieRead($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserRoot']));
+            // echo '</pre><br />';
+
+            // echo 'decryptValue=<pre>';
+            // var_dump(
+            //     \SyncSystemNS\FunctionsCrypto::decryptValue(
+            //         \SyncSystemNS\FunctionsGeneric::contentMaskRead(
+            //             \SyncSystemNS\FunctionsCookies::cookieRead(
+            //                 $GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin']
+            //             ), 
+            //             'cookie'
+            //         ), 
+            //         SS_ENCRYPT_METHOD_DATA
+            //     )
+            // ); // successful
+            // echo '</pre><br />';
             // exit();
 
         } catch (Error $adminLoginCheckError) {
@@ -145,10 +200,17 @@ class AdminLoginController extends AdminBaseController
 
         // Redirect.
         // TODO: eveluate loading views or moving to the route function (and load the views).
-        if ($arrAuthenticationCheckJson['returnStatus'] === true) {
+        //if ($arrAuthenticationCheckJson['returnStatus'] === true) {
+        if (
+            $arrAuthenticationCheckJson['returnStatus'] === true && 
+            $arrAuthenticationCheckJson['loginVerification'] === true && 
+            $arrAuthenticationCheckJson['loginActivation'] === true
+        ) {
+            
             // echo 'redirect dashboard=true';
             // echo 'user_admin_login_token=' . Session::get('user_admin_login_token');
             // echo 'user_admin_login_token=' . session('user_admin_login_token');
+
             // exit();
 
             return redirect($returnURL)
@@ -178,7 +240,8 @@ class AdminLoginController extends AdminBaseController
             //     ->header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7');
 
         } else {
-            return redirect($returnURL, 401)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2e'));
+            return redirect($returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2e'));
+            // TODO: Other error messages (connection, password, activation, etc).
         }
         
     }

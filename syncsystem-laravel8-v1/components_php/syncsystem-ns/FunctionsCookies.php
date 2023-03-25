@@ -29,6 +29,10 @@ class FunctionsCookies
             $cookiePeriod = time() + (86400 * 30 * 365);
         }
 
+        if ($_cookiePeriod === '') {
+            $cookiePeriod = time() + (86400);
+        }
+
         if ($_cookieValue) {
             // $cookieOptions = [
             //     // domain: '127.0.0.1:4444',
@@ -50,9 +54,9 @@ class FunctionsCookies
 
             if($GLOBALS['configCookieSetType'] === 1)
             {
-                setcookie($cookieName, $_cookieValue, $_cookiePeriod, $GLOBALS['configCookieDirectory']);
+                setcookie($cookieName, $_cookieValue, $cookiePeriod, $GLOBALS['configCookieDirectory']);
             }else{
-                setcookie($cookieName, $_cookieValue, $_cookiePeriod);
+                setcookie($cookieName, $_cookieValue, $cookiePeriod);
             }
             
             // Guarantee that cookie will be defined in the first load.
@@ -96,7 +100,7 @@ class FunctionsCookies
                 }
             }
 
-            if($nomeCookie === '') {
+            if($cookieName === '') {
                 // Get values from login cookie.
                 if($strReturn === '') {
                     //$strReturn = \SyncSystemNS\FunctionsCookies::CookieValorLer_Login();

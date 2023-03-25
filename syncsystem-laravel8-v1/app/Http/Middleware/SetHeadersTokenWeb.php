@@ -17,7 +17,7 @@ class SetHeadersTokenWeb
     public function handle(Request $request, Closure $next)
     {
         // user_admin token
-        $userAdminLoginToken = session('user_admin_login_token');
+        $userAdminLoginToken = session($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'] . '_login_token');
         if ($userAdminLoginToken) {
             // TODO: verify if token is still recorded / valid.
             $request->headers->set('Authorization', 'Bearer ' . $userAdminLoginToken);

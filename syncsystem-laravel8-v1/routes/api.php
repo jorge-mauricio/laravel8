@@ -13,6 +13,8 @@ use App\Http\Controllers\ApiCategoriesInsertController;
 use App\Http\Controllers\ApiCategoriesDetailsController;
 use App\Http\Controllers\ApiCategoriesUpdateController;
 
+use App\Http\Controllers\ApiUsersDetailsController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -150,6 +152,14 @@ Route::put('/categories/edit/{idTbCategories?}',[ApiCategoriesUpdateController::
 })->name('api.categories.update');
 
 //Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
+// **************************************************************************************
+
+// API - Users - details - GET.
+// TODO: create another endpoint with /edit
+// **************************************************************************************
+Route::get('/users/details/{idTbUsers?}',[ApiUsersDetailsController::class, 'getUsersDetails'], function($detailsUsersResults) {
+    return response()->json($detailsUsersResults);
+})->name('api.Users.details');
 // **************************************************************************************
 
 

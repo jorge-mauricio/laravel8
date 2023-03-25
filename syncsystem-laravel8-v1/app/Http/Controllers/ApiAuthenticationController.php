@@ -46,11 +46,13 @@ class ApiAuthenticationController extends Controller
         */
         $arrReturn = [
             'returnStatus' => false,
-            'registerVerification' => false,
+            'usersVerification' => false, // users table
+            'registerVerification' => false, // registers table
             'loginVerification' => false,
             'loginActivation' => false,
             'loginToken' => '',
-            'tblRegistersIDCrypt' => '',
+            'tblUsersIDCrypt' => '', // users table
+            'tblRegistersIDCrypt' => '', // registers table
             'loginType' => []
         ];
 
@@ -58,6 +60,7 @@ class ApiAuthenticationController extends Controller
         //$email = '';
         $password = '';
 
+        $usersVerification = false;
         $registerVerification = false;
         $loginVerification = false;
         $loginActivation = false;
@@ -124,7 +127,8 @@ class ApiAuthenticationController extends Controller
                 if ($resultsUsersListing['returnStatus'] === true) {
                     unset($resultsUsersListing['returnStatus']);
                     for ($countArray = 0; count($resultsUsersListing) > $countArray; $countArray++) {
-                        $registerVerification = true;
+                        // $registerVerification = true;
+                        $usersVerification = true;
 
                         // Clean values.
                         $tblUsersUsername = '';
@@ -167,18 +171,20 @@ class ApiAuthenticationController extends Controller
                                 '_terminal' => $this->terminal,
                                 '_arrSpecialParameters' => ['returnType' => 1],
                             ];
-                                                
-                            // Object method.
-                            //$oudRecord = new \SyncSystemNS\ObjectUsersDetails($oudRecordParameters);
-                            //$arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->recordDetailsGet(0, 1);
+                            
+                            if ($GLOBALS['configUsersAuthenticationType'] === 11) {
+                                // Object method.
+                                //$oudRecord = new \SyncSystemNS\ObjectUsersDetails($oudRecordParameters);
+                                //$arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->recordDetailsGet(0, 1);
 
-                            // Model method (Sanctum).
-                            $oudRecord = new UsersDetails($oudRecordParameters);
-                            $oudRecordData = $oudRecord->cphBodyBuild();
+                                // Model method (Sanctum).
+                                $oudRecord = new UsersDetails($oudRecordParameters);
+                                $oudRecordData = $oudRecord->cphBodyBuild();
 
-                            $oudRecord->tokens()->where('tokenable_id', $tblUsersID)->where('name', $verificationType)->delete(); // Delete all previous tokens.
-                            $oudRecordToken = $oudRecord->createToken($verificationType)->plainTextToken; // table: personal_access_tokens
-                            $arrReturn['loginToken'] = $oudRecordToken; // TODO: evaluate cryptography for passing the token via API.
+                                $oudRecord->tokens()->where('tokenable_id', $tblUsersID)->where('name', $verificationType)->delete(); // Delete all previous tokens.
+                                $oudRecordToken = $oudRecord->createToken($verificationType)->plainTextToken; // table: personal_access_tokens
+                                $arrReturn['loginToken'] = $oudRecordToken; // TODO: evaluate cryptography for passing the token via API.
+                            }
 
                             // Login type.
                             // TODO: develop for register login.
@@ -201,8 +207,11 @@ class ApiAuthenticationController extends Controller
                     $arrReturn['registerVerification'] = $registerVerification; // TODO: maybe, this would be the santum verification
                     $arrReturn['loginVerification'] = $loginVerification;
                     $arrReturn['loginActivation'] = $loginActivation;
-                    $arrReturn['tblRegistersIDCrypt'] = $tblUsersIDCrypt; // TODO: Change to tblIDCrypt
-                        // TODO: maybe, the sanctum authentication can be a salt and grabbed at the other end
+                    if ($GLOBALS['configRegistersAuthenticationType'] === 1) {
+                        // $arrReturn['tblRegistersIDCrypt'] = $tblUsersIDCrypt; // TODO: Change to tblIDCrypt // May not need, as the sanctum token is linked to an ID
+                        $arrReturn['tblIDCrypt'] = $tblUsersIDCrypt; // May not need, as the sanctum token is linked to an ID
+                    }
+                        // TODO: maybe, the sanctum token authentication can be a salt and grabbed at the other end
                     //$arrReturn['loginType'] = [];
                 }
                             

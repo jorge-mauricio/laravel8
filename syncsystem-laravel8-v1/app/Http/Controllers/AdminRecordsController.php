@@ -117,10 +117,10 @@ class AdminRecordsController extends AdminBaseController
         }
         */
 
-        $this->returnURL = $this->returnURLBuild($req);
+        $this->returnURL = $this->buildReturnURL($req);
 
         // Debug.
-        //var_dump($this->returnURLBuild($req));
+        //var_dump($this->buildReturnURL($req));
         //exit();
         // ----------------------
 

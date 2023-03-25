@@ -404,7 +404,7 @@ class FunctionsGeneric
      */
     static function contentMaskRead(?string $strContent, string $specialInstructions = ''): string
     {
-        // specialInstructions: db | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
+        // specialInstructions: db | cookie | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
 
         // Variables.
         // ----------------------
@@ -432,7 +432,7 @@ class FunctionsGeneric
 
             // DB data.
             // ----------------------
-            if (strpos($specialInstructions, "db") !== false) {
+            if (strpos($specialInstructions, 'db') !== false) {
                 //if ($strReturn) {
                     $strReturn = stripslashes($strReturn);
                     //$strReturn = preg_replace('/(?:\r\n|\r|\n)/g', '<br />', $strReturn);
@@ -445,6 +445,13 @@ class FunctionsGeneric
                     // strReturn = strContent.replace(/(?:\r\n|\r|\n)/g, "<br />");
                     //$strReturn = strReturn.replace(/(?:\r\n|\r|\n)/g, '<br />');
                 //}
+            }
+            // ----------------------
+
+            // DB data.
+            // ----------------------
+            if (strpos($specialInstructions, 'cookie') !== false) {
+                $strReturn = $strReturn;
             }
             // ----------------------
 

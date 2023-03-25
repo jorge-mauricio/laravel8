@@ -242,7 +242,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Return URL build.
         // ----------------------
-        // TODO: think about using returnURLBuild method (base controller).
+        // TODO: think about using buildReturnURL method (base controller).
         $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
         $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
         if ($this->pageNumber) {
@@ -548,7 +548,6 @@ class AdminCategoriesController extends AdminBaseController
         $idTbCategories = $_idTbCategories;
         // ----------------------
 
-
         // Logic.
         try {
             $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $GLOBALS['configRouteAPIDetails'] . '/' . $idTbCategories . '/', [
@@ -568,7 +567,8 @@ class AdminCategoriesController extends AdminBaseController
                 
                 // Title - content place holder.
                 $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
-
+                
+                // Body - content place holder.
                 $this->templateData['cphBody']['ocdRecord'] = $arrCategoriesDetailsJson['ocdRecord'];
             }
             
@@ -637,7 +637,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Return URL build.
         // ----------------------
-        // TODO: think about using returnURLBuild method (base controller).
+        // TODO: think about using buildReturnURL method (base controller).
         $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
         $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
         if ($this->pageNumber) {

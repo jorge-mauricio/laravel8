@@ -1493,7 +1493,7 @@ $configRegistersInputOrder = [
 
 //Authentication method.
 $configRegistersAuthenticationMethod = 3; // 1 - cookie | 2 - session | 3 - token (API)
-$configRegistersAuthenticationType = 10; // (WIP) 10 - sanctum | 11 - passport
+$configRegistersAuthenticationType = 11; //(WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
 $configRegistersAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
 
 //Basic resources.
@@ -2260,9 +2260,9 @@ $configUsersInputOrder = ["inputRowUsers_id_parent",
                                       ];
 
 //Authentication method.
-$configUsersMasterAuthenticationMethod = 1; //1 - cookie | 2 session
-$configUsersAuthenticationMethod = 1; //1 - cookie | 2 session
-
+$configUsersMasterAuthenticationMethod = 3; // 1 - cookie | 2 session | 3 - token (API)
+$configUsersAuthenticationType = 11; // (WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
+$configUsersAuthenticationMethod = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
 
 //Basic resources.
 $enableUsersSortOrder = 1; // 0 - disable | 1 - enable

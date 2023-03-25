@@ -22,6 +22,9 @@ class AdminBaseController extends Controller
 
     protected string $tableName = '';
     */
+
+    protected string|null $idTbUsersLogged = null;
+    protected string|null $idTbUsersRootLogged = null;
     // ----------------------
 
     // Constructor.
@@ -64,6 +67,7 @@ class AdminBaseController extends Controller
 
         // Define values.
         $cacheClear = $dateNow->format('YmdHis'); // TODO: create a config option to enable.
+        $this->idTbUsersLogged = $this->getUsersLoggedID($GLOBALS['configCookiePrefixUserAdmin']);
             
         // Shere between views.
         // TODO: check if can be changed to array.
@@ -93,7 +97,7 @@ class AdminBaseController extends Controller
      * @param Request $req
      * @return string
      */
-    protected function returnURLBuild(Request $req): string
+    protected function buildReturnURL(Request $req): string
     {
         // Variables.
         // ----------------------
@@ -179,6 +183,27 @@ class AdminBaseController extends Controller
         // ----------------------
 
         return $strReturn;
+    }
+    // **************************************************************************************
+
+    // Return the decrypted ID from the user logged.
+    // **************************************************************************************
+    /**
+     * Return the decrypted ID from the user logged.
+     * @param string $verificationType user_admin | user_admin_root
+     * @return float
+     */
+    protected function getUsersLoggedID(string $verificationType): float
+    {
+        return (float) \SyncSystemNS\FunctionsCrypto::decryptValue(
+            \SyncSystemNS\FunctionsGeneric::contentMaskRead(
+                \SyncSystemNS\FunctionsCookies::cookieRead(
+                    $GLOBALS['configCookiePrefix'] . '_' . $verificationType
+                ), 
+                'cookie'
+            ), 
+            SS_ENCRYPT_METHOD_DATA
+        );
     }
     // **************************************************************************************
 }

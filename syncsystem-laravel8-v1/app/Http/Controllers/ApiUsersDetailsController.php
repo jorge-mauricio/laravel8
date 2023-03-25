@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 // Custom models.
-use App\Models\CategoriesDetails;
+use App\Models\UsersDetails;
 
-class ApiCategoriesDetailsController extends Controller
+class ApiUsersDetailsController extends Controller
 {
     // Properties.
     // ----------------------
@@ -38,63 +38,59 @@ class ApiCategoriesDetailsController extends Controller
         if ($req->post('apiKey')) {
             $this->apiKey = $req->post('apiKey');
         }
-        // TODO: double check to see if parameters are being passed / received.
-        // TODO: evaluate moving to base controller.
         // ----------------------
     }
     // **************************************************************************************
 
-    // Handle categories details.
+    // Handle users details.
     // **************************************************************************************
     /**
-     * Handle categories details.
+     * Handle users details.
      * @param Request $req
-     * @param float|string $_idTbCategories
+     * @param float|string $_idTbUsers
      * @return ?array
      * @example TODO
      */
-    public function getCategoriesDetails(Request $req, float|string $_idTbCategories = null): ?array
+    public function getUsersDetails(Request $req, float|string $_idTbUsers = null): ?array
     {
         // Variables.
         // ----------------------
         $arrReturn = ['returnStatus' => false];
 
-        $ocdRecord = null;
-        $ocdRecordParameters = null;
-        $ocdRecordDetails = null;
+        $oudRecord = null;
+        $oudRecordParameters = null;
+        $oudRecordDetails = null;
 
-        $idTbCategories = '';
+        $idTbUsers = '';
         $pageNumber = '';
         // ----------------------
 
         // Value definition.
         // ----------------------
-        if ($_idTbCategories) {
-            $idTbCategories = $_idTbCategories;
+        if ($_idTbUsers) {
+            $idTbUsers = $_idTbUsers;
         }
         // ----------------------
 
         // Logic.
         try {
             // Parameters build.
-            $ocdRecordParameters = [
-                //'_arrSearchParameters' => ['id;' + $idTbCategories + ';i', 'activation;1;i'],
-                '_arrSearchParameters' => ['id;' . $idTbCategories . ';i'],
-                '_idTbCategories' => $idTbCategories,
+            $oudRecordParameters = [
+                //'_arrSearchParameters' => ['id;' + $idTbUsers + ';i', 'activation;1;i'],
+                '_arrSearchParameters' => ['id;' . $idTbUsers . ';i'],
+                '_idTbUsers' => $idTbUsers,
                 '_terminal' => $this->terminal,
                 '_arrSpecialParameters' => ['returnType' => 1],
             ];
 
-            $ocdRecord = new CategoriesDetails($ocdRecordParameters);
-            //$ocdRecordDetails = $ocdRecord->cphBodyBuild();
-            //$arrReturn['ocdRecord'] = $ocdRecord->cphBodyBuild();
-            $arrReturn = $ocdRecord->cphBodyBuild();
+            $oudRecord = new UsersDetails($oudRecordParameters);
+            $arrReturn = $oudRecord->cphBodyBuild();
 
             // Debug.
-            // $arrReturn['debug-idTbCategories'] = $idTbCategories;
-        } catch (Error $getCategoriesDetailsError) {
+            // $arrReturn['debug-idTbUsers'] = $idTbUsers;
+        } catch (Error $getUsersDetailsError) {
             if ($GLOBALS['configDebug'] === true) {
-                throw new Error('getCategoriesDetailsError: ' . $getCategoriesDetailsError->message());
+                throw new Error('getUsersDetailsError: ' . $getUsersDetailsError->message());
             }
         } finally {
             //

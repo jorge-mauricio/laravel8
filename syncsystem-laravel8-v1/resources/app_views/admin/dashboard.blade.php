@@ -1,6 +1,7 @@
 @php
     // Variables.
     $titleCurrent = $templateData['cphTitleCurrent'];
+    $objUsersLoggedDetails = $templateData['cphBody']['oudRecord'];
 
     // Meta title.
     $metaTitle = '';
@@ -54,9 +55,9 @@
 
     <section class="ss-backend-layout-section-content01 ss-backend-text01">
         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendDashboardWelcome') }},
-        {{-- ${objUsersLoggedDetails.tblUsersNameFull} --}}
+        {{ $objUsersLoggedDetails['tblUsersNameFull'] }}
         <br />
         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendDashboardLoginMessage01') }}:
-        {{-- ${objUsersLoggedDetails.tblUsersUsername} --}}
+        {{ $objUsersLoggedDetails['tblUsersUsername'] }}
     </section>
 @endsection
