@@ -134,6 +134,27 @@
                                         <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuStart'); ?>
                                 </a>
                             </li>
+
+
+
+                            {{-- <%# User - Root.%> --}}
+                            {{-- <% if(additionalData.cookiesData[gSystemConfig.configCookiePrefix + "_" + gSystemConfig.configCookiePrefixUserRoot]){ %> --}}
+                                <li class="ss-backend-menu-li01">
+                                    <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendUsers'] . '/' . $GLOBALS['configRouteBackendActionEdit'] . '/123' /* TODO: substitute with the id */ }}" 
+                                        class="ss-backend-menu-link" 
+                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuUsersPasswordEditToolTip'); ?>">
+                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuUsersPasswordEdit'); ?>
+                                    </a>
+                                </li>
+
+                                <li class="ss-backend-menu-li01">
+                                    <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendLogOff'] . '/' }}" 
+                                        class="ss-backend-menu-link" 
+                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuLogUsersOffToolTip'); ?>">
+                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendMenuUsersLogOff'); ?>
+                                    </a>
+                                </li>
+                            {{-- <% } %> --}}
                         </ul>
                     </nav>
 

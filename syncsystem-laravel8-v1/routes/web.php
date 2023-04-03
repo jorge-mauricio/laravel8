@@ -97,6 +97,11 @@ Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->
     Route::group(['middleware' => ['setHeaders.token.web', 'auth:sanctum']], function () {
         // TODO: make auth sanctum conditioned to $GLOBALS['configRegistersAuthenticationType'] === 11
     //Route::group(['middleware' => ['auth:sanctum', 'setHeaders.token.web']], function () {
+
+        // Admin - Logoff - POST.
+        // **************************************************************************************
+        Route::get('/system/logoff/',[AdminLoginController::class, 'adminLogoff'])->name('admin.logoff');
+        // **************************************************************************************
         
         // Admin - Dashboard.
         // **************************************************************************************

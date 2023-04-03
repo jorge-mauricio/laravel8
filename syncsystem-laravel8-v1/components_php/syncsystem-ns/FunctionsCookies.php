@@ -120,6 +120,27 @@ class FunctionsCookies
     }
     // **************************************************************************************
 
-
-
+    // Function to delete cookie.
+    // **************************************************************************************
+    /**
+     * Function to delete cookie.
+     * @static
+     * @param string cookieName
+     * @example
+     * \SyncSystemNS\FunctionsCookies::cookieDelete('')
+     */
+    static function cookieDelete(string $cookieName = '')
+    {
+        $cookiePeriod = time() - 3600;
+        
+        if ($GLOBALS['configCookieSetType'] === 1) {
+            setcookie($cookieName, '', $cookiePeriod, $GLOBALS['configCookieDirectory']);
+        }else{
+            setcookie($cookieName, '', $cookiePeriod);
+        }
+        
+        // Guarantee that the cookie will be deleted in the first load.
+        $_COOKIE[$cookieName] = ''; 
+    }
+    // **************************************************************************************
 }

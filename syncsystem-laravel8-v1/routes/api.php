@@ -48,6 +48,17 @@ Route::post('/authentication/',[ApiAuthenticationController::class, 'authenticat
 })->name('api.authentication.authenticationCheck');
 // **************************************************************************************
 
+// API - Authentication - DELETE.
+// **************************************************************************************
+Route::delete('/authentication/',[ApiAuthenticationController::class, 'authenticationDelete'], function($authenticationDeleteResults) {
+    // Debug.
+    //return 'api categories (post) - ' . $idTbCategories;
+    //return 'api categories (post)';
+
+    return response()->json($authenticationDeleteResults);
+})->name('api.authentication.authenticationDelete');
+// **************************************************************************************
+
 // Backend - Records - Delete.
 // TODO: middleware function to check user_root or user_backend
 // **************************************************************************************

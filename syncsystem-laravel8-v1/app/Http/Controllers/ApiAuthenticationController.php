@@ -252,4 +252,79 @@ class ApiAuthenticationController extends Controller
         return $arrReturn;
     }
     // **************************************************************************************
+
+    // Delete authentication data.
+    // **************************************************************************************
+    /**
+     * Delete authentication data.
+     * @param Request $req
+     * @return array
+     */
+    public function authenticationDelete(Request $req): array
+    {
+        // Variables.
+        // ----------------------
+        $arrReturn = [
+            'returnStatus' => false,
+        ];
+
+        $tblUsersID = null;
+        $tblUsersIDCrypt = null;
+
+        $actionType = null;
+        $verificationType = null;
+        $authenticationDeleteResult = null;
+        // ----------------------
+
+        // Define values.
+        // ----------------------
+        $tblUsersIDCrypt = $req->post('idTbUsersLoggedCrypt');
+
+        $actionType = $req->post('actionType');
+        $verificationType = $req->post('verificationType');
+        // ----------------------
+
+        // Logic.
+        try {
+            // User - Admin
+            // ----------------------
+            if ($verificationType === 'user_admin') {
+                $tblUsersID = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersIDCrypt, 'db'), SS_ENCRYPT_METHOD_DATA);
+                
+                // Parameters build.
+                $arrRecordSearchParameters = ['id;' . $tblUsersID . ';i'];
+                $oudRecordParameters = [
+                    '_arrSearchParameters' => $arrRecordSearchParameters,
+                    '_idTbUsers' => $tblUsersID,
+                    '_terminal' => $this->terminal,
+                    '_arrSpecialParameters' => ['returnType' => 1],
+                ];
+
+                // Model method (Sanctum).
+                $oudRecord = new UsersDetails($oudRecordParameters);
+                $oudRecordData = $oudRecord->cphBodyBuild();
+                $authenticationDeleteResult = $oudRecord->tokens()->where('tokenable_id', $tblUsersID)->where('name', $verificationType)->delete();
+                
+                if ($authenticationDeleteResult > 0) {
+                    $arrReturn['returnStatus'] = true;
+                }
+            }
+
+            // Debug.
+            $arrReturn['debug']['authenticationDeleteResult'] = $authenticationDeleteResult;
+            $arrReturn['debug']['tblUsersID'] = $tblUsersID;
+            $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
+            $arrReturn['debug']['actionType'] = $actionType;
+            $arrReturn['debug']['verificationType'] = $verificationType;
+        } catch (Error $authenticationDeleteError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('authenticationDeleteError: ' . $authenticationDeleteError->message());
+            }
+        } finally {
+            //
+        }
+
+        return $arrReturn;
+    }
+    // **************************************************************************************
 }

@@ -133,7 +133,9 @@ class AdminLoginController extends AdminBaseController
                 }
 
                 // Store encrypted user ID.
-                \SyncSystemNS\FunctionsCookies::cookieCreate($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'], $tblUsersIDCrypt);
+                if ($GLOBALS['configUsersAuthenticationStore'] === 1) {
+                    \SyncSystemNS\FunctionsCookies::cookieCreate($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'], $tblUsersIDCrypt);
+                }
             } else {
                 $returnURL .= '?username=' . $req->post('username');
                 // TODO: verify why it´s returning http://localhost:8000/system?username= (without slash)
@@ -246,5 +248,86 @@ class AdminLoginController extends AdminBaseController
         
     }
     // **************************************************************************************
-    
+
+    // Admin logoff (delete cookies / sessions / tokens).
+    // **************************************************************************************
+    /**
+     * Admin logoff (delete cookies / sessions / tokens).
+     * @param Request $req
+     * @param Response $req
+     * @return RedirectResponse
+     */
+    public function adminLogoff(Request $req, Response $res): RedirectResponse | Response
+    {
+        // Variables.
+        // ----------------------
+        $returnURL = '/' . $GLOBALS['configRouteBackend'] . '/';
+        $apiAuthenticationDeleteResponse = null;
+        $arrAuthenticationDeleteJson = null;
+
+        $idTbUsersLogged = null;
+        $idTbUsersLoggedCrypt = null;
+        // ----------------------
+        
+        // Logic.
+        try {
+            // Define values.
+            // TODO: check which variable contains data to redirect to the right page (user / root).
+            $idTbUsersLogged = $this->idTbUsersLogged;
+            $idTbUsersLoggedCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($idTbUsersLogged, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
+                // TODO: encrypt
+
+            // API call.
+            // TODO: evaluate getting token data from header
+            $apiAuthenticationDeleteResponse = Http::withOptions(['verify' => false])
+                ->delete(
+                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIAuthentication'] . '/', 
+                    array_merge(
+                        [
+                            // 'idTbUsers' => $idTbUsersLogged,
+                            'idTbUsersLoggedCrypt' => $idTbUsersLoggedCrypt,
+                            'verificationType' => 'user_admin', // Changed from user_backend
+                            'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                        ], 
+                        $req->all()
+                    )
+            );
+            $arrAuthenticationDeleteJson = $apiAuthenticationDeleteResponse->json();
+
+            if ($arrAuthenticationDeleteJson['returnStatus'] === true) {
+                // Delete cookies / sessions.
+                if ($GLOBALS['configUsersAuthenticationStore'] === 1) {
+                    \SyncSystemNS\FunctionsCookies::cookieDelete($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin']);
+                }
+            } else {
+                $returnURL .= $GLOBALS['configRouteBackendDashboard'] . '/';
+            }
+
+            // Debug.
+            // echo 'arrAuthenticationDeleteJson=<pre>';
+            // var_dump($arrAuthenticationDeleteJson);
+            // echo '</pre><br />';
+
+            // echo '_COOKIE=<pre>';
+            // var_dump($_COOKIE);
+            // echo '</pre><br />';
+            // exit();
+        } catch (Error $adminLogoffError) {
+            if ($GLOBALS['configDebug'] === true) {
+                throw new Error('adminLogoffError: ' . $adminLogoffError->message());
+            }
+        } finally {
+            //
+        }
+
+        // Redirect.
+        if ($arrAuthenticationDeleteJson['returnStatus'] === true) {
+            return redirect($returnURL)
+                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2'));
+        } else {
+            return redirect($returnURL)
+                ->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageAPI1e'));
+        }
+    }
+    // **************************************************************************************
 }

@@ -85,7 +85,6 @@ class AdminDashboardController extends AdminBaseController
             // echo 'arrUsersLoggedDetailsJson=<pre>';
             // var_dump($arrUsersLoggedDetailsJson);
             // echo '</pre><br />';
-            
         } catch(Exception $adminDashboardError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('adminDashboardError: ' . $adminDashboardError->message());

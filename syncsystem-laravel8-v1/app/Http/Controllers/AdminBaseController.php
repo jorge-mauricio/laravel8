@@ -67,7 +67,7 @@ class AdminBaseController extends Controller
 
         // Define values.
         $cacheClear = $dateNow->format('YmdHis'); // TODO: create a config option to enable.
-        $this->idTbUsersLogged = $this->getUsersLoggedID($GLOBALS['configCookiePrefixUserAdmin']);
+        $this->idTbUsersLogged = $this->getLoggedID($GLOBALS['configCookiePrefixUserAdmin']);
             
         // Shere between views.
         // TODO: check if can be changed to array.
@@ -186,24 +186,30 @@ class AdminBaseController extends Controller
     }
     // **************************************************************************************
 
-    // Return the decrypted ID from the user logged.
+    // Return the decrypted ID from the logged profile.
     // **************************************************************************************
     /**
-     * Return the decrypted ID from the user logged.
+     * Return the decrypted ID from the logged profile.
      * @param string $verificationType user_admin | user_admin_root
-     * @return float
+     * @return ?float
      */
-    protected function getUsersLoggedID(string $verificationType): float
+    protected function getLoggedID(string $verificationType): ?float
     {
-        return (float) \SyncSystemNS\FunctionsCrypto::decryptValue(
-            \SyncSystemNS\FunctionsGeneric::contentMaskRead(
-                \SyncSystemNS\FunctionsCookies::cookieRead(
-                    $GLOBALS['configCookiePrefix'] . '_' . $verificationType
+        $loggedID = null;
+
+        if ($GLOBALS['configUsersAuthenticationStore'] === 1 && $verificationType === 'user_admin') {
+            $loggedID = (float) \SyncSystemNS\FunctionsCrypto::decryptValue(
+                \SyncSystemNS\FunctionsGeneric::contentMaskRead(
+                    \SyncSystemNS\FunctionsCookies::cookieRead(
+                        $GLOBALS['configCookiePrefix'] . '_' . $verificationType
+                    ), 
+                    'cookie'
                 ), 
-                'cookie'
-            ), 
-            SS_ENCRYPT_METHOD_DATA
-        );
+                SS_ENCRYPT_METHOD_DATA
+            );
+        }
+
+        return $loggedID; 
     }
     // **************************************************************************************
 }

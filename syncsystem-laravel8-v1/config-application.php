@@ -1495,6 +1495,7 @@ $configRegistersInputOrder = [
 $configRegistersAuthenticationMethod = 3; // 1 - cookie | 2 - session | 3 - token (API)
 $configRegistersAuthenticationType = 11; //(WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
 $configRegistersAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+$configRegistersAuthenticationStore = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
 
 //Basic resources.
 $enableRegistersIdParentEdit = 1; // 0 - disable | 1 - enable
@@ -2249,20 +2250,27 @@ $configFiltersGenericImagePlaceholder = 1; // 0 - disable | 1 - enable
 // **************************************************************************************
 $configUsersSort = "id DESC"; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableUsersSortCustom = 1; // 0 - disable | 1 - enable
-$configUsersInputOrder = ["inputRowUsers_id_parent", 
-                                        "inputRowUsers_sort_order", 
-                                        "inputRowUsers_name", 
-                                        "inputRowUsers_info1", 
-                                        "inputRowUsers_image_main", 
-                                        "inputRowUsers_activation", 
-                                        "inputRowUsers_id_status", 
-                                        "inputRowUsers_notes"
-                                      ];
+$configUsersInputOrder = [
+                          "inputRowUsers_id_parent", 
+                          "inputRowUsers_sort_order", 
+                          "inputRowUsers_name", 
+                          "inputRowUsers_info1", 
+                          "inputRowUsers_image_main", 
+                          "inputRowUsers_activation", 
+                          "inputRowUsers_id_status", 
+                          "inputRowUsers_notes"
+                        ];
 
 //Authentication method.
 $configUsersMasterAuthenticationMethod = 3; // 1 - cookie | 2 session | 3 - token (API)
+$configUsersMasterAuthenticationType = 11; //(WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
+$configUsersMasterAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+$configUsersMasterAuthenticationStore = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
+
 $configUsersAuthenticationType = 11; // (WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
-$configUsersAuthenticationMethod = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+$configUsersAuthenticationMethod = 3; // 1 - cookie | 2 - session | 3 - token (API)
+$configUsersAuthenticationCheck = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
+$configUsersAuthenticationStore = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
 
 //Basic resources.
 $enableUsersSortOrder = 1; // 0 - disable | 1 - enable
