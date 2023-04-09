@@ -67,6 +67,12 @@
 
 
 			- note: when debugging secure routes, better to clear caches:
-				- terminal: php artisan route:clear
+				- terminal: 
+php artisan route:clear
 php artisan cache:clear
 php artisan config:clear
+
+
+
+- configure sanctum (production domains, test domains, etc)
+	\config\sanctum.php

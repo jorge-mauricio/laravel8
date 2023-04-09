@@ -125,7 +125,7 @@ class FunctionsCookies
     /**
      * Function to delete cookie.
      * @static
-     * @param string cookieName
+     * @param string $cookieName
      * @example
      * \SyncSystemNS\FunctionsCookies::cookieDelete('')
      */

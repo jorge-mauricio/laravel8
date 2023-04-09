@@ -18,8 +18,8 @@ class FunctionsDBUpdate
      * @return array|null
      * @example
      * $updateRecordsGeneric10Result = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10(strTable, 
-     * strField, 
-     * recordValue, 
+     * $strField, 
+     * $recordValue, 
      * ['id;' . idRecord . ';i']);
      */
     static function updateRecordGeneric10(string $strTable, 

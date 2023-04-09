@@ -15,7 +15,7 @@ class FunctionsDBDelete
      * @return array|null
      * @example
      * $deleteRecordsGeneric10Result = \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(strTable, 
-     * ['id;' . idRecord . ';i']);
+     * ['id;' . $idRecord . ';i']);
      */
     static function deleteRecordsGeneric10(string $strTable, 
     ?array $arrSearchParameters): array|null
@@ -75,7 +75,6 @@ class FunctionsDBDelete
             //echo '</pre>';
 
             //echo 'updateRecordGeneric10=' . $objSQLRecordsGenericDelete . '<br />';
-
         } catch (Error $updateRecordGeneric10Error) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('updateRecordGeneric10Error: ' . $updateRecordGeneric10Error->message());

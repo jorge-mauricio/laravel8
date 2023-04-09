@@ -61,16 +61,16 @@ class FunctionsDB
 
         return $nCounterUpdate;
     }
-
+    // **************************************************************************************
 
     // Function to return results from any field in table.
     // **************************************************************************************
     /**
      * Function to return results from any field in table.
      * @static
-     * @param float idRecord
-     * @param string strTable categories | content | files | publications | products | registers | quizzes | forms | forms_fields | forms_fields_options
-     * @param string fieldName
+     * @param float $idRecord
+     * @param string $strTable categories | content | files | publications | products | registers | quizzes | forms | forms_fields | forms_fields_options
+     * @param string $fieldName
      * @return string
      * @example \SyncSystemNS\FunctionsDB::genericFieldGet01(790, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title')
      */
@@ -318,7 +318,6 @@ class FunctionsDB
 
             //echo 'contentMaskWrite=' . \SyncSystemNS\FunctionsGeneric::contentMaskWrite('testing contentMaskWrite', 'db_sanitize') . '<br />';
 
-            return $arrReturn;
         } catch (Error $genericTableGet02Error) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('genericTableGet02Error: ' . $genericTableGet02Error->message());
@@ -327,6 +326,7 @@ class FunctionsDB
 
         }
 
+        return $arrReturn;
     }
     // **************************************************************************************
 }

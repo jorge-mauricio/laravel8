@@ -8,9 +8,9 @@ class FunctionsJson
     /**
      * Convert JavaScript Json object/string to PHP json object.
      * @static
-     * @param string strData 
-     * @param array arrStripElements 
-     * @param string strRootNode 
+     * @param string $strData 
+     * @param array $arrStripElements 
+     * @param string $strRootNode 
      * @return string
      * @example
      * $jsonAppLabels = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson($objAppLabels, ["'use strict';", "exports.", "appLabels = "], 'appLabels');
@@ -61,8 +61,8 @@ class FunctionsJson
 
             $strData = json_decode($strData);
             //$strData = json_decode(stripslashes($strData));
-            // ----------------------
         }
+        // ----------------------
 
         // Debug.
         // echo 'strData=<pre>';

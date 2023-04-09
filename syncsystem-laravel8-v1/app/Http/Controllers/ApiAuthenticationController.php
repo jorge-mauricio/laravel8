@@ -237,9 +237,6 @@ class ApiAuthenticationController extends Controller
                 $arrReturn['debug']['tblUsersID'] = $tblUsersID;
                 $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
                 */
-                
-
-
             }
         } catch(Exception $apiAuthenticationCheckError) {
             if ($GLOBALS['configDebug'] === true) {
@@ -311,11 +308,11 @@ class ApiAuthenticationController extends Controller
             }
 
             // Debug.
-            $arrReturn['debug']['authenticationDeleteResult'] = $authenticationDeleteResult;
-            $arrReturn['debug']['tblUsersID'] = $tblUsersID;
-            $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
-            $arrReturn['debug']['actionType'] = $actionType;
-            $arrReturn['debug']['verificationType'] = $verificationType;
+            // $arrReturn['debug']['authenticationDeleteResult'] = $authenticationDeleteResult;
+            // $arrReturn['debug']['tblUsersID'] = $tblUsersID;
+            // $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
+            // $arrReturn['debug']['actionType'] = $actionType;
+            // $arrReturn['debug']['verificationType'] = $verificationType;
         } catch (Error $authenticationDeleteError) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('authenticationDeleteError: ' . $authenticationDeleteError->message());
