@@ -116,6 +116,47 @@ Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->
         // })->middleware(['auth'])->name('admin.dashboard');
         // TODO: evaluate changing the arquitecture - return the data from the classes and bind with the views in the route´s functions.     
         // **************************************************************************************
+
+        // Admin - Categories - listing - GET.
+        // **************************************************************************************
+        // Debug: http://127.0.0.1:8000/admin/categories/123
+        // Debug: http://127.0.0.1:8000/admin/categories/781
+        // Debug: http://localhost:8000/system/categories/781
+        Route::get('/system/categories/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+        //Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+        //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
+        // **************************************************************************************
+
+        // Admin - Categories - POST (insert record).
+        // **************************************************************************************
+        //Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
+        Route::post('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert'); // working
+        // **************************************************************************************
+
+        // Admin - Categories - DELETE.
+        // TODO: change to system/records
+        // **************************************************************************************
+        //Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
+        //Route::delete('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesDelete'])->name('admin.categories.delete');
+        Route::delete('/system/records/',[AdminRecordsController::class, 'adminRecordsDelete'])->name('admin.records.delete');
+        // **************************************************************************************
+
+        // Admin - Categories - edit - GET.
+        // **************************************************************************************
+        // Debug: http://localhost:8000/system/categories/edit/1999/?masterPageSelect=layout-admin-main
+        Route::get('/system/categories/edit/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesEdit'])->name('admin.categories.edit');
+        //Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+        //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
+        // **************************************************************************************
+
+        // Admin - Categories - edit - PUT.
+        // TODO: reflect this pattern in node version.
+        // **************************************************************************************
+        // Debug: http://localhost:8000/system/categories/edit/1999/?masterPageSelect=layout-admin-main
+        Route::put('/system/categories/edit/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesUpdate'])->name('admin.categories.update');
+        //Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
+        //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
+        // **************************************************************************************
     });
 //});
 // Route::get('/system/dashboard/',[AdminDashboardController::class, 'adminDashboard'])
@@ -123,45 +164,4 @@ Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->
 //     //->middleware('auth');
 //     ->middleware('auth:sanctum');
 
-// Admin - Categories - listing - GET.
-// **************************************************************************************
-// Debug: http://127.0.0.1:8000/admin/categories/123
-// Debug: http://127.0.0.1:8000/admin/categories/781
-// Debug: http://localhost:8000/system/categories/781
-Route::get('/system/categories/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
-//Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
-//Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
-// **************************************************************************************
-
-
-// Admin - Categories - POST (insert record).
-// **************************************************************************************
-//Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
-Route::post('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert'); // working
-// **************************************************************************************
-
-// Admin - Categories - DELETE.
-// TODO: change to system/records
-// **************************************************************************************
-//Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
-//Route::delete('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesDelete'])->name('admin.categories.delete');
-Route::delete('/system/records/',[AdminRecordsController::class, 'adminRecordsDelete'])->name('admin.records.delete');
-// **************************************************************************************
-
-// Admin - Categories - edit - GET.
-// **************************************************************************************
-// Debug: http://localhost:8000/system/categories/edit/1999/?masterPageSelect=layout-admin-main
-Route::get('/system/categories/edit/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesEdit'])->name('admin.categories.edit');
-//Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
-//Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
-// **************************************************************************************
-
-// Admin - Categories - edit - PUT.
-// TODO: reflect this pattern in node version.
-// **************************************************************************************
-// Debug: http://localhost:8000/system/categories/edit/1999/?masterPageSelect=layout-admin-main
-Route::put('/system/categories/edit/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesUpdate'])->name('admin.categories.update');
-//Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
-//Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
-// **************************************************************************************
 

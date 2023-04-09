@@ -109,7 +109,6 @@
             var_dump(config('gSystemConfig.configDebug')); // working
             var_dump(config('gSystemConfig.configDebugArr.info1')); // working
             var_dump(config('gSystemConfig')); 
-            
         @endphp
     </pre>
 
