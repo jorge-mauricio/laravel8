@@ -20,3 +20,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# Log files.
+/public/php_errors.log
