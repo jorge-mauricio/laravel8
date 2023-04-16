@@ -19,7 +19,9 @@ class AdminCategoriesController extends AdminBaseController
     // ----------------------
     // private float|string|null $_idParent = null;
     private float|string|null $idParentCategories = null;
-    private float|null $pageNumber = null;
+    // private float|null $pageNumber = null;
+    private int|null $pageNumber = null;
+    // private string|null $pageNumber = null;
     protected string|null $masterPageSelect = 'layout-admin-main';
     private string|null $returnURL = null; // TODO: evaluate moving this to the method level.
 
@@ -236,7 +238,7 @@ class AdminCategoriesController extends AdminBaseController
 
 
         $this->idParentCategories = $req->post('idParent');
-        $this->pageNumber = $req->post('pageNumber');
+        $this->pageNumber = (int) $req->post('pageNumber');
         $this->masterPageSelect = $req->post('masterPageSelect');
         // ----------------------
 
@@ -631,7 +633,7 @@ class AdminCategoriesController extends AdminBaseController
 
 
         $this->idParentCategories = $req->post('idParent');
-        $this->pageNumber = $req->post('pageNumber');
+        $this->pageNumber = (int) $req->post('pageNumber'); // TODO: check why this variable is comming in as string
         $this->masterPageSelect = $req->post('masterPageSelect');
         // ----------------------
 

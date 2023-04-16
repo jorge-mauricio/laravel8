@@ -199,3 +199,8 @@ Stack trace:
 [19-Mar-2023 21:37:58 UTC] PHP Fatal error:  Type of App\Models\UsersDetails::$table must not be defined (as in class Illuminate\Database\Eloquent\Model) in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\app\Models\UsersDetails.php on line 17
 [19-Mar-2023 21:46:29 UTC] PHP Fatal error:  Type of App\Models\UsersDetails::$table must not be defined (as in class Illuminate\Database\Eloquent\Model) in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\app\Models\UsersDetails.php on line 17
 [19-Mar-2023 21:49:51 UTC] PHP Fatal error:  Type of App\Models\UsersDetails::$table must not be defined (as in class Illuminate\Database\Eloquent\Model) in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\app\Models\UsersDetails.php on line 17
+[09-Apr-2023 19:37:35 America/Sao_Paulo] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config-application.php:128
+Stack trace:
+#0 K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\public\index.php(51): require()
+#1 {main}
+  thrown in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config-application.php on line 128

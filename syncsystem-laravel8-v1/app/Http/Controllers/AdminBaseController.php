@@ -72,7 +72,7 @@ class AdminBaseController extends Controller
         // Shere between views.
         // TODO: check if can be changed to array.
         View::share('masterPageSelect', $this->masterPageSelect);
-        View::share('pageNumber', $pageNumber);
+        View::share('pageNumber', (int) $pageNumber);
         View::share('cacheClear', $cacheClear);
         View::share('queryDefault', $queryDefault);
 

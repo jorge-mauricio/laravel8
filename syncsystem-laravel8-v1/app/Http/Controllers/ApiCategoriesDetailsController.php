@@ -14,8 +14,10 @@ class ApiCategoriesDetailsController extends Controller
     private array|null $arrReturn = ['returnStatus' => false];
     private string $configAPIKey = '';
 
-    private float|null $pageNumber = null;
-    private float|null $pagingNRecords = null;
+    // private float|null $pageNumber = null;
+    private int|null $pageNumber = null;
+    // private float|null $pagingNRecords = null;
+    private int|null $pagingNRecords = null;
 
     private float|null $terminal = 0;
     private string $apiKey = '';
@@ -32,7 +34,7 @@ class ApiCategoriesDetailsController extends Controller
         // Value definition.
         // ----------------------
         if ($req->post('pageNumber')) {
-            $this->pageNumber = $req->post('pageNumber');
+            $this->pageNumber = (int) $req->post('pageNumber');
         }
 
         if ($req->post('apiKey')) {
