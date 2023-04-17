@@ -29,15 +29,16 @@ class AdminBaseController extends Controller
 
     // Constructor.
     // **************************************************************************************
-    protected function __construct() {
+    protected function __construct()
+    {
         // Admin master page select priority.
         //$masterPageSelect = 'layout-admin-main';
         if (!empty($_GET['masterPageSelect'])) {
             $this->masterPageSelect = $_GET['masterPageSelect'];
-        } 
+        }
         if (!empty($_POST['masterPageSelect'])) {
             $this->masterPageSelect = $_POST['masterPageSelect'];
-        } 
+        }
 
         $pageNumber = isset($_GET['pageNumber']) ? $_GET['pageNumber'] : '';
         $queryDefault = ''; // TODO: evaluate if it will remain in base controller or move to blade template.
@@ -54,7 +55,7 @@ class AdminBaseController extends Controller
         $dateNowYear = $dateNow->format('Y');
         $dateNowMonth = $dateNow->format('m');
         $dateNowDay = $dateNow->format('d');
-        
+
         $dateNowHour = $dateNow->format('H');
         $dateNowMinute = $dateNow->format('i');
         $dateNowSecond = $dateNow->format('s');
@@ -68,8 +69,8 @@ class AdminBaseController extends Controller
         // Define values.
         $cacheClear = $dateNow->format('YmdHis'); // TODO: create a config option to enable.
         $this->idTbUsersLogged = $this->getLoggedID($GLOBALS['configCookiePrefixUserAdmin']);
-            
-        // Shere between views.
+
+        // Share between views.
         // TODO: check if can be changed to array.
         View::share('masterPageSelect', $this->masterPageSelect);
         View::share('pageNumber', (int) $pageNumber);
@@ -106,12 +107,12 @@ class AdminBaseController extends Controller
         $idParent = null;
         $fileType = null;
         $idQuizzes = null;
-    
+
         $idForms = null;
         $idFormsFields = null;
-    
+
         $filterIndex = null;
-    
+
         $tableName = '';
 
         $pageReturn = '';
@@ -202,14 +203,14 @@ class AdminBaseController extends Controller
                 \SyncSystemNS\FunctionsGeneric::contentMaskRead(
                     \SyncSystemNS\FunctionsCookies::cookieRead(
                         $GLOBALS['configCookiePrefix'] . '_' . $verificationType
-                    ), 
+                    ),
                     'cookie'
-                ), 
+                ),
                 SS_ENCRYPT_METHOD_DATA
             );
         }
 
-        return $loggedID; 
+        return $loggedID;
     }
     // **************************************************************************************
 }

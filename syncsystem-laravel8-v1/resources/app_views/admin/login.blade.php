@@ -21,6 +21,9 @@
     if ($masterPageSelect !== '') {
         $metaURLCurrent .= '?masterPageSelect=' . $masterPageSelect;
     }
+
+    // Debug.
+    // echo 'configRouteBackend=' . config('app.gSystemConfig.configRouteBackend');
 @endphp
 
 @extends('admin.' . $masterPageSelect)

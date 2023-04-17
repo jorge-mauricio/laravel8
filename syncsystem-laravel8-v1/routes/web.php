@@ -51,9 +51,9 @@ Route::get('/', function () {
     $response->header("Content-Type", $type);
 
     return $response;
-    
-    
-    
+
+
+
 });*/
 // **************************************************************************************
 
@@ -74,7 +74,7 @@ Route::get('/categories/{idTbCategories?}',[FrontendCategoriesListingController:
 
 /*
 use App\Http\Controllers\OrderController;
- 
+
 Route::controller(OrderController::class)->group(function () {
     Route::get('/orders/{id}', 'show');
     Route::post('/orders', 'store');
@@ -83,12 +83,14 @@ Route::controller(OrderController::class)->group(function () {
 
 // Admin - Home - Login.
 // **************************************************************************************
-Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.login');
+// Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.login');
+Route::get('/' . config('app.gSystemConfig.configRouteBackend') . '/', [AdminLoginController::class, 'adminLogin'])->name('admin.login');
 // **************************************************************************************
 
 // Admin - Login - POST (check username and password).
 // **************************************************************************************
-Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->name('admin.login.check');
+// Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->name('admin.login.check');
+Route::post('/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLogin') . '/', [AdminLoginController::class, 'adminLoginCheck'])->name('admin.login.check');
 // **************************************************************************************
 
 // Protected routes.
@@ -102,7 +104,7 @@ Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->
         // **************************************************************************************
         Route::get('/system/logoff/',[AdminLoginController::class, 'adminLogoff'])->name('admin.logoff');
         // **************************************************************************************
-        
+
         // Admin - Dashboard.
         // **************************************************************************************
         Route::get('/system/dashboard/',[AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard');
@@ -114,7 +116,7 @@ Route::post('/system/login/',[AdminLoginController::class, 'adminLoginCheck'])->
         //         'clients' => $request->user()->clients
         //     ]);
         // })->middleware(['auth'])->name('admin.dashboard');
-        // TODO: evaluate changing the arquitecture - return the data from the classes and bind with the views in the route´s functions.     
+        // TODO: evaluate changing the architecture - return the data from the classes and bind with the views in the route´s functions.
         // **************************************************************************************
 
         // Admin - Categories - listing - GET.

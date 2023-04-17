@@ -49,6 +49,7 @@ date_default_timezone_set('America/Sao_Paulo'); // not wired
 
 // General constants.
 // **************************************************************************************
+/*
 // Generic value field types.
 define('SS_VALUE_TYPE_GENERAL_NUMBER', 1);
 define('SS_VALUE_TYPE_SYSTEM_CURRENCY', 2);
@@ -75,6 +76,7 @@ define('SS_ENCRYPT_METHOD_DATA_DEFUSE', 22);
 define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_SIMPLE', 23);
 define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_COMPLEX_16_16', 24);
 define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_256_CBC_COMPLEX_32_16', 26);
+*/
 // **************************************************************************************
 
 // General configuration.
@@ -200,7 +202,7 @@ $gSystemConfig['configDirectoryBuildLaravel'] = 'public';
 
 // Upload directories.
 // $configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
-$gSystemConfig['configDirectoryFilesUpload'] = $configPhysicalPathRoot . PATH_SEPARATOR . $configDirectoryFilesVisualization;
+$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configPhysicalPathRoot'] . PATH_SEPARATOR . $gSystemConfig['configDirectoryFilesVisualization'];
     // DIRECTORY_SEPARATOR (alternative, if problem)
 
 // $configDirectoryFilesUpload = $configPhysicalPathRoot + "\\" + $configDirectoryFilesVisualization;
@@ -443,7 +445,7 @@ $gSystemConfig['enableBackendMaintenancePublications'] = 1; // 0 - disable | 1 -
 //$configLanguageFrontend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
 // $configLanguageFrontend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
 // $configLanguageFrontend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels'); // working
-$gSystemConfig['configLanguageFrontend'] = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($configDirectoryResources)  . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+$gSystemConfig['configLanguageFrontend'] = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($gSystemConfig['configDirectoryResources'])  . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
 //echo 'configLanguageFrontend=<pre>';
 //var_dump(dirname($configLanguageFrontend));
 ////var_dump(dirname(json_decode($configLanguageFrontend)));
@@ -452,7 +454,7 @@ $gSystemConfig['configLanguageFrontend'] = \SyncSystemNS\FunctionsJson::convertJ
 //$configLanguageBackend = require('./' + gSystemConfig.configDirectoryResources + '/language-en-us.js');
 //$configLanguageBackend = file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js');
 // $configLanguageBackend = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents($configDirectoryResources . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');  // working
-$gSystemConfig['configLanguageBackend'] = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($configDirectoryResources) . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
+$gSystemConfig['configLanguageBackend'] = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson(file_get_contents(resource_path($gSystemConfig['configDirectoryResources']) . DIRECTORY_SEPARATOR . 'language-en-us.js'), ["'use strict';", "exports.", "appLabels = "], 'appLabels');
 // **************************************************************************************
 
 // Categories types - configuration and resources.

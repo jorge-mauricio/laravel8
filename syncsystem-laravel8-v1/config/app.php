@@ -1,5 +1,6 @@
 <?php
 //require __DIR__ . '/../config-application.php'; // SyncSystem customized configuration.
+require __DIR__ . '../../config-application-poc.php'; // SyncSystem customized configuration.
 
 
 return [
@@ -137,14 +138,14 @@ return [
     |
     */
 
-    'gSystemConfig' => 'testing configuration',
+    //'gSystemConfig' => 'testing configuration',
     /*
     'gSystemConfig' => [
         'configDebug' => true,
     ],
     */
     //'gSystemConfig' => $GLOBALS['gSystemConfig'],
-    //'gSystemConfig' => $gSystemConfig,
+    'gSystemConfig' => $gSystemConfig,
 
     /*
     |--------------------------------------------------------------------------
