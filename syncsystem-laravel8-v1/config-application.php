@@ -7,9 +7,9 @@ SyncSystem – less code, more logic. A product owned by the company Planejament
 
 Development and conception carried out by Jorge Mauricio (JM) – Full Stack Web Developer / Designer and company’s head partner.
 
-Any modification or implementation in the github code must be informed / consulted and approved with the company or the author. The code is free for use commercially and personally, without the need of written or verbal authorization. 
+Any modification or implementation in the github code must be informed / consulted and approved with the company or the author. The code is free for use commercially and personally, without the need of written or verbal authorization.
 
-The developer provides professional training for better understanding of its architecture and use of the code. Price quotes can be requested through the website. 
+The developer provides professional training for better understanding of its architecture and use of the code. Price quotes can be requested through the website.
 
 Website / contact:
 http://fullstackwebdesigner.com
@@ -31,7 +31,7 @@ $gSystemConfig = [];
 $gSystemConfig['configDebug'] = true;
 $configDebug = true; // true (debug mode) | false (production mode)
 $configCache = true; // false (no chache) | true (cache)
-$configCacheForce = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic. 
+$configCacheForce = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
 
 // Error handling / displaying.
 // ----------------------
@@ -123,7 +123,7 @@ $configAPIURL = $configSystemURLSSL; // process.env.CONFIG_API_URL;
     // TODO: move to .env  (maybe delete from here)
 
 $configSystemURLImages = "/"; // ".." = relative path | "/" = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
-$configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com'; 
+$configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
     // maybe it´s not needed
 $configFrontendReactURLImages = $configSystemURL . '/';
 
@@ -389,7 +389,7 @@ $configArrUsersImageSize = $enableDefaultImageSize === 1 ? $configArrDefaultImag
 
 //e-mail configuration.
 // ----------------------
-$configEmailComponent = 1; //1 - 
+$configEmailComponent = 1; //1 -
 $configEmailFormat = 1; // 0 - text | 1 - HTML
 // ----------------------
 // **************************************************************************************
@@ -506,7 +506,7 @@ $configCategoryType = [
     'category_type_function_label' => 'backendCategoriesType7Function',
     'queryString' => 'idType=1',
   ],
-  
+
   // Segment
   [
     'category_type' => 9,
@@ -542,27 +542,27 @@ $configCategoryType = [
 $configCategoriesSort = 'title'; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableCategoriesSortCustom = 1; // 0 - disable | 1 - enable
 $configCategoriesInputOrder = [
-  'inputRowCategories_id_parent', 
-  'inputRowCategories_sort_order', 
-  'inputRowCategories_date1', 
-  'inputRowCategories_id_register_user', 
-  'inputRowCategories_title', 
-  'inputRowCategories_description', 
-  'inputRowCategories_url_alias', 
-  'inputRowCategories_meta_title', 
-  'inputRowCategories_meta_description', 
-  'inputRowCategories_keywords_tags', 
-  'inputRowCategories_info1', 
-  'inputRowCategories_info_small1', 
-  'inputRowCategories_number1', 
-  'inputRowCategories_number_small1', 
-  'inputRowCategories_category_type', 
-  'inputRowCategories_image_main', 
-  'inputRowCategories_file1', 
-  'inputRowCategories_file2', 
-  'inputRowCategories_activation', 
-  'inputRowCategories_id_restricted_access', 
-  'inputRowCategories_id_status', 
+  'inputRowCategories_id_parent',
+  'inputRowCategories_sort_order',
+  'inputRowCategories_date1',
+  'inputRowCategories_id_register_user',
+  'inputRowCategories_title',
+  'inputRowCategories_description',
+  'inputRowCategories_url_alias',
+  'inputRowCategories_meta_title',
+  'inputRowCategories_meta_description',
+  'inputRowCategories_keywords_tags',
+  'inputRowCategories_info1',
+  'inputRowCategories_info_small1',
+  'inputRowCategories_number1',
+  'inputRowCategories_number_small1',
+  'inputRowCategories_category_type',
+  'inputRowCategories_image_main',
+  'inputRowCategories_file1',
+  'inputRowCategories_file2',
+  'inputRowCategories_activation',
+  'inputRowCategories_id_restricted_access',
+  'inputRowCategories_id_status',
   'inputRowCategories_notes'
 ]; // Note: check if all ids are enabled, or it will display warning in the console.
 
@@ -583,7 +583,7 @@ $enableCategoriesMetaTitle = 1; // 0 - disable | 1 - enable
 // Pagination.
 $enableCategoriesBackendPagination = 1; // 0 - disable | 1 - enable
 $enableCategoriesBackendPaginationNumbering = 1; // 0 - disable | 1 - enable
-$configCategoriesBackendPaginationNRecords = 5;
+$configCategoriesBackendPaginationNRecords = 1000;
 
 // Resources.
 $enableCategoriesImages = 1; // 0 - disable | 1 - enable
@@ -776,27 +776,27 @@ $configCategoriesFrontendPaginationNRecords = 20;
 // **************************************************************************************
 $configFilesSort = 'id DESC'; //options: id | sort_order | date_creation esc | date_creation desc | caption
 $enableFilesSortCustom = 1; // 0 - disable | 1 - enable
-$configFilesInputOrder = ["inputRowFiles_id_parent", 
-                            "inputRowFiles_sort_order", 
-                            "inputRowFiles_date1", 
-                            "inputRowFiles_id_register_user", 
-                            "inputRowFiles_title", 
-                            "inputRowFiles_description", 
-                            "inputRowFiles_url_alias", 
-                            "inputRowFiles_meta_title", 
-                            "inputRowFiles_meta_description", 
-                            "inputRowFiles_keywords_tags", 
-                            "inputRowFiles_info1", 
-                            "inputRowFiles_info_small1", 
-                            "inputRowFiles_number1", 
-                            "inputRowFiles_number_small1", 
-                            "inputRowFiles_category_type", 
-                            "inputRowFiles_image_main", 
-                            "inputRowFiles_file1", 
-                            "inputRowFiles_file2", 
-                            "inputRowFiles_activation", 
-                            "inputRowFiles_id_restricted_access", 
-                            "inputRowFiles_id_status", 
+$configFilesInputOrder = ["inputRowFiles_id_parent",
+                            "inputRowFiles_sort_order",
+                            "inputRowFiles_date1",
+                            "inputRowFiles_id_register_user",
+                            "inputRowFiles_title",
+                            "inputRowFiles_description",
+                            "inputRowFiles_url_alias",
+                            "inputRowFiles_meta_title",
+                            "inputRowFiles_meta_description",
+                            "inputRowFiles_keywords_tags",
+                            "inputRowFiles_info1",
+                            "inputRowFiles_info_small1",
+                            "inputRowFiles_number1",
+                            "inputRowFiles_number_small1",
+                            "inputRowFiles_category_type",
+                            "inputRowFiles_image_main",
+                            "inputRowFiles_file1",
+                            "inputRowFiles_file2",
+                            "inputRowFiles_activation",
+                            "inputRowFiles_id_restricted_access",
+                            "inputRowFiles_id_status",
                             "inputRowFiles_notes"
                           ];
 
@@ -945,18 +945,18 @@ $configFilesFrontendPaginationNRecords = 10;
 // **************************************************************************************
 $configContentSort = 'id ASC'; //options: id | sort_order | date_creation esc | date_creation desc
 $enableContentSortCustom = 1; // 0 - disable | 1 - enable
-/*$configContentInputOrder = ["inputRowContent_id_parent", 
-                                            "inputRowContent_sort_order", 
-                                            "inputRowContent_date1", 
-                                            "inputRowContent_id_register_user", 
-                                            "inputRowContent_content_type", 
-                                            "inputRowContent_content_columns", 
-                                            "inputRowContent_align_text", 
-                                            "inputRowContent_align_image", 
-                                            "inputRowContent_content", 
-                                            "inputRowContent_content_url", 
-                                            "inputRowContent_caption", 
-                                            "inputRowContent_file", 
+/*$configContentInputOrder = ["inputRowContent_id_parent",
+                                            "inputRowContent_sort_order",
+                                            "inputRowContent_date1",
+                                            "inputRowContent_id_register_user",
+                                            "inputRowContent_content_type",
+                                            "inputRowContent_content_columns",
+                                            "inputRowContent_align_text",
+                                            "inputRowContent_align_image",
+                                            "inputRowContent_content",
+                                            "inputRowContent_content_url",
+                                            "inputRowContent_caption",
+                                            "inputRowContent_file",
                                             "inputRowContent_activation"
                                           ];*/
 
@@ -984,26 +984,26 @@ $configContentBindRegisterUserSort = 'name'; //options: name | name_first | name
 // **************************************************************************************
 $configProductsSort = 'id DESC'; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableProductsSortCustom = 1; // 0 - disable | 1 - enable
-$configProductsInputOrder = ["inputRowProducts_id_parent", 
-                                            "inputRowProducts_sort_order", 
-                                            "inputRowProducts_date1", 
-                                            "inputRowProducts_id_register_user", 
-                                            "inputRowProducts_title", 
-                                            "inputRowProducts_description", 
-                                            "inputRowProducts_url_alias", 
-                                            "inputRowProducts_meta_title", 
-                                            "inputRowProducts_meta_description", 
-                                            "inputRowProducts_keywords_tags", 
-                                            "inputRowProducts_info1", 
-                                            "inputRowProducts_info_small1", 
-                                            "inputRowProducts_number1", 
-                                            "inputRowProducts_number_small1", 
-                                            "inputRowProducts_image_main", 
-                                            "inputRowProducts_file1", 
-                                            "inputRowProducts_file2", 
-                                            "inputRowProducts_activation", 
-                                            "inputRowProducts_id_restricted_access", 
-                                            "inputRowProducts_id_status", 
+$configProductsInputOrder = ["inputRowProducts_id_parent",
+                                            "inputRowProducts_sort_order",
+                                            "inputRowProducts_date1",
+                                            "inputRowProducts_id_register_user",
+                                            "inputRowProducts_title",
+                                            "inputRowProducts_description",
+                                            "inputRowProducts_url_alias",
+                                            "inputRowProducts_meta_title",
+                                            "inputRowProducts_meta_description",
+                                            "inputRowProducts_keywords_tags",
+                                            "inputRowProducts_info1",
+                                            "inputRowProducts_info_small1",
+                                            "inputRowProducts_number1",
+                                            "inputRowProducts_number_small1",
+                                            "inputRowProducts_image_main",
+                                            "inputRowProducts_file1",
+                                            "inputRowProducts_file2",
+                                            "inputRowProducts_activation",
+                                            "inputRowProducts_id_restricted_access",
+                                            "inputRowProducts_id_status",
                                             "inputRowProducts_notes"
                                           ];
 
@@ -1358,32 +1358,32 @@ $configProductsFrontendPaginationNRecords = 10;
 // **************************************************************************************
 $configPublicationsSort = 'id DESC'; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enablePublicationsSortCustom = 1; // 0 - disable | 1 - enable
-$configPublicationsInputOrder = ["inputRowPublications_id_parent", 
-                                  "inputRowPublications_sort_order", 
-                                  "inputRowPublications_date1", 
-                                  "inputRowPublications_id_register_user", 
-                                  "inputRowPublications_title", 
-                                  "inputRowPublications_description", 
-                                  "inputRowPublications_url_alias", 
-                                  "inputRowPublications_meta_title", 
-                                  "inputRowPublications_meta_description", 
-                                  "inputRowPublications_keywords_tags", 
-                                  "inputRowPublications_info1", 
-                                  "inputRowPublications_number1", 
-                                  "inputRowPublications_image_main", 
-                                  "inputRowPublications_file1", 
-                                  "inputRowPublications_file2", 
-                                  "inputRowPublications_activation", 
-                                  "inputRowPublications_id_restricted_access", 
-                                  "inputRowPublications_id_status", 
+$configPublicationsInputOrder = ["inputRowPublications_id_parent",
+                                  "inputRowPublications_sort_order",
+                                  "inputRowPublications_date1",
+                                  "inputRowPublications_id_register_user",
+                                  "inputRowPublications_title",
+                                  "inputRowPublications_description",
+                                  "inputRowPublications_url_alias",
+                                  "inputRowPublications_meta_title",
+                                  "inputRowPublications_meta_description",
+                                  "inputRowPublications_keywords_tags",
+                                  "inputRowPublications_info1",
+                                  "inputRowPublications_number1",
+                                  "inputRowPublications_image_main",
+                                  "inputRowPublications_file1",
+                                  "inputRowPublications_file2",
+                                  "inputRowPublications_activation",
+                                  "inputRowPublications_id_restricted_access",
+                                  "inputRowPublications_id_status",
                                   "inputRowPublications_notes"
                                 ];
 
 // Basic resources.
 $enablePublicationsIdParentEdit = 1; // 0 - disable | 1 - enable
 $enablePublicationsSortOrder = 1; // 0 - disable | 1 - enable
-$enablePublicationsDateStart = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
-$enablePublicationsDateEnd = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+$enablePublicationsDateStart = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
+$enablePublicationsDateEnd = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
 $enablePublicationsDescription = 1; // 0 - disable | 1 - enable
 $enablePublicationsSource = 1; // 0 - disable | 1 - enable
 $enablePublicationsSourceURL = 1; // 0 - disable | 1 - enable
@@ -1408,7 +1408,7 @@ $enablePublicationsImages = 1; // 0 - disable | 1 - enable
 $enablePublicationsVideos = 1; // 0 - disable | 1 - enable
 $enablePublicationsFiles = 1; // 0 - disable | 1 - enable
 $enablePublicationsZip = 1; // 0 - disable | 1 - enable
-                   
+
 
 // User bind (link categories to registers).
 // ----------------------
@@ -1568,13 +1568,13 @@ $configPublicationsFrontendPaginationNRecords = 10;
 $configRegistersSort = 'id DESC'; //options: id | sort_order | date_creation esc | date_creation desc | name_full
 $enableRegistersSortCustom = 1; // 0 - disable | 1 - enable
 $configRegistersInputOrder = [
-                                "inputRowRegisters_id_parent", 
-                                "inputRowRegisters_sort_order", 
-                                "inputRowRegisters_name", 
-                                "inputRowRegisters_info1", 
-                                "inputRowRegisters_image_main", 
-                                "inputRowRegisters_activation", 
-                                "inputRowRegisters_id_status", 
+                                "inputRowRegisters_id_parent",
+                                "inputRowRegisters_sort_order",
+                                "inputRowRegisters_name",
+                                "inputRowRegisters_info1",
+                                "inputRowRegisters_image_main",
+                                "inputRowRegisters_activation",
+                                "inputRowRegisters_id_status",
                                 "inputRowRegisters_notes"
                             ];
 
@@ -1605,7 +1605,7 @@ $enableRegistersKeywordsTags = 1; // 0 - disable | 1 - enable
 $enableRegistersMetaDescription = 1; // 0 - disable | 1 - enable
 $enableRegistersMetaTitle = 1; // 0 - disable | 1 - enable
 
-$enableRegistersDateBirth = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+$enableRegistersDateBirth = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
 $enableRegistersGender = 1; // 0 - disable | 1 - enable
 $enableRegistersHeight = 1; // 0 - disable | 1 - enable
 $enableRegistersWeight = 1; // 0 - disable | 1 - enable
@@ -2037,25 +2037,25 @@ $configRegistersFrontendPaginationNRecords = 10;
 
 // Quizzes / Polls - configuration and resources.
 // **************************************************************************************
-$configQuizzesSort = 'id DESC'; //options: id | sort_order | title 
+$configQuizzesSort = 'id DESC'; //options: id | sort_order | title
 $configQuizzesOptionsSort = 'id DESC'; //options: id | sort_order | title
 $configQuizzesInputOrder = [
-  'inputRowPublications_id_parent', 
-  'inputRowPublications_sort_order', 
-  'inputRowPublications_id_register_user', 
-  'inputRowPublications_title', 
-  'inputRowPublications_description', 
-  'inputRowPublications_url_alias', 
-  'inputRowPublications_meta_title', 
-  'inputRowPublications_meta_description', 
-  'inputRowPublications_keywords_tags', 
-  'inputRowPublications_info1', 
-  'inputRowPublications_number1', 
-  'inputRowPublications_image_main', 
-  'inputRowPublications_file1', 
-  'inputRowPublications_file2', 
-  'inputRowPublications_activation', 
-  'inputRowPublications_id_status', 
+  'inputRowPublications_id_parent',
+  'inputRowPublications_sort_order',
+  'inputRowPublications_id_register_user',
+  'inputRowPublications_title',
+  'inputRowPublications_description',
+  'inputRowPublications_url_alias',
+  'inputRowPublications_meta_title',
+  'inputRowPublications_meta_description',
+  'inputRowPublications_keywords_tags',
+  'inputRowPublications_info1',
+  'inputRowPublications_number1',
+  'inputRowPublications_image_main',
+  'inputRowPublications_file1',
+  'inputRowPublications_file2',
+  'inputRowPublications_activation',
+  'inputRowPublications_id_status',
   'inputRowPublications_notes'
 ];
 
@@ -2291,19 +2291,19 @@ $enableEmailSSL = false;
 // **************************************************************************************
 $configFiltersGenericSort = 'id DESC'; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableFiltersGenericSortCustom = 1; // 0 - disable | 1 - enable
-$configFiltersGenericInputOrder = ["inputRowFiltersGeneric_id_parent", 
-                                    "inputRowFiltersGeneric_sort_order", 
-                                    "inputRowFiltersGeneric_id_register_user", 
-                                    "inputRowFiltersGeneric_title", 
-                                    "inputRowFiltersGeneric_description", 
-                                    "inputRowFiltersGeneric_url_alias", 
-                                    "inputRowFiltersGeneric_meta_title", 
-                                    "inputRowFiltersGeneric_meta_description", 
-                                    "inputRowFiltersGeneric_keywords_tags", 
-                                    "inputRowFiltersGeneric_info_small1", 
-                                    "inputRowFiltersGeneric_number_small1", 
-                                    "inputRowFiltersGeneric_image_main", 
-                                    "inputRowFiltersGeneric_activation", 
+$configFiltersGenericInputOrder = ["inputRowFiltersGeneric_id_parent",
+                                    "inputRowFiltersGeneric_sort_order",
+                                    "inputRowFiltersGeneric_id_register_user",
+                                    "inputRowFiltersGeneric_title",
+                                    "inputRowFiltersGeneric_description",
+                                    "inputRowFiltersGeneric_url_alias",
+                                    "inputRowFiltersGeneric_meta_title",
+                                    "inputRowFiltersGeneric_meta_description",
+                                    "inputRowFiltersGeneric_keywords_tags",
+                                    "inputRowFiltersGeneric_info_small1",
+                                    "inputRowFiltersGeneric_number_small1",
+                                    "inputRowFiltersGeneric_image_main",
+                                    "inputRowFiltersGeneric_activation",
                                     "inputRowFiltersGeneric_notes"
                                   ];
 
@@ -2372,13 +2372,13 @@ $configFiltersGenericImagePlaceholder = 1; // 0 - disable | 1 - enable
 $configUsersSort = 'id DESC'; //options: id | sort_order | date_creation esc | date_creation desc | title
 $enableUsersSortCustom = 1; // 0 - disable | 1 - enable
 $configUsersInputOrder = [
-                          "inputRowUsers_id_parent", 
-                          "inputRowUsers_sort_order", 
-                          "inputRowUsers_name", 
-                          "inputRowUsers_info1", 
-                          "inputRowUsers_image_main", 
-                          "inputRowUsers_activation", 
-                          "inputRowUsers_id_status", 
+                          "inputRowUsers_id_parent",
+                          "inputRowUsers_sort_order",
+                          "inputRowUsers_name",
+                          "inputRowUsers_info1",
+                          "inputRowUsers_image_main",
+                          "inputRowUsers_activation",
+                          "inputRowUsers_id_status",
                           "inputRowUsers_notes"
                         ];
 
@@ -2401,7 +2401,7 @@ $enableUsersNameTitle = 1; // 0 - disable | 1 - enable
 $enableUsersNameFull = 1; // 0 - disable | 1 - enable
 $enableUsersNameFirst = 1; // 0 - disable | 1 - enable
 $enableUsersNameLast = 1; // 0 - disable | 1 - enable
-$enableUsersDateBirth = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+$enableUsersDateBirth = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
 $enableUsersGender = 1; // 0 - disable | 1 - enable
 $enableUsersDocument = 1; // 0 - disable | 1 - enable
 $enableUsersAddress = 1; // 0 - disable | 1 - enable
@@ -2413,7 +2413,7 @@ $enableUsersUsername = 1; // 0 - disable | 1 - enable
 $enableUsersEmail = 1; // 0 - disable | 1 - enable
 
 $configUsersPassword = 1; // 0 - don´t display | 1 - display
-$configUsersPasswordMethod = 26; // 21 - MCrypt PHP library (PHP) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv | 31 - hash 
+$configUsersPasswordMethod = 26; // 21 - MCrypt PHP library (PHP) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv | 31 - hash
 
 $enableUsersImageMain = 1; // 0 - disable | 1 - enable
 $enableUsersStatus = 1; // 0 - disable | 1 - enable

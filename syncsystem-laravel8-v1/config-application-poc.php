@@ -1,15 +1,19 @@
 <?php
+
 // TODO: think about moving to resource folder
 // Author information.
 // **************************************************************************************
 /*
-SyncSystem – less code, more logic. A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
+SyncSystem – less code, more logic.
+A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
 
 Development and conception carried out by Jorge Mauricio (JM) – Full Stack Web Developer / Designer and company’s head partner.
 
-Any modification or implementation in the github code must be informed / consulted and approved with the company or the author. The code is free for use commercially and personally, without the need of written or verbal authorization. 
+Any modification or implementation in the github code must be informed / consulted and approved with the company or the author.
+The code is free for use commercially and personally, without the need of written or verbal authorization.
 
-The developer provides professional training for better understanding of its architecture and use of the code. Price quotes can be requested through the website. 
+The developer provides professional training for better understanding of its architecture and use of the code.
+Price quotes can be requested through the website.
 
 Website / contact:
 http://fullstackwebdesigner.com
@@ -30,7 +34,7 @@ $gSystemConfig = [];
 
 $gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
 $gSystemConfig['configCache'] = true; // false (no chache) | true (cache)
-$gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic. 
+$gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
 
 // Error handling / displaying.
 // ----------------------
@@ -124,7 +128,7 @@ $configAPIURL = $configSystemURLSSL; // process.env.CONFIG_API_URL;
     // TODO: move to .env  (maybe delete from here)
 
 $gSystemConfig['configSystemURLImages'] = '/'; // '..' = relative path | '/' = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
-$configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com'; 
+$configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
     // maybe it´s not needed
 $gSystemConfig['configFrontendReactURLImages'] = $configSystemURL . '/';
 
@@ -139,7 +143,7 @@ $configFrontendMobileDefaultView = 'frontend_php_mobile';
 $gSystemConfig['configSystemDBTablePrefix'] = 'prefix_ssmv1_';
     // TODO: move to .env
     // Maybe not, because of the node version
-$gSystemConfig['configSystemDBType'] = 2; //2 - MySQL | 3 - SQL Server
+$gSystemConfig['configSystemDBType'] = 2; // 2 - MySQL | 3 - SQL Server
     // TODO: move to .env
 $gSystemConfig['enableSystemDBSizeOptimize'] = 0; // 0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
     // TODO: move to .env
@@ -391,7 +395,7 @@ $gSystemConfig['configArrUsersImageSize'] = $gSystemConfig['enableDefaultImageSi
 
 //e-mail configuration.
 // ----------------------
-$gSystemConfig['configEmailComponent'] = 1; // 1 - 
+$gSystemConfig['configEmailComponent'] = 1; // 1 -
 $gSystemConfig['configEmailFormat'] = 1; // 0 - text | 1 - HTML
 // ----------------------
 // **************************************************************************************
@@ -508,7 +512,7 @@ $gSystemConfig['configCategoryType'] = [
     'category_type_function_label' => 'backendCategoriesType7Function',
     'queryString' => 'idType=1',
   ],
-  
+
   // Segment
   [
     'category_type' => 9,
@@ -544,27 +548,27 @@ $gSystemConfig['configCategoryType'] = [
 $gSystemConfig['configCategoriesSort'] = 'title'; // options: id | sort_order | date_creation esc | date_creation desc | title
 $gSystemConfig['enableCategoriesSortCustom'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configCategoriesInputOrder'] = [
-  'inputRowCategories_id_parent', 
-  'inputRowCategories_sort_order', 
-  'inputRowCategories_date1', 
-  'inputRowCategories_id_register_user', 
-  'inputRowCategories_title', 
-  'inputRowCategories_description', 
-  'inputRowCategories_url_alias', 
-  'inputRowCategories_meta_title', 
-  'inputRowCategories_meta_description', 
-  'inputRowCategories_keywords_tags', 
-  'inputRowCategories_info1', 
-  'inputRowCategories_info_small1', 
-  'inputRowCategories_number1', 
-  'inputRowCategories_number_small1', 
-  'inputRowCategories_category_type', 
-  'inputRowCategories_image_main', 
-  'inputRowCategories_file1', 
-  'inputRowCategories_file2', 
-  'inputRowCategories_activation', 
-  'inputRowCategories_id_restricted_access', 
-  'inputRowCategories_id_status', 
+  'inputRowCategories_id_parent',
+  'inputRowCategories_sort_order',
+  'inputRowCategories_date1',
+  'inputRowCategories_id_register_user',
+  'inputRowCategories_title',
+  'inputRowCategories_description',
+  'inputRowCategories_url_alias',
+  'inputRowCategories_meta_title',
+  'inputRowCategories_meta_description',
+  'inputRowCategories_keywords_tags',
+  'inputRowCategories_info1',
+  'inputRowCategories_info_small1',
+  'inputRowCategories_number1',
+  'inputRowCategories_number_small1',
+  'inputRowCategories_category_type',
+  'inputRowCategories_image_main',
+  'inputRowCategories_file1',
+  'inputRowCategories_file2',
+  'inputRowCategories_activation',
+  'inputRowCategories_id_restricted_access',
+  'inputRowCategories_id_status',
   'inputRowCategories_notes'
 ]; // Note: check if all ids are enabled, or it will display warning in the console.
 
@@ -597,7 +601,7 @@ $gSystemConfig['enableCategoriesZip'] = 1; // 0 - disable | 1 - enable
 // ----------------------
 $gSystemConfig['enableCategoriesBindRegisterUser'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configCategoriesBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
-$gSystemConfig['configCategoriesBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registeres
+$gSystemConfig['configCategoriesBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
 $gSystemConfig['configCategoriesBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
 $gSystemConfig['enableCategoriesBindRegister1'] = 1; // 0 - disable | 1 - enable
@@ -777,27 +781,27 @@ $gSystemConfig['configCategoriesFrontendPaginationNRecords'] = 20;
 $gSystemConfig['configFilesSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | caption
 $gSystemConfig['enableFilesSortCustom'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configFilesInputOrder'] = [
-    'inputRowFiles_id_parent', 
-    'inputRowFiles_sort_order', 
-    'inputRowFiles_date1', 
-    'inputRowFiles_id_register_user', 
-    'inputRowFiles_title', 
-    'inputRowFiles_description', 
-    'inputRowFiles_url_alias', 
-    'inputRowFiles_meta_title', 
-    'inputRowFiles_meta_description', 
-    'inputRowFiles_keywords_tags', 
-    'inputRowFiles_info1', 
-    'inputRowFiles_info_small1', 
-    'inputRowFiles_number1', 
-    'inputRowFiles_number_small1', 
-    'inputRowFiles_category_type', 
-    'inputRowFiles_image_main', 
-    'inputRowFiles_file1', 
-    'inputRowFiles_file2', 
-    'inputRowFiles_activation', 
-    'inputRowFiles_id_restricted_access', 
-    'inputRowFiles_id_status', 
+    'inputRowFiles_id_parent',
+    'inputRowFiles_sort_order',
+    'inputRowFiles_date1',
+    'inputRowFiles_id_register_user',
+    'inputRowFiles_title',
+    'inputRowFiles_description',
+    'inputRowFiles_url_alias',
+    'inputRowFiles_meta_title',
+    'inputRowFiles_meta_description',
+    'inputRowFiles_keywords_tags',
+    'inputRowFiles_info1',
+    'inputRowFiles_info_small1',
+    'inputRowFiles_number1',
+    'inputRowFiles_number_small1',
+    'inputRowFiles_category_type',
+    'inputRowFiles_image_main',
+    'inputRowFiles_file1',
+    'inputRowFiles_file2',
+    'inputRowFiles_activation',
+    'inputRowFiles_id_restricted_access',
+    'inputRowFiles_id_status',
     'inputRowFiles_notes'
 ];
 
@@ -945,18 +949,18 @@ $gSystemConfig['configFilesFrontendPaginationNRecords'] = 10;
 // **************************************************************************************
 $gSystemConfig['configContentSort'] = 'id ASC'; // options: id | sort_order | date_creation esc | date_creation desc
 $gSystemConfig['enableContentSortCustom'] = 1; // 0 - disable | 1 - enable
-/*$configContentInputOrder = ["inputRowContent_id_parent", 
-                                            "inputRowContent_sort_order", 
-                                            "inputRowContent_date1", 
-                                            "inputRowContent_id_register_user", 
-                                            "inputRowContent_content_type", 
-                                            "inputRowContent_content_columns", 
-                                            "inputRowContent_align_text", 
-                                            "inputRowContent_align_image", 
-                                            "inputRowContent_content", 
-                                            "inputRowContent_content_url", 
-                                            "inputRowContent_caption", 
-                                            "inputRowContent_file", 
+/*$configContentInputOrder = ["inputRowContent_id_parent",
+                                            "inputRowContent_sort_order",
+                                            "inputRowContent_date1",
+                                            "inputRowContent_id_register_user",
+                                            "inputRowContent_content_type",
+                                            "inputRowContent_content_columns",
+                                            "inputRowContent_align_text",
+                                            "inputRowContent_align_image",
+                                            "inputRowContent_content",
+                                            "inputRowContent_content_url",
+                                            "inputRowContent_caption",
+                                            "inputRowContent_file",
                                             "inputRowContent_activation"
                                           ];*/
 
@@ -975,7 +979,7 @@ $gSystemConfig['enableContentFiles'] = 1; // 0 - disable | 1 - enable
 
 $gSystemConfig['enableContentBindRegisterUser'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configContentBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
-$gSystemConfig['configContentBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registeres
+$gSystemConfig['configContentBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
 $gSystemConfig['configContentBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 // **************************************************************************************
 
@@ -984,26 +988,26 @@ $gSystemConfig['configContentBindRegisterUserSort'] = 'name'; // options: name |
 $gSystemConfig['configProductsSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
 $gSystemConfig['enableProductsSortCustom'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configProductsInputOrder'] = [
-    'inputRowProducts_id_parent', 
-    'inputRowProducts_sort_order', 
-    'inputRowProducts_date1', 
-    'inputRowProducts_id_register_user', 
-    'inputRowProducts_title', 
-    'inputRowProducts_description', 
-    'inputRowProducts_url_alias', 
-    'inputRowProducts_meta_title', 
-    'inputRowProducts_meta_description', 
-    'inputRowProducts_keywords_tags', 
-    'inputRowProducts_info1', 
-    'inputRowProducts_info_small1', 
-    'inputRowProducts_number1', 
-    'inputRowProducts_number_small1', 
-    'inputRowProducts_image_main', 
-    'inputRowProducts_file1', 
-    'inputRowProducts_file2', 
-    'inputRowProducts_activation', 
-    'inputRowProducts_id_restricted_access', 
-    'inputRowProducts_id_status', 
+    'inputRowProducts_id_parent',
+    'inputRowProducts_sort_order',
+    'inputRowProducts_date1',
+    'inputRowProducts_id_register_user',
+    'inputRowProducts_title',
+    'inputRowProducts_description',
+    'inputRowProducts_url_alias',
+    'inputRowProducts_meta_title',
+    'inputRowProducts_meta_description',
+    'inputRowProducts_keywords_tags',
+    'inputRowProducts_info1',
+    'inputRowProducts_info_small1',
+    'inputRowProducts_number1',
+    'inputRowProducts_number_small1',
+    'inputRowProducts_image_main',
+    'inputRowProducts_file1',
+    'inputRowProducts_file2',
+    'inputRowProducts_activation',
+    'inputRowProducts_id_restricted_access',
+    'inputRowProducts_id_status',
     'inputRowProducts_notes'
 ];
 
@@ -1044,7 +1048,7 @@ $gSystemConfig['enableProductsZip'] = 1; // 0 - disable | 1 - enable
 // ----------------------
 $gSystemConfig['enableProductsBindRegisterUser'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configProductsBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
-$gSystemConfig['configProductsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registeres
+$gSystemConfig['configProductsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
 $gSystemConfig['configProductsBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
 $gSystemConfig['enableProductsBindRegister1'] = 1; // 0 - disable | 1 - enable
@@ -1358,32 +1362,32 @@ $gSystemConfig['configProductsFrontendPaginationNRecords'] = 10;
 $gSystemConfig['configPublicationsSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
 $gSystemConfig['enablePublicationsSortCustom'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configPublicationsInputOrder'] = [
-    'inputRowPublications_id_parent', 
-    'inputRowPublications_sort_order', 
-    'inputRowPublications_date1', 
-    'inputRowPublications_id_register_user', 
-    'inputRowPublications_title', 
-    'inputRowPublications_description', 
-    'inputRowPublications_url_alias', 
-    'inputRowPublications_meta_title', 
-    'inputRowPublications_meta_description', 
-    'inputRowPublications_keywords_tags', 
-    'inputRowPublications_info1', 
-    'inputRowPublications_number1', 
-    'inputRowPublications_image_main', 
-    'inputRowPublications_file1', 
-    'inputRowPublications_file2', 
-    'inputRowPublications_activation', 
-    'inputRowPublications_id_restricted_access', 
-    'inputRowPublications_id_status', 
+    'inputRowPublications_id_parent',
+    'inputRowPublications_sort_order',
+    'inputRowPublications_date1',
+    'inputRowPublications_id_register_user',
+    'inputRowPublications_title',
+    'inputRowPublications_description',
+    'inputRowPublications_url_alias',
+    'inputRowPublications_meta_title',
+    'inputRowPublications_meta_description',
+    'inputRowPublications_keywords_tags',
+    'inputRowPublications_info1',
+    'inputRowPublications_number1',
+    'inputRowPublications_image_main',
+    'inputRowPublications_file1',
+    'inputRowPublications_file2',
+    'inputRowPublications_activation',
+    'inputRowPublications_id_restricted_access',
+    'inputRowPublications_id_status',
     'inputRowPublications_notes'
 ];
 
 // Basic resources.
 $gSystemConfig['enablePublicationsIdParentEdit'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enablePublicationsSortOrder'] = 1; // 0 - disable | 1 - enable
-$gSystemConfig['enablePublicationsDateStart'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
-$gSystemConfig['enablePublicationsDateEnd'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+$gSystemConfig['enablePublicationsDateStart'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
+$gSystemConfig['enablePublicationsDateEnd'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
 $gSystemConfig['enablePublicationsDescription'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enablePublicationsSource'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enablePublicationsSourceURL'] = 1; // 0 - disable | 1 - enable
@@ -1408,12 +1412,12 @@ $gSystemConfig['enablePublicationsImages'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enablePublicationsVideos'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enablePublicationsFiles'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enablePublicationsZip'] = 1; // 0 - disable | 1 - enable
-                   
+
 // User bind (link categories to registers).
 // ----------------------
 $gSystemConfig['enablePublicationsBindRegisterUser'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configPublicationsBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
-$gSystemConfig['configPublicationsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registeres
+$gSystemConfig['configPublicationsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
 $gSystemConfig['configPublicationsBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
 $gSystemConfig['enablePublicationsBindRegister1'] = 1; // 0 - disable | 1 - enable
@@ -1567,13 +1571,13 @@ $gSystemConfig['configPublicationsFrontendPaginationNRecords'] = 10;
 $gSystemConfig['configRegistersSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | name_full
 $gSystemConfig['enableRegistersSortCustom'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configRegistersInputOrder'] = [
-    'inputRowRegisters_id_parent', 
-    'inputRowRegisters_sort_order', 
-    'inputRowRegisters_name', 
-    'inputRowRegisters_info1', 
-    'inputRowRegisters_image_main', 
-    'inputRowRegisters_activation', 
-    'inputRowRegisters_id_status', 
+    'inputRowRegisters_id_parent',
+    'inputRowRegisters_sort_order',
+    'inputRowRegisters_name',
+    'inputRowRegisters_info1',
+    'inputRowRegisters_image_main',
+    'inputRowRegisters_activation',
+    'inputRowRegisters_id_status',
     'inputRowRegisters_notes'
 ];
 
@@ -1604,7 +1608,7 @@ $gSystemConfig['enableRegistersKeywordsTags'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableRegistersMetaDescription'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableRegistersMetaTitle'] = 1; // 0 - disable | 1 - enable
 
-$gSystemConfig['enableRegistersDateBirth'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+$gSystemConfig['enableRegistersDateBirth'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
 $gSystemConfig['enableRegistersGender'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableRegistersHeight'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableRegistersWeight'] = 1; // 0 - disable | 1 - enable
@@ -1675,7 +1679,7 @@ $gSystemConfig['enableRegistersZip'] = 1; // 0 - disable | 1 - enable
 // ----------------------
 $gSystemConfig['enableRegistersBindRegisterUser'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configRegistersBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
-$gSystemConfig['configRegistersBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registeres
+$gSystemConfig['configRegistersBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
 $gSystemConfig['configRegistersBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
 $gSystemConfig['enableRegistersBindRegister1'] = 1; // 0 - disable | 1 - enable
@@ -2036,25 +2040,25 @@ $gSystemConfig['configRegistersFrontendPaginationNRecords'] = 10;
 
 // Quizzes / Polls - configuration and resources.
 // **************************************************************************************
-$gSystemConfig['configQuizzesSort'] = 'id DESC'; // options: id | sort_order | title 
+$gSystemConfig['configQuizzesSort'] = 'id DESC'; // options: id | sort_order | title
 $gSystemConfig['configQuizzesOptionsSort'] = 'id DESC'; // options: id | sort_order | title
 $gSystemConfig['configQuizzesInputOrder'] = [
-  'inputRowPublications_id_parent', 
-  'inputRowPublications_sort_order', 
-  'inputRowPublications_id_register_user', 
-  'inputRowPublications_title', 
-  'inputRowPublications_description', 
-  'inputRowPublications_url_alias', 
-  'inputRowPublications_meta_title', 
-  'inputRowPublications_meta_description', 
-  'inputRowPublications_keywords_tags', 
-  'inputRowPublications_info1', 
-  'inputRowPublications_number1', 
-  'inputRowPublications_image_main', 
-  'inputRowPublications_file1', 
-  'inputRowPublications_file2', 
-  'inputRowPublications_activation', 
-  'inputRowPublications_id_status', 
+  'inputRowPublications_id_parent',
+  'inputRowPublications_sort_order',
+  'inputRowPublications_id_register_user',
+  'inputRowPublications_title',
+  'inputRowPublications_description',
+  'inputRowPublications_url_alias',
+  'inputRowPublications_meta_title',
+  'inputRowPublications_meta_description',
+  'inputRowPublications_keywords_tags',
+  'inputRowPublications_info1',
+  'inputRowPublications_number1',
+  'inputRowPublications_image_main',
+  'inputRowPublications_file1',
+  'inputRowPublications_file2',
+  'inputRowPublications_activation',
+  'inputRowPublications_id_status',
   'inputRowPublications_notes'
 ];
 
@@ -2066,7 +2070,7 @@ $gSystemConfig['enableQuizzesType'] = 0; // 0 - disable | 1 - enable
 
 $gSystemConfig['enableQuizzesBindRegisterUser'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configQuizzesBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
-$gSystemConfig['configQuizzesBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registeres
+$gSystemConfig['configQuizzesBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
 $gSystemConfig['configQuizzesBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
 $gSystemConfig['enableQuizzesDescription'] = 1; // 0 - disable | 1 - enable
@@ -2197,7 +2201,7 @@ $gSystemConfig['enableFormsSortOrder'] = 1; // 0 - disable | 1 - enable
 
 $gSystemConfig['enableFormsBindRegisterUser'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configFormsBindRegisterUserMethod'] = 1; // 1 - category ID | 2 - register type
-$gSystemConfig['configFormsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registeres
+$gSystemConfig['configFormsBindRegisterUserIDReference'] = 3892; // category ID / register type ID | 0 - all registers
 $gSystemConfig['configFormsBindRegisterUserSort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 
 $gSystemConfig['enableFormsRecipientEmailCopy'] = 1; // 0 - disable | 1 - enable
@@ -2290,19 +2294,19 @@ $gSystemConfig['enableEmailSSL'] = false;
 $gSystemConfig['configFiltersGenericSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
 $gSystemConfig['enableFiltersGenericSortCustom'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configFiltersGenericInputOrder'] = [
-    'inputRowFiltersGeneric_id_parent', 
-    'inputRowFiltersGeneric_sort_order', 
-    'inputRowFiltersGeneric_id_register_user', 
-    'inputRowFiltersGeneric_title', 
-    'inputRowFiltersGeneric_description', 
-    'inputRowFiltersGeneric_url_alias', 
-    'inputRowFiltersGeneric_meta_title', 
-    'inputRowFiltersGeneric_meta_description', 
-    'inputRowFiltersGeneric_keywords_tags', 
-    'inputRowFiltersGeneric_info_small1', 
-    'inputRowFiltersGeneric_number_small1', 
-    'inputRowFiltersGeneric_image_main', 
-    'inputRowFiltersGeneric_activation', 
+    'inputRowFiltersGeneric_id_parent',
+    'inputRowFiltersGeneric_sort_order',
+    'inputRowFiltersGeneric_id_register_user',
+    'inputRowFiltersGeneric_title',
+    'inputRowFiltersGeneric_description',
+    'inputRowFiltersGeneric_url_alias',
+    'inputRowFiltersGeneric_meta_title',
+    'inputRowFiltersGeneric_meta_description',
+    'inputRowFiltersGeneric_keywords_tags',
+    'inputRowFiltersGeneric_info_small1',
+    'inputRowFiltersGeneric_number_small1',
+    'inputRowFiltersGeneric_image_main',
+    'inputRowFiltersGeneric_activation',
     'inputRowFiltersGeneric_notes'
 ];
 
@@ -2371,13 +2375,13 @@ $gSystemConfig['configFiltersGenericImagePlaceholder'] = 1; // 0 - disable | 1 -
 $gSystemConfig['configUsersSort'] = 'id DESC'; // options: id | sort_order | date_creation esc | date_creation desc | title
 $gSystemConfig['enableUsersSortCustom'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configUsersInputOrder'] = [
-    'inputRowUsers_id_parent', 
-    'inputRowUsers_sort_order', 
-    'inputRowUsers_name', 
-    'inputRowUsers_info1', 
-    'inputRowUsers_image_main', 
-    'inputRowUsers_activation', 
-    'inputRowUsers_id_status', 
+    'inputRowUsers_id_parent',
+    'inputRowUsers_sort_order',
+    'inputRowUsers_name',
+    'inputRowUsers_info1',
+    'inputRowUsers_image_main',
+    'inputRowUsers_activation',
+    'inputRowUsers_id_status',
     'inputRowUsers_notes'
 ];
 
@@ -2400,7 +2404,7 @@ $gSystemConfig['enableUsersNameTitle'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersNameFull'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersNameFirst'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersNameLast'] = 1; // 0 - disable | 1 - enable
-$gSystemConfig['enableUsersDateBirth'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker 
+$gSystemConfig['enableUsersDateBirth'] = 11; // 0 - disable | 2 - dropdown menu | 11 - js-datepicker
 $gSystemConfig['enableUsersGender'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersDocument'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersAddress'] = 1; // 0 - disable | 1 - enable
@@ -2412,7 +2416,7 @@ $gSystemConfig['enableUsersUsername'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersEmail'] = 1; // 0 - disable | 1 - enable
 
 $gSystemConfig['configUsersPassword'] = 1; // 0 - don´t display | 1 - display
-$gSystemConfig['configUsersPasswordMethod'] = 26; // 21 - MCrypt PHP library (PHP) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv | 31 - hash 
+$gSystemConfig['configUsersPasswordMethod'] = 26; // 21 - MCrypt PHP library (PHP) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv | 31 - hash
 
 $gSystemConfig['enableUsersImageMain'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersStatus'] = 1; // 0 - disable | 1 - enable

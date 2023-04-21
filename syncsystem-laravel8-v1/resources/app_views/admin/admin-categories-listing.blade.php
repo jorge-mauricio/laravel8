@@ -105,10 +105,11 @@
             // var_dump($_pageNumber);
             // var_dump($_pagingTotalRecords);
             // var_dump($_pagingTotal);
-            var_dump(config('app.gSystemConfig')); // working
-            var_dump(config('gSystemConfig.configDebug')); // working
-            var_dump(config('gSystemConfig.configDebugArr.info1')); // working
-            var_dump(config('gSystemConfig')); 
+
+            // var_dump(config('app.gSystemConfig')); // working
+            // var_dump(config('gSystemConfig.configDebug')); // working
+            // var_dump(config('gSystemConfig.configDebugArr.info1')); // working
+            // var_dump(config('gSystemConfig'));
         @endphp
     </pre>
 
@@ -124,18 +125,18 @@
                             formSubmit('formCategoriesListing', '', '', '/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/?_method=DELETE');
                             "--}}
 
-                <button 
-                    id="categories_delete" 
-                    name="categories_delete" 
+                <button
+                    id="categories_delete"
+                    name="categories_delete"
                     onclick="elementMessage01('formCategoriesListing_method', 'DELETE');
                             formSubmit('formCategoriesListing', '', '', '/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/?_method=DELETE');
-                            " 
-                    class="ss-backend-btn-base ss-backend-btn-action-cancel" 
+                            "
+                    class="ss-backend-btn-base ss-backend-btn-action-cancel"
                     style="float: right;">
                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemDelete') }}
                 </button>
             </div>
-            
+
             {{--Debug--}}
             {{-- @dd($arrCategoriesListing) --}}
             @php
@@ -150,13 +151,13 @@
                 //exit();
                 //die();
             @endphp
-            
+
             <form id="formCategoriesListing" name="formCategoriesListing" method="POST" action="" enctype="application/x-www-form-urlencoded">
                 @csrf
                 <input type="hidden" id="formCategoriesListing_method" name="_method" value="">
 
                 <input type="hidden" id="formCategoriesListing_strTable" name="strTable" value="{{ $GLOBALS['configSystemDBTableCategories'] }}" />
-                
+
                 <input type="hidden" id="formCategoriesListing_idParent" name="idParent" value="{{ $idParentCategories }}" />
                 <input type="hidden" id="formCategoriesListing_pageReturn" name="pageReturn" value="{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] }}" />
                 <input type="hidden" id="formCategoriesListing_pageNumber" name="pageNumber" value="{{ $pageNumber }}" />
@@ -171,70 +172,70 @@
                             <tr>
                                 @if ($GLOBALS['enableCategoriesSortOrder'] === 1)
                                     <td style="width: 40px; text-align: left;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemSortOrderA') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemSortOrderA') }}
                                     </td>
                                 @endif
 
                                 @if ($GLOBALS['enableCategoriesImageMain'] === 1)
                                     <td style="width: 100px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemImage') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemImage') }}
                                     </td>
                                 @endif
 
                                 <td style="text-align: left;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesCategory') }}  
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesCategory') }}
                                 </td>
                                 <td style="width: 100px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemFunctions') }}  
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemFunctions') }}
                                 </td>
 
                                 @if ($GLOBALS['enableCategoriesStatus'] === 1)
                                     <td style="width: 100px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesStatus') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesStatus') }}
                                     </td>
                                 @endif
 
                                 <td style="width: 40px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivationA') }}  
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivationA') }}
                                 </td>
 
                                 @if ($GLOBALS['enableCategoriesActivation1'] === 1)
                                     <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation1') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation1') }}
                                     </td>
                                 @endif
                                 @if ($GLOBALS['enableCategoriesActivation2'] === 1)
                                     <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation2') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation2') }}
                                     </td>
                                 @endif
                                 @if ($GLOBALS['enableCategoriesActivation3'] === 1)
                                     <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation3') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation3') }}
                                     </td>
                                 @endif
                                 @if ($GLOBALS['enableCategoriesActivation4'] === 1)
                                     <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation4') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation4') }}
                                     </td>
                                 @endif
                                 @if ($GLOBALS['enableCategoriesActivation5'] === 1)
                                     <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation5') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation5') }}
                                     </td>
                                 @endif
 
                                 @if ($GLOBALS['enableCategoriesRestrictedAccess'] === 1)
                                     <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccessA') }}  
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccessA') }}
                                     </td>
                                 @endif
 
                                 <td style="width: 40px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemEdit') }}  
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemEdit') }}
                                 </td>
                                 <td style="width: 40px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemDelete') }}  
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemDelete') }}
                                 </td>
                             </tr>
                         </thead>
@@ -246,7 +247,7 @@
                                 <tr class="ss-backend-table-bg-light">
                                     @if ($GLOBALS['enableCategoriesSortOrder'] === 1)
                                         <td style="text-align: center;">
-                                            {{ \SyncSystemNS\FunctionsGeneric::valueMaskRead($categoriesRow['sort_order'], '', 3, null) }} 
+                                            {{ \SyncSystemNS\FunctionsGeneric::valueMaskRead($categoriesRow['sort_order'], '', 3, null) }}
                                         </td>
                                     @endif
 
@@ -255,8 +256,8 @@
                                             @if ((string) $categoriesRow['image_main'] !== '')
                                                 {{-- No pop-up. --}}
                                                 @if ($GLOBALS['configImagePopup'] === 0)
-                                                    <img src="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/t' . $categoriesRow['image_main'] . '?v=' . $cacheClear }}" 
-                                                        alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['title'], 'db') }}" 
+                                                    <img src="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/t' . $categoriesRow['image_main'] . '?v=' . $cacheClear }}"
+                                                        alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['title'], 'db') }}"
                                                         class="ss-backend-images-listing" />
                                                 @endif
 
@@ -267,8 +268,8 @@
                                                         class="glightbox_categories_image_main{{ $categoriesRow['id'] }}"
                                                         data-glightbox="title:{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['title'], 'db') }};">
 
-                                                        <img src="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/t' . $categoriesRow['image_main'] . '?v=' . $cacheClear }}" 
-                                                            alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['title'], 'db') }}" 
+                                                        <img src="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/t' . $categoriesRow['image_main'] . '?v=' . $cacheClear }}"
+                                                            alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['title'], 'db') }}"
                                                             class="ss-backend-images-listing" />
                                                     </a>
                                                     <script>
@@ -294,10 +295,10 @@
                                             @endif
                                         </td>
                                     @endif
-                                    
+
                                     <td style="text-align: left;">
                                         <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $categoriesRow['id'] }}" class="ss-backend-links01">
-                                            {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['title'], 'db') }} 
+                                            {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['title'], 'db') }}
                                         </a>
                                         @if ($GLOBALS['enableCategoriesDescription'] === 1)
                                             <div>
@@ -318,14 +319,14 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo1') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo1FieldType'] === 1 || $GLOBALS['configCategoriesInfo1FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo1FieldType'] === 1 || $GLOBALS['configCategoriesInfo1FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info1'], 'db')
                                                         : ''
                                                     }}
 
                                                     <!-- Encrypted. -->
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo1FieldType'] === 11 || $GLOBALS['configCategoriesInfo1FieldType'] === 12 ? 
+                                                        $GLOBALS['configCategoriesInfo1FieldType'] === 11 || $GLOBALS['configCategoriesInfo1FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info1'], 'db'), 2)
                                                         : ''
                                                     }}
@@ -338,7 +339,7 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo2') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo2FieldType'] === 1 || $GLOBALS['configCategoriesInfo2FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo2FieldType'] === 1 || $GLOBALS['configCategoriesInfo2FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info2'], 'db')
                                                         : ''
                                                     }}
@@ -358,14 +359,14 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo3') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo3FieldType'] === 1 || $GLOBALS['configCategoriesInfo3FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo3FieldType'] === 1 || $GLOBALS['configCategoriesInfo3FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info3'], 'db')
                                                         : ''
                                                     }}
 
                                                     <!-- Encrypted. -->
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo3FieldType'] === 11 || $GLOBALS['configCategoriesInfo3FieldType'] === 12 ? 
+                                                        $GLOBALS['configCategoriesInfo3FieldType'] === 11 || $GLOBALS['configCategoriesInfo3FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info3'], 'db'), 2)
                                                         : ''
                                                     }}
@@ -378,14 +379,14 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo4') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo4FieldType'] === 1 || $GLOBALS['configCategoriesInfo4FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo4FieldType'] === 1 || $GLOBALS['configCategoriesInfo4FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info4'], 'db')
                                                         : ''
                                                     }}
 
                                                     <!-- Encrypted. -->
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo4FieldType'] === 11 || $GLOBALS['configCategoriesInfo4FieldType'] === 12 ? 
+                                                        $GLOBALS['configCategoriesInfo4FieldType'] === 11 || $GLOBALS['configCategoriesInfo4FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info4'], 'db'), 2)
                                                         : ''
                                                     }}
@@ -398,7 +399,7 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo5') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo5FieldType'] === 1 || $GLOBALS['configCategoriesInfo5FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo5FieldType'] === 1 || $GLOBALS['configCategoriesInfo5FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info5'], 'db')
                                                         : ''
                                                     }}
@@ -418,14 +419,14 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo6') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo6FieldType'] === 1 || $GLOBALS['configCategoriesInfo6FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo6FieldType'] === 1 || $GLOBALS['configCategoriesInfo6FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info6'], 'db')
                                                         : ``
                                                     }}
 
                                                     <!-- Encrypted. -->
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo6FieldType'] === 11 || $GLOBALS['configCategoriesInfo6FieldType'] === 12 ? 
+                                                        $GLOBALS['configCategoriesInfo6FieldType'] === 11 || $GLOBALS['configCategoriesInfo6FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info6'], 'db'), 2)
                                                         : ''
                                                     }}
@@ -438,14 +439,14 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo7') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo7FieldType'] === 1 || $GLOBALS['configCategoriesInfo7FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo7FieldType'] === 1 || $GLOBALS['configCategoriesInfo7FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info7'], 'db')
                                                         : ''
                                                     }}
 
                                                     <!-- Encrypted. -->
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo7FieldType'] === 11 || $GLOBALS['configCategoriesInfo7FieldType'] === 12 ? 
+                                                        $GLOBALS['configCategoriesInfo7FieldType'] === 11 || $GLOBALS['configCategoriesInfo7FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info7'], 'db'), 2)
                                                         : ''
                                                     }}
@@ -458,7 +459,7 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo8') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo8FieldType'] === 1 || $GLOBALS['configCategoriesInfo8FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo8FieldType'] === 1 || $GLOBALS['configCategoriesInfo8FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info8'], 'db')
                                                         : ''
                                                     }}
@@ -478,14 +479,14 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo9') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo9FieldType'] === 1 || $GLOBALS['configCategoriesInfo9FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo9FieldType'] === 1 || $GLOBALS['configCategoriesInfo9FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info9'], 'db')
                                                         : ''
                                                     }}
 
                                                     <!-- Encrypted. -->
                                                     {{
-                                                    $GLOBALS['configCategoriesInfo9FieldType'] === 11 || $GLOBALS['configCategoriesInfo9FieldType'] === 12 ? 
+                                                    $GLOBALS['configCategoriesInfo9FieldType'] === 11 || $GLOBALS['configCategoriesInfo9FieldType'] === 12 ?
                                                             \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info9'], 'db'), 2)
                                                         : ''
                                                     }}
@@ -498,7 +499,7 @@
                                                         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo10') }}:
                                                     </strong>
                                                     {{
-                                                        $GLOBALS['configCategoriesInfo10FieldType'] === 1 || $GLOBALS['configCategoriesInfo10FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesInfo10FieldType'] === 1 || $GLOBALS['configCategoriesInfo10FieldType'] === 2 ?
                                                             \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesRow['info10'], 'db')
                                                         : ''
                                                     }}
@@ -569,7 +570,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumber1FieldType'] === 2 || $GLOBALS['configCategoriesNumber1FieldType'] === 4 ? 
+                                                        $GLOBALS['configCategoriesNumber1FieldType'] === 2 || $GLOBALS['configCategoriesNumber1FieldType'] === 4 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -585,7 +586,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumber2FieldType'] === 2 || $GLOBALS['configCategoriesNumber2FieldType'] === 4 ? 
+                                                        $GLOBALS['configCategoriesNumber2FieldType'] === 2 || $GLOBALS['configCategoriesNumber2FieldType'] === 4 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -601,7 +602,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumber3FieldType'] === 2 || $GLOBALS['configCategoriesNumber3FieldType'] === 4 ? 
+                                                        $GLOBALS['configCategoriesNumber3FieldType'] === 2 || $GLOBALS['configCategoriesNumber3FieldType'] === 4 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -617,7 +618,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumber4FieldType'] === 2 || $GLOBALS['configCategoriesNumber4FieldType'] === 4 ? 
+                                                        $GLOBALS['configCategoriesNumber4FieldType'] === 2 || $GLOBALS['configCategoriesNumber4FieldType'] === 4 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -633,7 +634,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumber5FieldType'] === 2 || $GLOBALS['configCategoriesNumber5FieldType'] === 4 ? 
+                                                        $GLOBALS['configCategoriesNumber5FieldType'] === 2 || $GLOBALS['configCategoriesNumber5FieldType'] === 4 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -649,7 +650,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumberS1FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesNumberS1FieldType'] === 2 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -665,7 +666,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumberS2FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesNumberS2FieldType'] === 2 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -681,7 +682,7 @@
                                                     </strong>
 
                                                     {{
-                                                    $GLOBALS['configCategoriesNumberS3FieldType'] === 2 ? 
+                                                    $GLOBALS['configCategoriesNumberS3FieldType'] === 2 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -697,7 +698,7 @@
                                                     </strong>
 
                                                     {{
-                                                        $GLOBALS['configCategoriesNumberS4FieldType'] === 2 ? 
+                                                        $GLOBALS['configCategoriesNumberS4FieldType'] === 2 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -713,7 +714,7 @@
                                                     </strong>
 
                                                     {{
-                                                    $GLOBALS['configCategoriesNumberS5FieldType'] === 2 ? 
+                                                    $GLOBALS['configCategoriesNumberS5FieldType'] === 2 ?
                                                             $GLOBALS['configSystemCurrency'] . ' '
                                                         : ''
                                                     }}
@@ -773,7 +774,7 @@
                                                         <strong>
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile1') }}:
                                                         </strong>
-                                                        
+
                                                         <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile1Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file1'] }}" target="_blank" class="ss-backend-links01">
@@ -801,7 +802,7 @@
                                                         <strong>
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile2') }}:
                                                         </strong>
-                                                        
+
                                                         <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile2Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file2'] }}" target="_blank" class="ss-backend-links01">
@@ -829,7 +830,7 @@
                                                         <strong>
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile3') }}:
                                                         </strong>
-                                                        
+
                                                         <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile3Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file3'] }}" target="_blank" class="ss-backend-links01">
@@ -857,7 +858,7 @@
                                                         <strong>
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile4') }}:
                                                         </strong>
-                                                        
+
                                                         <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile4Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file4'] }}" target="_blank" class="ss-backend-links01">
@@ -885,7 +886,7 @@
                                                         <strong>
                                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile5') }}:
                                                         </strong>
-                                                        
+
                                                         <!-- file (download). -->
                                                         @if ($GLOBALS['configCategoriesFile5Type'] === 3)
                                                             <a download href="{{ $GLOBALS['configSystemURLImages'] . $GLOBALS['configDirectoryFilesSD'] . '/' + $categoriesRow['file5'] }}" target="_blank" class="ss-backend-links01">
@@ -906,7 +907,7 @@
                                                     </div>
                                                 @endif
                                             @endif
-                                            
+
                                             @if ($GLOBALS['enableCategoriesNotes'] === 1)
                                                 <div>
                                                     <strong>
@@ -925,12 +926,12 @@
                                         @else
                                             <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . \SyncSystemNS\FunctionsGeneric::categoryConfigSelect($categoriesRow['category_type'], 3) . '/' . $categoriesRow['id'] }}" class="ss-backend-links01" style="position: relative; display: block;">
                                                 {{ \SyncSystemNS\FunctionsGeneric::categoryConfigSelect($categoriesRow['category_type'], 5) }}
-                                            </a> 
+                                            </a>
                                         @endif
 
                                         <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $GLOBALS['configRouteBackendDetails'] . '/' . $categoriesRow['id'] }}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemDetailsView') }}
-                                        </a> 
+                                        </a>
                                         <!--a href="/${gSystemConfig.configRouteFrontend + '/' + gSystemConfig.configRouteFrontendCategories + '/' + gSystemConfig.configRouteFrontendDetails + '/' + categoriesRow.id}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                             ${SyncSystemNS.FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, 'backendItemDetailsView')}
                                         </a--> {{-- TODO: Change address to access frontend. --}}
@@ -941,35 +942,35 @@
                                         @if ($GLOBALS['enableCategoriesImages'] === 1)
                                             <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendFiles'] . '/' . $categoriesRow['id'] . '?fileType=1&masterPageSelect=layout-backend-blank' }}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                 {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemInsertImages') }}
-                                            </a> 
+                                            </a>
                                         @endif
 
                                         {{-- Videos. --}}
                                         @if ($GLOBALS['enableCategoriesVideos'] === 1)
                                             <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendFiles'] . '/' . $categoriesRow['id'] . '?fileType=2&masterPageSelect=layout-backend-blank' }}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                 {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemInsertVideos') }}
-                                            </a> 
+                                            </a>
                                         @endif
-                                        
+
                                         {{-- Files. --}}
                                         @if ($GLOBALS['enableCategoriesFiles'] === 1)
                                             <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendFiles'] . '/' . $categoriesRow['id'] . '?fileType=3&masterPageSelect=layout-backend-blank' }}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                 {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemInsertFiles') }}
-                                            </a> 
+                                            </a>
                                         @endif
 
                                         {{-- Zip files. --}}
                                         @if ($GLOBALS['enableCategoriesZip'] === 1)
                                             <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendFiles'] . '/' . $categoriesRow['id'] . '?fileType=4&masterPageSelect=layout-backend-blank' }}" target="_blank" class="ss-backend-links01" style="position: relative; display: block;">
                                                 {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemInsertFilesZip') }}
-                                            </a> 
+                                            </a>
                                         @endif
                                     </td>
 
                                     @if ($GLOBALS['enableCategoriesStatus'] === 1)
                                         <td style="text-align: center;">
                                             {{
-                                                $categoriesRow['id_status'] === 0 ? 
+                                                $categoriesRow['id_status'] === 0 ?
                                                     \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemDropDownSelectNone')
                                                 : `
                                                     {ofglRecords.resultsFiltersGenericListing
@@ -988,21 +989,21 @@
                                     @endif
 
                                     <td id="formCategoriesListing_elementActivation{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                        <a id="linkActivation{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
+                                        <a id="linkActivation{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                             onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                       ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                 {
-                                                                                    idRecord: '{{ $categoriesRow['id'] }}', 
-                                                                                    strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
-                                                                                    strField:'activation', 
-                                                                                    recordValue: '{{ $categoriesRow['activation'] === 1 ? 0 : 1 }}', 
-                                                                                    patchType: 'toggleValue', 
-                                                                                    ajaxFunction: true, 
+                                                                                    idRecord: '{{ $categoriesRow['id'] }}',
+                                                                                    strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}',
+                                                                                    strField:'activation',
+                                                                                    recordValue: '{{ $categoriesRow['activation'] === 1 ? 0 : 1 }}',
+                                                                                    patchType: 'toggleValue',
+                                                                                    ajaxFunction: true,
                                                                                     apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
-                                                                                }, 
+                                                                                },
                                                                                 async function(_resObjReturn) {
                                                                                     // alert(JSON.stringify(_resObjReturn));
-                                                                                    
+
                                                                                     // if (_resObjReturn.objReturn.returnStatus === true) { // For some reason, the promise object is returning without an object inside.
                                                                                     if (_resObjReturn.returnStatus === true) {
                                                                                         // alert('returnStatus=', true);
@@ -1035,27 +1036,27 @@
                                                                                     // Hide ajax progress bar.
                                                                                     htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                 });">
-                                            {{ $categoriesRow['activation'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }} 
+                                            {{ $categoriesRow['activation'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}
                                         </a>
                                     </td>
 
                                     @if ($GLOBALS['enableCategoriesActivation1'] === 1)
                                         <td id="formCategoriesListing_elementActivation1{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation1'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation1{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
+                                            <a id="linkActivation1{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                         ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
-                                                                                        idRecord: '{{ $categoriesRow['id'] }}', 
-                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
-                                                                                        strField:'activation1', 
-                                                                                        recordValue: '{{ $categoriesRow['activation1'] === 1 ? 0 : 1 }}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
+                                                                                        idRecord: '{{ $categoriesRow['id'] }}',
+                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}',
+                                                                                        strField:'activation1',
+                                                                                        recordValue: '{{ $categoriesRow['activation1'] === 1 ? 0 : 1 }}',
+                                                                                        patchType: 'toggleValue',
+                                                                                        ajaxFunction: true,
                                                                                         apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
-                                                                                    }, 
+                                                                                    },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
-                                                                                        
+
                                                                                         if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
                                                                                             if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
@@ -1092,21 +1093,21 @@
 
                                     @if ($GLOBALS['enableCategoriesActivation2'] === 1)
                                         <td id="formCategoriesListing_elementActivation2{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation2'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation2{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
+                                            <a id="linkActivation2{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                         ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
-                                                                                        idRecord: '{{ $categoriesRow['id'] }}', 
-                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
-                                                                                        strField:'activation2', 
-                                                                                        recordValue: '{{ $categoriesRow['activation2'] === 1 ? 0 : 1 }}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
+                                                                                        idRecord: '{{ $categoriesRow['id'] }}',
+                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}',
+                                                                                        strField:'activation2',
+                                                                                        recordValue: '{{ $categoriesRow['activation2'] === 1 ? 0 : 1 }}',
+                                                                                        patchType: 'toggleValue',
+                                                                                        ajaxFunction: true,
                                                                                         apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
-                                                                                    }, 
+                                                                                    },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
-                                                                                        
+
                                                                                         if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
                                                                                             if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
@@ -1136,28 +1137,28 @@
                                                                                         // Hide ajax progress bar.
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
-                                                {{ $categoriesRow['activation2'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }} 
+                                                {{ $categoriesRow['activation2'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}
                                             </a>
                                         </td>
                                     @endif
 
                                     @if ($GLOBALS['enableCategoriesActivation3'] === 1)
                                         <td id="formCategoriesListing_elementActivation3{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation3'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation3{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
+                                            <a id="linkActivation3{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                         ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
-                                                                                        idRecord: '{{ $categoriesRow['id'] }}', 
-                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
-                                                                                        strField:'activation3', 
-                                                                                        recordValue: '{{ $categoriesRow['activation3'] === 1 ? 0 : 1 }}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
+                                                                                        idRecord: '{{ $categoriesRow['id'] }}',
+                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}',
+                                                                                        strField:'activation3',
+                                                                                        recordValue: '{{ $categoriesRow['activation3'] === 1 ? 0 : 1 }}',
+                                                                                        patchType: 'toggleValue',
+                                                                                        ajaxFunction: true,
                                                                                         apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
-                                                                                    }, 
+                                                                                    },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
-                                                                                        
+
                                                                                         if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
                                                                                             if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
@@ -1187,28 +1188,28 @@
                                                                                         // Hide ajax progress bar.
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
-                                                {{ $categoriesRow['activation3'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }} 
+                                                {{ $categoriesRow['activation3'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}
                                             </a>
                                         </td>
                                     @endif
 
                                     @if ($GLOBALS['enableCategoriesActivation4'] === 1)
                                         <td id="formCategoriesListing_elementActivation4{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation4'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation4{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
+                                            <a id="linkActivation4{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                         ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
-                                                                                        idRecord: '{{ $categoriesRow['id'] }}', 
-                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
-                                                                                        strField:'activation4', 
-                                                                                        recordValue: '{{ $categoriesRow['activation4'] === 1 ? 0 : 1 }}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
+                                                                                        idRecord: '{{ $categoriesRow['id'] }}',
+                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}',
+                                                                                        strField:'activation4',
+                                                                                        recordValue: '{{ $categoriesRow['activation4'] === 1 ? 0 : 1 }}',
+                                                                                        patchType: 'toggleValue',
+                                                                                        ajaxFunction: true,
                                                                                         apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
-                                                                                    }, 
+                                                                                    },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
-                                                                                        
+
                                                                                         if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
                                                                                             if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
@@ -1238,28 +1239,28 @@
                                                                                         // Hide ajax progress bar.
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
-                                                {{ $categoriesRow['activation4'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }} 
+                                                {{ $categoriesRow['activation4'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}
                                             </a>
                                         </td>
                                     @endif
 
                                     @if ($GLOBALS['enableCategoriesActivation5'] === 1)
                                         <td id="formCategoriesListing_elementActivation5{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation5'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation5{{ $categoriesRow['id'] }}" class="ss-backend-links01" 
+                                            <a id="linkActivation5{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                         ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                     {
-                                                                                        idRecord: '{{ $categoriesRow['id'] }}', 
-                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
-                                                                                        strField:'activation5', 
-                                                                                        recordValue: '{{ $categoriesRow['activation5'] === 1 ? 0 : 1 }}', 
-                                                                                        patchType: 'toggleValue', 
-                                                                                        ajaxFunction: true, 
+                                                                                        idRecord: '{{ $categoriesRow['id'] }}',
+                                                                                        strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}',
+                                                                                        strField:'activation5',
+                                                                                        recordValue: '{{ $categoriesRow['activation5'] === 1 ? 0 : 1 }}',
+                                                                                        patchType: 'toggleValue',
+                                                                                        ajaxFunction: true,
                                                                                         apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
-                                                                                    }, 
+                                                                                    },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
-                                                                                        
+
                                                                                         if (_resObjReturn.returnStatus === true) {
                                                                                             // Check status.
                                                                                             if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
@@ -1289,7 +1290,7 @@
                                                                                         // Hide ajax progress bar.
                                                                                         htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                     });">
-                                                {{ $categoriesRow['activation5'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }} 
+                                                {{ $categoriesRow['activation5'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation0A') }}
                                             </a>
                                         </td>
                                     @endif
@@ -1300,14 +1301,14 @@
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                           ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteBackendRecords'] }}/',
                                                                                 {
-                                                                                    idRecord: '{{ $categoriesRow['id'] }}', 
-                                                                                    strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}', 
-                                                                                    strField:'restricted_access', 
-                                                                                    recordValue: '{{ $categoriesRow['restricted_access'] === 1 ? 0 : 1 }}', 
-                                                                                    patchType: 'toggleValue', 
-                                                                                    ajaxFunction: true, 
+                                                                                    idRecord: '{{ $categoriesRow['id'] }}',
+                                                                                    strTable: '{{ $GLOBALS['configSystemDBTableCategories'] }}',
+                                                                                    strField:'restricted_access',
+                                                                                    recordValue: '{{ $categoriesRow['restricted_access'] === 1 ? 0 : 1 }}',
+                                                                                    patchType: 'toggleValue',
+                                                                                    ajaxFunction: true,
                                                                                     apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
-                                                                                }, 
+                                                                                },
                                                                                 async function(_resObjReturn) {
                                                                                     if(_resObjReturn.returnStatus === true) {
                                                                                         // Check status.
@@ -1339,20 +1340,20 @@
                                                                                     // Hide ajax progress bar.
                                                                                     htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
                                                                                 });">
-                                                {{ $categoriesRow['restricted_access'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccess1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccess0A') }} 
+                                                {{ $categoriesRow['restricted_access'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccess1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccess0A') }}
                                             </a>
                                         </td>
                                     @endif
 
                                     <td style="text-align: center;">
                                         <a href="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $GLOBALS['configRouteBackendActionEdit'] . '/' . $categoriesRow['id'] . '/?' . $queryDefault }}" class="ss-backend-links01">
-                                            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemEdit') }} 
+                                            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemEdit') }}
                                         </a>
                                     </td>
                                     <td style="text-align: center;">
-                                        <input type="checkbox" name="idsRecordsDelete[]" value="{{ $categoriesRow['id'] }}" class="ss-backend-field-checkbox" /> 
-                                        <!--input type="checkbox" name="idsRecordsDelete" value="{{ $categoriesRow['id'] }}" class="ss-backend-field-checkbox" /--> 
-                                        <!--input type="checkbox" name="arrIdsRecordsDelete" value="${categoriesRow.id}" class="ss-backend-field-checkbox" /--> 
+                                        <input type="checkbox" name="idsRecordsDelete[]" value="{{ $categoriesRow['id'] }}" class="ss-backend-field-checkbox" />
+                                        <!--input type="checkbox" name="idsRecordsDelete" value="{{ $categoriesRow['id'] }}" class="ss-backend-field-checkbox" /-->
+                                        <!--input type="checkbox" name="arrIdsRecordsDelete" value="${categoriesRow.id}" class="ss-backend-field-checkbox" /-->
                                     </td>
                                 </tr>
                             @endforeach
@@ -1361,13 +1362,13 @@
                         <tfoot class="ss-backend-table-foot ss-backend-table-listing-text01" style="display: none;">
                             <tr>
                                 <td style="text-align: left;">
-                                      
+
                                 </td>
                                 <td style="text-align: center;">
-                                      
+
                                 </td>
                                 <td style="text-align: center;">
-                                      
+
                                 </td>
                             </tr>
                         </tfoot>
@@ -1426,7 +1427,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingFirst') }}
                                 </a>
                                 <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=' . (int) $_pageNumber - 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPrevious') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPrevious') }} 
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingPrevious') }}
                                 </a>
                             @else
                                 <a href="{{ '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $idParentCategories . '?pageNumber=1' }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendPagingFirst') }}" class="ss-backend-paging-btn">
@@ -1469,7 +1470,7 @@
         <section class="ss-backend-layout-section-form01">
             <form id="formCategories" name="formCategories" method="POST" action="/{{ $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] }}" enctype="multipart/form-data">
                 @csrf
-                
+
                 {{-- TODO: change for css class. --}}
                 <div style="position: relative; display: block; overflow: hidden;">
                     <script>
@@ -1480,7 +1481,7 @@
                         // Reorder table rows.
                         // TODO: Create variable in config to enable it.
                         document.addEventListener('DOMContentLoaded', () => {
-                            
+
                           inputDataReorder([{{ implode(',', $GLOBALS['configCategoriesInputOrder']) }}]); // necessary to map the array in order to display as an array inside template literals
 
                         }, false);
@@ -1488,16 +1489,16 @@
 
                     <table id="input_table_categories" class="ss-backend-table-input01">
                         <caption class="ss-backend-table-header-text01 ss-backend-table-title">
-                            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesTitleTable') }} 
+                            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesTitleTable') }}
                         </caption>
                         <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
-                            
+
                         </thead>
                         <tbody class="ss-backend-table-listing-text01">
                             @if ($GLOBALS['enableCategoriesSortOrder'] === 1)
                                 <tr id="inputRowCategories_sort_order" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemSortOrder') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemSortOrder') }}:
                                     </td>
                                     <td>
                                         <input type="text" id="categories_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="0" />
@@ -1510,7 +1511,7 @@
 
                             <tr id="inputRowCategories_category_type" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesType') }}: 
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesType') }}:
                                 </td>
                                 <td>
                                     <select id="categories_category_type" name="category_type" class="ss-backend-field-dropdown01">
@@ -1524,7 +1525,7 @@
                             @if ($GLOBALS['enableCategoriesBindRegisterUser'] === 1)
                                 <tr id="inputRowCategories_id_register_user" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesRU') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesRU') }}:
                                     </td>
                                     <td>
                                         <select id="categories_id_register_user" name="id_register_user" class="ss-backend-field-dropdown01">
@@ -1538,7 +1539,7 @@
 
                             <tr id="inputRowCategories_title" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesCategory') }}: 
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesCategory') }}:
                                 </td>
                                 <td>
                                     <input type="text" id="categories_title" name="title" class="ss-backend-field-text01" maxlength="255" value="" />
@@ -1548,7 +1549,7 @@
                             @if ($GLOBALS['enableCategoriesDescription'] === 1)
                             <tr id="inputRowCategories_description" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDescription') }}: 
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDescription') }}:
                                 </td>
                                 <td>
                                     {{-- No formatting. --}}
@@ -1600,7 +1601,7 @@
                             @if ($GLOBALS['configCategoriesURLAlias'] === 1)
                                 <tr id="inputRowCategories_url_alias" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemURLAlias') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemURLAlias') }}:
                                     </td>
                                     <td>
                                         <input type="text" id="categories_url_alias" name="url_alias" class="ss-backend-field-text01" value="" />
@@ -1611,7 +1612,7 @@
                             @if ($GLOBALS['enableCategoriesKeywordsTags'] === 1)
                                 <tr id="inputRowCategories_keywords_tags" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemKeywords') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemKeywords') }}:
                                     </td>
                                     <td>
                                         <textarea id="categories_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01"></textarea>
@@ -1625,7 +1626,7 @@
                             @if ($GLOBALS['enableCategoriesMetaDescription'] === 1)
                                 <tr id="inputRowCategories_meta_description" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemMetaDescription') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemMetaDescription') }}:
                                     </td>
                                     <td>
                                         <textarea id="categories_meta_description" name="meta_description" class="ss-backend-field-text-area01"></textarea>
@@ -1636,7 +1637,7 @@
                             @if ($GLOBALS['enableCategoriesMetaTitle'] === 1)
                                 <tr id="inputRowCategories_meta_title" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemMetaTitle') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemMetaTitle') }}:
                                     </td>
                                     <td>
                                         <input type="text" id="categories_meta_title" name="meta_title" class="ss-backend-field-text01" value="" />
@@ -1650,7 +1651,7 @@
                             @if ($GLOBALS['enableCategoriesInfo1'] === 1)
                                 <tr id="inputRowCategories_info1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo1') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo1') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1691,7 +1692,7 @@
                             @if ($GLOBALS['enableCategoriesInfo2'] === 1)
                                 <tr id="inputRowCategories_info2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo2') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo2') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1732,7 +1733,7 @@
                             @if ($GLOBALS['enableCategoriesInfo3'] === 1)
                                 <tr id="inputRowCategories_info3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo3') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo3') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1773,7 +1774,7 @@
                             @if ($GLOBALS['enableCategoriesInfo4'] === 1)
                                 <tr id="inputRowCategories_info4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo4') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo4') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1814,7 +1815,7 @@
                             @if ($GLOBALS['enableCategoriesInfo5'] === 1)
                                 <tr id="inputRowCategories_info5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo5') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo5') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1855,7 +1856,7 @@
                             @if ($GLOBALS['enableCategoriesInfo6'] === 1)
                                 <tr id="inputRowCategories_info6" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo6') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo6') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1896,7 +1897,7 @@
                             @if ($GLOBALS['enableCategoriesInfo7'] === 1)
                                 <tr id="inputRowCategories_info7" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo7') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo7') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1937,7 +1938,7 @@
                             @if ($GLOBALS['enableCategoriesInfo8'] === 1)
                                 <tr id="inputRowCategories_info8" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo8') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo8') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -1978,7 +1979,7 @@
                             @if ($GLOBALS['enableCategoriesInfo9'] === 1)
                                 <tr id="inputRowCategories_info9" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo9') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo9') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -2019,7 +2020,7 @@
                             @if ($GLOBALS['enableCategoriesInfo10'] === 1)
                                 <tr id="inputRowCategories_info10" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo10') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfo10') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -2060,7 +2061,7 @@
                             @if ($GLOBALS['enableCategoriesInfoS1'] === 1)
                                 <tr id="inputRowCategories_info_small1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS1') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS1') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -2091,7 +2092,7 @@
                             @if ($GLOBALS['enableCategoriesInfoS2'] === 1)
                                 <tr id="inputRowCategories_info_small2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS2') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS2') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -2118,11 +2119,11 @@
                                     </td>
                                 </tr>
                             @endif
-                            
+
                             @if ($GLOBALS['enableCategoriesInfoS3'] === 1)
                                 <tr id="inputRowCategories_info_small3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS3') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS3') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -2153,7 +2154,7 @@
                             @if ($GLOBALS['enableCategoriesInfoS4'] === 1)
                                 <tr id="inputRowCategories_info_small4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS4') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS4') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -2184,7 +2185,7 @@
                             @if ($GLOBALS['enableCategoriesInfoS5'] === 1)
                                 <tr id="inputRowCategories_info_small5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS5') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesInfoS5') }}:
                                     </td>
                                     <td>
                                         {{-- Single line. --}}
@@ -2215,7 +2216,7 @@
                             @if ($GLOBALS['enableCategoriesNumber1'] === 1)
                                 <tr id="inputRowCategories_number1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber1') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber1') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2230,7 +2231,7 @@
                                         @if ($GLOBALS['configCategoriesNumber1FieldType'] === 2 || $GLOBALS['configCategoriesNumber1FieldType'] === 4)
                                             {{ $GLOBALS['configSystemCurrency'] }}
                                             <input type="text" id="categories_number1" name="number1" class="ss-backend-field-currency01" value="0" maxlength="45" />
-                                            
+
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("categories_number1");
                                             </script>
@@ -2250,7 +2251,7 @@
                             @if ($GLOBALS['enableCategoriesNumber2'] === 1)
                                 <tr id="inputRowCategories_number2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber2') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber2') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2265,7 +2266,7 @@
                                         @if ($GLOBALS['configCategoriesNumber2FieldType'] === 2 || $GLOBALS['configCategoriesNumber2FieldType'] === 4)
                                             {{ $GLOBALS['configSystemCurrency'] }}
                                             <input type="text" id="categories_number2" name="number2" class="ss-backend-field-currency01" value="0" maxlength="45" />
-                                            
+
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("categories_number2");
                                             </script>
@@ -2285,7 +2286,7 @@
                             @if ($GLOBALS['enableCategoriesNumber3'] === 1)
                                 <tr id="inputRowCategories_number3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber3') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber3') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2300,7 +2301,7 @@
                                         @if ($GLOBALS['configCategoriesNumber3FieldType'] === 2 || $GLOBALS['configCategoriesNumber3FieldType'] === 4)
                                             {{ $GLOBALS['configSystemCurrency'] }}
                                             <input type="text" id="categories_number3" name="number3" class="ss-backend-field-currency01" value="0" maxlength="45" />
-                                            
+
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("categories_number3");
                                             </script>
@@ -2320,7 +2321,7 @@
                             @if ($GLOBALS['enableCategoriesNumber4'] === 1)
                                 <tr id="inputRowCategories_number4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber4') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber4') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2335,7 +2336,7 @@
                                         @if ($GLOBALS['configCategoriesNumber4FieldType'] === 2 || $GLOBALS['configCategoriesNumber4FieldType'] === 4)
                                             {{ $GLOBALS['configSystemCurrency'] }}
                                             <input type="text" id="categories_number4" name="number4" class="ss-backend-field-currency01" value="0" maxlength="45" />
-                                            
+
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("categories_number4");
                                             </script>
@@ -2355,7 +2356,7 @@
                             @if ($GLOBALS['enableCategoriesNumber5'] === 1)
                                 <tr id="inputRowCategories_number5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber5') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumber5') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2370,7 +2371,7 @@
                                         @if ($GLOBALS['configCategoriesNumber5FieldType'] === 2 || $GLOBALS['configCategoriesNumber5FieldType'] === 4)
                                             {{ $GLOBALS['configSystemCurrency'] }}
                                             <input type="text" id="categories_number5" name="number5" class="ss-backend-field-currency01" value="0" maxlength="45" />
-                                            
+
                                             <script>
                                                 Inputmask(inputmaskCurrencyBackendConfigOptions).mask("categories_number5");
                                             </script>
@@ -2390,7 +2391,7 @@
                             @if ($GLOBALS['enableCategoriesNumberS1'] === 1)
                                 <tr id="inputRowCategories_number_small1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS1') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS1') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2416,7 +2417,7 @@
                             @if ($GLOBALS['enableCategoriesNumberS2'] === 1)
                                 <tr id="inputRowCategories_number_small2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS2') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS2') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2442,7 +2443,7 @@
                             @if ($GLOBALS['enableCategoriesNumberS3'] === 1)
                                 <tr id="inputRowCategories_number_small3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS3') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS3') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2468,7 +2469,7 @@
                             @if ($GLOBALS['enableCategoriesNumberS4'] === 1)
                                 <tr id="inputRowCategories_number_small4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS4') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS4') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2494,7 +2495,7 @@
                             @if ($GLOBALS['enableCategoriesNumberS5'] === 1)
                                 <tr id="inputRowCategories_number_small5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS5') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesNumberS5') }}:
                                     </td>
                                     <td>
                                         {{-- General number. --}}
@@ -2521,7 +2522,7 @@
                             @if ($GLOBALS['enableCategoriesDate1'] === 1)
                                 <tr id="inputRowCategories_date1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate1') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate1') }}:
                                     </td>
                                     <td>
                                         {{-- Dropdown menu. --}}
@@ -2529,7 +2530,7 @@
                                             @if ($GLOBALS['configBackendDateFormat'] === 1)
                                                 <select id="categories_date1_day" name="date1_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2540,7 +2541,7 @@
                                                 /
                                                 <select id="categories_date1_month" name="date1_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2551,7 +2552,7 @@
                                                 /
                                                 <select id="categories_date1_year" name="date1_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2562,7 +2563,7 @@
                                             @else
                                                 <select id="categories_date1_month" name="date1_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2573,7 +2574,7 @@
                                                 /
                                                 <select id="categories_date1_day" name="date1_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2584,7 +2585,7 @@
                                                 /
                                                 <select id="categories_date1_year" name="date1_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2594,13 +2595,13 @@
                                                 </select>
                                             @endif
                                         @endif
-                                    
+
 
                                         {{-- js-datepicker. --}}
                                         @if ($GLOBALS['configCategoriesDate1FieldType'] === 11)
                                             <input type="text" id="categories_date1" name="date1" class="ss-backend-field-date01" autocomplete="off" value="" />
                                             <script>
-                                                const dpDate1 = datepicker("#categories_date1", 
+                                                const dpDate1 = datepicker("#categories_date1",
                                                     // Generic date.
                                                     {{ $GLOBALS['configCategoriesDate1Type'] === 1 || $GLOBALS['configCategoriesDate1Type'] === 2 || $GLOBALS['configCategoriesDate1Type'] === 3 ? 'jsDatepickerGenericBackendConfigOptions' : '' }}
 
@@ -2628,10 +2629,10 @@
 
                                         {{-- Complete and Semi-complete date. --}}
                                         @if ($GLOBALS['configCategoriesDate1Type'] === 2 || $GLOBALS['configCategoriesDate1Type'] === 3 || $GLOBALS['configCategoriesDate1Type'] === 55 || $GLOBALS['configCategoriesDate1Type'] === 66)
-                                            - 
+                                            -
                                             <select id="categories_date1_hour" name="date1_hour" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowHour == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -2642,7 +2643,7 @@
                                             :
                                             <select id="categories_date1_minute" name="date1_minute" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowMinute == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -2654,7 +2655,7 @@
                                                 :
                                                 <select id="categories_date1_seconds" name="date1_seconds" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => $GLOBALS['configCategoriesDate1Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowSecond == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2671,7 +2672,7 @@
                             @if ($GLOBALS['enableCategoriesDate2'] === 1)
                                 <tr id="inputRowCategories_date2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate2') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate2') }}:
                                     </td>
                                     <td>
                                         {{-- Dropdown menu. --}}
@@ -2679,7 +2680,7 @@
                                             @if ($GLOBALS['configBackendDateFormat'] === 1)
                                                 <select id="categories_date2_day" name="date2_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2690,7 +2691,7 @@
                                                 /
                                                 <select id="categories_date2_month" name="date2_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2701,7 +2702,7 @@
                                                 /
                                                 <select id="categories_date2_year" name="date2_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2712,7 +2713,7 @@
                                             @else
                                                 <select id="categories_date2_month" name="date2_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2723,7 +2724,7 @@
                                                 /
                                                 <select id="categories_date2_day" name="date2_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2734,7 +2735,7 @@
                                                 /
                                                 <select id="categories_date2_year" name="date2_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2744,13 +2745,13 @@
                                                 </select>
                                             @endif
                                         @endif
-                                    
+
 
                                         {{-- js-datepicker. --}}
                                         @if ($GLOBALS['configCategoriesDate2FieldType'] === 11)
                                             <input type="text" id="categories_date2" name="date2" class="ss-backend-field-date01" autocomplete="off" value="" />
                                             <script>
-                                                const dpDate2 = datepicker("#categories_date2", 
+                                                const dpDate2 = datepicker("#categories_date2",
                                                     // Generic date.
                                                     {{ $GLOBALS['configCategoriesDate2Type'] === 1 || $GLOBALS['configCategoriesDate2Type'] === 2 || $GLOBALS['configCategoriesDate2Type'] === 3 ? 'jsDatepickerGenericBackendConfigOptions' : '' }}
 
@@ -2768,10 +2769,10 @@
 
                                         {{-- Complete and Semi-complete date. --}}
                                         @if ($GLOBALS['configCategoriesDate2Type'] === 2 || $GLOBALS['configCategoriesDate2Type'] === 3 || $GLOBALS['configCategoriesDate2Type'] === 55 || $GLOBALS['configCategoriesDate2Type'] === 66)
-                                            - 
+                                            -
                                             <select id="categories_date2_hour" name="date2_hour" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowHour == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -2782,7 +2783,7 @@
                                             :
                                             <select id="categories_date2_minute" name="date2_minute" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowMinute == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -2794,7 +2795,7 @@
                                                 :
                                                 <select id="categories_date2_seconds" name="date2_seconds" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => $GLOBALS['configCategoriesDate2Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowSecond == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2811,7 +2812,7 @@
                             @if ($GLOBALS['enableCategoriesDate3'] === 1)
                                 <tr id="inputRowCategories_date3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate3') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate3') }}:
                                     </td>
                                     <td>
                                         {{-- Dropdown menu. --}}
@@ -2819,7 +2820,7 @@
                                             @if ($GLOBALS['configBackendDateFormat'] === 1)
                                                 <select id="categories_date3_day" name="date3_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2830,7 +2831,7 @@
                                                 /
                                                 <select id="categories_date3_month" name="date3_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2841,7 +2842,7 @@
                                                 /
                                                 <select id="categories_date3_year" name="date3_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2852,7 +2853,7 @@
                                             @else
                                                 <select id="categories_date3_month" name="date3_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2863,7 +2864,7 @@
                                                 /
                                                 <select id="categories_date3_day" name="date3_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2874,7 +2875,7 @@
                                                 /
                                                 <select id="categories_date3_year" name="date3_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2884,13 +2885,13 @@
                                                 </select>
                                             @endif
                                         @endif
-                                    
+
 
                                         {{-- js-datepicker. --}}
                                         @if ($GLOBALS['configCategoriesDate3FieldType'] === 11)
                                             <input type="text" id="categories_date3" name="date3" class="ss-backend-field-date01" autocomplete="off" value="" />
                                             <script>
-                                                const dpDate3 = datepicker("#categories_date3", 
+                                                const dpDate3 = datepicker("#categories_date3",
                                                     // Generic date.
                                                     {{ $GLOBALS['configCategoriesDate3Type'] === 1 || $GLOBALS['configCategoriesDate3Type'] === 2 || $GLOBALS['configCategoriesDate3Type'] === 3 ? 'jsDatepickerGenericBackendConfigOptions' : '' }}
 
@@ -2908,10 +2909,10 @@
 
                                         {{-- Complete and Semi-complete date. --}}
                                         @if ($GLOBALS['configCategoriesDate3Type'] === 2 || $GLOBALS['configCategoriesDate3Type'] === 3 || $GLOBALS['configCategoriesDate3Type'] === 55 || $GLOBALS['configCategoriesDate3Type'] === 66)
-                                            - 
+                                            -
                                             <select id="categories_date3_hour" name="date3_hour" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowHour == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -2922,7 +2923,7 @@
                                             :
                                             <select id="categories_date3_minute" name="date3_minute" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowMinute == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -2934,7 +2935,7 @@
                                                 :
                                                 <select id="categories_date3_seconds" name="date3_seconds" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => $GLOBALS['configCategoriesDate3Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowSecond == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2947,11 +2948,11 @@
                                     </td>
                                 </tr>
                             @endif
-                            
+
                             @if ($GLOBALS['enableCategoriesDate4'] === 1)
                                 <tr id="inputRowCategories_date4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate4') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate4') }}:
                                     </td>
                                     <td>
                                         {{-- Dropdown menu. --}}
@@ -2959,7 +2960,7 @@
                                             @if ($GLOBALS['configBackendDateFormat'] === 1)
                                                 <select id="categories_date4_day" name="date4_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2970,7 +2971,7 @@
                                                 /
                                                 <select id="categories_date4_month" name="date4_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2981,7 +2982,7 @@
                                                 /
                                                 <select id="categories_date4_year" name="date4_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -2992,7 +2993,7 @@
                                             @else
                                                 <select id="categories_date4_month" name="date4_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3003,7 +3004,7 @@
                                                 /
                                                 <select id="categories_date4_day" name="date4_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3014,7 +3015,7 @@
                                                 /
                                                 <select id="categories_date4_year" name="date4_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3024,13 +3025,13 @@
                                                 </select>
                                             @endif
                                         @endif
-                                    
+
 
                                         {{-- js-datepicker. --}}
                                         @if ($GLOBALS['configCategoriesDate4FieldType'] === 11)
                                             <input type="text" id="categories_date4" name="date4" class="ss-backend-field-date01" autocomplete="off" value="" />
                                             <script>
-                                                const dpDate4 = datepicker("#categories_date4", 
+                                                const dpDate4 = datepicker("#categories_date4",
                                                     // Generic date.
                                                     {{ $GLOBALS['configCategoriesDate4Type'] === 1 || $GLOBALS['configCategoriesDate4Type'] === 2 || $GLOBALS['configCategoriesDate4Type'] === 3 ? 'jsDatepickerGenericBackendConfigOptions' : '' }}
 
@@ -3048,10 +3049,10 @@
 
                                         {{-- Complete and Semi-complete date. --}}
                                         @if ($GLOBALS['configCategoriesDate4Type'] === 2 || $GLOBALS['configCategoriesDate4Type'] === 3 || $GLOBALS['configCategoriesDate4Type'] === 55 || $GLOBALS['configCategoriesDate4Type'] === 66)
-                                            - 
+                                            -
                                             <select id="categories_date4_hour" name="date4_hour" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowHour == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -3062,7 +3063,7 @@
                                             :
                                             <select id="categories_date4_minute" name="date4_minute" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowMinute == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -3074,7 +3075,7 @@
                                                 :
                                                 <select id="categories_date4_seconds" name="date4_seconds" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => $GLOBALS['configCategoriesDate4Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowSecond == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3091,7 +3092,7 @@
                             @if ($GLOBALS['enableCategoriesDate5'] === 1)
                                 <tr id="inputRowCategories_date5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate5') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesDate5') }}:
                                     </td>
                                     <td>
                                         {{-- Dropdown menu. --}}
@@ -3099,7 +3100,7 @@
                                             @if ($GLOBALS['configBackendDateFormat'] === 1)
                                                 <select id="categories_date5_day" name="date5_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3110,7 +3111,7 @@
                                                 /
                                                 <select id="categories_date5_month" name="date5_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3121,7 +3122,7 @@
                                                 /
                                                 <select id="categories_date5_year" name="date5_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3132,7 +3133,7 @@
                                             @else
                                                 <select id="categories_date5_month" name="date5_month" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3143,7 +3144,7 @@
                                                 /
                                                 <select id="categories_date5_day" name="date5_day" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3154,7 +3155,7 @@
                                                 /
                                                 <select id="categories_date5_year" name="date5_year" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3164,13 +3165,13 @@
                                                 </select>
                                             @endif
                                         @endif
-                                    
+
 
                                         {{-- js-datepicker. --}}
                                         @if ($GLOBALS['configCategoriesDate5FieldType'] === 11)
                                             <input type="text" id="categories_date5" name="date5" class="ss-backend-field-date01" autocomplete="off" value="" />
                                             <script>
-                                                const dpDate5 = datepicker("#categories_date5", 
+                                                const dpDate5 = datepicker("#categories_date5",
                                                     // Generic date.
                                                     {{ $GLOBALS['configCategoriesDate5Type'] === 1 || $GLOBALS['configCategoriesDate5Type'] === 2 || $GLOBALS['configCategoriesDate5Type'] === 3 ? 'jsDatepickerGenericBackendConfigOptions' : '' }}
 
@@ -3188,10 +3189,10 @@
 
                                         {{-- Complete and Semi-complete date. --}}
                                         @if ($GLOBALS['configCategoriesDate5Type'] === 2 || $GLOBALS['configCategoriesDate5Type'] === 3 || $GLOBALS['configCategoriesDate5Type'] === 55 || $GLOBALS['configCategoriesDate5Type'] === 66)
-                                            - 
+                                            -
                                             <select id="categories_date5_hour" name="date5_hour" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowHour == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -3202,7 +3203,7 @@
                                             :
                                             <select id="categories_date5_minute" name="date5_minute" class="ss-backend-field-dropdown01">
                                                 @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                    <option 
+                                                    <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowMinute == $arrayRow ? ' selected' : ''}}
                                                     >
@@ -3214,7 +3215,7 @@
                                                 :
                                                 <select id="categories_date5_seconds" name="date5_seconds" class="ss-backend-field-dropdown01">
                                                     @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => $GLOBALS['configCategoriesDate5Type']]) as $arrayRow)
-                                                        <option 
+                                                        <option
                                                             value="{{ $arrayRow }}"
                                                             {{ $dateNowSecond == $arrayRow ? ' selected' : ''}}
                                                         >
@@ -3231,7 +3232,7 @@
                             @if ($GLOBALS['enableCategoriesImageMain'] === 1)
                                 <tr id="inputRowCategories_image_main" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemImage') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemImage') }}:
                                     </td>
                                     <td>
                                         <input type="file" id="categories_image_main" name="image_main" class="ss-backend-field-file-upload" />
@@ -3242,7 +3243,7 @@
                             @if ($GLOBALS['enableCategoriesFile1'] === 1)
                                 <tr id="inputRowCategories_file1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile1') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile1') }}:
                                     </td>
                                     <td>
                                         <input type="file" id="categories_file1" name="file1" class="ss-backend-field-file-upload" />
@@ -3253,7 +3254,7 @@
                             @if ($GLOBALS['enableCategoriesFile2'] === 1)
                                 <tr id="inputRowCategories_file2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile2') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile2') }}:
                                     </td>
                                     <td>
                                         <input type="file" id="categories_file2" name="file2" class="ss-backend-field-file-upload" />
@@ -3264,7 +3265,7 @@
                             @if ($GLOBALS['enableCategoriesFile3'] === 1)
                                 <tr id="inputRowCategories_file3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile3') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile3') }}:
                                     </td>
                                     <td>
                                         <input type="file" id="categories_file3" name="file3" class="ss-backend-field-file-upload" />
@@ -3275,7 +3276,7 @@
                             @if ($GLOBALS['enableCategoriesFile4'] === 1)
                                 <tr id="inputRowCategories_file4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile4') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile4') }}:
                                     </td>
                                     <td>
                                         <input type="file" id="categories_file4" name="file4" class="ss-backend-field-file-upload" />
@@ -3286,7 +3287,7 @@
                             @if ($GLOBALS['enableCategoriesFile5'] === 1)
                                 <tr id="inputRowCategories_file5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile5') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesFile5') }}:
                                     </td>
                                     <td>
                                         <input type="file" id="categories_file5" name="file5" class="ss-backend-field-file-upload" />
@@ -3296,7 +3297,7 @@
 
                             <tr id="inputRowCategories_activation" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation') }}: 
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemActivation') }}:
                                 </td>
                                 <td>
                                     <select id="categories_activation" name="activation" class="ss-backend-field-dropdown01">
@@ -3309,7 +3310,7 @@
                             @if ($GLOBALS['enableCategoriesActivation1'] === 1)
                                 <tr id="inputRowCategories_activation1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation1') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation1') }}:
                                     </td>
                                     <td>
                                         <select id="categories_activation1" name="activation1" class="ss-backend-field-dropdown01">
@@ -3323,7 +3324,7 @@
                             @if ($GLOBALS['enableCategoriesActivation2'] === 1)
                                 <tr id="inputRowCategories_activation2" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation2') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation2') }}:
                                     </td>
                                     <td>
                                         <select id="categories_activation2" name="activation2" class="ss-backend-field-dropdown01">
@@ -3337,7 +3338,7 @@
                             @if ($GLOBALS['enableCategoriesActivation3'] === 1)
                                 <tr id="inputRowCategories_activation3" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation3') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation3') }}:
                                     </td>
                                     <td>
                                         <select id="categories_activation3" name="activation3" class="ss-backend-field-dropdown01">
@@ -3351,7 +3352,7 @@
                             @if ($GLOBALS['enableCategoriesActivation4'] === 1)
                                 <tr id="inputRowCategories_activation4" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation4') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation4') }}:
                                     </td>
                                     <td>
                                         <select id="categories_activation4" name="activation4" class="ss-backend-field-dropdown01">
@@ -3365,7 +3366,7 @@
                             @if ($GLOBALS['enableCategoriesActivation5'] === 1)
                                 <tr id="inputRowCategories_activation5" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation5') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesActivation5') }}:
                                     </td>
                                     <td>
                                         <select id="categories_activation5" name="activation5" class="ss-backend-field-dropdown01">
@@ -3379,12 +3380,12 @@
                             @if ($GLOBALS['enableCategoriesStatus'] === 1)
                                 <tr id="inputRowCategories_id_status" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesStatus') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendCategoriesStatus') }}:
                                     </td>
                                     <td>
                                         <select id="categories_id_status" name="id_status" class="ss-backend-field-dropdown01">
                                             <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemDropDownSelectNone') }}</option>
-                                            
+
                                             {{--${resultsCategoriesStatusListing
                                               .map((statusRow) => {
                                                 return `
@@ -3400,7 +3401,7 @@
                             @if ($GLOBALS['enableCategoriesRestrictedAccess'] === 1)
                                 <tr id="inputRowCategories_id_restricted_access" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccess') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemRestrictedAccess') }}:
                                     </td>
                                     <td>
                                         <select id="categories_restricted_access" name="restricted_access" class="ss-backend-field-dropdown01">
@@ -3414,14 +3415,14 @@
                             @if ($GLOBALS['enableCategoriesNotes'] === 1)
                                 <tr id="inputRowCategories_notes" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemNotesInternal') }}: 
+                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendItemNotesInternal') }}:
                                     </td>
                                     <td>
                                         <textarea id="categories_notes" name="notes" class="ss-backend-field-text-area01"></textarea>
                                     </td>
                                 </tr>
                             @endif
-                        </tbody>                        
+                        </tbody>
                     </table>
 
 
