@@ -1,16 +1,16 @@
 {{-- TODO: include debug / production flag --}}
-<script src="{{ asset('/' . $GLOBALS['configDirectoryJSSD'] . '/functions-syncsystem.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/' . config('app.gSystemConfig.configDirectoryJSSD') . '/functions-syncsystem.js') }}" type="text/javascript"></script>
 
 {{-- GLightbox. --}}
 {{-- ************************************************************************************** --}}
-@if ($GLOBALS['configImagePopup'] === 4)
-    {{-- 
+@if (config('app.gSystemConfig.configImagePopup') === 4)
+    {{--
         ref: https://biati-digital.github.io/glightbox/
         ref: https://github.com/biati-digital/glightbox/blob/master/README.md
     --}}
 
-    <script src="{{ asset('/' . $GLOBALS['configDirectoryJSSD'] . '/glightbox/dist/js/glightbox.min.js') }}" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('/' . $GLOBALS['configDirectoryJSSD'] . '/glightbox/dist/css/glightbox.min.css') }}" media="screen" title="Default" />
+    <script src="{{ asset('/' . config('app.gSystemConfig.configDirectoryJSSD') . '/glightbox/dist/js/glightbox.min.js') }}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/' . config('app.gSystemConfig.configDirectoryJSSD') . '/glightbox/dist/css/glightbox.min.css') }}" media="screen" title="Default" />
 
     <script>
         // JGLightbox configuration.
@@ -30,16 +30,16 @@
 
 {{-- JS Datepicker. --}}
 {{-- ************************************************************************************** --}}
-{{-- 
+{{--
     ref: https://www.npmjs.com/package/js-datepicker
     TODO: Condition (config-application) to import library.
     Research: make it work with webpack (importing in the node code).
 --}}
 {{-- @if ($GLOBALS['configDebug'] === true) --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('/' . $GLOBALS['configDirectoryJSSD'] . '/js-datepicker/datepicker.min.css') }}" media="screen" title="Default" /><!--move to webpack (dist)-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('/' . config('app.gSystemConfig.configDirectoryJSSD') . '/js-datepicker/datepicker.min.css') }}" media="screen" title="Default" /><!--move to webpack (dist)-->
 
     <!--script src="/node_modules/js-datepicker/dist/datepicker.min.js" type="text/javascript"></script-->
-    <script src="{{ asset('/' . $GLOBALS['configDirectoryJSSD'] . '/js-datepicker/datepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/' . config('app.gSystemConfig.configDirectoryJSSD') . '/js-datepicker/datepicker.min.js') }}" type="text/javascript"></script>
 {{-- @endif --}}
 
 <script>
@@ -66,7 +66,7 @@
     };
 </script>
 {{-- Base options (pt-BR). --}}
-@if ($GLOBALS['configBackendDateFormat'] === 1)
+@if (config('app.gSystemConfig.configBackendDateFormat') === 1)
     <script>
         jsDatepickerBaseBackendConfigOptions = {
             formatter: (input, date, instance) => {
@@ -81,7 +81,7 @@
             customDays: ['Dom', 'Seg', 'Ter', 'Qua', 'qui', 'Sex', 'Sáb'],
             customMonths: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
             overlayButton: 'Pronto',
-            overlayPlaceholder: 'ano 4-dígito', 
+            overlayPlaceholder: 'ano 4-dígito',
             position: 'bl', //'tr', 'tl', 'br', 'bl', 'c'
             respectDisabledReadOnly: true
             };
@@ -128,7 +128,7 @@
 --}}
 
 {{-- @if ($GLOBALS['configDebug'] === true) --}}
-    <script src="{{ asset('/' . $GLOBALS['configDirectoryJSSD'] . '/inputmask5/inputmask.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/' . config('app.gSystemConfig.configDirectoryJSSD') . '/inputmask5/inputmask.min.js') }}" type="text/javascript"></script>
 {{-- @endif --}}
 
 <script>
@@ -136,7 +136,7 @@
     let inputmaskCurrencyBackendConfigOptions = {};
     let inputmaskGenericBackendConfigOptions = {};
     let inputmaskDecimalBackendConfigOptions = {};
-    
+
 
     // Generic options.
     // ----------------------
@@ -160,7 +160,7 @@
 </script>
 
 {{-- R$ --}}
-@if ($GLOBALS['configSystemCurrency'] === 'R$')
+@if (config('app.gSystemConfig.configSystemCurrency') === 'R$')
     <script>
         inputmaskCurrencyBackendConfigOptions.groupSeparator = '.';
         inputmaskCurrencyBackendConfigOptions.radixPoint = ',';
@@ -168,7 +168,7 @@
 @endif
 
 {{-- $ --}}
-@if ($GLOBALS['configSystemCurrency'] === '$')
+@if (config('app.gSystemConfig.configSystemCurrency') === '$')
     <script>
         inputmaskCurrencyBackendConfigOptions.groupSeparator = ',';
         inputmaskCurrencyBackendConfigOptions.radixPoint = '.';
@@ -220,14 +220,14 @@
 
 {{-- TinyMCE. --}}
 {{-- ************************************************************************************** --}}
-@if ($GLOBALS['configBackendTextBox'] === 17 || $GLOBALS['configBackendTextBox'] === 18)
+@if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox') === 18)
     {{--
         ref: https://www.tiny.cloud/docs/quick-start/
         TODO: Translate controls.
         Toolbar controls: https://www.tiny.cloud/docs/advanced/editor-control-identifiers/#toolbarcontrols
     --}}
-    <script src="{{ asset('/' . $GLOBALS['configDirectoryJSSD'] . '/tiny-mce-5/tinymce.min.js') }}" type="text/javascript"></script>
-    
+    <script src="{{ asset('/' . config('app.gSystemConfig.configDirectoryJSSD') . '/tiny-mce-5/tinymce.min.js') }}" type="text/javascript"></script>
+
     <script>
         // TinyMCE configuration.
         let tinyMCEBackendConfig = {
@@ -252,7 +252,7 @@
                 /\<xsl\:[^>]+\>/g,  // Protect <xsl:...>
                 /<\?php.*?\?>/g  // Protect php code
             ],*/ /*error - maybe because of the special rendering in literal templates*/
-            
+
             element_format : 'xhtml', //html (<br>) | xhtml (<br />)
             schema: 'html5',
             forced_root_block : '',
@@ -261,7 +261,7 @@
                 // A custom format that wraps blocks into a div with the specified wrapper class
                 'custom-wrapper': { block: 'div', classes: 'wrapper', wrapper: true }
             },*/
-            
+
             // Basic.
             //<% if (gSystemConfig.configBackendTextBox === 17) { %>
             //TODO: move outside of this block and add to object
@@ -289,7 +289,7 @@
             <% } %>
             */
 
-            //Research name changing.  
+            //Research name changing.
             plugins: 'advlist paste link image media lists table code emoticons nonbreaking'
         }
     </script>

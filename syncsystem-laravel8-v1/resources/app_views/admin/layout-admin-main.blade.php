@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         {{-- include tracking --}}
-        @include('layout-include-tracking-codes')
+        @include('tracking-codes')
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">{{-- Bootstrap required. --}}
@@ -66,7 +66,7 @@
 		<meta name="rating" content="general" />{{-- general | mature | restricted | 14 years --}}
 
         {{-- JS includes. --}}
-        @include('admin.layout-admin-include-js-head')
+        @include('admin.partials.js-head')
 
         <style type="text/css">
             /*html, body
@@ -209,6 +209,6 @@
         </div>
 
         {{-- JS includes. --}}
-        @include('admin.layout-admin-include-js-foot')
+        @include('admin.partials.js-foot')
     </body>
 </html>

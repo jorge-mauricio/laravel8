@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         {{-- include tracking --}}
-        @include('layout-include-tracking-codes')
+        @include('tracking-codes')
 
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">{{-- Bootstrap required. --}}
@@ -20,8 +20,8 @@
             <!--link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend.bundle.css" media="screen" title="Default" /--><!--Production (custom styles)-->
             <!--link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend-vendor.bundle.css" media="screen" title="Default" /--><!--Production (vendor styles)-->
         <!--% } %-->
-        <link rel="canonical" href="<?php echo $GLOBALS['configSystemURL']; ?>" />
-        
+        <link rel="canonical" href="<?php echo config('app.gSystemConfig.configSystemURL'); ?>" />
+
         {{--
             Favicon - 16x16 | 32x32 | 64x64 (pixels).
             Export settings: PNG: 558 x 558 pixels.
@@ -62,14 +62,14 @@
             unavailable_after: [RFC-850 date/time] - Don´t show page in index after a specif date.
         --}}
 
-        <meta name="author" content="<?php echo \SyncSystemNS\FunctionsGeneric::contentMaskRead($GLOBALS['configSystemClientName'], 'config-application'); ?>" />
-		<meta name="designer" content="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'layoutDevName'); ?>" />
-		<meta name="copyright" content="<?php echo $GLOBALS['configCopyrightYear']; ?>, <?php echo \SyncSystemNS\FunctionsGeneric::contentMaskRead($GLOBALS['configSystemClientName'], 'config-application'); ?>" />
+        <meta name="author" content="<?php echo \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application'); ?>" />
+		<meta name="designer" content="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'layoutDevName'); ?>" />
+		<meta name="copyright" content="<?php echo config('app.gSystemConfig.configCopyrightYear'); ?>, <?php echo \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application'); ?>" />
 		<meta name="rating" content="general" />{{-- general | mature | restricted | 14 years --}}
 
         {{-- JS includes. --}}
-        @include('admin.layout-admin-include-js-head')
-        
+        @include('admin.partials.js-head')
+
         <style type="text/css">
             /*html, body
             {
@@ -81,5 +81,8 @@
     </head>
     <body>
         @yield('cphBody')
+
+        {{-- JS includes. --}}
+        @include('admin.partials.js-foot')
     </body>
 </html>
