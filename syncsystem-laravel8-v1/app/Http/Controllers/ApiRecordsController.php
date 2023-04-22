@@ -160,13 +160,25 @@ class ApiRecordsController extends Controller
                 // Update parameters.
                 //$this->arrRecordsPatchParameters['_recordValue'] = $valueUpdate;
 
+                // Debug.
+                // echo 'strTable=<pre>';
+                // var_dump($strTable);
+                // echo '</pre>';
+                // echo 'strField=<pre>';
+                // var_dump($strField);
+                // echo '</pre>';
+                // echo 'valueUpdate=<pre>';
+                // var_dump($valueUpdate);
+                // echo '</pre>';
+                //exit();
+
                 // update record.
                 $resultsSQLRecordsUpdate = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10($strTable, $strField, $valueUpdate, ['id;' . $idRecord . ';i']);
                 if ($resultsSQLRecordsUpdate['returnStatus'] === true) {
                     $this->arrReturn['returnStatus'] = $resultsSQLRecordsUpdate['returnStatus'];
                     $this->arrReturn['nRecords'] = $resultsSQLRecordsUpdate['nRecords'];
                     $this->arrReturn['recordUpdatedValue'] = $valueUpdate;
-                    
+
                 } else {
                     $this->arrReturn['errorMessage'] = 'statusMessageAPI2e';
                 }
@@ -239,7 +251,7 @@ class ApiRecordsController extends Controller
                 $this->arrReturn['returnStatus'] = $resultsSQLRecordsUpdate['returnStatus'];
                 $this->arrReturn['nRecords'] = $resultsSQLRecordsUpdate['nRecords'];
                 //$this->arrReturn['recordUpdatedValue'] = $valueUpdate;
-                
+
             } else {
                 $this->arrReturn['errorMessage'] = 'statusMessageAPI2e';
             }

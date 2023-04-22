@@ -8,8 +8,8 @@ class FunctionsGeneric
     /**
      * Return the label in the right terminal.
      * @static
-     * @param string $objAppLabels 
-     * @param string $labelName 
+     * @param string $objAppLabels
+     * @param string $labelName
      * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend->appLabels'], 'labelName')
@@ -38,17 +38,17 @@ class FunctionsGeneric
         // Convert json file to php json.
         // TODO: put result in session or other temporary storage - configCache.
         // $jsonAppLabels = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson($objAppLabels, ["'use strict';", "exports.", "appLabels = "], 'appLabels');
-        
+
         // $strReturn = "testing";
         // $strReturn = $labelName;
 
         // echo 'jsonAppLabels=<pre>';
         // var_dump($jsonAppLabels);
-        // echo '</pre><br />';  
-        
+        // echo '</pre><br />';
+
         // echo 'objAppLabels=<pre>';
         // var_dump($objAppLabels);
-        // echo '</pre><br />';    
+        // echo '</pre><br />';
 
         return $strReturn;
     }
@@ -59,14 +59,14 @@ class FunctionsGeneric
     /**
      * Date format for SQL write.
      * @static
-     * @param mixed $dateInput string|DateTime 
+     * @param mixed $dateInput string|DateTime
      * @param int|null $configDateFormat 1 - PT | 2 - UK
      * @return mixed If `configDateFormat` is empty, will return Date string|DateTime
      * @example
      * \SyncSystemNS\FunctionsGeneric::dateSQLWrite($dateObjName)
      * \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', $GLOBALS['configBackendDateFormat'])
      */
-    static function dateSQLWrite(mixed $dateInput, int|null $configDateFormat = null): mixed 
+    static function dateSQLWrite(mixed $dateInput, int|null $configDateFormat = null): mixed
     {
         // Variables.
         // ----------------------
@@ -263,9 +263,9 @@ class FunctionsGeneric
         // Usage.
         // ----------------------
         /*
-            \SyncSystemNS\FunctionsGeneric::dateRead01(categoriesRow['date1'], 
-                                                    gSystemConfig.configBackendDateFormat, 
-                                                    0, 
+            \SyncSystemNS\FunctionsGeneric::dateRead01(categoriesRow['date1'],
+                                                    gSystemConfig.configBackendDateFormat,
+                                                    0,
                                                     $GLOBALS['configCategoriesDate1Type']);
             */
         // ----------------------
@@ -532,7 +532,7 @@ class FunctionsGeneric
      * @example
      * \SyncSystemNS\FunctionsGeneric::contentMaskWrite('testing contentMaskWrite', 'db_sanitize');
      */
-    static function contentMaskWrite(string $strContent, string $specialInstructions = ''): string
+    public static function contentMaskWrite(string $strContent, string $specialInstructions = ''): string
     {
         // specialInstructions: db_write_text | db_sanitize | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode)
 
@@ -542,7 +542,8 @@ class FunctionsGeneric
         // ----------------------
 
         // if(strReturn !== null && typeof(strReturn) !== 'undefined')
-        if ($strReturn) {
+        // if ($strReturn) { error for when value (update db) is '0'
+        if ($strReturn !== '') {
             // db_write_text
             // ----------------------
             /*
@@ -607,7 +608,7 @@ class FunctionsGeneric
         if ($strReturn) {
             // system currency
             if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY) {
-                
+
                 $strReturn = preg_replace('/\,/', '', $strReturn);
                 $strReturn = preg_replace('/\./', '', $strReturn);
             }
@@ -690,25 +691,25 @@ class FunctionsGeneric
                 {
                     $strReturn = number_format($strValue, 2, ',', '.');
                 }
-                
+
                 // $ (dolar).
                 if($configCurrency === '$')
                 {
                     $strReturn = number_format($strValue, 2, '.', ',');
                 }
-                
+
                 // PagSeguro.
                 if($configCurrency === 'pagseguro')
                 {
                     $strReturn = number_format($strValue, 2, '.', ',');
                 }
-        
+
                 // Paypal.
                 if($configCurrency === 'paypal')
                 {
                     $strReturn = number_format($strValue, 2, '.', '');
                 }
-                
+
                 // Mercado Pago.
                 if($configCurrency === 'mercadopago')
                 {
@@ -742,7 +743,7 @@ class FunctionsGeneric
      * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::categoryConfigSelect($categoriesRow['category_type'], 1)
-    */ 
+    */
     static function categoryConfigSelect(string $categoryType, int $returnInfo): string
     {
         // Variables.
@@ -951,7 +952,7 @@ class FunctionsGeneric
      * @return string
      * @example
      * \SyncSystemNS\FunctionsGeneric::removeHTML01('string');
-     */ 
+     */
     static function removeHTML01(string $strHTML): string
     {
         // Variables.
@@ -1028,13 +1029,13 @@ class FunctionsGeneric
                 $GLOBALS['enableCategoriesInfo8'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info8') : '';
                 $GLOBALS['enableCategoriesInfo9'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info9') : '';
                 $GLOBALS['enableCategoriesInfo10'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
-                
+
                 $GLOBALS['enableCategoriesInfoS1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small1') : '';
                 $GLOBALS['enableCategoriesInfoS2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small2') : '';
                 $GLOBALS['enableCategoriesInfoS3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small3') : '';
                 $GLOBALS['enableCategoriesInfoS4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small4') : '';
                 $GLOBALS['enableCategoriesInfoS5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small5') : '';
-                
+
                 $GLOBALS['enableCategoriesNumber1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number1') : '';
                 $GLOBALS['enableCategoriesNumber2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number2') : '';
                 $GLOBALS['enableCategoriesNumber3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number3') : '';
@@ -1046,13 +1047,13 @@ class FunctionsGeneric
                 $GLOBALS['enableCategoriesNumberS3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small3') : '';
                 $GLOBALS['enableCategoriesNumberS4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small4') : '';
                 $GLOBALS['enableCategoriesNumberS5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small5') : '';
-                
+
                 $GLOBALS['enableCategoriesDate1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date1') : '';
                 $GLOBALS['enableCategoriesDate2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date2') : '';
                 $GLOBALS['enableCategoriesDate3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date3') : '';
                 $GLOBALS['enableCategoriesDate4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date4') : '';
                 $GLOBALS['enableCategoriesDate5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date5') : '';
-                
+
                 // arrTableFieldsQueryBuild.push("image_main");
                 $GLOBALS['enableCategoriesImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
 
@@ -1061,14 +1062,14 @@ class FunctionsGeneric
                 $GLOBALS['enableCategoriesFile3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file3') : '';
                 $GLOBALS['enableCategoriesFile4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file4') : '';
                 $GLOBALS['enableCategoriesFile5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file5') : '';
-                
+
                 array_push($arrTableFieldsQueryBuild, 'activation');
                 $GLOBALS['enableCategoriesActivation1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
                 $GLOBALS['enableCategoriesActivation2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
                 $GLOBALS['enableCategoriesActivation3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
                 $GLOBALS['enableCategoriesActivation4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
                 $GLOBALS['enableCategoriesActivation5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
-                
+
                 $GLOBALS['enableCategoriesStatus'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
                 $GLOBALS['enableCategoriesRestrictedAccess'] === 1 ? array_push($arrTableFieldsQueryBuild, 'restricted_access') : '';
                 $GLOBALS['enableCategoriesNotes'] === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
@@ -1837,14 +1838,14 @@ class FunctionsGeneric
                 $GLOBALS['enableUsersInfo10'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
 
                 $GLOBALS['enableUsersImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
-                
+
                 array_push($arrTableFieldsQueryBuild, 'activation');
                 $GLOBALS['enableUsersActivation1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
                 $GLOBALS['enableUsersActivation2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
                 $GLOBALS['enableUsersActivation3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
                 $GLOBALS['enableUsersActivation4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
                 $GLOBALS['enableUsersActivation5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
-                
+
                 $GLOBALS['enableUsersStatus'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
                 $GLOBALS['enableUsersNotes'] === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
             }
@@ -1883,5 +1884,5 @@ class FunctionsGeneric
         // ----------------------
     }
     // **************************************************************************************
-    
+
 }
