@@ -137,5 +137,4 @@ class ApiCategoriesUpdateController extends Controller
         return $this->arrReturn;
     }
     // **************************************************************************************
-        
 }

@@ -143,13 +143,13 @@ class CategoriesUpdate extends Model
             $this->tblCategoriesDateEdit = \SyncSystemNS\FunctionsGeneric::dateSQLWrite($tblCategoriesDateEdit_dateObj);
         }
 
-        $this->tblCategoriesIdRegisterUser = (isset($arrParameters['_tblCategoriesIdRegisterUser']) && !$arrParameters['_tblCategoriesIdRegisterUser']) ? $arrParameters['_tblCategoriesIdRegisterUser'] : $this->tblCategoriesIdRegisterUser;
-        $this->tblCategoriesIdRegister1 = (isset($arrParameters['_tblCategoriesIdRegister1']) && !$arrParameters['_tblCategoriesIdRegister1']) ? $arrParameters['_tblCategoriesIdRegister1'] : $this->tblCategoriesIdRegister1;
-        $this->tblCategoriesIdRegister2 = (isset($arrParameters['_tblCategoriesIdRegister2']) && !$arrParameters['_tblCategoriesIdRegister2']) ? $arrParameters['_tblCategoriesIdRegister2'] : $this->tblCategoriesIdRegister2;
-        $this->tblCategoriesIdRegister3 = (isset($arrParameters['_tblCategoriesIdRegister3']) && !$arrParameters['_tblCategoriesIdRegister3']) ? $arrParameters['_tblCategoriesIdRegister3'] : $this->tblCategoriesIdRegister3;
-        $this->tblCategoriesIdRegister4 = (isset($arrParameters['_tblCategoriesIdRegister4']) && !$arrParameters['_tblCategoriesIdRegister4']) ? $arrParameters['_tblCategoriesIdRegister4'] : $this->tblCategoriesIdRegister4;
-        $this->tblCategoriesIdRegister5 = (isset($arrParameters['_tblCategoriesIdRegister5']) && !$arrParameters['_tblCategoriesIdRegister5']) ? $arrParameters['_tblCategoriesIdRegister5'] : $this->tblCategoriesIdRegister5;
-        
+        $this->tblCategoriesIdRegisterUser = (isset($arrParameters['_tblCategoriesIdRegisterUser']) && $arrParameters['_tblCategoriesIdRegisterUser'] !== null) ? $arrParameters['_tblCategoriesIdRegisterUser'] : $this->tblCategoriesIdRegisterUser;
+        $this->tblCategoriesIdRegister1 = (isset($arrParameters['_tblCategoriesIdRegister1']) && $arrParameters['_tblCategoriesIdRegister1'] !== null) ? $arrParameters['_tblCategoriesIdRegister1'] : $this->tblCategoriesIdRegister1;
+        $this->tblCategoriesIdRegister2 = (isset($arrParameters['_tblCategoriesIdRegister2']) && $arrParameters['_tblCategoriesIdRegister2'] !== null) ? $arrParameters['_tblCategoriesIdRegister2'] : $this->tblCategoriesIdRegister2;
+        $this->tblCategoriesIdRegister3 = (isset($arrParameters['_tblCategoriesIdRegister3']) && $arrParameters['_tblCategoriesIdRegister3'] !== null) ? $arrParameters['_tblCategoriesIdRegister3'] : $this->tblCategoriesIdRegister3;
+        $this->tblCategoriesIdRegister4 = (isset($arrParameters['_tblCategoriesIdRegister4']) && $arrParameters['_tblCategoriesIdRegister4'] !== null) ? $arrParameters['_tblCategoriesIdRegister4'] : $this->tblCategoriesIdRegister4;
+        $this->tblCategoriesIdRegister5 = (isset($arrParameters['_tblCategoriesIdRegister5']) && $arrParameters['_tblCategoriesIdRegister5'] !== null) ? $arrParameters['_tblCategoriesIdRegister5'] : $this->tblCategoriesIdRegister5;
+
         $this->tblCategoriesTitle = isset($arrParameters['_tblCategoriesTitle']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesTitle'], 'db_write_text') : $this->tblCategoriesTitle;
         $this->tblCategoriesDescription = isset($arrParameters['_tblCategoriesDescription']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesDescription'], 'db_write_text') : $this->tblCategoriesDescription;
 
@@ -158,7 +158,7 @@ class CategoriesUpdate extends Model
         $this->tblCategoriesMetaDescription = isset($arrParameters['_tblCategoriesMetaDescription']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesMetaDescription'], 'db_write_text') : $this->tblCategoriesMetaDescription;
         $this->tblCategoriesMetaTitle = isset($arrParameters['_tblCategoriesMetaTitle']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesMetaTitle'], 'db_write_text') : $this->tblCategoriesMetaTitle;
         $this->tblCategoriesMetaInfo = isset($arrParameters['_tblCategoriesMetaInfo']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesMetaInfo'], 'db_write_text') : $this->tblCategoriesMetaInfo;
-            
+
         if ($GLOBALS['configCategoriesInfo1FieldType'] === 1 || $GLOBALS['configCategoriesInfo1FieldType'] === 2) {
             $this->tblCategoriesInfo1 = isset($arrParameters['_tblCategoriesInfo1']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo1'], 'db_write_text') : $this->tblCategoriesInfo1;
         }
@@ -235,17 +235,18 @@ class CategoriesUpdate extends Model
         $this->tblCategoriesInfoSmall4 = isset($arrParameters['_tblCategoriesInfoSmall4']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfoSmall4'], 'db_write_text') : $this->tblCategoriesInfoSmall4;
         $this->tblCategoriesInfoSmall5 = isset($arrParameters['_tblCategoriesInfoSmall5']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfoSmall5'], 'db_write_text') : $this->tblCategoriesInfoSmall5;
 
-        $this->tblCategoriesNumber1 = (isset($arrParameters['_tblCategoriesNumber1']) && $arrParameters['_tblCategoriesNumber1']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber1'], $GLOBALS['configCategoriesNumber1FieldType']) : $this->tblCategoriesNumber1;
-        $this->tblCategoriesNumber2 = (isset($arrParameters['_tblCategoriesNumber2']) && $arrParameters['_tblCategoriesNumber2']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber2'], $GLOBALS['configCategoriesNumber2FieldType']) : $this->tblCategoriesNumber2;
-        $this->tblCategoriesNumber3 = (isset($arrParameters['_tblCategoriesNumber3']) && $arrParameters['_tblCategoriesNumber3']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber3'], $GLOBALS['configCategoriesNumber3FieldType']) : $this->tblCategoriesNumber3;
-        $this->tblCategoriesNumber4 = (isset($arrParameters['_tblCategoriesNumber4']) && $arrParameters['_tblCategoriesNumber4']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber4'], $GLOBALS['configCategoriesNumber4FieldType']) : $this->tblCategoriesNumber4;
-        $this->tblCategoriesNumber5 = (isset($arrParameters['_tblCategoriesNumber5']) && $arrParameters['_tblCategoriesNumber5']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber5'], $GLOBALS['configCategoriesNumber5FieldType']) : $this->tblCategoriesNumber5;
+        $this->tblCategoriesNumber1 = (isset($arrParameters['_tblCategoriesNumber1']) && $arrParameters['_tblCategoriesNumber1'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber1'], $GLOBALS['configCategoriesNumber1FieldType']) : $this->tblCategoriesNumber1;
+        $this->tblCategoriesNumber2 = (isset($arrParameters['_tblCategoriesNumber2']) && $arrParameters['_tblCategoriesNumber2'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber2'], $GLOBALS['configCategoriesNumber2FieldType']) : $this->tblCategoriesNumber2;
+        $this->tblCategoriesNumber3 = (isset($arrParameters['_tblCategoriesNumber3']) && $arrParameters['_tblCategoriesNumber3'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber3'], $GLOBALS['configCategoriesNumber3FieldType']) : $this->tblCategoriesNumber3;
+        $this->tblCategoriesNumber4 = (isset($arrParameters['_tblCategoriesNumber4']) && $arrParameters['_tblCategoriesNumber4'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber4'], $GLOBALS['configCategoriesNumber4FieldType']) : $this->tblCategoriesNumber4;
+        $this->tblCategoriesNumber5 = (isset($arrParameters['_tblCategoriesNumber5']) && $arrParameters['_tblCategoriesNumber5'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber5'], $GLOBALS['configCategoriesNumber5FieldType']) : $this->tblCategoriesNumber5;
+        //TODO: double check if needs outer parenthesis.
 
-        $this->tblCategoriesNumberSmall1 = (isset($arrParameters['_tblCategoriesNumberSmall1']) && $arrParameters['_tblCategoriesNumberSmall1']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall1'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall1;
-        $this->tblCategoriesNumberSmall2 = (isset($arrParameters['_tblCategoriesNumberSmall2']) && $arrParameters['_tblCategoriesNumberSmall2']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall2'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall2;
-        $this->tblCategoriesNumberSmall3 = (isset($arrParameters['_tblCategoriesNumberSmall3']) && $arrParameters['_tblCategoriesNumberSmall3']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall3'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall3;
-        $this->tblCategoriesNumberSmall4 = (isset($arrParameters['_tblCategoriesNumberSmall4']) && $arrParameters['_tblCategoriesNumberSmall4']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall4'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall4;
-        $this->tblCategoriesNumberSmall5 = (isset($arrParameters['_tblCategoriesNumberSmall5']) && $arrParameters['_tblCategoriesNumberSmall5']) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall5'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall5;
+        $this->tblCategoriesNumberSmall1 = (isset($arrParameters['_tblCategoriesNumberSmall1']) && $arrParameters['_tblCategoriesNumberSmall1'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall1'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall1;
+        $this->tblCategoriesNumberSmall2 = (isset($arrParameters['_tblCategoriesNumberSmall2']) && $arrParameters['_tblCategoriesNumberSmall2'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall2'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall2;
+        $this->tblCategoriesNumberSmall3 = (isset($arrParameters['_tblCategoriesNumberSmall3']) && $arrParameters['_tblCategoriesNumberSmall3'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall3'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall3;
+        $this->tblCategoriesNumberSmall4 = (isset($arrParameters['_tblCategoriesNumberSmall4']) && $arrParameters['_tblCategoriesNumberSmall4'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall4'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall4;
+        $this->tblCategoriesNumberSmall5 = (isset($arrParameters['_tblCategoriesNumberSmall5']) && $arrParameters['_tblCategoriesNumberSmall5'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall5'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall5;
 
         $this->tblCategoriesDate1 = (isset($arrParameters['_tblCategoriesDate1']) && $arrParameters['_tblCategoriesDate1']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate1'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate1;
         $this->tblCategoriesDate2 = (isset($arrParameters['_tblCategoriesDate2']) && $arrParameters['_tblCategoriesDate2']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate2'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate2;
@@ -253,19 +254,19 @@ class CategoriesUpdate extends Model
         $this->tblCategoriesDate4 = (isset($arrParameters['_tblCategoriesDate4']) && $arrParameters['_tblCategoriesDate4']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate4'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate4;
         $this->tblCategoriesDate5 = (isset($arrParameters['_tblCategoriesDate5']) && $arrParameters['_tblCategoriesDate5']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate5'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate5;
 
-        $this->tblCategoriesActivation = (isset($arrParameters['_tblCategoriesActivation']) && $arrParameters['_tblCategoriesActivation']) ? $arrParameters['_tblCategoriesActivation'] : $this->tblCategoriesActivation;
-        $this->tblCategoriesActivation1 = (isset($arrParameters['_tblCategoriesActivation1']) && $arrParameters['_tblCategoriesActivation1']) ? $arrParameters['_tblCategoriesActivation1'] : $this->tblCategoriesActivation1;
-        $this->tblCategoriesActivation2 = (isset($arrParameters['_tblCategoriesActivation2']) && $arrParameters['_tblCategoriesActivation2']) ? $arrParameters['_tblCategoriesActivation2'] : $this->tblCategoriesActivation2;
-        $this->tblCategoriesActivation3 = (isset($arrParameters['_tblCategoriesActivation3']) && $arrParameters['_tblCategoriesActivation3']) ? $arrParameters['_tblCategoriesActivation3'] : $this->tblCategoriesActivation3;
-        $this->tblCategoriesActivation4 = (isset($arrParameters['_tblCategoriesActivation4']) && $arrParameters['_tblCategoriesActivation4']) ? $arrParameters['_tblCategoriesActivation4'] : $this->tblCategoriesActivation4;
-        $this->tblCategoriesActivation5 = (isset($arrParameters['_tblCategoriesActivation5']) && $arrParameters['_tblCategoriesActivation5']) ? $arrParameters['_tblCategoriesActivation5'] : $this->tblCategoriesActivation5;            
+        $this->tblCategoriesActivation = (isset($arrParameters['_tblCategoriesActivation']) && $arrParameters['_tblCategoriesActivation'] !== null) ? $arrParameters['_tblCategoriesActivation'] : $this->tblCategoriesActivation;
+        $this->tblCategoriesActivation1 = (isset($arrParameters['_tblCategoriesActivation1']) && $arrParameters['_tblCategoriesActivation1'] !== null) ? $arrParameters['_tblCategoriesActivation1'] : $this->tblCategoriesActivation1;
+        $this->tblCategoriesActivation2 = (isset($arrParameters['_tblCategoriesActivation2']) && $arrParameters['_tblCategoriesActivation2'] !== null) ? $arrParameters['_tblCategoriesActivation2'] : $this->tblCategoriesActivation2;
+        $this->tblCategoriesActivation3 = (isset($arrParameters['_tblCategoriesActivation3']) && $arrParameters['_tblCategoriesActivation3'] !== null) ? $arrParameters['_tblCategoriesActivation3'] : $this->tblCategoriesActivation3;
+        $this->tblCategoriesActivation4 = (isset($arrParameters['_tblCategoriesActivation4']) && $arrParameters['_tblCategoriesActivation4'] !== null) ? $arrParameters['_tblCategoriesActivation4'] : $this->tblCategoriesActivation4;
+        $this->tblCategoriesActivation5 = (isset($arrParameters['_tblCategoriesActivation5']) && $arrParameters['_tblCategoriesActivation5'] !== null) ? $arrParameters['_tblCategoriesActivation5'] : $this->tblCategoriesActivation5;
 
-        $this->tblCategoriesIdStatus = (isset($arrParameters['_tblCategoriesIdStatus']) && $arrParameters['_tblCategoriesIdStatus']) ? $arrParameters['_tblCategoriesIdStatus'] : $this->tblCategoriesIdStatus;
-        $this->tblCategoriesRestrictedAccess = (isset($arrParameters['_tblCategoriesRestrictedAccess']) && $arrParameters['_tblCategoriesRestrictedAccess']) ? $arrParameters['_tblCategoriesRestrictedAccess'] : $this->tblCategoriesRestrictedAccess;
+        $this->tblCategoriesIdStatus = (isset($arrParameters['_tblCategoriesIdStatus']) && $arrParameters['_tblCategoriesIdStatus'] !== null) ? $arrParameters['_tblCategoriesIdStatus'] : $this->tblCategoriesIdStatus;
+        $this->tblCategoriesRestrictedAccess = (isset($arrParameters['_tblCategoriesRestrictedAccess']) && $arrParameters['_tblCategoriesRestrictedAccess'] !== null) ? $arrParameters['_tblCategoriesRestrictedAccess'] : $this->tblCategoriesRestrictedAccess;
 
         $this->tblCategoriesNotes = isset($arrParameters['_tblCategoriesNotes']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesNotes'], 'db_write_text') : $this->tblCategoriesNotes;
         // ----------------------
-            
+
 
         // Build insert parameters.
         // ----------------------
@@ -322,7 +323,7 @@ class CategoriesUpdate extends Model
         $this->arrSQLCategoriesUpdateParams['number_small3'] = $this->tblCategoriesNumberSmall3;
         $this->arrSQLCategoriesUpdateParams['number_small4'] = $this->tblCategoriesNumberSmall4;
         $this->arrSQLCategoriesUpdateParams['number_small5'] = $this->tblCategoriesNumberSmall5;
-        
+
         $this->arrSQLCategoriesUpdateParams['date1'] = $this->tblCategoriesDate1;
         $this->arrSQLCategoriesUpdateParams['date2'] = $this->tblCategoriesDate2;
         $this->arrSQLCategoriesUpdateParams['date3'] = $this->tblCategoriesDate3;
@@ -361,8 +362,8 @@ class CategoriesUpdate extends Model
         // Variables.
         // ----------------------
         $arrReturn = [
-            'returnStatus' => false, 
-            'nRecords' => 0, 
+            'returnStatus' => false,
+            'nRecords' => 0,
             'idRecordUpdate' => null
         ];
         // ----------------------
@@ -384,9 +385,9 @@ class CategoriesUpdate extends Model
             // if ($this->resultsSQLCategoriesUpdate === true) {
             if ($this->resultsSQLCategoriesUpdate > 0) {
                 $arrReturn = [
-                    'returnStatus' => true, 
-                    // 'nRecords' => 1, 
-                    'nRecords' => $this->resultsSQLCategoriesUpdate, 
+                    'returnStatus' => true,
+                    // 'nRecords' => 1,
+                    'nRecords' => $this->resultsSQLCategoriesUpdate,
                     'idRecordUpdate' => $this->arrSQLCategoriesUpdateParams['id']
                 ];
             }

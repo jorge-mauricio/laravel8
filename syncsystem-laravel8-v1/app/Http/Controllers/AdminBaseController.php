@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,7 +11,7 @@ class AdminBaseController extends Controller
 {
     // Properties.
     // ----------------------
-    protected string|null $masterPageSelect = 'layout-admin-main';
+    protected ?string $masterPageSelect = 'layout-admin-main';
     /*
     protected float|null $idParent = null;
     protected float|null $fileType = null;
@@ -23,8 +25,8 @@ class AdminBaseController extends Controller
     protected string $tableName = '';
     */
 
-    protected string|null $idTbUsersLogged = null;
-    protected string|null $idTbUsersRootLogged = null;
+    protected ?float $idTbUsersLogged = null;
+    protected ?float $idTbUsersRootLogged = null;
     // ----------------------
 
     // Constructor.
@@ -68,26 +70,27 @@ class AdminBaseController extends Controller
 
         // Define values.
         $cacheClear = $dateNow->format('YmdHis'); // TODO: create a config option to enable.
-        $this->idTbUsersLogged = $this->getLoggedID($GLOBALS['configCookiePrefixUserAdmin']);
+        $this->idTbUsersLogged = $this->getLoggedID(config('app.gSystemConfig.configCookiePrefixUserAdmin'));
 
         // Share between views.
-        // TODO: check if can be changed to array.
-        View::share('masterPageSelect', $this->masterPageSelect);
-        View::share('pageNumber', (int) $pageNumber);
-        View::share('cacheClear', $cacheClear);
-        View::share('queryDefault', $queryDefault);
+        View::share([
+            'masterPageSelect' => $this->masterPageSelect,
+            'pageNumber' => (int) $pageNumber,
+            'cacheClear' => $cacheClear,
+            'queryDefault' => $queryDefault,
 
-        View::share('messageSuccess', $messageSuccess);
-        View::share('messageError', $messageError);
-        View::share('messageAlert', $messageAlert);
+            'messageSuccess' => $messageSuccess,
+            'messageError' => $messageError,
+            'messageAlert' => $messageAlert,
 
-        View::share('dateNow', $dateNow);
-        View::share('dateNowDay', $dateNowDay);
-        View::share('dateNowMonth', $dateNowMonth);
-        View::share('dateNowYear', $dateNowYear);
-        View::share('dateNowMinute', $dateNowMinute);
-        View::share('dateNowHour', $dateNowHour);
-        View::share('dateNowSecond', $dateNowSecond);
+            'dateNow' => $dateNow,
+            'dateNowDay' => $dateNowDay,
+            'dateNowMonth' => $dateNowMonth,
+            'dateNowYear' => $dateNowYear,
+            'dateNowMinute' => $dateNowMinute,
+            'dateNowHour' => $dateNowHour,
+            'dateNowSecond' => $dateNowSecond,
+        ]);
     }
     // **************************************************************************************
 
@@ -198,11 +201,11 @@ class AdminBaseController extends Controller
     {
         $loggedID = null;
 
-        if ($GLOBALS['configUsersAuthenticationStore'] === 1 && $verificationType === 'user_admin') {
+        if (config('app.gSystemConfig.configUsersAuthenticationStore') === 1 && $verificationType === 'user_admin') {
             $loggedID = (float) \SyncSystemNS\FunctionsCrypto::decryptValue(
                 \SyncSystemNS\FunctionsGeneric::contentMaskRead(
                     \SyncSystemNS\FunctionsCookies::cookieRead(
-                        $GLOBALS['configCookiePrefix'] . '_' . $verificationType
+                        config('app.gSystemConfig.configCookiePrefix') . '_' . $verificationType
                     ),
                     'cookie'
                 ),

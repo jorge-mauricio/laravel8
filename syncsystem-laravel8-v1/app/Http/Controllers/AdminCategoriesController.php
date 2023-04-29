@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers;
@@ -76,8 +77,8 @@ class AdminCategoriesController extends AdminBaseController
         // Logic.
         try {
             // Debug: https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008
-            //$apiCategoriesDetailsCurrentResponse = Http::get('https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008');
-            //$apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get('https://backendnode.fullstackwebdesigner.com/api/categories/' . $this->_idParentCategories . '/?apiKey=fswd@2008');
+            // $apiCategoriesDetailsCurrentResponse = Http::get('https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008');
+            // $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get('https://backendnode.fullstackwebdesigner.com/api/categories/' . $this->_idParentCategories . '/?apiKey=fswd@2008');
 
             // $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get('http://127.0.0.1:8000/api/categories/' . $this->idParentCategories . '/?apiKey=fswd@2008');
             // $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])->get('http://localhost:8001/api/categories/' . $this->idParentCategories . '/?apiKey=fswd@2008');
@@ -88,17 +89,17 @@ class AdminCategoriesController extends AdminBaseController
             */
             $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])
                 ->get(
-                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $this->idParentCategories . '/',
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . $this->idParentCategories . '/',
                     array_merge(
-                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
+                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
                         $req->all()
                     )
-            );
+                );
 
             // Note / TODO: On production, set verify to true.
             //return $apiCategoriesDetailsCurrentResponse->json();
             $this->arrCategoriesListingJson = $apiCategoriesListingCurrentResponse->json();
-            
+
             // Debug.
             // dd($apiCategoriesListingCurrentResponse);
             // echo 'apiCategoriesListingCurrentResponse=<pre>';
@@ -112,7 +113,7 @@ class AdminCategoriesController extends AdminBaseController
             //echo 'arrCategoriesListingJson=<pre>';
             //var_dump($arrCategoriesListingJson);
             //echo '</pre>';
-            
+
             //exit();
 
             // echo '$this->arrCategoriesListingJson[returnStatus]=<pre>';
@@ -143,9 +144,9 @@ class AdminCategoriesController extends AdminBaseController
                 } else {
                     $this->templateData['cphTitleCurrent'] = '';
                 }
-                
+
                 // Title - content place holder.
-                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
+                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
 
                 // Meta data.
 
@@ -163,7 +164,7 @@ class AdminCategoriesController extends AdminBaseController
                 unset($this->templateData['cphBody']['arrCategoriesListing']['returnStatus']); // Clean extra data.
 
                 // TODO: pass _pagingTotalRecords and _pagingTotal values
-                if ($GLOBALS['enableCategoriesBackendPagination'] === 1) {
+                if (config('app.gSystemConfig.enableCategoriesBackendPagination') === 1) {
                     $this->templateData['_pagingTotalRecords'] = $this->arrCategoriesListingJson['_pagingTotalRecords'];
                 }
 
@@ -174,15 +175,15 @@ class AdminCategoriesController extends AdminBaseController
 
                 // Layout.
                 //$this->templateData['masterPageSelect'] = $_GET['masterPageSelect']; // 'layout-admin-main'
-            }    
+            }
 
 
             // Debug.
             // return 'admin categories listing (controller) idTbCategories = ' . $idTbCategories;
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
-        } catch(Exception $adminCategoriesListingError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $adminCategoriesListingError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminCategoriesListingError: ' . $adminCategoriesListingError->message());
             }
         } finally {
@@ -222,7 +223,7 @@ class AdminCategoriesController extends AdminBaseController
 
         $apiCategoriesInsertResponse = null;
         $arrCategoriesInsertJson = null;
-        
+
         //$tblCategoriesID = null;
         //$tblCategoriesIdParent = null;
         //$tblCategoriesSortOrder = 0;
@@ -245,7 +246,7 @@ class AdminCategoriesController extends AdminBaseController
         // Return URL build.
         // ----------------------
         // TODO: think about using buildReturnURL method (base controller).
-        $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
+        $this->returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendCategories') . '/' . $this->idParentCategories . '/';
         $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
         if ($this->pageNumber) {
             $this->returnURL .= '&pageNumber=' . $this->pageNumber;
@@ -259,7 +260,7 @@ class AdminCategoriesController extends AdminBaseController
             //array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
             //$arrData = array_merge($arrData, $req->all());
             /*
-            withHeaders([ 
+            withHeaders([
                     'Content-Type' => 'multipart/form-data'
                 ])
                 ->
@@ -270,9 +271,9 @@ class AdminCategoriesController extends AdminBaseController
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
                 //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
                 ->post(
-                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/', 
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/',
                     array_merge(
-                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
+                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
                         $req->all()
                     ) // ...$req->all() (splat only works on php 8.1 and up)
                     /*'tblCategoriesID' => $tblCategoriesID,
@@ -280,7 +281,7 @@ class AdminCategoriesController extends AdminBaseController
                     'tblCategoriesSortOrder' => $tblCategoriesSortOrder,
                     'tblCategoriesCategoryType' => $tblCategoriesCategoryType,
                     */
-            );
+                );
             // Note: images can be sent through Http, but needs another architecture.
             // ref: https://stackoverflow.com/questions/63897164/laravel-http-client-how-to-send-file
             // ref: https://laracasts.com/discuss/channels/laravel/sending-uploaded-file-to-external-api-using-the-http-client
@@ -305,7 +306,7 @@ class AdminCategoriesController extends AdminBaseController
                 ];
 
                 // Set prefix.
-                switch($arrKey) {
+                switch ($arrKey) {
                     case 'file1':
                         $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f1-';
                         break;
@@ -339,7 +340,7 @@ class AdminCategoriesController extends AdminBaseController
             //$formfileFieldsReference['image_main']['originalFileName'] = $req->file('image_main')->originalName; // not working.
             //$formfileFieldsReference['image_main']['originalFileName'] = $imageMain->originalName; // not working
             //$formfileFieldsReference['image_main']['originalFileName'] = $imageMain['originalName']; // not working
-            
+
             /*
             $formfileFieldsReference['postedFile'] = ['image_main'];
             $formfileFieldsReference['image_main']['originalFileName'] = $req->file('image_main')->getClientOriginalName();
@@ -362,11 +363,13 @@ class AdminCategoriesController extends AdminBaseController
             //exit();
 
 
-            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple($tblCategoriesID, 
-                                                                                        $req, 
-                                                                                        $GLOBALS['configDirectoryFilesUpload'], 
-                                                                                        '', 
-                                                                                        $formfileFieldsReference);
+            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple(
+                $tblCategoriesID,
+                $req,
+                config('app.gSystemConfig.configDirectoryFilesUpload'),
+                '',
+                $formfileFieldsReference
+            );
 
             if ($resultsFunctionsFiles['returnStatus'] === true) {
                 $tblCategoriesArrDataFilesUpdate = null;
@@ -380,41 +383,65 @@ class AdminCategoriesController extends AdminBaseController
                 // Resize images.
                 if ($tblCategoriesImageMain !== '') {
                     $tblCategoriesArrDataFilesUpdate['image_main'] = $tblCategoriesImageMain;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageMain);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageMain
+                    );
                 }
                 if ($tblCategoriesImageFile1 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file1'] = $tblCategoriesImageFile1;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile1);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile1
+                    );
                 }
                 if ($tblCategoriesImageFile2 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file2'] = $tblCategoriesImageFile2;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile2);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile2
+                    );
                 }
                 if ($tblCategoriesImageFile3 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file3'] = $tblCategoriesImageFile3;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile3);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile3
+                    );
                 }
                 if ($tblCategoriesImageFile4 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file4'] = $tblCategoriesImageFile4;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile4);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile4
+                    );
                 }
                 if ($tblCategoriesImageFile5 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file5'] = $tblCategoriesImageFile5;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile5);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile5
+                    );
                 }
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
                 $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
                     ->put(
-                        env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIRecords'] . '/', 
+                        env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [
-                            'strTable' => $GLOBALS['configSystemDBTableCategories'],
+                            'strTable' => config('app.gSystemConfig.configSystemDBTableCategories'),
                             'idRecord' => $tblCategoriesID,
                             'arrData' => $tblCategoriesArrDataFilesUpdate,
                             'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
                         ]
-                );
+                    );
                 $arrCategoriesFilesUpdateJson = $apiCategoriesFilesUpdateResponse->json();
                 // TODO: error check for update.
 
@@ -503,11 +530,11 @@ class AdminCategoriesController extends AdminBaseController
             var_dump($tblCategoriesImageFile5);
             echo '</pre><br />';
             */
-            
+
             //exit();
 
         } catch (Error $adminCategoriesInsertError) {
-            if ($GLOBALS['configDebug'] === true) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminCategoriesInsertError: ' . $adminCategoriesInsertError->message());
             }
         } finally {
@@ -517,10 +544,10 @@ class AdminCategoriesController extends AdminBaseController
         // Redirect.
         if ($arrCategoriesInsertJson['returnStatus'] === true) {
             // $this->returnURL .= '&messageSuccess=statusMessage2';
-            return redirect($this->returnURL)->with('messageSuccess', $arrCategoriesInsertJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage2'));
+            return redirect($this->returnURL)->with('messageSuccess', $arrCategoriesInsertJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage2'));
         } else {
             // $this->returnURL .= '&messageError=statusMessage3';
-            return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage3'));
+            return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage3'));
         }
     }
     // **************************************************************************************
@@ -552,7 +579,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Logic.
         try {
-            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/' . $GLOBALS['configRouteAPIDetails'] . '/' . $idTbCategories . '/', [
+            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbCategories . '/', [
                 'apiKey' => env('CONFIG_API_KEY_SYSTEM')
             ]);
             $arrCategoriesDetailsJson = $apiCategoriesDetailsCurrentResponse->json();
@@ -566,28 +593,27 @@ class AdminCategoriesController extends AdminBaseController
 
                 // Title - current - content place holder.
                 $this->templateData['cphTitleCurrent'] = '';
-                
+
                 // Title - content place holder.
-                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
-                
+                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
+
                 // Body - content place holder.
                 $this->templateData['cphBody']['ocdRecord'] = $arrCategoriesDetailsJson['ocdRecord'];
             }
-            
+
             // Debug.
             /*
             echo 'idTbCategories=<pre>';
             var_dump($idTbCategories);
             echo '</pre><br />';
             */
-        } catch(Exception $adminCategoriesEditError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $adminCategoriesEditError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminCategoriesEditError: ' . $adminCategoriesEditError->message());
             }
         } finally {
-
+            //
         }
-
 
         // Return with view.
         return view('admin.admin-categories-edit')->with('templateData', $this->templateData);
@@ -606,7 +632,7 @@ class AdminCategoriesController extends AdminBaseController
         // Variables.
         // ----------------------
         $idTbCategories = null;
-        
+
         $tblCategoriesImageMain = '';
         $tblCategoriesImageFile1 = '';
         $tblCategoriesImageFile2 = '';
@@ -616,7 +642,7 @@ class AdminCategoriesController extends AdminBaseController
 
         $apiCategoriesUpdateResponse = null;
         $arrCategoriesUpdateJson = null;
-        
+
         //$tblCategoriesID = null;
         //$tblCategoriesIdParent = null;
         //$tblCategoriesSortOrder = 0;
@@ -640,7 +666,7 @@ class AdminCategoriesController extends AdminBaseController
         // Return URL build.
         // ----------------------
         // TODO: think about using buildReturnURL method (base controller).
-        $this->returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/' . $this->idParentCategories . '/';
+        $this->returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendCategories') . '/' . $this->idParentCategories . '/';
         $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
         if ($this->pageNumber) {
             $this->returnURL .= '&pageNumber=' . $this->pageNumber;
@@ -656,9 +682,9 @@ class AdminCategoriesController extends AdminBaseController
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
                 //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
                 ->put(
-                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPICategories'] . '/'. $GLOBALS['configRouteAPIActionEdit'] . '/', 
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/'. config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
                     array_merge(
-                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
+                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
                         $req->all()
                     ) // ...$req->all() (splat only works on php 8.1 and up)
                     /*'tblCategoriesID' => $tblCategoriesID,
@@ -666,7 +692,7 @@ class AdminCategoriesController extends AdminBaseController
                     'tblCategoriesSortOrder' => $tblCategoriesSortOrder,
                     'tblCategoriesCategoryType' => $tblCategoriesCategoryType,
                     */
-            );
+                );
             $arrCategoriesUpdateJson = $apiCategoriesUpdateResponse->json();
 
             // Files upload (in frontend server).
@@ -687,7 +713,7 @@ class AdminCategoriesController extends AdminBaseController
                 ];
 
                 // Set prefix.
-                switch($arrKey) {
+                switch ($arrKey) {
                     case 'file1':
                         $formfileFieldsReference[$arrKey]['fileNamePrefix'] = 'f1-';
                         break;
@@ -713,11 +739,13 @@ class AdminCategoriesController extends AdminBaseController
                 //array_push($formfileFieldsReference);
             }
 
-            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple($tblCategoriesID, 
-                                                                                        $req, 
-                                                                                        $GLOBALS['configDirectoryFilesUpload'], 
-                                                                                        '', 
-                                                                                        $formfileFieldsReference);
+            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple(
+                $tblCategoriesID,
+                $req,
+                config('app.gSystemConfig.configDirectoryFilesUpload'),
+                '',
+                $formfileFieldsReference
+            );
 
             if ($resultsFunctionsFiles['returnStatus'] === true) {
                 $tblCategoriesArrDataFilesUpdate = null;
@@ -731,41 +759,65 @@ class AdminCategoriesController extends AdminBaseController
                 // Resize images.
                 if ($tblCategoriesImageMain !== '') {
                     $tblCategoriesArrDataFilesUpdate['image_main'] = $tblCategoriesImageMain;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageMain);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageMain
+                    );
                 }
                 if ($tblCategoriesImageFile1 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file1'] = $tblCategoriesImageFile1;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile1);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile1
+                    );
                 }
                 if ($tblCategoriesImageFile2 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file2'] = $tblCategoriesImageFile2;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile2);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile2
+                    );
                 }
                 if ($tblCategoriesImageFile3 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file3'] = $tblCategoriesImageFile3;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile3);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile3
+                    );
                 }
                 if ($tblCategoriesImageFile4 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file4'] = $tblCategoriesImageFile4;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile4);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile4
+                    );
                 }
                 if ($tblCategoriesImageFile5 !== '') {
                     $tblCategoriesArrDataFilesUpdate['file5'] = $tblCategoriesImageFile5;
-                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01($GLOBALS['configArrCategoriesImageSize'], $GLOBALS['configDirectoryFiles'], $tblCategoriesImageFile5);
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrCategoriesImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblCategoriesImageFile5
+                    );
                 }
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
                 $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
                     ->put(
-                        env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIRecords'] . '/', 
+                        env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [
-                            'strTable' => $GLOBALS['configSystemDBTableCategories'],
+                            'strTable' => config('app.gSystemConfig.configSystemDBTableCategories'),
                             'idRecord' => $tblCategoriesID,
                             'arrData' => $tblCategoriesArrDataFilesUpdate,
                             'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
                         ]
-                );
+                    );
                 $arrCategoriesFilesUpdateJson = $apiCategoriesFilesUpdateResponse->json();
                 // TODO: error check for update.
 
@@ -788,7 +840,7 @@ class AdminCategoriesController extends AdminBaseController
             // exit();
 
         } catch (Error $adminCategoriesUpdateError) {
-            if ($GLOBALS['configDebug'] === true) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminCategoriesUpdateError: ' . $adminCategoriesUpdateError->message());
             }
         } finally {
@@ -799,15 +851,15 @@ class AdminCategoriesController extends AdminBaseController
         $redirectParameters = [];
         if ($arrCategoriesUpdateJson['returnStatus'] === true) {
             $redirectParameters = [
-                'messageSuccess' => $arrCategoriesUpdateJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage7')
+                'messageSuccess' => $arrCategoriesUpdateJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage7')
             ];
         } else {
             $redirectParameters = [
-                'messageError' => \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage8')
+                'messageError' => \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage8')
             ];
         }
 
         return redirect($this->returnURL)->with($redirectParameters);
     }
-    // **************************************************************************************    
+    // **************************************************************************************
 }
