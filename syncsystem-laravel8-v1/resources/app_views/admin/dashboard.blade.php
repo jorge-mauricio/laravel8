@@ -51,7 +51,7 @@
 @endsection
 
 @section('cphBody')
-    @include('admin.partial-messages-status')
+    @include('admin.partials.messages-status')
 
     <section class="ss-backend-layout-section-content01 ss-backend-text01">
         {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendDashboardWelcome') }},

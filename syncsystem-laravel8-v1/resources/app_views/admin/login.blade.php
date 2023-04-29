@@ -81,7 +81,7 @@
 
         {{-- Login. --}}
         <main class="ss-backend-text01" style="position: absolute; display: block; right: 10px; bottom: 30px; text-align: right;">
-            @include('admin.partial-messages-status')
+            @include('admin.partials.messages-status')
 
             <form id="formLogin" name="formLogin" method="POST" action="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLogin') }}" enctype="multipart/form-data">
                 @csrf
