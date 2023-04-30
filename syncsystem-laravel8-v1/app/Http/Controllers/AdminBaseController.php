@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use View;
+use Illuminate\Support\Facades\View;
 
 class AdminBaseController extends Controller
 {

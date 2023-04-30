@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
-// Custom models.
-//use App\Models\CategoriesListing; // DEV: check if this will be used.
-
-
-// class AdminCategoriesController extends Controller
 class AdminCategoriesController extends AdminBaseController
 {
     // Properties.
@@ -89,7 +84,7 @@ class AdminCategoriesController extends AdminBaseController
             */
             $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])
                 ->get(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . $this->idParentCategories . '/',
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . $this->idParentCategories . '/', // phpcs:ignore
                     array_merge(
                         ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
                         $req->all()
@@ -532,8 +527,7 @@ class AdminCategoriesController extends AdminBaseController
             */
 
             //exit();
-
-        } catch (Error $adminCategoriesInsertError) {
+        } catch (Exception $adminCategoriesInsertError) {
             if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminCategoriesInsertError: ' . $adminCategoriesInsertError->message());
             }
@@ -682,7 +676,7 @@ class AdminCategoriesController extends AdminBaseController
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
                 //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
                 ->put(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/'. config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
                     array_merge(
                         ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
                         $req->all()
@@ -838,8 +832,7 @@ class AdminCategoriesController extends AdminBaseController
             echo '</pre><br />';
             */
             // exit();
-
-        } catch (Error $adminCategoriesUpdateError) {
+        } catch (Exception $adminCategoriesUpdateError) {
             if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminCategoriesUpdateError: ' . $adminCategoriesUpdateError->message());
             }

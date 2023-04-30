@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 // Custom models.
 use App\Models\UsersDetails;
 
@@ -83,7 +84,7 @@ class ApiAuthenticationController extends Controller
         $arrRecordSearchParameters = [];
         $oudRecordParameters = [];
         $oudRecord = null;
-        
+
         $actionType = '';
         $verificationType = '';
         // ----------------------
@@ -92,7 +93,7 @@ class ApiAuthenticationController extends Controller
         // ----------------------
         $username = $req->post('username');
         $password = $req->post('password');
-        
+
         $actionType = $req->post('actionType');
         $verificationType = $req->post('verificationType');
 
@@ -103,7 +104,7 @@ class ApiAuthenticationController extends Controller
 
         $arrUsersLoginParameters = [
             '_arrSearchParameters' => $arrSearchParameters,
-            '_configSortOrder' => $GLOBALS['configUsersSort'],
+            '_configSortOrder' => config('app.gSystemConfig.configUsersSort'),
             '_strNRecords' => '',
             '_arrSpecialParameters' => ['returnType' => 1],
         ];
@@ -122,7 +123,7 @@ class ApiAuthenticationController extends Controller
                 $resultsUsersListing = $objUsersLogin->recordsListingGet(0, 3);
                 //$resultsUsersListing = (array) json_decode($objUsersLogin->recordsListingGet(0, 3), true);
                 //$resultsUsersListing = json_decode(json_encode($objUsersLogin->recordsListingGet(0, 3)), true); // working
-                
+
                 // Loop through results.
                 if ($resultsUsersListing['returnStatus'] === true) {
                     unset($resultsUsersListing['returnStatus']);
@@ -144,7 +145,7 @@ class ApiAuthenticationController extends Controller
                         // TODO: adapt function to differentiate between info encryption and pasword encryption.
                         $tblUsersPasswordHint = '';
                         $tblUsersPasswordLength = '';
-                    
+
                         // Verification method (SS_ENCRYPT_METHOD_DATA).
                         // TODO: Include other verification methods (hash).
                         if ($tblUsersPasswordDecrypt === $password && $tblUsersPasswordDecrypt !== '') {
@@ -153,16 +154,16 @@ class ApiAuthenticationController extends Controller
                             // Check activation.
                             if ($resultsUsersListing[$countArray]['activation'] === 1) {
                                 $loginActivation = true;
-                            }                        
+                            }
 
                             $tblUsersID = $resultsUsersListing[$countArray]['id'];
-                            $tblUsersIDCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($tblUsersID, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
+                            $tblUsersIDCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $tblUsersID, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
                             $tblUsersUsername = '';
                             $tblUsersEmail = '';
                             $tblUsersPassword = $resultsUsersListing[$countArray]['password'];
                             $tblUsersPasswordHint = '';
                             $tblUsersPasswordLength = '';
-                                            
+
                             // Parameters build.
                             $arrRecordSearchParameters = ['id;' . $tblUsersID . ';i'];
                             $oudRecordParameters = [
@@ -171,8 +172,8 @@ class ApiAuthenticationController extends Controller
                                 '_terminal' => $this->terminal,
                                 '_arrSpecialParameters' => ['returnType' => 1],
                             ];
-                            
-                            if ($GLOBALS['configUsersAuthenticationType'] === 11) {
+
+                            if (config('app.gSystemConfig.configUsersAuthenticationType') === 11) {
                                 // Object method.
                                 //$oudRecord = new \SyncSystemNS\ObjectUsersDetails($oudRecordParameters);
                                 //$arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->recordDetailsGet(0, 1);
@@ -192,29 +193,30 @@ class ApiAuthenticationController extends Controller
 
                             // Debug.
                             // $arrReturn['debug']['users_recordDetailsGet'] = $oudRecord->cphBodyBuild();
-                            //$arrReturn['debug']['users_token'] = $oudRecordToken; 
+                            //$arrReturn['debug']['users_token'] = $oudRecordToken;
                         }
 
-                
+
                         // Debug.
                         // console.log('tblUsersID=', tblUsersID);
                         // console.log('tblUsersIDCrypt=', tblUsersIDCrypt);
                         // console.log('tblUsersPasswordDecrypt=', tblUsersPasswordDecrypt);
                         // console.log('objUsersLogin.resultsUsersListing[countArray].password=', objUsersLogin.resultsUsersListing[countArray].password);
                     }
-                    
+
                     // Build return data.
-                    $arrReturn['registerVerification'] = $registerVerification; // TODO: maybe, this would be the santum verification
+                    $arrReturn['registerVerification'] = $registerVerification; // TODO: maybe, this would be the sanctum verification
                     $arrReturn['loginVerification'] = $loginVerification;
                     $arrReturn['loginActivation'] = $loginActivation;
-                    if ($GLOBALS['configRegistersAuthenticationType'] === 1) {
+                    // TODO: review this - register / user / etc.
+                    if (config('app.gSystemConfig.configRegistersAuthenticationType') === 11) {
                         // $arrReturn['tblRegistersIDCrypt'] = $tblUsersIDCrypt; // TODO: Change to tblIDCrypt // May not need, as the sanctum token is linked to an ID
                         $arrReturn['tblIDCrypt'] = $tblUsersIDCrypt; // May not need, as the sanctum token is linked to an ID
                     }
                         // TODO: maybe, the sanctum token authentication can be a salt and grabbed at the other end
                     //$arrReturn['loginType'] = [];
                 }
-                            
+
 
                 // Debug.
                 /*
@@ -238,14 +240,14 @@ class ApiAuthenticationController extends Controller
                 $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
                 */
             }
-        } catch(Exception $apiAuthenticationCheckError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $apiAuthenticationCheckError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('apiAuthenticationCheckError: ' . $apiAuthenticationCheckError->message());
             }
         } finally {
             //
         }
-        
+
         return $arrReturn;
     }
     // **************************************************************************************
@@ -287,7 +289,7 @@ class ApiAuthenticationController extends Controller
             // ----------------------
             if ($verificationType === 'user_admin') {
                 $tblUsersID = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersIDCrypt, 'db'), SS_ENCRYPT_METHOD_DATA);
-                
+
                 // Parameters build.
                 $arrRecordSearchParameters = ['id;' . $tblUsersID . ';i'];
                 $oudRecordParameters = [
@@ -301,7 +303,7 @@ class ApiAuthenticationController extends Controller
                 $oudRecord = new UsersDetails($oudRecordParameters);
                 $oudRecordData = $oudRecord->cphBodyBuild();
                 $authenticationDeleteResult = $oudRecord->tokens()->where('tokenable_id', $tblUsersID)->where('name', $verificationType)->delete();
-                
+
                 if ($authenticationDeleteResult > 0) {
                     $arrReturn['returnStatus'] = true;
                 }
@@ -313,8 +315,8 @@ class ApiAuthenticationController extends Controller
             // $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
             // $arrReturn['debug']['actionType'] = $actionType;
             // $arrReturn['debug']['verificationType'] = $verificationType;
-        } catch (Error $authenticationDeleteError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $authenticationDeleteError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('authenticationDeleteError: ' . $authenticationDeleteError->message());
             }
         } finally {

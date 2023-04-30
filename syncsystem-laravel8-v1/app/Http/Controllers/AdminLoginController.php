@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -46,15 +48,15 @@ class AdminLoginController extends AdminBaseController
         // Logic.
         try {
             // Title - content place holder.
-            $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::contentMaskRead($GLOBALS['configSystemClientName'], 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendLoginTitleMain');
+            $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendLoginTitleMain');
 
             // Title - current - content place holder.
             $this->templateData['cphTitleCurrent'] = '';
-            
+
             // Body - content place holder.
             $this->templateData['cphBody'] = '';
-        } catch(Exception $adminLoginError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $adminLoginError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminLoginError: ' . $adminLoginError->message());
             }
         } finally {
@@ -77,7 +79,7 @@ class AdminLoginController extends AdminBaseController
     {
         // Variables.
         // ----------------------
-        $returnURL = '/' . $GLOBALS['configRouteBackend'] . '/';
+        $returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/';
         $apiAuthenticationCheckResponse = null;
         $arrAuthenticationCheckJson = null;
 
@@ -94,29 +96,29 @@ class AdminLoginController extends AdminBaseController
             // API call.
             $apiAuthenticationCheckResponse = Http::withOptions(['verify' => false])
                 ->post(
-                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIAuthentication'] . '/', 
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
                     array_merge(
                         [
                             'verificationType' => 'user_admin', // Changed from user_backend
                             'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
-                        ], 
+                        ],
                         $req->all()
                     )
-            );
+                );
             $arrAuthenticationCheckJson = $apiAuthenticationCheckResponse->json();
 
             // TODO: Use FunctionsAuthentication to store id crypt cookie, token, etc.
             if ($arrAuthenticationCheckJson['returnStatus'] === true && $arrAuthenticationCheckJson['loginVerification'] === true) {
-                $returnURL .= $GLOBALS['configRouteBackendDashboard'] . '/';
+                $returnURL .= config('app.gSystemConfig.configRouteBackendDashboard') . '/';
 
-                if ($GLOBALS['configUsersAuthenticationType'] === 11) {
+                if (config('app.gSystemConfig.configUsersAuthenticationType') === 11) {
                     $loginToken = $arrAuthenticationCheckJson['loginToken'];
                     // Store token in session.
                     // TODO: evaluate cookie / cache (redis).
                     //Session::set('user_admin_login_token', $loginToken);
                     session(
                         [
-                            $GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'] . '_login_token' => $loginToken
+                            config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserAdmin') . '_login_token' => $loginToken
                         ]
                     );
                     session()->save();
@@ -126,15 +128,15 @@ class AdminLoginController extends AdminBaseController
                     $sanctumToken = PersonalAccessToken::findToken($loginToken);
                     if ($sanctumToken) {
                         $objUsersLogin = $sanctumToken->tokenable;
-                        $objUsersLoginData = json_decode($objUsersLogin, true);
+                        $objUsersLoginData = json_decode((string) $objUsersLogin, true);
                         $tblUsersID = (float) $objUsersLoginData['id'];
                         $tblUsersIDCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $tblUsersID, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
 
                 // Store encrypted user ID.
-                if ($GLOBALS['configUsersAuthenticationStore'] === 1) {
-                    \SyncSystemNS\FunctionsCookies::cookieCreate($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'], $tblUsersIDCrypt);
+                if (config('app.gSystemConfig.configUsersAuthenticationStore') === 1) {
+                    \SyncSystemNS\FunctionsCookies::cookieCreate(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserAdmin'), $tblUsersIDCrypt);
                 }
             } else {
                 $returnURL .= '?username=' . $req->post('username');
@@ -174,7 +176,7 @@ class AdminLoginController extends AdminBaseController
             // echo '</pre><br />';
 
             // echo 'cookieRead=<pre>';
-            // var_dump(\SyncSystemNS\FunctionsCookies::cookieRead($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserRoot']));
+            // var_dump(\SyncSystemNS\FunctionsCookies::cookieRead(config('app.gSystemConfig.configCookiePrefix'] . '_' . config('app.gSystemConfig.configCookiePrefixUserRoot']));
             // echo '</pre><br />';
 
             // echo 'decryptValue=<pre>';
@@ -182,18 +184,17 @@ class AdminLoginController extends AdminBaseController
             //     \SyncSystemNS\FunctionsCrypto::decryptValue(
             //         \SyncSystemNS\FunctionsGeneric::contentMaskRead(
             //             \SyncSystemNS\FunctionsCookies::cookieRead(
-            //                 $GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin']
-            //             ), 
+            //                 config('app.gSystemConfig.configCookiePrefix'] . '_' . config('app.gSystemConfig.configCookiePrefixUserAdmin']
+            //             ),
             //             'cookie'
-            //         ), 
+            //         ),
             //         SS_ENCRYPT_METHOD_DATA
             //     )
             // ); // successful
             // echo '</pre><br />';
             // exit();
-
-        } catch (Error $adminLoginCheckError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $adminLoginCheckError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminLoginCheckError: ' . $adminLoginCheckError->message());
             }
         } finally {
@@ -201,14 +202,13 @@ class AdminLoginController extends AdminBaseController
         }
 
         // Redirect.
-        // TODO: eveluate loading views or moving to the route function (and load the views).
+        // TODO: evaluate loading views or moving to the route function (and load the views).
         //if ($arrAuthenticationCheckJson['returnStatus'] === true) {
         if (
-            $arrAuthenticationCheckJson['returnStatus'] === true && 
-            $arrAuthenticationCheckJson['loginVerification'] === true && 
+            $arrAuthenticationCheckJson['returnStatus'] === true &&
+            $arrAuthenticationCheckJson['loginVerification'] === true &&
             $arrAuthenticationCheckJson['loginActivation'] === true
         ) {
-            
             // echo 'redirect dashboard=true';
             // echo 'user_admin_login_token=' . Session::get('user_admin_login_token');
             // echo 'user_admin_login_token=' . session('user_admin_login_token');
@@ -219,16 +219,16 @@ class AdminLoginController extends AdminBaseController
                 //->header('Authorization', 'Bearer ' . $loginToken)
                 //->header('Accept', 'application/json')
                 //->header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7')
-                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10'));
+                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageLogin10'));
                 //->header('Accept', 'application/json,text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7');
-                
+
             /*, 200, [
                 'Authorization' => 'Bearer ' . $loginToken,
                 'Accept' => 'application/json',
             ]*/
             // TODO: header secure option.
 
-            // $contents = View::make('embedded')->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10'));
+            // $contents = View::make('embedded')->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend']->appLabels, 'statusMessageLogin10'));
             // $response = Response::make($contents, $statusCode);
             // $response->header('Authorization', 'Bearer ' . $loginToken);
             // return $response;
@@ -236,16 +236,14 @@ class AdminLoginController extends AdminBaseController
 
             // return response()
             //     ->view('admin.dashboard', [
-            //         'messageSuccess' => \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin10')
+            //         'messageSuccess' => \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend']->appLabels, 'statusMessageLogin10')
             //         ])
             //     ->header('Authorization', 'Bearer ' . $loginToken)
             //     ->header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7');
-
         } else {
-            return redirect($returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2e'));
+            return redirect($returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageLogin2e'));
             // TODO: Other error messages (connection, password, activation, etc).
         }
-        
     }
     // **************************************************************************************
 
@@ -261,46 +259,46 @@ class AdminLoginController extends AdminBaseController
     {
         // Variables.
         // ----------------------
-        $returnURL = '/' . $GLOBALS['configRouteBackend'] . '/';
+        $returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/';
         $apiAuthenticationDeleteResponse = null;
         $arrAuthenticationDeleteJson = null;
 
         $idTbUsersLogged = null;
         $idTbUsersLoggedCrypt = null;
         // ----------------------
-        
+
         // Logic.
         try {
             // Define values.
             // TODO: check which variable contains data to redirect to the right page (user / root).
             $idTbUsersLogged = $this->idTbUsersLogged;
-            $idTbUsersLoggedCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($idTbUsersLogged, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
+            $idTbUsersLoggedCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $idTbUsersLogged, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
                 // TODO: encrypt
 
             // API call.
             // TODO: evaluate getting token data from header
             $apiAuthenticationDeleteResponse = Http::withOptions(['verify' => false])
                 ->delete(
-                    env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIAuthentication'] . '/', 
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
                     array_merge(
                         [
                             // 'idTbUsers' => $idTbUsersLogged,
                             'idTbUsersLoggedCrypt' => $idTbUsersLoggedCrypt,
                             'verificationType' => 'user_admin', // Changed from user_backend
                             'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
-                        ], 
+                        ],
                         $req->all()
                     )
-            );
+                );
             $arrAuthenticationDeleteJson = $apiAuthenticationDeleteResponse->json();
 
             if ($arrAuthenticationDeleteJson['returnStatus'] === true) {
                 // Delete cookies / sessions.
-                if ($GLOBALS['configUsersAuthenticationStore'] === 1) {
-                    \SyncSystemNS\FunctionsCookies::cookieDelete($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin']);
+                if (config('app.gSystemConfig.configUsersAuthenticationStore') === 1) {
+                    \SyncSystemNS\FunctionsCookies::cookieDelete(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserAdmin'));
                 }
             } else {
-                $returnURL .= $GLOBALS['configRouteBackendDashboard'] . '/';
+                $returnURL .= config('app.gSystemConfig.configRouteBackendDashboard') . '/';
             }
 
             // Debug.
@@ -312,8 +310,8 @@ class AdminLoginController extends AdminBaseController
             // var_dump($_COOKIE);
             // echo '</pre><br />';
             // exit();
-        } catch (Error $adminLogoffError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $adminLogoffError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminLogoffError: ' . $adminLogoffError->message());
             }
         } finally {
@@ -323,10 +321,10 @@ class AdminLoginController extends AdminBaseController
         // Redirect.
         if ($arrAuthenticationDeleteJson['returnStatus'] === true) {
             return redirect($returnURL)
-                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2'));
+                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageLogin2'));
         } else {
             return redirect($returnURL)
-                ->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageAPI1e'));
+                ->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI1e'));
         }
     }
     // **************************************************************************************

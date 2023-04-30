@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -37,6 +39,9 @@ class AdminRecordsController extends AdminBaseController
 
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -130,18 +135,19 @@ class AdminRecordsController extends AdminBaseController
             /**/
             //array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
             //$arrData = array_merge($arrData, $req->all());
-            $apiRecordsDeleteResponse = Http::withOptions(['verify' => false])->delete(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIRecords'] . '/', 
-                array_merge(
-                    ['apiKey' => env('CONFIG_API_KEY_SYSTEM')], 
-                    $req->all()
-                ) // ...$req->all() (splat only works on php 8.1 and up)
-                /*'tblRecordsID' => $tblRecordsID,
-                'tblRecordsIdParent' => $tblRecordsIdParent,
-                'tblRecordsSortOrder' => $tblRecordsSortOrder,
-                'tblRecordsCategoryType' => $tblRecordsCategoryType,
-                */
-                
-            );
+            $apiRecordsDeleteResponse = Http::withOptions(['verify' => false])
+                ->delete(
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
+                    array_merge(
+                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
+                        $req->all()
+                    ) // ...$req->all() (splat only works on php 8.1 and up)
+                    /*'tblRecordsID' => $tblRecordsID,
+                    'tblRecordsIdParent' => $tblRecordsIdParent,
+                    'tblRecordsSortOrder' => $tblRecordsSortOrder,
+                    'tblRecordsCategoryType' => $tblRecordsCategoryType,
+                    */
+                );
             $arrRecordsDeleteJson = $apiRecordsDeleteResponse->json();
 
             // Debug.
@@ -175,14 +181,13 @@ class AdminRecordsController extends AdminBaseController
             //echo 'this->returnURL=<pre>';
             //var_dump($this->returnURL);
             //echo '</pre><br />';
-            
+
 
             //echo 'pageNumber=' . $this->pageNumber . '<br />';
             //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
             //exit();
-
-        } catch (Error $adminRecordsDeleteError) {
-            if ($GLOBALS['configDebug'] === true) {
+        } catch (Exception $adminRecordsDeleteError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminRecordsDeleteError: ' . $adminRecordsDeleteError->message());
             }
         } finally {
@@ -192,9 +197,9 @@ class AdminRecordsController extends AdminBaseController
         //return $objRecordsDeleteJson; //debug.
         // Redirect.
         if ($arrRecordsDeleteJson['returnStatus'] === true) {
-            return redirect($this->returnURL)->with('messageSuccess', $arrRecordsDeleteJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage10'));
+            return redirect($this->returnURL)->with('messageSuccess', $arrRecordsDeleteJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage10'));
         } else {
-            return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessage10e'));
+            return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage10e'));
         }
     }
     // **************************************************************************************

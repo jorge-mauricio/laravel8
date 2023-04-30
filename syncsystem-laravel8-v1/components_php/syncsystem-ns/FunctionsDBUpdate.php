@@ -79,7 +79,7 @@ class FunctionsDBUpdate
             $objSQLRecordsGenericUpdate = $objSQLRecordsGenericUpdate->update($arrSQLRecordsGenericUpdateParams);
 
             //echo 'updateRecordGeneric10=' . $objSQLRecordsGenericUpdate . '<br />';
-        } catch (Error $updateRecordGeneric10Error) {
+        } catch (Exception $updateRecordGeneric10Error) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('updateRecordGeneric10Error: ' . $updateRecordGeneric10Error->message());
             }
@@ -172,7 +172,7 @@ class FunctionsDBUpdate
             $arrSQLRecordsGenericUpdateParams = $arrData;
 
             $objSQLRecordsGenericUpdate = $objSQLRecordsGenericUpdate->update($arrSQLRecordsGenericUpdateParams);
-        } catch (Error $updateRecordMultipleGeneric) {
+        } catch (Exception $updateRecordMultipleGeneric) {
             if ($GLOBALS['configDebug'] === true) {
                 throw new Error('updateRecordMultipleGeneric: ' . $updateRecordMultipleGeneric->message());
             }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,6 +11,11 @@ use Illuminate\Http\RedirectResponse;
 
 class AdminDashboardController extends AdminBaseController
 {
+    // Properties.
+    // ----------------------
+    private array $templateData;
+    // ----------------------
+
     // Constructor.
     // **************************************************************************************
     /**
@@ -45,20 +52,21 @@ class AdminDashboardController extends AdminBaseController
         //                         \SyncSystemNS\FunctionsGeneric::contentMaskRead(
         //                             \SyncSystemNS\FunctionsCookies::cookieRead(
         //                                 $GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin']
-        //                             ), 
+        //                             ),
         //                             'cookie'
-        //                         ), 
+        //                         ),
         //                         SS_ENCRYPT_METHOD_DATA
         //                     );
         $idTbUsersLogged = $this->idTbUsersLogged; // AdminBaseController
             // Substitute with function (cookie / auth)
         // ----------------------
-        
+
         // Logic.
         try {
             // Call user details API.
             $apiUsersLoggedDetailsCurrentResponse = Http::withOptions(['verify' => false])
-                ->get(env('CONFIG_API_URL') . '/' . $GLOBALS['configRouteAPI'] . '/' . $GLOBALS['configRouteAPIUsers'] . '/' . $GLOBALS['configRouteAPIDetails'] . '/' . $idTbUsersLogged . '/', 
+                ->get(
+                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbUsersLogged . '/',
                     [
                         'apiKey' => env('CONFIG_API_KEY_SYSTEM')
                     ]
@@ -68,11 +76,11 @@ class AdminDashboardController extends AdminBaseController
 
             if ($arrUsersLoggedDetailsJson['returnStatus'] === true) {
                 // Title - content place holder.
-                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::contentMaskRead($GLOBALS['configSystemClientName'], 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendDashboardTitleMain');
+                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendDashboardTitleMain');
 
                 // Title - current - content place holder.
-                $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'backendDashboardTitleMain');
-                
+                $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendDashboardTitleMain');
+
                 // Body - content place holder.
                 $this->templateData['cphBody']['oudRecord'] = $arrUsersLoggedDetailsJson['oudRecord'];
             }
@@ -86,7 +94,7 @@ class AdminDashboardController extends AdminBaseController
             // var_dump($arrUsersLoggedDetailsJson);
             // echo '</pre><br />';
         } catch(Exception $adminDashboardError) {
-            if ($GLOBALS['configDebug'] === true) {
+            if (config('app.gSystemConfig.configDebug') === true) {
                 throw new Error('adminDashboardError: ' . $adminDashboardError->message());
             }
         } finally {
