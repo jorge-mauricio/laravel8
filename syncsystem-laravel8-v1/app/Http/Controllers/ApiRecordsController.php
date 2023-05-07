@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 // Custom models.
 use App\Models\RecordsUpdate;
 
@@ -63,9 +64,9 @@ class ApiRecordsController extends Controller
             }
 
             //$this->arrReturn['deleteRecordsFilesResult'] = $this->deleteRecordsFilesResult; // debug.
-        } catch (Error $deleteRecordsError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('deleteRecordsError: ' . $deleteRecordsError->message());
+        } catch (\Exception $deleteRecordsError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('deleteRecordsError: ' . $deleteRecordsError->getMessage());
             }
         } finally {
             if ($deleteRecordsFilesResult['returnStatus'] === true) {
@@ -76,7 +77,6 @@ class ApiRecordsController extends Controller
 
         //$this->arrReturn['debug'] = \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10('categories', ['id;238;i']); // debug
         //$this->arrReturn['debug'] = \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10($this->strTable, ['id;238;i']); // debug
-
 
         //return $this->arrRecordsPatchParameters; // debug
         //return $req; // debug
@@ -148,7 +148,7 @@ class ApiRecordsController extends Controller
 
                 // Get current value.
                 //$valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($this->arrRecordsPatchParameters['_idRecord'], $GLOBALS['configSystemDBTableCategories'], $this->arrRecordsPatchParameters['_strField']);
-                $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($idRecord, $GLOBALS['configSystemDBTableCategories'], $strField);
+                $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($idRecord, config('app.gSystemConfig.configSystemDBTableCategories'), $strField);
 
                 // Define update value.
                 if ($valueCurrent === '1') {
@@ -178,16 +178,15 @@ class ApiRecordsController extends Controller
                     $this->arrReturn['returnStatus'] = $resultsSQLRecordsUpdate['returnStatus'];
                     $this->arrReturn['nRecords'] = $resultsSQLRecordsUpdate['nRecords'];
                     $this->arrReturn['recordUpdatedValue'] = $valueUpdate;
-
                 } else {
                     $this->arrReturn['errorMessage'] = 'statusMessageAPI2e';
                 }
                 //$this->ruAPI = new RecordsUpdate($this->arrRecordsPatchParameters);
                 //$this->arrReturn = $this->ruAPI->updateRecord();
             }
-        } catch (Error $patchRecordsError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('patchRecordsError: ' . $patchRecordsError->message());
+        } catch (\Exception $patchRecordsError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('patchRecordsError: ' . $patchRecordsError->getMessage());
             }
         } finally {
             //
@@ -251,13 +250,12 @@ class ApiRecordsController extends Controller
                 $this->arrReturn['returnStatus'] = $resultsSQLRecordsUpdate['returnStatus'];
                 $this->arrReturn['nRecords'] = $resultsSQLRecordsUpdate['nRecords'];
                 //$this->arrReturn['recordUpdatedValue'] = $valueUpdate;
-
             } else {
                 $this->arrReturn['errorMessage'] = 'statusMessageAPI2e';
             }
-        } catch (Error $patchRecordsError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('patchRecordsError: ' . $patchRecordsError->message());
+        } catch (\Exception $patchRecordsError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('patchRecordsError: ' . $patchRecordsError->getMessage());
             }
         } finally {
             //

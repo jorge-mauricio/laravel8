@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 // Custom models.
 use App\Models\CategoriesUpdate;
 
@@ -45,17 +46,17 @@ class ApiCategoriesUpdateController extends Controller
 
         // Build parameters.
         // ----------------------
-        $this->arrCategoriesUpdateParameters['_tblCategoriesID'] = (float)$req->post('id');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdParent'] = (float)$req->post('id_parent');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesSortOrder'] = (float)$req->post('sort_order');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesCategoryType'] = (float)$req->post('category_type');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesID'] = (float) $req->post('id');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdParent'] = (float) $req->post('id_parent');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesSortOrder'] = (float) $req->post('sort_order');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesCategoryType'] = (float) $req->post('category_type');
 
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegisterUser'] = (float)$req->post('id_register_user');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister1'] = (float)$req->post('id_register1');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister2'] = (float)$req->post('id_register2');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister3'] = (float)$req->post('id_register3');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister4'] = (float)$req->post('id_register4');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister5'] = (float)$req->post('id_register5');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegisterUser'] = (float) $req->post('id_register_user');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister1'] = (float) $req->post('id_register1');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister2'] = (float) $req->post('id_register2');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister3'] = (float) $req->post('id_register3');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister4'] = (float) $req->post('id_register4');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister5'] = (float) $req->post('id_register5');
 
         $this->arrCategoriesUpdateParameters['_tblCategoriesTitle'] = $req->post('title');
         $this->arrCategoriesUpdateParameters['_tblCategoriesDescription'] = $req->post('description');
@@ -83,17 +84,17 @@ class ApiCategoriesUpdateController extends Controller
         $this->arrCategoriesUpdateParameters['_tblCategoriesInfoSmall4'] = $req->post('info_small4');
         $this->arrCategoriesUpdateParameters['_tblCategoriesInfoSmall5'] = $req->post('info_small5');
 
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber1'] = (float)$req->post('number1');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber2'] = (float)$req->post('number2');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber3'] = (float)$req->post('number3');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber4'] = (float)$req->post('number4');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber5'] = (float)$req->post('number5');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber1'] = (float) $req->post('number1');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber2'] = (float) $req->post('number2');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber3'] = (float) $req->post('number3');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber4'] = (float) $req->post('number4');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumber5'] = (float) $req->post('number5');
 
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall1'] = (float)$req->post('number_small1');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall2'] = (float)$req->post('number_small2');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall3'] = (float)$req->post('number_small3');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall4'] = (float)$req->post('number_small4');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall5'] = (float)$req->post('number_small5');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall1'] = (float) $req->post('number_small1');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall2'] = (float) $req->post('number_small2');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall3'] = (float) $req->post('number_small3');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall4'] = (float) $req->post('number_small4');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesNumberSmall5'] = (float) $req->post('number_small5');
 
         $this->arrCategoriesUpdateParameters['_tblCategoriesDate1'] = $req->post('date1');
         $this->arrCategoriesUpdateParameters['_tblCategoriesDate2'] = $req->post('date2');
@@ -101,15 +102,15 @@ class ApiCategoriesUpdateController extends Controller
         $this->arrCategoriesUpdateParameters['_tblCategoriesDate4'] = $req->post('date4');
         $this->arrCategoriesUpdateParameters['_tblCategoriesDate5'] = $req->post('date5');
 
-        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation'] = (int)$req->post('activation');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation1'] = (int)$req->post('activation1');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation2'] = (int)$req->post('activation2');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation3'] = (int)$req->post('activation3');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation4'] = (int)$req->post('activation4');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation5'] = (int)$req->post('activation5');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation'] = (int) $req->post('activation');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation1'] = (int) $req->post('activation1');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation2'] = (int) $req->post('activation2');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation3'] = (int) $req->post('activation3');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation4'] = (int) $req->post('activation4');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesActivation5'] = (int) $req->post('activation5');
 
-        $this->arrCategoriesUpdateParameters['_tblCategoriesIdStatus'] = (float)$req->post('id_status');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesRestrictedAccess'] = (int)$req->post('restricted_access');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesIdStatus'] = (float) $req->post('id_status');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesRestrictedAccess'] = (int) $req->post('restricted_access');
 
         $this->arrCategoriesUpdateParameters['_tblCategoriesNotes'] = $req->post('notes');
         // ----------------------
@@ -125,10 +126,9 @@ class ApiCategoriesUpdateController extends Controller
             //echo 'this->arrCategoriesUpdateParameters=<pre>';
             //var_dump($this->arrCategoriesUpdateParameters);
             //echo '</pre><br />';
-
-        } catch (Error $updateCategoriesError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('updateCategoriesError: ' . $updateCategoriesError->message());
+        } catch (\Exception $updateCategoriesError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('updateCategoriesError: ' . $updateCategoriesError->getMessage());
             }
         } finally {
             //

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,7 +10,7 @@ class ApiCategoriesController extends Controller
 {
     // TODO: evaluate if insert and listing should be in here and delete other controllers.
     // TODO: evaluate if details and listing should be in here and delete other controllers.
-    
+
     // Properties.
     // ----------------------
     /*
@@ -39,6 +41,4 @@ class ApiCategoriesController extends Controller
     */
     // ----------------------
     // NOTE: maybe, delete this controller
-
-
 }

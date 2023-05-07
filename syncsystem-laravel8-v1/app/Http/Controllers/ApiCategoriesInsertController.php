@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -47,7 +49,6 @@ class ApiCategoriesInsertController extends Controller
      * @return array
      */
     public function insertCategories(Request $req): array
-    //public function insertCategories(Request $req): mixed
     {
         // Variables.
         //$ciAPI = null;
@@ -146,8 +147,6 @@ class ApiCategoriesInsertController extends Controller
             //$this->arrReturn['image_main'] = $req->post('image_main'); // working (TODO: test how it´s going to behave once it´s in an online server)
             //$this->arrReturn['req_all'] = $req->post();
             //$this->arrReturn['req_postid_parent'] = $req->post('id_parent');
-            
-
 
             // Debug.
             //echo 'req->all() (inside api categories insert controller=<pre>';
@@ -169,7 +168,7 @@ class ApiCategoriesInsertController extends Controller
 
             //echo 'genericFieldGet01=<pre>';
             //var_dump(\SyncSystemNS\FunctionsDB::genericFieldGet01(1, $GLOBALS['configSystemDBTableCounter'], 'counter_global'));
-            //echo '</pre><br />';         
+            //echo '</pre><br />';
 
             /*
             echo 'counterUniversalUpdate()=<pre>';
@@ -178,16 +177,16 @@ class ApiCategoriesInsertController extends Controller
             exit();
             */
 
-            /*echo 'updateRecordGeneric10=' . \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10('counter', 
-            'counter_global', 
+            /*echo 'updateRecordGeneric10=' . \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10('counter',
+            'counter_global',
             '330',
             ["id;" . 2 . ";i"]) . '<br />';
             */
 
             /*
             echo 'updateRecordGeneric10=<pre>';
-            var_dump(\SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10('counter', 
-            'counter_global', 
+            var_dump(\SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10('counter',
+            'counter_global',
             '320',
             ["id;" . 2 . ";i"]));
             echo '</pre><br />'; //working
@@ -208,9 +207,9 @@ class ApiCategoriesInsertController extends Controller
             //echo '</pre><br />';
 
             //exit();
-        } catch (Error $insertCategoriesError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('insertCategoriesError: ' . $insertCategoriesError->message());
+        } catch (\Error $insertCategoriesError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('insertCategoriesError: ' . $insertCategoriesError->getMessage());
             }
         } finally {
             // Redirect

@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 // Custom models.
 use App\Models\CategoriesDetails;
 
@@ -94,9 +95,9 @@ class ApiCategoriesDetailsController extends Controller
 
             // Debug.
             // $arrReturn['debug-idTbCategories'] = $idTbCategories;
-        } catch (Error $getCategoriesDetailsError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('getCategoriesDetailsError: ' . $getCategoriesDetailsError->message());
+        } catch (\Exception $getCategoriesDetailsError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('getCategoriesDetailsError: ' . $getCategoriesDetailsError->getMessage());
             }
         } finally {
             //

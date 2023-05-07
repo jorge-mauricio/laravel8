@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,10 +10,8 @@ use Illuminate\Http\Request;
 //use Route;
 use Illuminate\Support\Facades\Route;
 //use Illuminate\Support\Facades\Log;
-
 // Custom models.
 use App\Models\CategoriesListing;
-
 
 class ApiCategoriesListingController extends Controller
 {
@@ -28,18 +28,18 @@ class ApiCategoriesListingController extends Controller
     private array|null $arrSearchParameters = [];
     private array|null $arrSpecialParameters = null;
 
-    private float|null $activation = null;
-    private float|null $activation1 = null;
-    private float|null $activation2 = null;
-    private float|null $activation3 = null;
-    private float|null $activation4 = null;
-    private float|null $activation5 = null;
+    private int|null $activation = null;
+    private int|null $activation1 = null;
+    private int|null $activation2 = null;
+    private int|null $activation3 = null;
+    private int|null $activation4 = null;
+    private int|null $activation5 = null;
 
     private float|string|null $idTbCategories = null;
-    private float|null $pageNumber = 1; // TODO: maybe, dele null
-    private float|null $pagingNRecords = 0;
+    private int|null $pageNumber = 1; // TODO: maybe, dele null
+    private int|null $pagingNRecords = 0;
 
-    private float|null $terminal = 0;
+    private int|null $terminal = 0;
     private string $apiKey = '';
     // ----------------------
     // NOTE: maybe, delete this controller
@@ -57,7 +57,7 @@ class ApiCategoriesListingController extends Controller
         if ($idParent !== null) {
             $this->_idParent = $idParent;
         }
-        
+
         if ($_idTbCategories !== null) {
             $this->idTbCategories = $_idTbCategories;
         }
@@ -80,7 +80,6 @@ class ApiCategoriesListingController extends Controller
     //public function getCategoriesListing(float|string $idParent = null): string|array //TODO: change to the right type
     //public function getCategoriesListing(): array //TODO: change to the right type
     public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): ?array
-    //public function getCategoriesListing(Request $req, float|string $_idTbCategories = null): mixed //TODO: change to the right type
     {
         // Variables.
         // ----------------------
@@ -102,7 +101,7 @@ class ApiCategoriesListingController extends Controller
         if ($req->query('activation2') !== null) {
             $this->activation2 = $req->query('activation2');
         }
-        if ($req->query('activation3') !==null) {
+        if ($req->query('activation3') !== null) {
             $this->activation3 = $req->query('activation3');
         }
         if ($req->query('activation4') !== null) {
@@ -113,14 +112,14 @@ class ApiCategoriesListingController extends Controller
         }
 
         if ($req->query('pageNumber') !== null) {
-            $this->pageNumber = $req->query('pageNumber');
+            $this->pageNumber = (int) $req->query('pageNumber');
         }
         /*
         if ($req->query('pagingNRecords') !== null) {
             $this->pagingNRecords = $req->query('pagingNRecords');
         }
         */
-        $this->pagingNRecords = $GLOBALS['configCategoriesBackendPaginationNRecords'];
+        $this->pagingNRecords = config('app.gSystemConfig.configCategoriesBackendPaginationNRecords');
         // ----------------------
 
         // Logic.
@@ -131,11 +130,11 @@ class ApiCategoriesListingController extends Controller
                 '_idTbCategories' => $this->idTbCategories,
                 '_terminal' => $this->terminal,
                 '_arrSpecialParameters' => [
-                    'returnType' => 1, 
-                    // 'pageNumber' => $this->pageNumber, 
+                    'returnType' => 1,
+                    // 'pageNumber' => $this->pageNumber,
                     // 'pagingNRecords' => $this->pagingNRecords
                 ],
-            ];            
+            ];
 
 
             // Parameters build - listing.
@@ -163,17 +162,17 @@ class ApiCategoriesListingController extends Controller
 
             $this->oclRecordsParameters = [
                 '_arrSearchParameters' => $this->arrSearchParameters,
-                '_configSortOrder' => $GLOBALS['configCategoriesSort'],
+                '_configSortOrder' => config('app.gSystemConfig.configCategoriesSort'),
                 '_strNRecords' => '',
                 // '_strNRecords' => '115', // debug
                 //'_arrSpecialParameters' => ['returnType' => 1], // debug
                 //'_arrSpecialParameters' => ['returnType' => 1, 'pageNumber' => 2, 'pagingNRecords' => 3], // debug
                 '_arrSpecialParameters' => [
-                    'returnType' => 1, 
-                    'pageNumber' => $this->pageNumber, 
+                    'returnType' => 1,
+                    'pageNumber' => $this->pageNumber,
                     'pagingNRecords' => $this->pagingNRecords
                 ],
-            ];            
+            ];
 
             //$adminCategoriesListing = CategoriesListing::all();
             //$clBackend = new CategoriesListing($this->idParent);
@@ -212,11 +211,9 @@ class ApiCategoriesListingController extends Controller
             //echo 'Route::current()->getParameter (inside getCategoriesListing)=<pre>';
             //var_dump(Route::current()->getParameter('idTbCategories'));
             //echo '</pre><br />'; // ref: https://stackoverflow.com/questions/40647661/laravel-route-get-controllers-construct-without-method
-            
-            
-        } catch (Error $getCategoriesListingError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('getCategoriesListingError: ' . $getCategoriesListingError->message());
+        } catch (\Exception $getCategoriesListingError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('getCategoriesListingError: ' . $getCategoriesListingError->getMessage());
             }
         } finally {
             //

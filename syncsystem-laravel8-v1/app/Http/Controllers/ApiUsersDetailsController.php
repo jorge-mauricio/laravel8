@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 // Custom models.
 use App\Models\UsersDetails;
 
@@ -90,9 +91,9 @@ class ApiUsersDetailsController extends Controller
 
             // Debug.
             // $arrReturn['debug-idTbUsers'] = $idTbUsers;
-        } catch (Error $getUsersDetailsError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('getUsersDetailsError: ' . $getUsersDetailsError->message());
+        } catch (\Exception $getUsersDetailsError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('getUsersDetailsError: ' . $getUsersDetailsError->getMessage());
             }
         } finally {
             //
