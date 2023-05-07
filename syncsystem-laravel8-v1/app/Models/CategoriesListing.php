@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -80,13 +82,13 @@ class CategoriesListing extends Model
                 '_idTbCategories' => $idTbCategories,
                 '_terminal' => $terminal,
                 '_arrSpecialParameters' => [
-                    'returnType' => 1, 
-                    'pageNumber' => $this->pageNumber, 
+                    'returnType' => 1,
+                    'pageNumber' => $this->pageNumber,
                     'pagingNRecords' => $this->pagingNRecords
                 ],
             ];
-            */    
-            
+            */
+
             // Build object - details.
             if ($this->ocdRecordParameters !== null) {
                 $ocdRecord = new \SyncSystemNS\ObjectCategoriesDetails($this->ocdRecordParameters);
@@ -102,23 +104,23 @@ class CategoriesListing extends Model
                 '_strNRecords' => '',
                 '_arrSpecialParameters' => ['returnType' => 1],
             ];
-            */            
+            */
 
             // Build object - listing.
             if ($this->oclRecordsParameters !== null) {
                 // Total records (for pagination).
-                if ($GLOBALS['enableCategoriesBackendPagination'] === 1) {
+                if (config('app.gSystemConfig.enableCategoriesBackendPagination') === 1) {
                     $arrReturn['_pagingTotalRecords'] = \SyncSystemNS\FunctionsDB::genericTableGet02(
-                        $GLOBALS['configSystemDBTableCategories'], 
-                        $this->oclRecordsParameters['_arrSearchParameters'], 
-                        $GLOBALS['configCategoriesSort'], 
-                        '', 
-                        'id,id_parent', 
-                        3 
+                        config('app.gSystemConfig.configSystemDBTableCategories'),
+                        $this->oclRecordsParameters['_arrSearchParameters'],
+                        config('app.gSystemConfig.configCategoriesSort'),
+                        '',
+                        'id,id_parent',
+                        3
                     );
                 }
                 // TODO: research a way to get this data from only one query.
-                
+
                 //$oclRecords = new \SyncSystemNS\ObjectCategoriesListing($oclRecordsParameters);
                 $oclRecords = new \SyncSystemNS\ObjectCategoriesListing($this->oclRecordsParameters);
                 $arrReturn['oclRecords'] = $oclRecords->recordsListingGet(0, 1);
@@ -139,12 +141,12 @@ class CategoriesListing extends Model
             //echo 'oclRecords=<pre>';
             //var_dump($oclRecords);
             //echo '</pre><br />';
-        } catch (Error $cphBodyBuildError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('cphBodyBuildError: ' . $cphBodyBuildError->message());
+        } catch (\Exception $cphBodyBuildError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('cphBodyBuildError: ' . $cphBodyBuildError->getMessage());
             }
         } finally {
-
+            //
         }
 
         //return 'content inside model: ' . $this->_idParent; // debug.

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +17,7 @@ class CategoriesDetails extends Model
     private array|null $arrSearchParameters = null;
 
     private int $terminal = 0; // terminal: 0 - admin | 1 - frontend
-    
+
     private string $labelPrefix = 'backend';
 
     private array|null $arrSpecialParameters = null;
@@ -233,7 +235,6 @@ class CategoriesDetails extends Model
     */
     // ----------------------
 
-    
     // Constructor.
     // TODO: include $terminal as constructor parameter (or some other method).
     // **************************************************************************************
@@ -254,7 +255,7 @@ class CategoriesDetails extends Model
     // **************************************************************************************
 
     // Build content placeholder body.
-    // TODO: eveluate changing name to build() or recordDetailsBuild() or separate - build() dataGet().
+    // TODO: evaluate changing name to build() or recordDetailsBuild() or separate - build() dataGet().
     // **************************************************************************************
     /**
      * Build content placeholder body.
@@ -278,17 +279,16 @@ class CategoriesDetails extends Model
                     $arrReturn['returnStatus'] = true;
                 }
             }
-        } catch (Error $cphBodyBuildError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('cphBodyBuildError: ' . $cphBodyBuildError->message());
+        } catch (\Exception $cphBodyBuildError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('cphBodyBuildError: ' . $cphBodyBuildError->getMessage());
             }
         } finally {
             //
         }
-        
+
         //return 'content inside model: ' . $this->_idParent; // debug.
         return $arrReturn;
     }
     // **************************************************************************************
-    
 }

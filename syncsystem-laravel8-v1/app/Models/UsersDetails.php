@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -16,7 +15,9 @@ use Laravel\Sanctum\Sanctum;
 //class UsersDetails extends Model
 class UsersDetails extends Authenticatable
 {
-    use HasFactory, HasApiTokens, Notifiable;
+    use HasFactory;
+    use HasApiTokens;
+    use Notifiable;
 
     // Properties.
     // ----------------------
@@ -24,7 +25,7 @@ class UsersDetails extends Authenticatable
     private array|null $arrSearchParameters = null;
 
     private int $terminal = 0; // terminal: 0 - admin | 1 - frontend
-    
+
     private string $labelPrefix = 'backend';
 
     private array|null $arrSpecialParameters = null;
@@ -60,7 +61,7 @@ class UsersDetails extends Authenticatable
      */
     public function __construct(?array $_oudRecordParameters = null)
     {
-        $this->table = env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableUsers'];
+        $this->table = env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . config('app.gSystemConfig.configSystemDBTableUsers');
 
         // Define values.
         if ($_oudRecordParameters !== null) {
@@ -80,7 +81,7 @@ class UsersDetails extends Authenticatable
     // **************************************************************************************
 
     // Build content placeholder body.
-    // TODO: eveluate changing name to build().
+    // TODO: evaluate changing name to build().
     // **************************************************************************************
     /**
      * Build content placeholder body.
@@ -104,14 +105,14 @@ class UsersDetails extends Authenticatable
                     $arrReturn['returnStatus'] = true;
                 }
             }
-        } catch (Error $cphBodyBuildError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('cphBodyBuildError: ' . $cphBodyBuildError->message());
+        } catch (\Exception $cphBodyBuildError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('cphBodyBuildError: ' . $cphBodyBuildError->getMessage());
             }
         } finally {
             //
         }
-        
+
         //return 'content inside model: ' . $this->_idParent; // debug.
         return $arrReturn;
     }
@@ -125,7 +126,7 @@ class UsersDetails extends Authenticatable
     // {
     //     return $this->idTbUsers;
     // }
-    
+
 
     // public function tokens()
     // {
@@ -150,9 +151,9 @@ class UsersDetails extends Authenticatable
     //         'tokenable_id' => $userId,
     //         'tokenable_type' => get_class($this),
     //     ]);
-    
+
     //     //return new NewAccessToken($token, $token->id.'|'.$plainTextToken);
     //     return new \Laravel\Sanctum\NewAccessToken($token, $token->id.'|'.$plainTextToken);
-    // }    
+    // }
     // **************************************************************************************
 }

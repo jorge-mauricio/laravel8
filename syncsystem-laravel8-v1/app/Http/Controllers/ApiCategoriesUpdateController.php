@@ -49,7 +49,7 @@ class ApiCategoriesUpdateController extends Controller
         $this->arrCategoriesUpdateParameters['_tblCategoriesID'] = (float) $req->post('id');
         $this->arrCategoriesUpdateParameters['_tblCategoriesIdParent'] = (float) $req->post('id_parent');
         $this->arrCategoriesUpdateParameters['_tblCategoriesSortOrder'] = (float) $req->post('sort_order');
-        $this->arrCategoriesUpdateParameters['_tblCategoriesCategoryType'] = (float) $req->post('category_type');
+        $this->arrCategoriesUpdateParameters['_tblCategoriesCategoryType'] = (int) $req->post('category_type');
 
         $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegisterUser'] = (float) $req->post('id_register_user');
         $this->arrCategoriesUpdateParameters['_tblCategoriesIdRegister1'] = (float) $req->post('id_register1');

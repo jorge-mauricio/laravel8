@@ -57,16 +57,16 @@ class ApiCategoriesInsertController extends Controller
         // Build parameters.
         // ----------------------
         $this->arrCategoriesInsertParameters['_tblCategoriesID'] = null;
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdParent'] = (float)$req->post('id_parent');
-        $this->arrCategoriesInsertParameters['_tblCategoriesSortOrder'] = (float)$req->post('sort_order');
-        $this->arrCategoriesInsertParameters['_tblCategoriesCategoryType'] = (float)$req->post('category_type');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdParent'] = (float) $req->post('id_parent');
+        $this->arrCategoriesInsertParameters['_tblCategoriesSortOrder'] = (float) $req->post('sort_order');
+        $this->arrCategoriesInsertParameters['_tblCategoriesCategoryType'] = (int) $req->post('category_type');
 
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegisterUser'] = (float)$req->post('id_register_user');
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister1'] = (float)$req->post('id_register1');
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister2'] = (float)$req->post('id_register2');
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister3'] = (float)$req->post('id_register3');
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister4'] = (float)$req->post('id_register4');
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister5'] = (float)$req->post('id_register5');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegisterUser'] = (float) $req->post('id_register_user');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister1'] = (float) $req->post('id_register1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister2'] = (float) $req->post('id_register2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister3'] = (float) $req->post('id_register3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister4'] = (float) $req->post('id_register4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdRegister5'] = (float) $req->post('id_register5');
 
         $this->arrCategoriesInsertParameters['_tblCategoriesTitle'] = $req->post('title');
         $this->arrCategoriesInsertParameters['_tblCategoriesDescription'] = $req->post('description');
@@ -94,17 +94,17 @@ class ApiCategoriesInsertController extends Controller
         $this->arrCategoriesInsertParameters['_tblCategoriesInfoSmall4'] = $req->post('info_small4');
         $this->arrCategoriesInsertParameters['_tblCategoriesInfoSmall5'] = $req->post('info_small5');
 
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumber1'] = (float)$req->post('number1');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumber2'] = (float)$req->post('number2');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumber3'] = (float)$req->post('number3');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumber4'] = (float)$req->post('number4');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumber5'] = (float)$req->post('number5');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber1'] = (float) $req->post('number1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber2'] = (float) $req->post('number2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber3'] = (float) $req->post('number3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber4'] = (float) $req->post('number4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumber5'] = (float) $req->post('number5');
 
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall1'] = (float)$req->post('number_small1');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall2'] = (float)$req->post('number_small2');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall3'] = (float)$req->post('number_small3');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall4'] = (float)$req->post('number_small4');
-        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall5'] = (float)$req->post('number_small5');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall1'] = (float) $req->post('number_small1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall2'] = (float) $req->post('number_small2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall3'] = (float) $req->post('number_small3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall4'] = (float) $req->post('number_small4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesNumberSmall5'] = (float) $req->post('number_small5');
 
         $this->arrCategoriesInsertParameters['_tblCategoriesDate1'] = $req->post('date1');
         $this->arrCategoriesInsertParameters['_tblCategoriesDate2'] = $req->post('date2');
@@ -112,15 +112,15 @@ class ApiCategoriesInsertController extends Controller
         $this->arrCategoriesInsertParameters['_tblCategoriesDate4'] = $req->post('date4');
         $this->arrCategoriesInsertParameters['_tblCategoriesDate5'] = $req->post('date5');
 
-        $this->arrCategoriesInsertParameters['_tblCategoriesActivation'] = (int)$req->post('activation');
-        $this->arrCategoriesInsertParameters['_tblCategoriesActivation1'] = (int)$req->post('activation1');
-        $this->arrCategoriesInsertParameters['_tblCategoriesActivation2'] = (int)$req->post('activation2');
-        $this->arrCategoriesInsertParameters['_tblCategoriesActivation3'] = (int)$req->post('activation3');
-        $this->arrCategoriesInsertParameters['_tblCategoriesActivation4'] = (int)$req->post('activation4');
-        $this->arrCategoriesInsertParameters['_tblCategoriesActivation5'] = (int)$req->post('activation5');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation'] = (int) $req->post('activation');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation1'] = (int) $req->post('activation1');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation2'] = (int) $req->post('activation2');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation3'] = (int) $req->post('activation3');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation4'] = (int) $req->post('activation4');
+        $this->arrCategoriesInsertParameters['_tblCategoriesActivation5'] = (int) $req->post('activation5');
 
-        $this->arrCategoriesInsertParameters['_tblCategoriesIdStatus'] = (float)$req->post('id_status');
-        $this->arrCategoriesInsertParameters['_tblCategoriesRestrictedAccess'] = (int)$req->post('restricted_access');
+        $this->arrCategoriesInsertParameters['_tblCategoriesIdStatus'] = (float) $req->post('id_status');
+        $this->arrCategoriesInsertParameters['_tblCategoriesRestrictedAccess'] = (int) $req->post('restricted_access');
 
         $this->arrCategoriesInsertParameters['_tblCategoriesNotes'] = $req->post('notes');
         // ----------------------

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +17,7 @@ class CategoriesInsert extends Model
     private float|null $tblCategoriesID = null;
     private float $tblCategoriesIdParent = 0;
     private float $tblCategoriesSortOrder = 0;
-    private float $tblCategoriesCategoryType = 0; // Review: check categories insert to see if 0 is default value
+    private int $tblCategoriesCategoryType = 0; // Review: check categories insert to see if 0 is default value
 
     private string $tblCategoriesDateCreation = '';
     private string $tblCategoriesDateTimezone = '';
@@ -99,7 +101,6 @@ class CategoriesInsert extends Model
      * @param array $arrParameters
      */
     public function __construct(array $arrParameters = [])
-    //public function __construct()
     {
         //parent::__construct($attributes);
         // Debug.
@@ -129,7 +130,6 @@ class CategoriesInsert extends Model
             // $this->buildParameters($arrParameters);
         }
         //$this->categoriesInsertBuildParameters($attributes);
-
     }
     // **************************************************************************************
 
@@ -141,8 +141,8 @@ class CategoriesInsert extends Model
      * @return array
      */
     //public function buildParameters(array $arrParameters): array
-    private function buildParameters(array $arrParameters): array
     //public function categoriesInsertBuildParameters(Request $req): void
+    private function buildParameters(array $arrParameters): array
     {
         // Variables.
         // ----------------------
@@ -188,73 +188,73 @@ class CategoriesInsert extends Model
         $this->tblCategoriesMetaTitle = isset($arrParameters['_tblCategoriesMetaTitle']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesMetaTitle'], 'db_write_text') : $this->tblCategoriesMetaTitle;
         $this->tblCategoriesMetaInfo = isset($arrParameters['_tblCategoriesMetaInfo']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesMetaInfo'], 'db_write_text') : $this->tblCategoriesMetaInfo;
 
-        if ($GLOBALS['configCategoriesInfo1FieldType'] === 1 || $GLOBALS['configCategoriesInfo1FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo1FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo1FieldType') === 2) {
             $this->tblCategoriesInfo1 = isset($arrParameters['_tblCategoriesInfo1']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo1'], 'db_write_text') : $this->tblCategoriesInfo1;
         }
-        if ($GLOBALS['configCategoriesInfo1FieldType'] === 11 || $GLOBALS['configCategoriesInfo1FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo1FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo1FieldType') === 22) {
             $this->tblCategoriesInfo1 = isset($arrParameters['_tblCategoriesInfo1']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo1'], 'db_write_text'), 2) : $this->tblCategoriesInfo1;
         }
 
-        if ($GLOBALS['configCategoriesInfo2FieldType'] === 1 || $GLOBALS['configCategoriesInfo2FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo2FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo2FieldType') === 2) {
             $this->tblCategoriesInfo2 = isset($arrParameters['_tblCategoriesInfo2']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo2'], 'db_write_text') : $this->tblCategoriesInfo2;
         }
-        if ($GLOBALS['configCategoriesInfo2FieldType'] === 11 || $GLOBALS['configCategoriesInfo2FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo2FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo2FieldType') === 22) {
             $this->tblCategoriesInfo2 = isset($arrParameters['_tblCategoriesInfo2']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo2'], 'db_write_text'), 2) : $this->tblCategoriesInfo2;
         }
 
-        if ($GLOBALS['configCategoriesInfo3FieldType'] === 1 || $GLOBALS['configCategoriesInfo3FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo3FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo3FieldType') === 2) {
             $this->tblCategoriesInfo3 = isset($arrParameters['_tblCategoriesInfo3']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo3'], 'db_write_text') : $this->tblCategoriesInfo3;
         }
-        if ($GLOBALS['configCategoriesInfo3FieldType'] === 11 || $GLOBALS['configCategoriesInfo3FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo3FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo3FieldType') === 22) {
             $this->tblCategoriesInfo3 = isset($arrParameters['_tblCategoriesInfo3']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo3'], 'db_write_text'), 2) : $this->tblCategoriesInfo3;
         }
 
-        if ($GLOBALS['configCategoriesInfo4FieldType'] === 1 || $GLOBALS['configCategoriesInfo4FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo4FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo4FieldType') === 2) {
             $this->tblCategoriesInfo4 = isset($arrParameters['_tblCategoriesInfo4']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo4'], 'db_write_text') : $this->tblCategoriesInfo4;
         }
-        if ($GLOBALS['configCategoriesInfo4FieldType'] === 11 || $GLOBALS['configCategoriesInfo4FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo4FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo4FieldType') === 22) {
             $this->tblCategoriesInfo4 = isset($arrParameters['_tblCategoriesInfo4']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo4'], 'db_write_text'), 2) : $this->tblCategoriesInfo4;
         }
 
-        if ($GLOBALS['configCategoriesInfo5FieldType'] === 1 || $GLOBALS['configCategoriesInfo5FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo5FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo5FieldType') === 2) {
             $this->tblCategoriesInfo5 = isset($arrParameters['_tblCategoriesInfo5']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo5'], 'db_write_text') : $this->tblCategoriesInfo5;
         }
-        if ($GLOBALS['configCategoriesInfo5FieldType'] === 11 || $GLOBALS['configCategoriesInfo5FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo5FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo5FieldType') === 22) {
             $this->tblCategoriesInfo5 = isset($arrParameters['_tblCategoriesInfo5']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo5'], 'db_write_text'), 2) : $this->tblCategoriesInfo5;
         }
 
-        if ($GLOBALS['configCategoriesInfo6FieldType'] === 1 || $GLOBALS['configCategoriesInfo6FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo6FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo6FieldType') === 2) {
             $this->tblCategoriesInfo6 = isset($arrParameters['_tblCategoriesInfo6']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo6'], 'db_write_text') : $this->tblCategoriesInfo6;
         }
-        if ($GLOBALS['configCategoriesInfo6FieldType'] === 11 || $GLOBALS['configCategoriesInfo6FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo6FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo6FieldType') === 22) {
             $this->tblCategoriesInfo6 = isset($arrParameters['_tblCategoriesInfo6']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo6'], 'db_write_text'), 2) : $this->tblCategoriesInfo6;
         }
 
-        if ($GLOBALS['configCategoriesInfo7FieldType'] === 1 || $GLOBALS['configCategoriesInfo7FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo7FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo7FieldType') === 2) {
             $this->tblCategoriesInfo7 = isset($arrParameters['_tblCategoriesInfo7']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo7'], 'db_write_text') : $this->tblCategoriesInfo7;
         }
-        if ($GLOBALS['configCategoriesInfo7FieldType'] === 11 || $GLOBALS['configCategoriesInfo7FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo7FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo7FieldType') === 22) {
             $this->tblCategoriesInfo7 = isset($arrParameters['_tblCategoriesInfo7']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo7'], 'db_write_text'), 2) : $this->tblCategoriesInfo7;
         }
 
-        if ($GLOBALS['configCategoriesInfo8FieldType'] === 1 || $GLOBALS['configCategoriesInfo8FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo8FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo8FieldType') === 2) {
             $this->tblCategoriesInfo8 = isset($arrParameters['_tblCategoriesInfo8']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo8'], 'db_write_text') : $this->tblCategoriesInfo8;
         }
-        if ($GLOBALS['configCategoriesInfo8FieldType'] === 11 || $GLOBALS['configCategoriesInfo8FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo8FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo8FieldType') === 22) {
             $this->tblCategoriesInfo8 = isset($arrParameters['_tblCategoriesInfo8']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo8'], 'db_write_text'), 2) : $this->tblCategoriesInfo8;
         }
 
-        if ($GLOBALS['configCategoriesInfo9FieldType'] === 1 || $GLOBALS['configCategoriesInfo9FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo9FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo9FieldType') === 2) {
             $this->tblCategoriesInfo9 = isset($arrParameters['_tblCategoriesInfo9']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo9'], 'db_write_text') : $this->tblCategoriesInfo9;
         }
-        if ($GLOBALS['configCategoriesInfo9FieldType'] === 11 || $GLOBALS['configCategoriesInfo9FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo9FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo9FieldType') === 22) {
             $this->tblCategoriesInfo9 = isset($arrParameters['_tblCategoriesInfo9']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo9'], 'db_write_text'), 2) : $this->tblCategoriesInfo9;
         }
 
-        if ($GLOBALS['configCategoriesInfo10FieldType'] === 1 || $GLOBALS['configCategoriesInfo10FieldType'] === 2) {
+        if (config('app.gSystemConfig.configCategoriesInfo10FieldType') === 1 || config('app.gSystemConfig.configCategoriesInfo10FieldType') === 2) {
             $this->tblCategoriesInfo10 = isset($arrParameters['_tblCategoriesInfo10']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo10'], 'db_write_text') : $this->tblCategoriesInfo10;
         }
-        if ($GLOBALS['configCategoriesInfo10FieldType'] === 11 || $GLOBALS['configCategoriesInfo10FieldType'] === 22) {
+        if (config('app.gSystemConfig.configCategoriesInfo10FieldType') === 11 || config('app.gSystemConfig.configCategoriesInfo10FieldType') === 22) {
             $this->tblCategoriesInfo10 = isset($arrParameters['_tblCategoriesInfo10']) ? \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfo10'], 'db_write_text'), 2) : $this->tblCategoriesInfo10;
         }
 
@@ -264,24 +264,24 @@ class CategoriesInsert extends Model
         $this->tblCategoriesInfoSmall4 = isset($arrParameters['_tblCategoriesInfoSmall4']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfoSmall4'], 'db_write_text') : $this->tblCategoriesInfoSmall4;
         $this->tblCategoriesInfoSmall5 = isset($arrParameters['_tblCategoriesInfoSmall5']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesInfoSmall5'], 'db_write_text') : $this->tblCategoriesInfoSmall5;
 
-        $this->tblCategoriesNumber1 = (isset($arrParameters['_tblCategoriesNumber1']) && $arrParameters['_tblCategoriesNumber1'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber1'], $GLOBALS['configCategoriesNumber1FieldType']) : $this->tblCategoriesNumber1;
-        $this->tblCategoriesNumber2 = (isset($arrParameters['_tblCategoriesNumber2']) && $arrParameters['_tblCategoriesNumber2'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber2'], $GLOBALS['configCategoriesNumber2FieldType']) : $this->tblCategoriesNumber2;
-        $this->tblCategoriesNumber3 = (isset($arrParameters['_tblCategoriesNumber3']) && $arrParameters['_tblCategoriesNumber3'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber3'], $GLOBALS['configCategoriesNumber3FieldType']) : $this->tblCategoriesNumber3;
-        $this->tblCategoriesNumber4 = (isset($arrParameters['_tblCategoriesNumber4']) && $arrParameters['_tblCategoriesNumber4'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber4'], $GLOBALS['configCategoriesNumber4FieldType']) : $this->tblCategoriesNumber4;
-        $this->tblCategoriesNumber5 = (isset($arrParameters['_tblCategoriesNumber5']) && $arrParameters['_tblCategoriesNumber5'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber5'], $GLOBALS['configCategoriesNumber5FieldType']) : $this->tblCategoriesNumber5;
+        $this->tblCategoriesNumber1 = (isset($arrParameters['_tblCategoriesNumber1']) && $arrParameters['_tblCategoriesNumber1'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber1'], config('app.gSystemConfig.configCategoriesNumber1FieldType')) : $this->tblCategoriesNumber1;
+        $this->tblCategoriesNumber2 = (isset($arrParameters['_tblCategoriesNumber2']) && $arrParameters['_tblCategoriesNumber2'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber2'], config('app.gSystemConfig.configCategoriesNumber2FieldType')) : $this->tblCategoriesNumber2;
+        $this->tblCategoriesNumber3 = (isset($arrParameters['_tblCategoriesNumber3']) && $arrParameters['_tblCategoriesNumber3'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber3'], config('app.gSystemConfig.configCategoriesNumber3FieldType')) : $this->tblCategoriesNumber3;
+        $this->tblCategoriesNumber4 = (isset($arrParameters['_tblCategoriesNumber4']) && $arrParameters['_tblCategoriesNumber4'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber4'], config('app.gSystemConfig.configCategoriesNumber4FieldType')) : $this->tblCategoriesNumber4;
+        $this->tblCategoriesNumber5 = (isset($arrParameters['_tblCategoriesNumber5']) && $arrParameters['_tblCategoriesNumber5'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumber5'], config('app.gSystemConfig.configCategoriesNumber5FieldType')) : $this->tblCategoriesNumber5;
         //TODO: double check if needs outer parenthesis.
 
-        $this->tblCategoriesNumberSmall1 = (isset($arrParameters['_tblCategoriesNumberSmall1']) && $arrParameters['_tblCategoriesNumberSmall1'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall1'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall1;
-        $this->tblCategoriesNumberSmall2 = (isset($arrParameters['_tblCategoriesNumberSmall2']) && $arrParameters['_tblCategoriesNumberSmall2'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall2'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall2;
-        $this->tblCategoriesNumberSmall3 = (isset($arrParameters['_tblCategoriesNumberSmall3']) && $arrParameters['_tblCategoriesNumberSmall3'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall3'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall3;
-        $this->tblCategoriesNumberSmall4 = (isset($arrParameters['_tblCategoriesNumberSmall4']) && $arrParameters['_tblCategoriesNumberSmall4'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall4'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall4;
-        $this->tblCategoriesNumberSmall5 = (isset($arrParameters['_tblCategoriesNumberSmall5']) && $arrParameters['_tblCategoriesNumberSmall5'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall5'], $GLOBALS['configCategoriesNumberS1FieldType']) : $this->tblCategoriesNumberSmall5;
+        $this->tblCategoriesNumberSmall1 = (isset($arrParameters['_tblCategoriesNumberSmall1']) && $arrParameters['_tblCategoriesNumberSmall1'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall1'], config('app.gSystemConfig.configCategoriesNumberS1FieldType')) : $this->tblCategoriesNumberSmall1;
+        $this->tblCategoriesNumberSmall2 = (isset($arrParameters['_tblCategoriesNumberSmall2']) && $arrParameters['_tblCategoriesNumberSmall2'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall2'], config('app.gSystemConfig.configCategoriesNumberS1FieldType')) : $this->tblCategoriesNumberSmall2;
+        $this->tblCategoriesNumberSmall3 = (isset($arrParameters['_tblCategoriesNumberSmall3']) && $arrParameters['_tblCategoriesNumberSmall3'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall3'], config('app.gSystemConfig.configCategoriesNumberS1FieldType')) : $this->tblCategoriesNumberSmall3;
+        $this->tblCategoriesNumberSmall4 = (isset($arrParameters['_tblCategoriesNumberSmall4']) && $arrParameters['_tblCategoriesNumberSmall4'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall4'], config('app.gSystemConfig.configCategoriesNumberS1FieldType')) : $this->tblCategoriesNumberSmall4;
+        $this->tblCategoriesNumberSmall5 = (isset($arrParameters['_tblCategoriesNumberSmall5']) && $arrParameters['_tblCategoriesNumberSmall5'] !== null) ? \SyncSystemNS\FunctionsGeneric::valueMaskWrite($arrParameters['_tblCategoriesNumberSmall5'], config('app.gSystemConfig.configCategoriesNumberS1FieldType')) : $this->tblCategoriesNumberSmall5;
 
-        $this->tblCategoriesDate1 = (isset($arrParameters['_tblCategoriesDate1']) && $arrParameters['_tblCategoriesDate1']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate1'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate1;
-        $this->tblCategoriesDate2 = (isset($arrParameters['_tblCategoriesDate2']) && $arrParameters['_tblCategoriesDate2']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate2'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate2;
-        $this->tblCategoriesDate3 = (isset($arrParameters['_tblCategoriesDate3']) && $arrParameters['_tblCategoriesDate3']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate3'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate3;
-        $this->tblCategoriesDate4 = (isset($arrParameters['_tblCategoriesDate4']) && $arrParameters['_tblCategoriesDate4']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate4'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate4;
-        $this->tblCategoriesDate5 = (isset($arrParameters['_tblCategoriesDate5']) && $arrParameters['_tblCategoriesDate5']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate5'], $GLOBALS['configBackendDateFormat']) : $this->tblCategoriesDate5;
+        $this->tblCategoriesDate1 = (isset($arrParameters['_tblCategoriesDate1']) && $arrParameters['_tblCategoriesDate1']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate1'], config('app.gSystemConfig.configBackendDateFormat')) : $this->tblCategoriesDate1;
+        $this->tblCategoriesDate2 = (isset($arrParameters['_tblCategoriesDate2']) && $arrParameters['_tblCategoriesDate2']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate2'], config('app.gSystemConfig.configBackendDateFormat')) : $this->tblCategoriesDate2;
+        $this->tblCategoriesDate3 = (isset($arrParameters['_tblCategoriesDate3']) && $arrParameters['_tblCategoriesDate3']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate3'], config('app.gSystemConfig.configBackendDateFormat')) : $this->tblCategoriesDate3;
+        $this->tblCategoriesDate4 = (isset($arrParameters['_tblCategoriesDate4']) && $arrParameters['_tblCategoriesDate4']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate4'], config('app.gSystemConfig.configBackendDateFormat')) : $this->tblCategoriesDate4;
+        $this->tblCategoriesDate5 = (isset($arrParameters['_tblCategoriesDate5']) && $arrParameters['_tblCategoriesDate5']) ? \SyncSystemNS\FunctionsGeneric::dateSQLWrite($arrParameters['_tblCategoriesDate5'], config('app.gSystemConfig.configBackendDateFormat')) : $this->tblCategoriesDate5;
 
         $this->tblCategoriesActivation = (isset($arrParameters['_tblCategoriesActivation']) && $arrParameters['_tblCategoriesActivation'] !== null) ? $arrParameters['_tblCategoriesActivation'] : $this->tblCategoriesActivation;
         $this->tblCategoriesActivation1 = (isset($arrParameters['_tblCategoriesActivation1']) && $arrParameters['_tblCategoriesActivation1'] !== null) ? $arrParameters['_tblCategoriesActivation1'] : $this->tblCategoriesActivation1;
@@ -427,7 +427,7 @@ class CategoriesInsert extends Model
 
         // Logic.
         try {
-            $this->resultsSQLCategoriesInsert = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $GLOBALS['configSystemDBTableCategories']);
+            $this->resultsSQLCategoriesInsert = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . config('app.gSystemConfig.configSystemDBTableCategories'));
             $this->resultsSQLCategoriesInsert = $this->resultsSQLCategoriesInsert->insert($this->arrSQLCategoriesInsertParams);
 
             if ($this->resultsSQLCategoriesInsert === true) {
@@ -438,9 +438,9 @@ class CategoriesInsert extends Model
                     //'idRecordInsert' => \SyncSystemNS\FunctionsDB::counterUniversalUpdate()
                 ];
             }
-        } catch (Error $addRecordError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('addRecordError: ' . $addRecordError->message());
+        } catch (\Exception $addRecordError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('addRecordError: ' . $addRecordError->getMessage());
             }
         } finally {
             //
