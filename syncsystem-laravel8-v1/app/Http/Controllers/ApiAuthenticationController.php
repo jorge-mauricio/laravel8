@@ -142,7 +142,7 @@ class ApiAuthenticationController extends Controller
                         // Value definition.
                         $tblUsersPassword = $resultsUsersListing[$countArray]['password'];
                         $tblUsersPasswordDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersPassword, 'db'), SS_ENCRYPT_METHOD_DATA);
-                        // TODO: adapt function to differentiate between info encryption and pasword encryption.
+                        // TODO: adapt function to differentiate between info encryption and password encryption.
                         $tblUsersPasswordHint = '';
                         $tblUsersPasswordLength = '';
 
@@ -240,9 +240,9 @@ class ApiAuthenticationController extends Controller
                 $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
                 */
             }
-        } catch (Exception $apiAuthenticationCheckError) {
+        } catch (\Exception $apiAuthenticationCheckError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('apiAuthenticationCheckError: ' . $apiAuthenticationCheckError->message());
+                throw new \Error('apiAuthenticationCheckError: ' . $apiAuthenticationCheckError->getMessage());
             }
         } finally {
             //
@@ -315,9 +315,9 @@ class ApiAuthenticationController extends Controller
             // $arrReturn['debug']['tblUsersIDCrypt'] = $tblUsersIDCrypt;
             // $arrReturn['debug']['actionType'] = $actionType;
             // $arrReturn['debug']['verificationType'] = $verificationType;
-        } catch (Exception $authenticationDeleteError) {
+        } catch (\Exception $authenticationDeleteError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('authenticationDeleteError: ' . $authenticationDeleteError->message());
+                throw new \Error('authenticationDeleteError: ' . $authenticationDeleteError->getMessage());
             }
         } finally {
             //

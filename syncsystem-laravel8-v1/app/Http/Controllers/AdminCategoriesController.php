@@ -177,9 +177,9 @@ class AdminCategoriesController extends AdminBaseController
             // return 'admin categories listing (controller) idTbCategories = ' . $idTbCategories;
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
-        } catch (Exception $adminCategoriesListingError) {
+        } catch (\Exception $adminCategoriesListingError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminCategoriesListingError: ' . $adminCategoriesListingError->message());
+                throw new \Error('adminCategoriesListingError: ' . $adminCategoriesListingError->getMessage());
             }
         } finally {
             //
@@ -527,9 +527,9 @@ class AdminCategoriesController extends AdminBaseController
             */
 
             //exit();
-        } catch (Exception $adminCategoriesInsertError) {
+        } catch (\Exception $adminCategoriesInsertError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminCategoriesInsertError: ' . $adminCategoriesInsertError->message());
+                throw new \Error('adminCategoriesInsertError: ' . $adminCategoriesInsertError->getMessage());
             }
         } finally {
             //
@@ -601,9 +601,9 @@ class AdminCategoriesController extends AdminBaseController
             var_dump($idTbCategories);
             echo '</pre><br />';
             */
-        } catch (Exception $adminCategoriesEditError) {
+        } catch (\Exception $adminCategoriesEditError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminCategoriesEditError: ' . $adminCategoriesEditError->message());
+                throw new \Error('adminCategoriesEditError: ' . $adminCategoriesEditError->getMessage());
             }
         } finally {
             //
@@ -832,9 +832,9 @@ class AdminCategoriesController extends AdminBaseController
             echo '</pre><br />';
             */
             // exit();
-        } catch (Exception $adminCategoriesUpdateError) {
+        } catch (\Exception $adminCategoriesUpdateError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminCategoriesUpdateError: ' . $adminCategoriesUpdateError->message());
+                throw new \Error('adminCategoriesUpdateError: ' . $adminCategoriesUpdateError->getMessage());
             }
         } finally {
             //

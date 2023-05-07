@@ -186,9 +186,9 @@ class AdminRecordsController extends AdminBaseController
             //echo 'pageNumber=' . $this->pageNumber . '<br />';
             //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
             //exit();
-        } catch (Exception $adminRecordsDeleteError) {
+        } catch (\Exception $adminRecordsDeleteError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminRecordsDeleteError: ' . $adminRecordsDeleteError->message());
+                throw new \Error('adminRecordsDeleteError: ' . $adminRecordsDeleteError->getMessage());
             }
         } finally {
             //

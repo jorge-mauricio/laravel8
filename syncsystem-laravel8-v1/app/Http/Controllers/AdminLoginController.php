@@ -55,9 +55,9 @@ class AdminLoginController extends AdminBaseController
 
             // Body - content place holder.
             $this->templateData['cphBody'] = '';
-        } catch (Exception $adminLoginError) {
+        } catch (\Exception $adminLoginError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminLoginError: ' . $adminLoginError->message());
+                throw new \Error('adminLoginError: ' . $adminLoginError->getMessage());
             }
         } finally {
             //
@@ -193,9 +193,9 @@ class AdminLoginController extends AdminBaseController
             // ); // successful
             // echo '</pre><br />';
             // exit();
-        } catch (Exception $adminLoginCheckError) {
+        } catch (\Exception $adminLoginCheckError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminLoginCheckError: ' . $adminLoginCheckError->message());
+                throw new \Error('adminLoginCheckError: ' . $adminLoginCheckError->getMessage());
             }
         } finally {
             //
@@ -310,9 +310,9 @@ class AdminLoginController extends AdminBaseController
             // var_dump($_COOKIE);
             // echo '</pre><br />';
             // exit();
-        } catch (Exception $adminLogoffError) {
+        } catch (\Exception $adminLogoffError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new Error('adminLogoffError: ' . $adminLogoffError->message());
+                throw new \Error('adminLogoffError: ' . $adminLogoffError->getMessage());
             }
         } finally {
             //
