@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 // Controllers.
@@ -88,7 +90,10 @@ Route::get(
         AdminLoginController::class, 'adminLogin'
     ]
 )
-    ->name('admin.login');
+    ->name(config('app.gSystemConfig.configRouteBackend'));
+    // ->name('admin');
+
+// TODO: replace routes with config values (dynamic).
 // **************************************************************************************
 
 // Admin - Login - POST (check username and password).
@@ -100,7 +105,7 @@ Route::post(
         AdminLoginController::class, 'adminLoginCheck'
     ]
 )
-    ->name('admin.login.check');
+    ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendLogin'));
 // **************************************************************************************
 
 // Protected routes.
@@ -123,7 +128,7 @@ Route::group(
                 AdminLoginController::class, 'adminLogoff'
             ]
         )
-            ->name('admin.logoff');
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendLogOff'));
         // **************************************************************************************
 
         // Admin - Dashboard.
@@ -135,7 +140,7 @@ Route::group(
                 AdminDashboardController::class, 'adminDashboard'
             ]
         )
-            ->name('admin.dashboard');
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendDashboard'));
         // Route::get('/system/dashboard/',[AdminDashboardController::class, 'adminDashboard'])->name('admin.dashboard')->middleware('setHeaders.token.web');
 
         // Testing architecture.
@@ -158,7 +163,8 @@ Route::group(
                 AdminCategoriesController::class, 'adminCategoriesListing'
             ]
         )
-            ->name('admin.categories.listing');
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendCategories'));
+            //->name('admin.categories.listing');
         //Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
         //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
         // **************************************************************************************
@@ -172,7 +178,8 @@ Route::group(
                 AdminCategoriesController::class, 'adminCategoriesInsert'
             ]
         )
-            ->name('admin.categories.insert');
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendCategories'));
+            // ->name('admin.categories.insert');
         // **************************************************************************************
 
         // Admin - Categories - edit - GET.
@@ -184,7 +191,11 @@ Route::group(
                 AdminCategoriesController::class, 'adminCategoriesEdit'
             ]
         )
-            ->name('admin.categories.edit');
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendCategories') . '.' .
+                config('app.gSystemConfig.configRouteBackendActionEdit')
+            );
         //Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
         //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
         // **************************************************************************************
@@ -199,7 +210,12 @@ Route::group(
                 AdminCategoriesController::class, 'adminCategoriesUpdate'
             ]
         )
-            ->name('admin.categories.update');
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendCategories') . '.' .
+                config('app.gSystemConfig.configRouteBackendActionEdit')
+            );
+            // ->name('admin.categories.update');
         //Route::get('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/{idTbCategories?}',[AdminCategoriesController::class, 'adminCategoriesListing'])->name('admin.categories.listing');
         //Route::get('/admin/categories/{idParent?}',[AdminCategoriesController::class, 'getCategoriesListing'])->name('admin.categories.listing');
         // **************************************************************************************
@@ -215,7 +231,8 @@ Route::group(
                 AdminRecordsController::class, 'adminRecordsDelete'
             ]
         )
-            ->name('admin.records.delete');
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendRecords'));
+            // ->name('admin.records.delete');
         // **************************************************************************************
     }
 );

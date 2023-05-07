@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 // Controllers.
@@ -49,7 +51,8 @@ Route::post(
         return response()->json($authenticationCheckResults);
     }
 )
-    ->name('api.authentication.authenticationCheck');
+    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPIAuthentication'));
+    // ->name('api.authentication.authenticationCheck');
 // **************************************************************************************
 
 // API - Authentication - DELETE.
@@ -67,7 +70,8 @@ Route::delete(
         return response()->json($authenticationDeleteResults);
     }
 )
-    ->name('api.authentication.authenticationDelete');
+    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPIAuthentication'));
+    // ->name('api.authentication.authenticationDelete');
 // **************************************************************************************
 
 // Backend - Records - Delete.
@@ -85,7 +89,7 @@ Route::delete(
         return response()->json($deleteRecordsResults);
     }
 )
-    ->name('api.records.delete');
+    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPIRecords'));
 // **************************************************************************************
 
 // API - Records - Patch (small changes).
@@ -106,7 +110,7 @@ Route::patch(
         return response()->json($patchRecordsResults);
     }
 )
-    ->name('api.records.patch');
+    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPIRecords'));
 // **************************************************************************************
 
 // API - Records - Edit (multiple fields).
@@ -126,7 +130,7 @@ Route::put(
         return response()->json($editRecordsResults);
     }
 )
-    ->name('api.records.edit');
+    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPIRecords'));
 // **************************************************************************************
 
 // API - Categories - listing - GET.
@@ -156,27 +160,12 @@ Route::get(
         return response()->json($getCategoriesListingResults);
     }
 )
-    ->name('api.categories.listing');
+    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPICategories'));
 // TODO: evaluate converting the route name to dynamic.
 
 // REGEX
 // only floating numbers: [+-]?([0-9]*[.])?[0-9]+
 // only alphabet: [a-zA-Z]
-// **************************************************************************************
-
-// API - Categories - details - GET.
-// TODO: create another endpoint with /edit
-// **************************************************************************************
-Route::get(
-    '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/{idTbCategories?}',
-    [
-        ApiCategoriesDetailsController::class, 'getCategoriesDetails'
-    ],
-    function ($detailsCategoriesResults) {
-        return response()->json($detailsCategoriesResults);
-    }
-)
-    ->name('api.categories.details');
 // **************************************************************************************
 
 // API - Categories - POST (insert record).
@@ -197,9 +186,28 @@ Route::post(
         return response()->json($insertCategoriesResults);
     }
 )
-    ->name('api.categories.insert');
+    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPICategories'));
 
 //Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
+// **************************************************************************************
+
+// API - Categories - details - GET.
+// TODO: create another endpoint with /edit
+// **************************************************************************************
+Route::get(
+    '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/{idTbCategories?}',
+    [
+        ApiCategoriesDetailsController::class, 'getCategoriesDetails'
+    ],
+    function ($detailsCategoriesResults) {
+        return response()->json($detailsCategoriesResults);
+    }
+)
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPICategories') . '.' .
+        config('app.gSystemConfig.configRouteAPIDetails')
+    );
 // **************************************************************************************
 
 // API - Categories - PUT (update record).
@@ -220,7 +228,11 @@ Route::put(
         return response()->json($updateCategoriesResults);
     }
 )
-    ->name('api.categories.update');
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPICategories') . '/' .
+        config('app.gSystemConfig.configRouteAPIActionEdit')
+    );
 
 //Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
 // **************************************************************************************
@@ -237,5 +249,9 @@ Route::get(
         return response()->json($detailsUsersResults);
     }
 )
-    ->name('api.Users.details');
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPIUsers') . '/' .
+        config('app.gSystemConfig.configRouteAPIDetails')
+    );
 // **************************************************************************************

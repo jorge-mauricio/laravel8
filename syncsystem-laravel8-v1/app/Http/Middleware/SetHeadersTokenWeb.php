@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -17,7 +19,7 @@ class SetHeadersTokenWeb
     public function handle(Request $request, Closure $next)
     {
         // user_admin token
-        $userAdminLoginToken = session($GLOBALS['configCookiePrefix'] . '_' . $GLOBALS['configCookiePrefixUserAdmin'] . '_login_token');
+        $userAdminLoginToken = session(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserAdmin') . '_login_token');
         if ($userAdminLoginToken) {
             // TODO: verify if token is still recorded / valid.
             $request->headers->set('Authorization', 'Bearer ' . $userAdminLoginToken);

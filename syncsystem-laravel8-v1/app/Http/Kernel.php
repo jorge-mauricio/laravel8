@@ -59,7 +59,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Custom middlewares.
         'setHeaders.token.web' => \App\Http\Middleware\SetHeadersTokenWeb::class,
-        
+
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

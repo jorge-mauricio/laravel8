@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
@@ -17,9 +19,9 @@ class Authenticate extends Middleware
         //dd($request);
         if (! $request->expectsJson()) {
             // return route('login');
-            return route('admin.login');
+            //return route('admin.login');
+            return route(config('app.gSystemConfig.configRouteBackend'));
             //return route('admin.login')->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, 'statusMessageLogin2e'));
-            
         }
     }
 }
