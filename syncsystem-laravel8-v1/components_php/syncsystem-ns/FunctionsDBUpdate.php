@@ -1,11 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 use Illuminate\Support\Facades\DB;
 
 class FunctionsDBUpdate
 {
-
     // Function to update a generic record field.
     // **************************************************************************************
     /**
@@ -22,11 +24,12 @@ class FunctionsDBUpdate
      * $recordValue,
      * ['id;' . idRecord . ';i']);
      */
-    static function updateRecordGeneric10(string $strTable,
-    string $strField,
-    string $recordValue,
-    ?array $arrSearchParameters): array|null
-    {
+    public static function updateRecordGeneric10(
+        string $strTable,
+        string $strField,
+        string $recordValue,
+        ?array $arrSearchParameters
+    ): array|null {
         // $arrSearchParameters: ['fieldNameSearch1;fieldValueSearch1;fieldTypeSearch1', 'fieldNameSearch2;fieldValueSearch2;fieldTypeSearch2', 'fieldNameSearch3;fieldValueSearch3;fieldTypeSearch3']
             // $typeFieldSearch1: s (string) | i (integer) | d (date) | dif (initial date and final date) | ids (id IN)
 
@@ -79,9 +82,9 @@ class FunctionsDBUpdate
             $objSQLRecordsGenericUpdate = $objSQLRecordsGenericUpdate->update($arrSQLRecordsGenericUpdateParams);
 
             //echo 'updateRecordGeneric10=' . $objSQLRecordsGenericUpdate . '<br />';
-        } catch (Exception $updateRecordGeneric10Error) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('updateRecordGeneric10Error: ' . $updateRecordGeneric10Error->message());
+        } catch (\Exception $updateRecordGeneric10Error) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('updateRecordGeneric10Error: ' . $updateRecordGeneric10Error->getMessage());
             }
         } finally {
             //echo 'updateRecordGeneric10=' . $objSQLRecordsGenericUpdate . '<br />';
@@ -130,17 +133,18 @@ class FunctionsDBUpdate
      * ['fieldName' => 'recordValue'],
      * ['id;' . idRecord . ';i']);
      */
-    static function updateRecordMultipleGeneric(string $strTable,
-    ?array $arrData,
-    ?array $arrSearchParameters): array|null
-    {
+    public static function updateRecordMultipleGeneric(
+        string $strTable,
+        ?array $arrData,
+        ?array $arrSearchParameters
+    ): array|null {
         // $arrSearchParameters: ['fieldNameSearch1;fieldValueSearch1;fieldTypeSearch1', 'fieldNameSearch2;fieldValueSearch2;fieldTypeSearch2', 'fieldNameSearch3;fieldValueSearch3;fieldTypeSearch3']
             // $typeFieldSearch1: s (string) | i (integer) | d (date) | dif (initial date and final date) | ids (id IN)
 
         // Variables.
         // ----------------------
         // let strReturn = false;
-        $arrReturn = [ 'returnStatus' => false, 'nRecords' => 0 ];
+        $arrReturn = ['returnStatus' => false, 'nRecords' => 0];
         $objSQLRecordsGenericUpdate = '';
         $arrSQLRecordsGenericUpdateParams = [];
         $resultsSQLRecordsGenericUpdate = null;
@@ -172,11 +176,7 @@ class FunctionsDBUpdate
             $arrSQLRecordsGenericUpdateParams = $arrData;
 
             $objSQLRecordsGenericUpdate = $objSQLRecordsGenericUpdate->update($arrSQLRecordsGenericUpdateParams);
-        } catch (Exception $updateRecordMultipleGeneric) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('updateRecordMultipleGeneric: ' . $updateRecordMultipleGeneric->message());
-            }
-        } finally {
+
             // Build return array.
             if ($objSQLRecordsGenericUpdate >= 0) {
                 // Note: If values are the same, it will return 0 and not update DB.
@@ -186,6 +186,12 @@ class FunctionsDBUpdate
                     $arrReturn = ['returnStatus' => true, 'nRecords' => $objSQLRecordsGenericUpdate];
                 }
             }
+        } catch (\Exception $updateRecordMultipleGeneric) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('updateRecordMultipleGeneric: ' . $updateRecordMultipleGeneric->getMessage());
+            }
+        } finally {
+            //
         }
 
         return $arrReturn;
@@ -200,5 +206,4 @@ class FunctionsDBUpdate
         // ----------------------
     }
     // **************************************************************************************
-
 }

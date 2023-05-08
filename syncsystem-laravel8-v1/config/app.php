@@ -1,7 +1,9 @@
 <?php
+
+declare(strict_types=1);
+
 //require __DIR__ . '/../config-application.php'; // SyncSystem customized configuration.
 require __DIR__ . '../../config-application-poc.php'; // SyncSystem customized configuration.
-
 
 return [
 
@@ -73,7 +75,6 @@ return [
     'timezone' => 'UTC',
     //'timezone' => $GLOBALS['configSystemTimeZone'],
     //'timezone' => $gSystemConfig['configSystemTimeZone'],
-    
 
     /*
     |--------------------------------------------------------------------------

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
@@ -32,7 +34,8 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::prefix('api')
+            //Route::prefix('api')
+            Route::prefix(config('app.gSystemConfig.configRouteAPI'))
                 ->middleware('api')
                 ->group(base_path('routes/api.php'));
         });
@@ -53,4 +56,5 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60);
         });
     }
+    // TODO: test to check if needs to update with config('app.gSystemConfig.configRouteAPI')
 }

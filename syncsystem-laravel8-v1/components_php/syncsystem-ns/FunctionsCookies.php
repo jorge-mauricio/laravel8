@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 class FunctionsCookies
@@ -15,7 +18,7 @@ class FunctionsCookies
      * @example
      * \SyncSystemNS\FunctionsGeneric::cookieCreate()
      */
-    static function cookieCreate($cookieName, $_cookieValue, $_cookiePeriod = ''): bool
+    public static function cookieCreate($cookieName, $_cookieValue, $_cookiePeriod = ''): bool
     {
         // Variables.
         // ----------------------
@@ -24,7 +27,7 @@ class FunctionsCookies
         $cookieOptions = [];
         // ----------------------
 
-        // Stay conected option.
+        // Stay connected option.
         if ($_cookiePeriod === '1') {
             $cookiePeriod = time() + (86400 * 30 * 365);
         }
@@ -52,15 +55,14 @@ class FunctionsCookies
             }
             */
 
-            if($GLOBALS['configCookieSetType'] === 1)
-            {
-                setcookie($cookieName, $_cookieValue, $cookiePeriod, $GLOBALS['configCookieDirectory']);
-            }else{
+            if (config('app.gSystemConfig.configCookieSetType') === 1) {
+                setcookie($cookieName, $_cookieValue, $cookiePeriod, config('app.gSystemConfig.configCookieDirectory'));
+            } else {
                 setcookie($cookieName, $_cookieValue, $cookiePeriod);
             }
-            
+
             // Guarantee that cookie will be defined in the first load.
-            $_COOKIE[$cookieName] = $_cookieValue; 
+            $_COOKIE[$cookieName] = $_cookieValue;
 
             $strReturn = true;
         }
@@ -79,7 +81,7 @@ class FunctionsCookies
      * @example
      * \SyncSystemNS\FunctionsGeneric::cookieRead()
      */
-    static function cookieRead($cookieName = ''): string|array
+    public static function cookieRead($cookieName = ''): string|array
     {
         // cookieName: '' - returns
         // objRoute = {_req: req, _res: res}
@@ -89,29 +91,27 @@ class FunctionsCookies
         $strReturn = '';
         $objReturn = ['returnStatus' => false]; // (all cookies)
 
-        $_objBody;
+        //$_objBody;
         // ----------------------
 
         if ($cookieName) {
-            if($cookieName) {
-                if(isset($_COOKIE[$cookieName]))
-                {
+            if ($cookieName) {
+                if (isset($_COOKIE[$cookieName])) {
                     $strReturn = $_COOKIE[$cookieName];
                 }
             }
 
-            if($cookieName === '') {
+            if ($cookieName === '') {
                 // Get values from login cookie.
-                if($strReturn === '') {
+                if ($strReturn === '') {
                     //$strReturn = \SyncSystemNS\FunctionsCookies::CookieValorLer_Login();
                     //$strReturn = \SyncSystemNS\FunctionsCookies::cookieRead_login();
                         // TODO:
                 }
 
                 // Temporary.
-                if($strReturn === '')
-                {
-                    $strReturn = $_COOKIE[$GLOBALS['configNomeCookie'] . "_" . "idTblRegisterTemporary"];
+                if ($strReturn === '') {
+                    $strReturn = $_COOKIE[config('app.gSystemConfig.configNomeCookie') . '_' . "idTblRegisterTemporary"];
                 }
             }
         }
@@ -126,21 +126,22 @@ class FunctionsCookies
      * Function to delete cookie.
      * @static
      * @param string $cookieName
+     * @return void
      * @example
      * \SyncSystemNS\FunctionsCookies::cookieDelete('')
      */
-    static function cookieDelete(string $cookieName = '')
+    public static function cookieDelete(string $cookieName = ''): void
     {
         $cookiePeriod = time() - 3600;
-        
-        if ($GLOBALS['configCookieSetType'] === 1) {
-            setcookie($cookieName, '', $cookiePeriod, $GLOBALS['configCookieDirectory']);
-        }else{
+
+        if (config('app.gSystemConfig.configCookieSetType') === 1) {
+            setcookie($cookieName, '', $cookiePeriod, config('app.gSystemConfig.configCookieDirectory'));
+        } else {
             setcookie($cookieName, '', $cookiePeriod);
         }
-        
+
         // Guarantee that the cookie will be deleted in the first load.
-        $_COOKIE[$cookieName] = ''; 
+        $_COOKIE[$cookieName] = '';
     }
     // **************************************************************************************
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 use Illuminate\Support\Facades\Log;
@@ -10,15 +13,15 @@ class FunctionsLog
     /**
      * Log - laravel.
      * @static
-     * @param mixed $logData 
+     * @see https://laravel.com/docs/9.x/logging#writing-log-messages
+     * @param mixed $logData
      * @param string $logType emergency | alert | critical | error | warning | notice | info | debug
      * @return void
      * @example
      * \SyncSystemNS\FunctionsLog::logLaravel($logData, 'debug');
      */
-    static function logLaravel(mixed $logData, string $logType = 'debug'): void
+    public static function logLaravel(mixed $logData, string $logType = 'debug'): void
     {
-        // ref: https://laravel.com/docs/9.x/logging#writing-log-messages
         Log::$logType($logData);
     }
     // **************************************************************************************

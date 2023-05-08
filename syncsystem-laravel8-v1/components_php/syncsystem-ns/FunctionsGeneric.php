@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 class FunctionsGeneric
@@ -8,13 +11,13 @@ class FunctionsGeneric
     /**
      * Return the label in the right terminal.
      * @static
-     * @param string $objAppLabels
+     * @param object $objAppLabels
      * @param string $labelName
      * @return string
      * @example
-     * \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend->appLabels'], 'labelName')
+     * \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'labelName')
      */
-    static function appLabelsGet(object|null $objAppLabels, string $labelName): string
+    public static function appLabelsGet(object $objAppLabels, string $labelName): string
     {
         // Variables.
         // ----------------------
@@ -26,8 +29,6 @@ class FunctionsGeneric
         // ----------------------
         if ($labelName) {
             if ($objAppLabels->$labelName) {
-
-
                 $strReturn = $objAppLabels->$labelName;
                 $strReturn = preg_replace('/(?:\r\n|\r|\n)/', '<br />', $strReturn); // replace line breaks with tags
             }
@@ -64,9 +65,9 @@ class FunctionsGeneric
      * @return mixed If `configDateFormat` is empty, will return Date string|DateTime
      * @example
      * \SyncSystemNS\FunctionsGeneric::dateSQLWrite($dateObjName)
-     * \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', $GLOBALS['configBackendDateFormat'])
+     * \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', config('app.gSystemConfig.configBackendDateFormat'))
      */
-    static function dateSQLWrite(mixed $dateInput, int|null $configDateFormat = null): mixed
+    public static function dateSQLWrite(mixed $dateInput, ?int $configDateFormat = null): mixed
     {
         // Variables.
         // ----------------------
@@ -98,9 +99,9 @@ class FunctionsGeneric
                 $dateMinute = $dateObj->format('i');
                 $dateSecond = $dateObj->format('s');
 
-                $dateFormated = $dateYear . '-' . $dateMonth . '-' . $dateDay;
+                $dateFormatted = $dateYear . '-' . $dateMonth . '-' . $dateDay;
 
-                // Ajustments.
+                // Adjustments.
                 if ($dateDay < 10) {
                     $dateDay = '0' . $dateDay;
                 }
@@ -121,7 +122,7 @@ class FunctionsGeneric
                     $dateSecond = '0' . $dateSecond;
                 }
 
-                $strReturn = $dateFormated . ' ' . $dateHour . ':' . $dateMinute . ':' . $dateSecond;
+                $strReturn = $dateFormatted . ' ' . $dateHour . ':' . $dateMinute . ':' . $dateSecond;
             }
             // ----------------------
 
@@ -162,7 +163,7 @@ class FunctionsGeneric
 
         // Usage.
         // ----------------------
-        // \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', $GLOBALS['configBackendDateFormat'])
+        // \SyncSystemNS\FunctionsGeneric::dateSQLWrite('15/02/2020', config('app.gSystemConfig.configBackendDateFormat'))
         // ----------------------
     }
     // **************************************************************************************
@@ -178,8 +179,12 @@ class FunctionsGeneric
      * @param int $dateType null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
      * @return string
      */
-    static function dateRead01(?string $strDate, int $configDateFormat, int $dateFormatReturn, int $dateType = null): string // TODO: double check if can be passed as null ?string $strDate
-    {
+    public static function dateRead01(
+        ?string $strDate,
+        int $configDateFormat,
+        int $dateFormatReturn,
+        int $dateType = null
+    ): string { // TODO: double check if can be passed as null ?string $strDate
         // $configDateFormat: 1 - pt | 2 uk | configBackendDateFormat | configFrontendDateFormat
         // $dateFormatReturn: 0 - deactivated (automatic from dateType) | 1 - (dd/mm/yyyy | mm/dd/yyyy) | 2 - (dd/mm/yyyy hh:mm:ss | mm/dd/yyyy hh:mm:ss) | 3 - yyyy-mm-dd hh:mm:ss | 10 - (yyyy-mm-dd) | 11 - yyyy-mm-ddThh:mm:ss | 22 - hh:mm:ss | 101 - written date (weekday, month day year)
         // $dateType: null - deactivated | 1 - simple date (year, month, day) | 2 -  complete date (year, month, day, hour, minute, seconds) | 3 - semi-complete date (year, month, day, hour, minute) | 4 - birth date (limited range) | 5 - task date (forward on) | 6 - history date (backwards on)  | 55 - task date with hour and minute (forward on) | 66 - history date with hour and minute (backwards on)
@@ -188,18 +193,18 @@ class FunctionsGeneric
         // ----------------------
         $strReturn = '';
         // $dateObj = new Date();
-        $dateObj;
-        $dateYear;
-        $dateDay;
-        $dateMonth;
-        $dateHour;
-        $dateMinute;
-        $dateSecond;
+        $dateObj = null;
+        $dateYear = null;
+        $dateDay = null;
+        $dateMonth = null;
+        $dateHour = null;
+        $dateMinute = null;
+        $dateSecond = null;
         // ----------------------
 
         if ($strDate) {
             // Variable value.
-            // dateObj = strDate; // worked with node, but didn´t work with react
+            // dateObj = strDate; // worked with node, but didn't work with react
             $dateObj = new \DateTime($strDate); // Y-m-d H:i:s
 
             $dateYear = $dateObj->format('Y');
@@ -266,7 +271,7 @@ class FunctionsGeneric
             \SyncSystemNS\FunctionsGeneric::dateRead01(categoriesRow['date1'],
                                                     gSystemConfig.configBackendDateFormat,
                                                     0,
-                                                    $GLOBALS['configCategoriesDate1Type']);
+                                                    config('app.gSystemConfig.configCategoriesDate1Type'));
             */
         // ----------------------
     }
@@ -282,7 +287,7 @@ class FunctionsGeneric
      * @param integer $fillType 1 - conventional interval
      * @return array
      */
-    static function timeTableFill01(string $timeTableType, int $fillType, $specialParameters = []): array
+    public static function timeTableFill01(string $timeTableType, int $fillType, $specialParameters = []): array
     {
         // timeTableType: mm - months | d - day | y - year |  h - hour | m - minute | s - seconds
         // fillType: 1 - conventional interval
@@ -402,7 +407,7 @@ class FunctionsGeneric
      * @example
      *
      */
-    static function contentMaskRead(?string $strContent, string $specialInstructions = ''): string
+    public static function contentMaskRead(?string $strContent, string $specialInstructions = ''): string
     {
         // specialInstructions: db | cookie | utf8_encode | htmlentities | config-application | env (.env - environment variables) | pdf (convert to text) | json_encode (JavaScript String Encode) | url | linkStyle=ss-backend-links01
 
@@ -590,14 +595,17 @@ class FunctionsGeneric
      * @static
      * @param string $valueData
      * @param int $valueType valueType 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency (decimal)
-     * @param array|null specialInstructions
+     * @param array|null $specialInstructions
      * @return float|int|string
      * @example
      * \SyncSystemNS\FunctionsGeneric::valueMaskRead(1000, '$', 2)
      */
-    static function valueMaskWrite(float $valueData, int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, ?array $specialInstructions = null): mixed
-    {
-        // valueType: 1 - general number | 2 - system currency | 3 - decimal (máximum: 34 digits) | 4 - system currency (decimal)
+    public static function valueMaskWrite(
+        float $valueData,
+        int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY,
+        ?array $specialInstructions = null
+    ): mixed {
+        // valueType: 1 - general number | 2 - system currency | 3 - decimal (maximum: 34 digits) | 4 - system currency (decimal)
 
         // Variables.
         // ----------------------
@@ -608,7 +616,6 @@ class FunctionsGeneric
         if ($strReturn) {
             // system currency
             if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY) {
-
                 $strReturn = preg_replace('/\,/', '', $strReturn);
                 $strReturn = preg_replace('/\./', '', $strReturn);
             }
@@ -621,13 +628,13 @@ class FunctionsGeneric
             // system currency (decimals)
             if ($valueType === SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL) {
                 // R$ - Real.
-                if ($GLOBALS['configSystemCurrency'] === 'R$') {
+                if (config('app.gSystemConfig.configSystemCurrency') === 'R$') {
                     $strReturn = preg_replace('/\./', '', $strReturn);
                     $strReturn = preg_replace('/\,/', '.', $strReturn);
                 }
 
                 // $ - Dollar.
-                if ($GLOBALS['configSystemCurrency'] === '$') {
+                if (config('app.gSystemConfig.configSystemCurrency') === '$') {
                     $strReturn = preg_replace('/\,/', '', $strReturn);
                 }
             }
@@ -645,14 +652,18 @@ class FunctionsGeneric
      * @param string $valueData
      * @param string $configCurrency '$' | 'R$'
      * @param int $valueType 1 - general number | 2 - system currency | 3 - decimal | 4 - system currency (with decimals)
-     * @param array|null specialInstructions
-     * @return float
+     * @param array|null $specialInstructions
+     * @return mixed
      * @example
      * \SyncSystemNS\FunctionsGeneric::valueMaskRead(1000, '$', 2)
      */
     //static function valueMaskRead($valueData, $configCurrency = '$', $valueType = 2, $specialInstructions = null): float
-    static function valueMaskRead(float $valueData, string $configCurrency = '$', int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY, ?array $specialInstructions = null): mixed
-    {
+    public static function valueMaskRead(
+        float $valueData,
+        string $configCurrency = '$',
+        int $valueType = SS_VALUE_TYPE_SYSTEM_CURRENCY,
+        ?array $specialInstructions = null
+    ): mixed {
         // TODO: unit test (decimals, system decimals (. / ,)).
         // Variables.
         // ----------------------
@@ -678,8 +689,7 @@ class FunctionsGeneric
                     $strValue = $strValue . '00';
                 }
 
-                if(strlen($strValue) < 3)
-                {
+                if (strlen($strValue) < 3) {
                     $strValue = '00' . $strValue;
                 }
 
@@ -687,33 +697,28 @@ class FunctionsGeneric
                 $strValue = substr($strValue, 0, strlen($strValue) - 2) . '.' . $strDecimal;
 
                 // R$ (Real).
-                if($configCurrency === 'R$')
-                {
-                    $strReturn = number_format($strValue, 2, ',', '.');
+                if ($configCurrency === 'R$') {
+                    $strReturn = number_format((float) $strValue, 2, ',', '.');
                 }
 
                 // $ (dolar).
-                if($configCurrency === '$')
-                {
-                    $strReturn = number_format($strValue, 2, '.', ',');
+                if ($configCurrency === '$') {
+                    $strReturn = number_format((float) $strValue, 2, '.', ',');
                 }
 
                 // PagSeguro.
-                if($configCurrency === 'pagseguro')
-                {
-                    $strReturn = number_format($strValue, 2, '.', ',');
+                if ($configCurrency === 'pagseguro') {
+                    $strReturn = number_format((float) $strValue, 2, '.', ',');
                 }
 
                 // Paypal.
-                if($configCurrency === 'paypal')
-                {
-                    $strReturn = number_format($strValue, 2, '.', '');
+                if ($configCurrency === 'paypal') {
+                    $strReturn = number_format((float) $strValue, 2, '.', '');
                 }
 
                 // Mercado Pago.
-                if($configCurrency === 'mercadopago')
-                {
-                    $strReturn = number_format($strValue, 2, '.', '');
+                if ($configCurrency === 'mercadopago') {
+                    $strReturn = number_format((float) $strValue, 2, '.', '');
                 }
             }
 
@@ -744,7 +749,7 @@ class FunctionsGeneric
      * @example
      * \SyncSystemNS\FunctionsGeneric::categoryConfigSelect($categoriesRow['category_type'], 1)
     */
-    static function categoryConfigSelect(string $categoryType, int $returnInfo): string
+    public static function categoryConfigSelect(string $categoryType, int $returnInfo): string
     {
         // Variables.
         // ----------------------
@@ -763,102 +768,102 @@ class FunctionsGeneric
 
         // Content.
         if ($categoryType === 1) {
-            $pageLinkFrontend = $GLOBALS['configRouteBackendContent'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteBackendContent');
             $variableFrontend = 'idParentContent';
 
-            $pageLinkBackend = $GLOBALS['configRouteFrontendContent'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteFrontendContent');
             $variableBackend = 'idParentContent';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardContent'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardContent');
             $variableDashboard = 'idParentContent';
         }
 
         // Products.
         if ($categoryType === 2) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendProducts'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendProducts');
             $variableFrontend = 'idParentProducts';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendProducts'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendProducts');
             $variableBackend = 'idParentProducts';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardProducts'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardProducts');
             $variableDashboard = 'idParentProducts';
         }
 
         // Publications - news.
         if ($categoryType === 3) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendPublications');
             $variableFrontend = 'idParentPublications';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendPublications');
             $variableBackend = 'idParentPublications';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardPublications');
             $variableDashboard = 'idParentPublications';
         }
         // Publications - photo gallery.
         if ($categoryType === 4) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendPublications');
             $variableFrontend = 'idParentPublications';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendPublications');
             $variableBackend = 'idParentPublications';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardPublications');
             $variableDashboard = 'idParentPublications';
         }
         // Publications - articles.
         if ($categoryType === 5) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendPublications');
             $variableFrontend = 'idParentPublications';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendPublications');
             $variableBackend = 'idParentPublications';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardPublications');
             $variableDashboard = 'idParentPublications';
         }
         // Publications - publications.
         if ($categoryType === 6) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendPublications'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendPublications');
             $variableFrontend = 'idParentPublications';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendPublications'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendPublications');
             $variableBackend = 'idParentPublications';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardPublications'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardPublications');
             $variableDashboard = 'idParentPublications';
         }
 
         // Polls.
         if ($categoryType === 7) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendQuizzes'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendQuizzes');
             $variableFrontend = 'idParentQuizzes';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendQuizzes'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendQuizzes');
             $variableBackend = 'idParentQuizzes';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardQuizzes'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardQuizzes');
             $variableDashboard = 'idParentQuizzes';
         }
 
         // Categories.
         if ($categoryType === 9) {
             // pageLinkFrontend = "categories";
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendCategories'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendCategories');
             $variableFrontend = 'idParentCategories';
 
             // pageLinkBackend = "categories";
-            $pageLinkBackend = $GLOBALS['configRouteBackendCategories'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendCategories');
             $variableBackend = 'idParentCategories';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardCategories'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardCategories');
             $variableDashboard = 'idParentCategories';
         }
 
         // Forms.
         if ($categoryType === 12) {
-            $pageLinkFrontend = $GLOBALS['configRouteBackendForms'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteBackendForms');
             $variableFrontend = 'idParentForms';
 
             $pageLinkBackend = 'forms';
@@ -870,25 +875,25 @@ class FunctionsGeneric
 
         // Registers.
         if ($categoryType === 13) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendRegisters'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendRegisters');
             $variableFrontend = 'idParentRegisters';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendRegisters'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendRegisters');
             $variableBackend = 'idParentRegisters';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardRegisters'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardRegisters');
             $variableDashboard = 'idParentRegisters';
         }
 
         // Quizzes.
         if ($categoryType === 17) {
-            $pageLinkFrontend = $GLOBALS['configRouteFrontendQuizzes'];
+            $pageLinkFrontend = config('app.gSystemConfig.configRouteFrontendQuizzes');
             $variableFrontend = 'idParentQuizzes';
 
-            $pageLinkBackend = $GLOBALS['configRouteBackendQuizzes'];
+            $pageLinkBackend = config('app.gSystemConfig.configRouteBackendQuizzes');
             $variableBackend = 'idParentQuizzes';
 
-            $pageLinkDashboard = $GLOBALS['configRouteFrontendDashboardQuizzes'];
+            $pageLinkDashboard = config('app.gSystemConfig.configRouteFrontendDashboardQuizzes');
             $variableDashboard = 'idParentQuizzes';
         }
         // ----------------------
@@ -896,8 +901,8 @@ class FunctionsGeneric
         // Logic - return info definition.
         // ----------------------
         if ($returnInfo === 0) {
-            for ($countObjArray = 0; $countObjArray < count($GLOBALS['configCategoryType']); $countObjArray++) {
-                $objCategoryType = $GLOBALS['configCategoryType'][$countObjArray];
+            for ($countObjArray = 0; $countObjArray < count(config('app.gSystemConfig.configCategoryType')); $countObjArray++) {
+                $objCategoryType = config('app.gSystemConfig.configCategoryType')[$countObjArray];
                 foreach ($objCategoryType as $key => $value) {
                     if ($objCategoryType[$key] === $categoryType) {
                         $strReturn = $objCategoryType['queryString'];
@@ -921,11 +926,11 @@ class FunctionsGeneric
         }
 
         if ($returnInfo === 5) {
-            for ($countObjArray = 0; $countObjArray < count($GLOBALS['configCategoryType']); $countObjArray++) {
-                $objCategoryType = $GLOBALS['configCategoryType'][$countObjArray];
+            for ($countObjArray = 0; $countObjArray < count(config('app.gSystemConfig.configCategoryType')); $countObjArray++) {
+                $objCategoryType = config('app.gSystemConfig.configCategoryType')[$countObjArray];
                 foreach ($objCategoryType as $key => $value) {
                     if ($objCategoryType[$key] === $categoryType) {
-                        $strReturn = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $objCategoryType['category_type_function_label']);
+                        $strReturn = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $objCategoryType['category_type_function_label']);
                     }
                 }
             }
@@ -953,7 +958,7 @@ class FunctionsGeneric
      * @example
      * \SyncSystemNS\FunctionsGeneric::removeHTML01('string');
      */
-    static function removeHTML01(string $strHTML): string
+    public static function removeHTML01(string $strHTML): string
     {
         // Variables.
         // ----------------------
@@ -979,7 +984,6 @@ class FunctionsGeneric
     }
     // **************************************************************************************
 
-
     // Function to help build the SQL queries.
     // **************************************************************************************
     /**
@@ -989,7 +993,7 @@ class FunctionsGeneric
      * @param string $returnMethod array | string (separated by commas)
      * @return array|string
      */
-    static function tableFieldsQueryBuild01(string $strTable, string $buildType, string $returnMethod): array|string
+    public static function tableFieldsQueryBuild01(string $strTable, string $buildType, string $returnMethod): array|string
     {
         // buildType: all | files
         // returnMethod: array | string (separated by commas)
@@ -1000,89 +1004,89 @@ class FunctionsGeneric
         $arrTableFieldsQueryBuild = [];
         // ----------------------
 
-        // Buid the field search array (to be converted to string).
+        // Build the field search array (to be converted to string).
 
         // Categories.
         // ----------------------
         // if(strTable == "categories")
-        if ($strTable === $GLOBALS['configSystemDBTableCategories']) {
+        if ($strTable === config('app.gSystemConfig.configSystemDBTableCategories')) {
             if ($buildType === 'all') {
                 $arrTableFieldsQueryBuild = ['id', 'id_parent'];
-                $GLOBALS['enableCategoriesSortOrder'] === 1 ? array_push($arrTableFieldsQueryBuild, 'sort_order') : '';
+                config('app.gSystemConfig.enableCategoriesSortOrder') === 1 ? array_push($arrTableFieldsQueryBuild, 'sort_order') : '';
                 array_push($arrTableFieldsQueryBuild, 'category_type', 'date_creation', 'date_timezone', 'date_edit');
-                $GLOBALS['enableCategoriesBindRegisterUser'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register_user') : '';
-                $GLOBALS['enableCategoriesBindRegister1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register1') : '';
-                $GLOBALS['enableCategoriesBindRegister2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register2') : '';
-                $GLOBALS['enableCategoriesBindRegister3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register3') : '';
-                $GLOBALS['enableCategoriesBindRegister4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register4') : '';
-                $GLOBALS['enableCategoriesBindRegister5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register5') : '';
+                config('app.gSystemConfig.enableCategoriesBindRegisterUser') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register_user') : '';
+                config('app.gSystemConfig.enableCategoriesBindRegister1') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register1') : '';
+                config('app.gSystemConfig.enableCategoriesBindRegister2') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register2') : '';
+                config('app.gSystemConfig.enableCategoriesBindRegister3') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register3') : '';
+                config('app.gSystemConfig.enableCategoriesBindRegister4') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register4') : '';
+                config('app.gSystemConfig.enableCategoriesBindRegister5') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_register5') : '';
                 array_push($arrTableFieldsQueryBuild, 'title', 'url_alias', 'keywords_tags', 'meta_description', 'meta_title', 'meta_info');
 
-                $GLOBALS['enableCategoriesDescription'] === 1 ? array_push($arrTableFieldsQueryBuild, 'description') : '';
-                $GLOBALS['enableCategoriesInfo1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info1') : '';
-                $GLOBALS['enableCategoriesInfo2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info2') : '';
-                $GLOBALS['enableCategoriesInfo3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info3') : '';
-                $GLOBALS['enableCategoriesInfo4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info4') : '';
-                $GLOBALS['enableCategoriesInfo5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info5') : '';
-                $GLOBALS['enableCategoriesInfo6'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info6') : '';
-                $GLOBALS['enableCategoriesInfo7'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info7') : '';
-                $GLOBALS['enableCategoriesInfo8'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info8') : '';
-                $GLOBALS['enableCategoriesInfo9'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info9') : '';
-                $GLOBALS['enableCategoriesInfo10'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
+                config('app.gSystemConfig.enableCategoriesDescription') === 1 ? array_push($arrTableFieldsQueryBuild, 'description') : '';
+                config('app.gSystemConfig.enableCategoriesInfo1') === 1 ? array_push($arrTableFieldsQueryBuild, 'info1') : '';
+                config('app.gSystemConfig.enableCategoriesInfo2') === 1 ? array_push($arrTableFieldsQueryBuild, 'info2') : '';
+                config('app.gSystemConfig.enableCategoriesInfo3') === 1 ? array_push($arrTableFieldsQueryBuild, 'info3') : '';
+                config('app.gSystemConfig.enableCategoriesInfo4') === 1 ? array_push($arrTableFieldsQueryBuild, 'info4') : '';
+                config('app.gSystemConfig.enableCategoriesInfo5') === 1 ? array_push($arrTableFieldsQueryBuild, 'info5') : '';
+                config('app.gSystemConfig.enableCategoriesInfo6') === 1 ? array_push($arrTableFieldsQueryBuild, 'info6') : '';
+                config('app.gSystemConfig.enableCategoriesInfo7') === 1 ? array_push($arrTableFieldsQueryBuild, 'info7') : '';
+                config('app.gSystemConfig.enableCategoriesInfo8') === 1 ? array_push($arrTableFieldsQueryBuild, 'info8') : '';
+                config('app.gSystemConfig.enableCategoriesInfo9') === 1 ? array_push($arrTableFieldsQueryBuild, 'info9') : '';
+                config('app.gSystemConfig.enableCategoriesInfo10') === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
 
-                $GLOBALS['enableCategoriesInfoS1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small1') : '';
-                $GLOBALS['enableCategoriesInfoS2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small2') : '';
-                $GLOBALS['enableCategoriesInfoS3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small3') : '';
-                $GLOBALS['enableCategoriesInfoS4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small4') : '';
-                $GLOBALS['enableCategoriesInfoS5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small5') : '';
+                config('app.gSystemConfig.enableCategoriesInfoS1') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small1') : '';
+                config('app.gSystemConfig.enableCategoriesInfoS2') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small2') : '';
+                config('app.gSystemConfig.enableCategoriesInfoS3') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small3') : '';
+                config('app.gSystemConfig.enableCategoriesInfoS4') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small4') : '';
+                config('app.gSystemConfig.enableCategoriesInfoS5') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small5') : '';
 
-                $GLOBALS['enableCategoriesNumber1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number1') : '';
-                $GLOBALS['enableCategoriesNumber2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number2') : '';
-                $GLOBALS['enableCategoriesNumber3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number3') : '';
-                $GLOBALS['enableCategoriesNumber4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number4') : '';
-                $GLOBALS['enableCategoriesNumber5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number5') : '';
+                config('app.gSystemConfig.enableCategoriesNumber1') === 1 ? array_push($arrTableFieldsQueryBuild, 'number1') : '';
+                config('app.gSystemConfig.enableCategoriesNumber2') === 1 ? array_push($arrTableFieldsQueryBuild, 'number2') : '';
+                config('app.gSystemConfig.enableCategoriesNumber3') === 1 ? array_push($arrTableFieldsQueryBuild, 'number3') : '';
+                config('app.gSystemConfig.enableCategoriesNumber4') === 1 ? array_push($arrTableFieldsQueryBuild, 'number4') : '';
+                config('app.gSystemConfig.enableCategoriesNumber5') === 1 ? array_push($arrTableFieldsQueryBuild, 'number5') : '';
 
-                $GLOBALS['enableCategoriesNumberS1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small1') : '';
-                $GLOBALS['enableCategoriesNumberS2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small2') : '';
-                $GLOBALS['enableCategoriesNumberS3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small3') : '';
-                $GLOBALS['enableCategoriesNumberS4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small4') : '';
-                $GLOBALS['enableCategoriesNumberS5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small5') : '';
+                config('app.gSystemConfig.enableCategoriesNumberS1') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small1') : '';
+                config('app.gSystemConfig.enableCategoriesNumberS2') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small2') : '';
+                config('app.gSystemConfig.enableCategoriesNumberS3') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small3') : '';
+                config('app.gSystemConfig.enableCategoriesNumberS4') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small4') : '';
+                config('app.gSystemConfig.enableCategoriesNumberS5') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small5') : '';
 
-                $GLOBALS['enableCategoriesDate1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date1') : '';
-                $GLOBALS['enableCategoriesDate2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date2') : '';
-                $GLOBALS['enableCategoriesDate3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date3') : '';
-                $GLOBALS['enableCategoriesDate4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date4') : '';
-                $GLOBALS['enableCategoriesDate5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'date5') : '';
+                config('app.gSystemConfig.enableCategoriesDate1') === 1 ? array_push($arrTableFieldsQueryBuild, 'date1') : '';
+                config('app.gSystemConfig.enableCategoriesDate2') === 1 ? array_push($arrTableFieldsQueryBuild, 'date2') : '';
+                config('app.gSystemConfig.enableCategoriesDate3') === 1 ? array_push($arrTableFieldsQueryBuild, 'date3') : '';
+                config('app.gSystemConfig.enableCategoriesDate4') === 1 ? array_push($arrTableFieldsQueryBuild, 'date4') : '';
+                config('app.gSystemConfig.enableCategoriesDate5') === 1 ? array_push($arrTableFieldsQueryBuild, 'date5') : '';
 
                 // arrTableFieldsQueryBuild.push("image_main");
-                $GLOBALS['enableCategoriesImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+                config('app.gSystemConfig.enableCategoriesImageMain') === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
 
-                $GLOBALS['enableCategoriesFile1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file1') : '';
-                $GLOBALS['enableCategoriesFile2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file2') : '';
-                $GLOBALS['enableCategoriesFile3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file3') : '';
-                $GLOBALS['enableCategoriesFile4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file4') : '';
-                $GLOBALS['enableCategoriesFile5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file5') : '';
+                config('app.gSystemConfig.enableCategoriesFile1') === 1 ? array_push($arrTableFieldsQueryBuild, 'file1') : '';
+                config('app.gSystemConfig.enableCategoriesFile2') === 1 ? array_push($arrTableFieldsQueryBuild, 'file2') : '';
+                config('app.gSystemConfig.enableCategoriesFile3') === 1 ? array_push($arrTableFieldsQueryBuild, 'file3') : '';
+                config('app.gSystemConfig.enableCategoriesFile4') === 1 ? array_push($arrTableFieldsQueryBuild, 'file4') : '';
+                config('app.gSystemConfig.enableCategoriesFile5') === 1 ? array_push($arrTableFieldsQueryBuild, 'file5') : '';
 
                 array_push($arrTableFieldsQueryBuild, 'activation');
-                $GLOBALS['enableCategoriesActivation1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
-                $GLOBALS['enableCategoriesActivation2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
-                $GLOBALS['enableCategoriesActivation3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
-                $GLOBALS['enableCategoriesActivation4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
-                $GLOBALS['enableCategoriesActivation5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
+                config('app.gSystemConfig.enableCategoriesActivation1') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
+                config('app.gSystemConfig.enableCategoriesActivation2') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
+                config('app.gSystemConfig.enableCategoriesActivation3') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
+                config('app.gSystemConfig.enableCategoriesActivation4') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
+                config('app.gSystemConfig.enableCategoriesActivation5') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
 
-                $GLOBALS['enableCategoriesStatus'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
-                $GLOBALS['enableCategoriesRestrictedAccess'] === 1 ? array_push($arrTableFieldsQueryBuild, 'restricted_access') : '';
-                $GLOBALS['enableCategoriesNotes'] === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
+                config('app.gSystemConfig.enableCategoriesStatus') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
+                config('app.gSystemConfig.enableCategoriesRestrictedAccess') === 1 ? array_push($arrTableFieldsQueryBuild, 'restricted_access') : '';
+                config('app.gSystemConfig.enableCategoriesNotes') === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
             }
 
             // File fields.
             if ($buildType === 'files') {
-                $GLOBALS['enableCategoriesImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
-                $GLOBALS['enableCategoriesFile1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file1') : '';
-                $GLOBALS['enableCategoriesFile2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file2') : '';
-                $GLOBALS['enableCategoriesFile3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file3') : '';
-                $GLOBALS['enableCategoriesFile4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file4') : '';
-                $GLOBALS['enableCategoriesFile5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'file5') : '';
+                config('app.gSystemConfig.enableCategoriesImageMain') === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+                config('app.gSystemConfig.enableCategoriesFile1') === 1 ? array_push($arrTableFieldsQueryBuild, 'file1') : '';
+                config('app.gSystemConfig.enableCategoriesFile2') === 1 ? array_push($arrTableFieldsQueryBuild, 'file2') : '';
+                config('app.gSystemConfig.enableCategoriesFile3') === 1 ? array_push($arrTableFieldsQueryBuild, 'file3') : '';
+                config('app.gSystemConfig.enableCategoriesFile4') === 1 ? array_push($arrTableFieldsQueryBuild, 'file4') : '';
+                config('app.gSystemConfig.enableCategoriesFile5') === 1 ? array_push($arrTableFieldsQueryBuild, 'file5') : '';
             }
         }
         // ----------------------
@@ -1803,56 +1807,56 @@ class FunctionsGeneric
         */
         // Users.
         // ----------------------
-        if ($strTable === $GLOBALS['configSystemDBTableUsers']) {
+        if ($strTable === config('app.gSystemConfig.configSystemDBTableUsers')) {
             if ($buildType === 'all') {
                 $arrTableFieldsQueryBuild = ['id', 'id_parent'];
-                $GLOBALS['enableUsersSortOrder'] === 1 ? array_push($arrTableFieldsQueryBuild, 'sort_order') : '';
+                config('app.gSystemConfig.enableUsersSortOrder') === 1 ? array_push($arrTableFieldsQueryBuild, 'sort_order') : '';
                 array_push($arrTableFieldsQueryBuild, 'date_creation', 'date_timezone', 'date_edit');
-                $GLOBALS['enableUsersType'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_type') : '';
+                config('app.gSystemConfig.enableUsersType') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_type') : '';
 
-                $GLOBALS['enableUsersNameTitle'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_title') : '';
-                $GLOBALS['enableUsersNameFull'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_full') : '';
-                $GLOBALS['enableUsersNameFirst'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_first') : '';
-                $GLOBALS['enableUsersNameLast'] === 1 ? array_push($arrTableFieldsQueryBuild, 'name_last') : '';
-                $GLOBALS['enableUsersDateBirth'] !== 0 ? array_push($arrTableFieldsQueryBuild, 'date_birth') : '';
-                $GLOBALS['enableUsersGender'] === 1 ? array_push($arrTableFieldsQueryBuild, 'gender') : '';
-                $GLOBALS['enableUsersDocument'] === 1 ? array_push($arrTableFieldsQueryBuild, 'document') : '';
-                $GLOBALS['enableUsersAddress'] === 1 ? array_push($arrTableFieldsQueryBuild, 'address_street', 'address_number', 'address_complement', 'neighborhood', 'district', 'county', 'city', 'state', 'country', 'zip_code') : '';
-                $GLOBALS['enableUsersPhone1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'phone1_international_code', 'phone1_area_code', 'phone1') : '';
-                $GLOBALS['enableUsersPhone2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'phone2_international_code', 'phone2_area_code', 'phone2') : '';
-                $GLOBALS['enableUsersPhone3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'phone3_international_code', 'phone3_area_code', 'phone3') : '';
-                $GLOBALS['enableUsersUsername'] === 1 ? array_push($arrTableFieldsQueryBuild, 'username') : '';
-                $GLOBALS['enableUsersEmail'] === 1 ? array_push($arrTableFieldsQueryBuild, 'email') : '';
+                config('app.gSystemConfig.enableUsersNameTitle') === 1 ? array_push($arrTableFieldsQueryBuild, 'name_title') : '';
+                config('app.gSystemConfig.enableUsersNameFull') === 1 ? array_push($arrTableFieldsQueryBuild, 'name_full') : '';
+                config('app.gSystemConfig.enableUsersNameFirst') === 1 ? array_push($arrTableFieldsQueryBuild, 'name_first') : '';
+                config('app.gSystemConfig.enableUsersNameLast') === 1 ? array_push($arrTableFieldsQueryBuild, 'name_last') : '';
+                config('app.gSystemConfig.enableUsersDateBirth') !== 0 ? array_push($arrTableFieldsQueryBuild, 'date_birth') : '';
+                config('app.gSystemConfig.enableUsersGender') === 1 ? array_push($arrTableFieldsQueryBuild, 'gender') : '';
+                config('app.gSystemConfig.enableUsersDocument') === 1 ? array_push($arrTableFieldsQueryBuild, 'document') : '';
+                config('app.gSystemConfig.enableUsersAddress') === 1 ? array_push($arrTableFieldsQueryBuild, 'address_street', 'address_number', 'address_complement', 'neighborhood', 'district', 'county', 'city', 'state', 'country', 'zip_code') : '';
+                config('app.gSystemConfig.enableUsersPhone1') === 1 ? array_push($arrTableFieldsQueryBuild, 'phone1_international_code', 'phone1_area_code', 'phone1') : '';
+                config('app.gSystemConfig.enableUsersPhone2') === 1 ? array_push($arrTableFieldsQueryBuild, 'phone2_international_code', 'phone2_area_code', 'phone2') : '';
+                config('app.gSystemConfig.enableUsersPhone3') === 1 ? array_push($arrTableFieldsQueryBuild, 'phone3_international_code', 'phone3_area_code', 'phone3') : '';
+                config('app.gSystemConfig.enableUsersUsername') === 1 ? array_push($arrTableFieldsQueryBuild, 'username') : '';
+                config('app.gSystemConfig.enableUsersEmail') === 1 ? array_push($arrTableFieldsQueryBuild, 'email') : '';
 
                 array_push($arrTableFieldsQueryBuild, 'password', 'password_hint', 'password_length');
 
-                $GLOBALS['enableUsersInfo1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info1') : '';
-                $GLOBALS['enableUsersInfo2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info2') : '';
-                $GLOBALS['enableUsersInfo3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info3') : '';
-                $GLOBALS['enableUsersInfo4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info4') : '';
-                $GLOBALS['enableUsersInfo5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info5') : '';
-                $GLOBALS['enableUsersInfo6'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info6') : '';
-                $GLOBALS['enableUsersInfo7'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info7') : '';
-                $GLOBALS['enableUsersInfo8'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info8') : '';
-                $GLOBALS['enableUsersInfo9'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info9') : '';
-                $GLOBALS['enableUsersInfo10'] === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
+                config('app.gSystemConfig.enableUsersInfo1') === 1 ? array_push($arrTableFieldsQueryBuild, 'info1') : '';
+                config('app.gSystemConfig.enableUsersInfo2') === 1 ? array_push($arrTableFieldsQueryBuild, 'info2') : '';
+                config('app.gSystemConfig.enableUsersInfo3') === 1 ? array_push($arrTableFieldsQueryBuild, 'info3') : '';
+                config('app.gSystemConfig.enableUsersInfo4') === 1 ? array_push($arrTableFieldsQueryBuild, 'info4') : '';
+                config('app.gSystemConfig.enableUsersInfo5') === 1 ? array_push($arrTableFieldsQueryBuild, 'info5') : '';
+                config('app.gSystemConfig.enableUsersInfo6') === 1 ? array_push($arrTableFieldsQueryBuild, 'info6') : '';
+                config('app.gSystemConfig.enableUsersInfo7') === 1 ? array_push($arrTableFieldsQueryBuild, 'info7') : '';
+                config('app.gSystemConfig.enableUsersInfo8') === 1 ? array_push($arrTableFieldsQueryBuild, 'info8') : '';
+                config('app.gSystemConfig.enableUsersInfo9') === 1 ? array_push($arrTableFieldsQueryBuild, 'info9') : '';
+                config('app.gSystemConfig.enableUsersInfo10') === 1 ? array_push($arrTableFieldsQueryBuild, 'info10') : '';
 
-                $GLOBALS['enableUsersImageMain'] === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+                config('app.gSystemConfig.enableUsersImageMain') === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
 
                 array_push($arrTableFieldsQueryBuild, 'activation');
-                $GLOBALS['enableUsersActivation1'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
-                $GLOBALS['enableUsersActivation2'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
-                $GLOBALS['enableUsersActivation3'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
-                $GLOBALS['enableUsersActivation4'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
-                $GLOBALS['enableUsersActivation5'] === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
+                config('app.gSystemConfig.enableUsersActivation1') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
+                config('app.gSystemConfig.enableUsersActivation2') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
+                config('app.gSystemConfig.enableUsersActivation3') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
+                config('app.gSystemConfig.enableUsersActivation4') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
+                config('app.gSystemConfig.enableUsersActivation5') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
 
-                $GLOBALS['enableUsersStatus'] === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
-                $GLOBALS['enableUsersNotes'] === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
+                config('app.gSystemConfig.enableUsersStatus') === 1 ? array_push($arrTableFieldsQueryBuild, 'id_status') : '';
+                config('app.gSystemConfig.enableUsersNotes') === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
             }
 
             // File fields.
             if ($buildType === 'files') {
-                $GLOBALS['enableUsersImageMain'] == 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+                config('app.gSystemConfig.enableUsersImageMain') == 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
             }
         }
 
@@ -1884,5 +1888,4 @@ class FunctionsGeneric
         // ----------------------
     }
     // **************************************************************************************
-
 }

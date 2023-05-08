@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 use Illuminate\Support\Facades\DB;
@@ -12,21 +15,25 @@ class FunctionsFiles
     /**
     * Upload multiple files function.
      * @static
-     * @param float $idRecord 
-     * @param Request $postedFile 
+     * @param float $idRecord
+     * @param Request $postedFile
      * @param string $directoryUpload c:\directory\subdirectory | gSystemConfig.configDirectoryFilesUpload
      * @param string $formFilePost optional
      * @param string $fileNameFinal optional
      * @param array $formfileFieldsReference
-     * @return array ['returnStatus' => false, 'file_field_name1' => '', 'file_field_name1' => ''] 
-     * @example \SyncSystemNS\FunctionsFiles::filesUpload(tblCategoriesID, 
-     *                                              this.openedFiles, 
-     *                                              gSystemConfig.configDirectoryFilesUpload, 
+     * @return array ['returnStatus' => false, 'file_field_name1' => '', 'file_field_name1' => '']
+     * @example \SyncSystemNS\FunctionsFiles::filesUpload(tblCategoriesID,
+     *                                              this.openedFiles,
+     *                                              gSystemConfig.configDirectoryFilesUpload,
      *                                              '');
-     * 
      */
-    static function filesUploadMultiple(float $idRecord, Request $postedFile, string $directoryUpload, string $fileNameFinal = '', ?array $formfileFieldsReference = []): array
-    {
+    public static function filesUploadMultiple(
+        float $idRecord,
+        Request $postedFile,
+        string $directoryUpload,
+        string $fileNameFinal = '',
+        ?array $formfileFieldsReference = []
+    ): array {
         // Variables.
         // ----------------------
         $strReturn = ['returnStatus' => false]; // ['returnStatus' => false, 'returnFileName' => ""]
@@ -41,30 +48,30 @@ class FunctionsFiles
         }
         */
         if ($formfileFieldsReference) {
-            foreach($formfileFieldsReference as $formfileFieldsReferenceKey => $formfileFieldsReferenceData) {
+            foreach ($formfileFieldsReference as $formfileFieldsReferenceKey => $formfileFieldsReferenceData) {
                 // Variables.
                 $fileName = '';
 
                 // Define values.
                 $fileName = $formfileFieldsReferenceData['fileNamePrefix'] . $idRecord . '.' . $formfileFieldsReferenceData['fileExtension'];
-                
+
                 // Set return values.
                 $strReturn[$formfileFieldsReferenceKey] = $fileName;
 
                 // Check if it´s an image (for resizing and copying an original file size).
-                if (strpos($GLOBALS['configImageFormats'], $formfileFieldsReferenceData['fileExtension']) !== false) {
+                if (strpos(config('app.gSystemConfig.configImageFormats'), $formfileFieldsReferenceData['fileExtension']) !== false) {
                     $fileName = 'o' . $fileName;
                 }
 
                 // Copy file (local).
                 // ----------------------
-                if ($GLOBALS['configUploadType'] === 1) {
+                if (config('app.gSystemConfig.configUploadType') === 1) {
                     try {
                         //$postedFile->file('image_main')->storeAs('public/app_files_public/', 'testing.jpg'); // Debug.
-                        $postedFile->file($formfileFieldsReferenceKey)->storeAs($GLOBALS['configDirectoryFiles'] . '/', $fileName);
-                    } catch (Error $filesUploadMultipleError) {
-                        if ($GLOBALS['configDebug'] === true) {
-                            throw new Error('filesUploadMultipleError: ' . $filesUploadMultipleError->message());
+                        $postedFile->file($formfileFieldsReferenceKey)->storeAs(config('app.gSystemConfig.configDirectoryFiles') . '/', $fileName);
+                    } catch (\Exception $filesUploadMultipleError) {
+                        if (config('app.gSystemConfig.configDebug') === true) {
+                            throw new \Error('filesUploadMultipleError: ' . $filesUploadMultipleError->getMessage());
                         }
                     } finally {
                         $strReturn['returnStatus'] = true;
@@ -74,7 +81,7 @@ class FunctionsFiles
 
                 // Copy file (local).
                 // ----------------------
-                if ($GLOBALS['configUploadType'] === 2) {
+                if (config('app.gSystemConfig.configUploadType') === 2) {
                     // TODO:
                 }
                 // ----------------------

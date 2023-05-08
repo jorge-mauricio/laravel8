@@ -1,8 +1,11 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
-use Illuminate\Support\Facades\DB;
 // use PDO;
+use Illuminate\Support\Facades\DB;
 
 class FunctionsDB
 {
@@ -18,7 +21,7 @@ class FunctionsDB
      */
     // async function counterUniversalUpdate(idTbCounter = 1)
     // static counterUniversalCreate(idTbCounter = 1, callback)
-    static function counterUniversalUpdate(int $idTbCounter = 1): float|null
+    public static function counterUniversalUpdate(int $idTbCounter = 1): float|null
     {
         // Variables.
         // ----------------------
@@ -30,7 +33,7 @@ class FunctionsDB
         // Logic.
         try {
             // Select the record.
-            $nCounterUpdate = \SyncSystemNS\FunctionsDB::genericFieldGet01($idTbCounter, $GLOBALS['configSystemDBTableCounter'], 'counter_global');
+            $nCounterUpdate = \SyncSystemNS\FunctionsDB::genericFieldGet01($idTbCounter, config('app.gSystemConfig.configSystemDBTableCounter'), 'counter_global');
 
             // Logic.
             // ----------------------
@@ -39,8 +42,9 @@ class FunctionsDB
                 $nCounterUpdate = $nCounterUpdate + 1;
 
                 // Update counter.
-                $arrResultCounterUpdate = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10($GLOBALS['configSystemDBTableCounter'], 
-                    'counter_global', 
+                $arrResultCounterUpdate = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10(
+                    config('app.gSystemConfig.configSystemDBTableCounter'),
+                    'counter_global',
                     (string)$nCounterUpdate,
                     ["id;" . $idTbCounter . ";i"]
                 );
@@ -51,12 +55,12 @@ class FunctionsDB
                 }
             }
             // ----------------------
-        } catch (Error $counterUniversalUpdateError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('counterUniversalUpdateError: ' . $counterUniversalUpdateError->message());
+        } catch (\Exception $counterUniversalUpdateError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('counterUniversalUpdateError: ' . $counterUniversalUpdateError->getMessage());
             }
         } finally {
-
+            //
         }
 
         return $nCounterUpdate;
@@ -72,14 +76,14 @@ class FunctionsDB
      * @param string $strTable categories | content | files | publications | products | registers | quizzes | forms | forms_fields | forms_fields_options
      * @param string $fieldName
      * @return string
-     * @example \SyncSystemNS\FunctionsDB::genericFieldGet01(790, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title')
+     * @example \SyncSystemNS\FunctionsDB::genericFieldGet01(790, config('app.gSystemConfig.configSystemDBTableFiltersGeneric'), 'title')
      */
-    static function genericFieldGet01(float $idRecord, string $strTable, string $fieldName): string
+    public static function genericFieldGet01(float $idRecord, string $strTable, string $fieldName): string
     {
         // Variables.
         // ----------------------
         $strReturn = '';
-        $objResultGenericField;
+        $objResultGenericField = null;
         $strSQLGenericFieldSelect = '';
         $strSQLGenericFieldSelectParams = [];
         // ----------------------
@@ -94,10 +98,10 @@ class FunctionsDB
                 var_dump(env('CONFIG_SYSTEM_DB_TABLE_PREFIX'));
                 echo '</pre><br />';
                 */
-                    
+
                 $objResultGenericField = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
                 $objResultGenericField = $objResultGenericField->select($fieldName);
-                $objResultGenericField = $objResultGenericField->where('id', '=', (float)\SyncSystemNS\FunctionsGeneric::contentMaskWrite($idRecord, 'db_sanitize'));
+                $objResultGenericField = $objResultGenericField->where('id', '=', (float) \SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $idRecord, 'db_sanitize'));
                 $objResultGenericField = $objResultGenericField->get()->toArray();
 
                 // Return data treatment.
@@ -112,19 +116,19 @@ class FunctionsDB
                 // Debug.
                 // dd($strReturn);
                 // ----------------------
-            } catch (Error $genericFieldGet01Error) {
-                if ($GLOBALS['configDebug'] === true) {
-                    throw new Error('genericFieldGet01: ' . $genericFieldGet01Error->message());
+            } catch (\Exception $genericFieldGet01Error) {
+                if (config('app.gSystemConfig.configDebug') === true) {
+                    throw new \Error('genericFieldGet01: ' . $genericFieldGet01Error->getMessage());
                 }
             } finally {
-
+                //
             }
             // ----------------------
         } else {
             $strReturn = '';
         }
 
-        return $strReturn;
+        return (string) $strReturn;
 
         // Usage.
         // ----------------------
@@ -148,15 +152,15 @@ class FunctionsDB
      * @param array $arrSpecialParameters ['returnType' => 3, 'pageNumber' => 2, 'pagingNRecords' => 20]
      * @return array
      */
-    static function genericTableGet02(string $strTable,
+    public static function genericTableGet02(
+        string $strTable,
         array|null $arrSearchParameters,
         string $configSortOrder = '',
         string $strNRecords = '',
         string $strReturnFields = '',
         int $searchType = 1,
         array $arrSpecialParameters = ['returnType' => 1]
-    ): array|int|null
-    {
+    ): array|int|null {
         // Variables.
         // ----------------------
         //$arrReturn = null;
@@ -193,11 +197,11 @@ class FunctionsDB
                     $searchParametersFieldName = $arrSearchParametersInfo[0];
                     $searchParametersFieldValue = $arrSearchParametersInfo[1];
                     $searchParametersFieldType = $arrSearchParametersInfo[2];
-    
+
                     // Integer.
                     if ($searchParametersFieldType === 'i') {
                         $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '=', (float) \SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
-    
+
                         //$strSQLGenericTableSelect += ' ' + $strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' = ?';
                         //$strSQLGenericTableSelectParams.push(searchParametersFieldValue);
                     }
@@ -210,7 +214,7 @@ class FunctionsDB
                     // String.
                     if ($searchParametersFieldType === 's') {
                         $resultsSQLGenericTable = $resultsSQLGenericTable->where($searchParametersFieldName, '=', (string) \SyncSystemNS\FunctionsGeneric::contentMaskWrite($searchParametersFieldValue, 'db_sanitize'));
-    
+
                         //$strSQLGenericTableSelect += ' ' + $strOperator + ' ' + FunctionsGeneric.contentMaskWrite(searchParametersFieldName, 'db_sanitize') + ' = ?';
                         //$strSQLGenericTableSelectParams.push(searchParametersFieldValue);
                     }
@@ -256,7 +260,7 @@ class FunctionsDB
 
                 $resultsSQLGenericTable = $resultsSQLGenericTable->offset($limitStart)->take($pagingNRecords);
             }
-            
+
             $resultsSQLGenericTable = $resultsSQLGenericTable->get();
             /*
             if ($strReturnFields !== '') {
@@ -317,13 +321,12 @@ class FunctionsDB
             //echo 'strOperator=' . $strOperator . '<br />';
 
             //echo 'contentMaskWrite=' . \SyncSystemNS\FunctionsGeneric::contentMaskWrite('testing contentMaskWrite', 'db_sanitize') . '<br />';
-
-        } catch (Error $genericTableGet02Error) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('genericTableGet02Error: ' . $genericTableGet02Error->message());
+        } catch (\Exception $genericTableGet02Error) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('genericTableGet02Error: ' . $genericTableGet02Error->getMessage());
             }
         } finally {
-
+            //
         }
 
         return $arrReturn;

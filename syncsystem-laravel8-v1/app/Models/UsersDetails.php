@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -67,7 +69,7 @@ class UsersDetails extends Authenticatable
         if ($_oudRecordParameters !== null) {
             $this->oudRecordParameters = $_oudRecordParameters;
 
-            $this->idTbUsers = isset($this->oudRecordParameters['_idTbUsers']) ? $this->oudRecordParameters['_idTbUsers'] : $this->idTbUsers;
+            $this->idTbUsers = isset($this->oudRecordParameters['_idTbUsers']) ? (float) $this->oudRecordParameters['_idTbUsers'] : $this->idTbUsers;
             $this->attributes['id'] = $this->idTbUsers; // Laravel attribute (necessary for creating Sanctum token).
             // TODO: research if needs to change tokenable_type data (maybe point to the users table).
             //$this->table = 'prefix_ssmv1_users';

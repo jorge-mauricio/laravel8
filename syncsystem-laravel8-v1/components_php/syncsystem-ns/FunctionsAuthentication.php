@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 use Illuminate\Support\Facades\DB;
@@ -16,15 +19,14 @@ class FunctionsAuthentication
      * @param array $arrSearchParameters
      * @return array|null
      * @example
-     * \SyncSystemNS\FunctionsAuthentication::authenticationVerification() 
+     * \SyncSystemNS\FunctionsAuthentication::authenticationVerification()
      */
-    static function authenticationVerification(
-        string $strData, 
-        string $verificationType, 
-        string $_returnURL = '', 
+    public static function authenticationVerification(
+        string $strData,
+        string $verificationType,
+        string $_returnURL = '',
         ?array $specialParameters = null
-    )
-    {
+    ): ?array {
         // Variables.
         // ----------------------
         $arrReturn = ['statusReturn' => false];
@@ -47,21 +49,22 @@ class FunctionsAuthentication
                     $returnURL = $_returnURL;
                 } else {
                     // Default return URL.
-                    $returnURL = '/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendUsers'] . '/';
+                    $returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/';
                 }
 
-                $strDataDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($strData, 'db'), 2);
+                // $strDataDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($strData, 'db'), 2);
+                $strDataDecrypt = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($strData, 'db'), SS_ENCRYPT_METHOD_DATA);
                 // strDataDecrypt = '12'; // debug
 
                 // Logic.
                 // TODO: Make this part optional by configuration (real time check).
 
                 // Parameters build.
-                push($arrSearchParametersUsersDetailsAuthentication, 'id;' . $strDataDecrypt . ';i');
-                push($arrSearchParametersUsersDetailsAuthentication, 'activation;1;i');
+                array_push($arrSearchParametersUsersDetailsAuthentication, 'id;' . $strDataDecrypt . ';i');
+                array_push($arrSearchParametersUsersDetailsAuthentication, 'activation;1;i');
 
                 $resultUsersDetailsAuthentication = \SyncSystemNS\FunctionsDB::genericTableGet02(
-                    $GLOBALS['configSystemDBTableUsers'],
+                    config('app.gSystemConfig.configSystemDBTableUsers'),
                     $arrSearchParametersUsersDetailsAuthentication,
                     '',
                     '',
@@ -80,7 +83,7 @@ class FunctionsAuthentication
                 }
 
                 // Debug.
-                $arrReturn['debug'] = $strData; // TODO: comment out.
+                // $arrReturn['debug'] = $strData; // TODO: comment out.
                 // console.log("strDataDecrypt=", strDataDecrypt);
                 // console.log("objUsersDetailsAuthentication=", objUsersDetailsAuthentication);
                 // console.log("resultUsersDetailsAuthentication=", resultUsersDetailsAuthentication);
@@ -90,7 +93,7 @@ class FunctionsAuthentication
             // ----------------------
         }
 
-        return $arrReturn;        
+        return $arrReturn;
     }
     // **************************************************************************************
 }

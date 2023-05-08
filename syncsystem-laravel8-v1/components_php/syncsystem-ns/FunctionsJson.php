@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 class FunctionsJson
@@ -8,14 +11,14 @@ class FunctionsJson
     /**
      * Convert JavaScript Json object/string to PHP json object.
      * @static
-     * @param string $strData 
-     * @param array $arrStripElements 
-     * @param string $strRootNode 
+     * @param string $strData
+     * @param array $arrStripElements
+     * @param string $strRootNode
      * @return string
      * @example
      * $jsonAppLabels = \SyncSystemNS\FunctionsJson::convertJSJsonToPHPJson($objAppLabels, ["'use strict';", "exports.", "appLabels = "], 'appLabels');
      */
-    static function convertJSJsonToPHPJson(string $strData, array $arrStripElements = [], string $strRootNode = ''): object|null
+    public static function convertJSJsonToPHPJson(string $strData, array $arrStripElements = [], string $strRootNode = ''): object|null
     {
         // int $type = 1, $type: 1 - exports.
 
@@ -34,7 +37,7 @@ class FunctionsJson
             // Strip elements.
             if (count($arrStripElements) > 0) {
                 $strData = str_replace($arrStripElements, '', $strData);
-            } 
+            }
 
             // Format PHP json.
             // $strData = preg_replace('!/\*.*?\*/!s', '', $strData); // Strip comment blocks.
@@ -67,8 +70,8 @@ class FunctionsJson
         // Debug.
         // echo 'strData=<pre>';
         // var_dump($strData);
-        // echo '</pre><br />'; 
-        
+        // echo '</pre><br />';
+
         $strReturn = $strData;
 
         return $strReturn;
