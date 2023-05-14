@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 class ObjectCategoriesListing
@@ -13,7 +16,7 @@ class ObjectCategoriesListing
     private array|null $resultsCategoriesListing = null;
     //private mixed $resultsCategoriesListing = null;
     // ----------------------
-    
+
     // Constructor.
     // **************************************************************************************
     /**
@@ -38,7 +41,7 @@ class ObjectCategoriesListing
         echo 'arrParameters=<pre>';
         var_dump($arrParameters);
         echo '</pre><br />';
-        
+
         echo 'arrSearchParameters=<pre>';
         var_dump($this->arrSearchParameters);
         echo '</pre><br />';
@@ -83,12 +86,12 @@ class ObjectCategoriesListing
         // Logic.
         try {
             $this->resultsCategoriesListing = \SyncSystemNS\FunctionsDB::genericTableGet02(
-                $GLOBALS['configSystemDBTableCategories'],
+                config('app.gSystemConfig.configSystemDBTableCategories'),
                 $this->arrSearchParameters,
                 $this->configSortOrder,
                 $this->strNRecords,
                 // FunctionsGeneric.tableFieldsQueryBuild01("categories", "all", "string"),
-                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01($GLOBALS['configSystemDBTableCategories'], 'all', 'string'),
+                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01(config('app.gSystemConfig.configSystemDBTableCategories'), 'all', 'string'),
                 // 'id,title,description', // debug
                 1,
                 $this->arrSpecialParameters
@@ -106,9 +109,9 @@ class ObjectCategoriesListing
 
             //return $this->resultsCategoriesListing;
             //return $arrReturn;
-        } catch (Error $recordsListingGetError) {
+        } catch (\Exception $recordsListingGetError) {
             if ($GLOBALS['configDebug'] === true) {
-                throw new Error('recordsListingGetError: ' . $recordsListingGetError->message());
+                throw new \Error('recordsListingGetError: ' . $recordsListingGetError->getMessage());
             }
         } finally {
             //

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 class ObjectUsersDetails
@@ -18,7 +21,7 @@ class ObjectUsersDetails
     private float|null $tblUsersID = null;
     private float $tblUsersIdParent = 0;
     private float $tblUsersSortOrder = 0;
-    private float $tblUsersSortOrder_print = 0;
+    private string $tblUsersSortOrder_print = '0';
 
     private string $tblUsersDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     private string $tblUsersDateTimezone = '';
@@ -54,7 +57,6 @@ class ObjectUsersDetails
     private string $tblUsersZipCode = '';
     private string $tblUsersZipCode_print = '';
 
-    
     private string $tblUsersPhone1InternationalCode = '';
     private string $tblUsersPhone1AreaCode = '';
     private string $tblUsersPhone1 = '';
@@ -178,17 +180,16 @@ class ObjectUsersDetails
     {
         // Value definition.
         // ----------------------
-        $this->idTbUsers = array_key_exists('_idTbUsers', $arrParameters) && $arrParameters['_idTbUsers'] !== null ? $arrParameters['_idTbUsers'] : $this->idTbUsers;
+        $this->idTbUsers = array_key_exists('_idTbUsers', $arrParameters) && $arrParameters['_idTbUsers'] !== null ? (float) $arrParameters['_idTbUsers'] : $this->idTbUsers;
         $this->arrSearchParameters = array_key_exists('_arrSearchParameters', $arrParameters) && $arrParameters['_arrSearchParameters'] !== null ? $arrParameters['_arrSearchParameters'] : $this->arrSearchParameters;
 
-        $this->terminal = array_key_exists('_terminal', $arrParameters) && $arrParameters['_terminal'] !== null ? $arrParameters['_terminal'] : $this->terminal;
+        $this->terminal = array_key_exists('_terminal', $arrParameters) && $arrParameters['_terminal'] !== null ? (int) $arrParameters['_terminal'] : $this->terminal;
         if ($this->terminal === 1) {
             $this->labelPrefix = 'frontend';
         }
 
         $this->arrSpecialParameters = array_key_exists('_arrSpecialParameters', $arrParameters) && $arrParameters['_arrSpecialParameters'] !== null ? $arrParameters['_arrSpecialParameters'] : $this->arrSpecialParameters;
         // ----------------------
-    
     }
     // **************************************************************************************
 
@@ -210,12 +211,12 @@ class ObjectUsersDetails
         // Logic.
         try {
             $this->resultsUsersDetails = \SyncSystemNS\FunctionsDB::genericTableGet02(
-                $GLOBALS['configSystemDBTableUsers'], 
-                $this->arrSearchParameters, 
-                '', 
-                '', 
-                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01($GLOBALS['configSystemDBTableUsers'], 'all', 'string'), 
-                1, 
+                config('app.gSystemConfig.configSystemDBTableUsers'),
+                $this->arrSearchParameters,
+                '',
+                '',
+                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01(config('app.gSystemConfig.configSystemDBTableUsers'), 'all', 'string'),
+                1,
                 $this->arrSpecialParameters
             );
 
@@ -226,9 +227,9 @@ class ObjectUsersDetails
                 $this->tblUsersID = $this->resultsUsersDetails[0]->id;
                 $this->tblUsersIdParent = $this->resultsUsersDetails[0]->id_parent;
 
-                $this->tblUsersSortOrder = $this->resultsUsersDetails[0]->sort_order;
-                $this->tblUsersSortOrder_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblUsersSortOrder, $GLOBALS['configSystemCurrency'], SS_VALUE_TYPE_DECIMAL);
-                
+                $this->tblUsersSortOrder = (float) $this->resultsUsersDetails[0]->sort_order;
+                $this->tblUsersSortOrder_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblUsersSortOrder, config('app.gSystemConfig.configSystemCurrency'), SS_VALUE_TYPE_DECIMAL);
+
 
                 $this->tblUsersDateCreation = $this->resultsUsersDetails[0]->date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
                 // $this->tblUsersDateTimezone = $this->resultsUsersDetails[0]->date_timezone;
@@ -238,7 +239,7 @@ class ObjectUsersDetails
                 $this->tblUsersNameTitle = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->name_title, 'db');
                 $this->tblUsersNameFull = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->name_full, 'db');
                 $this->tblUsersNameFirst = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->name_first, 'db');
-                $this->tblUsersNameLast = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->name_last, 'editTextBox=' . $GLOBALS['configBackendTextBox']); // TODO: condition detect terminal
+                $this->tblUsersNameLast = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->name_last, 'editTextBox=' . config('app.gSystemConfig.configBackendTextBox')); // TODO: condition detect terminal
 
                 $this->tblUsersDateBirth = $this->resultsUsersDetails[0]->date_birth;
                 if ($this->tblUsersDateBirth) {
@@ -247,31 +248,31 @@ class ObjectUsersDetails
                     $this->tblUsersDateBirthDateYear = $this->tblUsersDateBirthDateObj->format('Y');
                     $this->tblUsersDateBirthDateDay = $this->tblUsersDateBirthDateObj->format('d');
                     $this->tblUsersDateBirthDateMonth = $this->tblUsersDateBirthDateObj->format('m');
-            
+
                     $this->tblUsersDateBirthDateHour = $this->tblUsersDateBirthDateObj->format('H');
                     $this->tblUsersDateBirthDateHour_print = $this->tblUsersDateBirthDateHour;
-            
+
                     $this->tblUsersDateBirthDateMinute = $this->tblUsersDateBirthDateObj->format('i');
                     $this->tblUsersDateBirthDateMinute_print = $this->tblUsersDateBirthDateMinute;
-            
+
                     $this->tblUsersDateBirthDateSecond = $this->tblUsersDateBirthDateObj->format('s');
                     $this->tblUsersDateBirthDateSecond_print = $this->tblUsersDateBirthDateSecond;
-            
-                    $this->tblUsersDateBirth_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblUsersDateBirth, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configUsersDateBirthType']);
+
+                    $this->tblUsersDateBirth_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblUsersDateBirth, config('app.gSystemConfig.configBackendDateFormat'), 0, config('app.gSystemConfig.configUsersDateBirthType'));
                 }
 
                 $this->tblUsersGender = $this->resultsUsersDetails[0]->gender;
                 switch ($this->tblUsersGender) {
                     case 0:
-                      $this->tblUsersGender_print = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemGender0');
-                      break;
+                        $this->tblUsersGender_print = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemGender0');
+                        break;
                     case 1:
-                      $this->tblUsersGender_print = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemGender1');
-                      break;
+                        $this->tblUsersGender_print = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemGender1');
+                        break;
                     case 2:
-                      $this->tblUsersGender_print = \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemGender2');
-                      break;
-                  }
+                        $this->tblUsersGender_print = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemGender2');
+                        break;
+                }
                 $this->tblUsersDocument = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->document, 'db');
 
                 $this->tblUsersAddressStreet = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->address_street, 'editTextBox=1');
@@ -285,7 +286,7 @@ class ObjectUsersDetails
                 $this->tblUsersCountry = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->country, 'db');
                 $this->tblUsersZipCode = $this->resultsUsersDetails[0]->zip_code; // TODO: Data treatment.
                 $this->tblUsersZipCode_print = $this->tblUsersZipCode;
-                          
+
                 $this->tblUsersPhone1InternationalCode = $this->resultsUsersDetails[0]->phone1_international_code;
                 $this->tblUsersPhone1AreaCode = $this->resultsUsersDetails[0]->phone1_area_code;
                 $this->tblUsersPhone1 = $this->resultsUsersDetails[0]->phone1;
@@ -310,181 +311,181 @@ class ObjectUsersDetails
                 $this->tblUsersPasswordLength = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->password_length, 'db');
 
                 //TODO: test decryption
-                if ($GLOBALS['enableUsersInfo1'] === 1) {
-                    if ($GLOBALS['configUsersInfo1FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo1FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo1') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo1FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo1FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo1 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info1, 'db');
                         $this->tblUsersInfo1_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info1, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo1FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo1FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo1FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo1FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo1 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info1, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo1_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info1, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo2'] === 1) {
-                    if ($GLOBALS['configUsersInfo2FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo2FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo2') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo2FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo2FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo2 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info2, 'db');
                         $this->tblUsersInfo2_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info2, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo2FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo2FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo2FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo2FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo2 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info2, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo2_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info2, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo3'] === 1) {
-                    if ($GLOBALS['configUsersInfo3FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo3FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo3') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo3FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo3FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo3 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info3, 'db');
                         $this->tblUsersInfo3_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info3, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo3FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo3FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo3FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo3FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo3 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info3, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo3_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info3, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo4'] === 1) {
-                    if ($GLOBALS['configUsersInfo4FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo4FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo4') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo4FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo4FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo4 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info4, 'db');
                         $this->tblUsersInfo4_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info4, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo4FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo4FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo4FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo4FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo4 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info4, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo4_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info4, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo5'] === 1) {
-                    if ($GLOBALS['configUsersInfo5FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo5FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo5') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo5FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo5FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo5 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info5, 'db');
                         $this->tblUsersInfo5_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info5, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo5FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo5FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo5FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo5FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo5 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info5, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo5_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info5, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo6'] === 1) {
-                    if ($GLOBALS['configUsersInfo6FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo6FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo6') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo6FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo6FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo6 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info6, 'db');
                         $this->tblUsersInfo6_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info6, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo6FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo6FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo6FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo6FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo6 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info6, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo6_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info6, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo7'] === 1) {
-                    if ($GLOBALS['configUsersInfo7FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo7FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo7') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo7FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo7FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo7 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info7, 'db');
                         $this->tblUsersInfo7_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info7, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo7FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo7FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo7FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo7FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo7 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info7, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo7_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info7, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo8'] === 1) {
-                    if ($GLOBALS['configUsersInfo8FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo8FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo8') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo8FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo8FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo8 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info8, 'db');
                         $this->tblUsersInfo8_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info8, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo8FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo8FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo8FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo8FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo8 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info8, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo8_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info8, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo9'] === 1) {
-                    if ($GLOBALS['configUsersInfo9FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo9FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo9') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo9FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo9FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo9 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info9, 'db');
                         $this->tblUsersInfo9_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info9, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo9FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo9FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo9FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo9FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo9 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info9, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo9_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info9, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableUsersInfo10'] === 1) {
-                    if ($GLOBALS['configUsersInfo10FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configUsersInfo10FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableUsersInfo10') === 1) {
+                    if (config('app.gSystemConfig.configUsersInfo10FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configUsersInfo10FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblUsersInfo10 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info10, 'db');
                         $this->tblUsersInfo10_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info10, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configUsersInfo10FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configUsersInfo10FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configUsersInfo10FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configUsersInfo10FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblUsersInfo10 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info10, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblUsersInfo10_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->info10, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                
+
                 $this->tblUsersImageMain = (string)$this->resultsUsersDetails[0]->image_main;
 
                 $this->tblUsersActivation = $this->resultsUsersDetails[0]->activation;
-                $this->tblUsersActivation_print = $this->tblUsersActivation === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblUsersActivation_print = $this->tblUsersActivation === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 $this->tblUsersActivation1 = $this->resultsUsersDetails[0]->activation1;
-                $this->tblUsersActivation1_print = $this->tblUsersActivation1 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblUsersActivation1_print = $this->tblUsersActivation1 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
-                    
+
                 $this->tblUsersActivation2 = $this->resultsUsersDetails[0]->activation2;
-                $this->tblUsersActivation2_print = $this->tblUsersActivation2 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblUsersActivation2_print = $this->tblUsersActivation2 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 $this->tblUsersActivation3 = $this->resultsUsersDetails[0]->activation3;
-                $this->tblUsersActivation3_print = $this->tblUsersActivation3 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblUsersActivation3_print = $this->tblUsersActivation3 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 $this->tblUsersActivation4 = $this->resultsUsersDetails[0]->activation4;
-                $this->tblUsersActivation4_print = $this->tblUsersActivation4 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblUsersActivation4_print = $this->tblUsersActivation4 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 $this->tblUsersActivation5 = $this->resultsUsersDetails[0]->activation5;
-                $this->tblUsersActivation5_print = $this->tblUsersActivation5 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblUsersActivation5_print = $this->tblUsersActivation5 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
-                    
+
                 $this->tblUsersIdStatus = $this->resultsUsersDetails[0]->id_status;
-                $this->tblUsersIdStatus_print = $this->tblUsersIdStatus === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemDropDownSelectNone') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::contentMaskRead(\SyncSystemNS\FunctionsDB::genericFieldGet01($this->tblUsersIdStatus, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title'), 'db')
+                $this->tblUsersIdStatus_print = $this->tblUsersIdStatus === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemDropDownSelectNone')
+                :
+                    \SyncSystemNS\FunctionsGeneric::contentMaskRead(\SyncSystemNS\FunctionsDB::genericFieldGet01($this->tblUsersIdStatus, config('app.gSystemConfig.configSystemDBTableFiltersGeneric'), 'title'), 'db')
                 ;
-                
+
                 $this->tblUsersNotes = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->notes, 'db');
                 $this->tblUsersNotes_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->notes, 'db');
-                          
+
                 // Build return array.
                 $arrReturn['tblUsersID'] = $this->tblUsersID;
                 $arrReturn['tblUsersIdParent'] = $this->tblUsersIdParent;
@@ -516,7 +517,6 @@ class ObjectUsersDetails
                 $arrReturn['tblUsersDateBirthDateSecond'] = $this->tblUsersDateBirthDateSecond;
                 $arrReturn['tblUsersDateBirthDateSecond_print'] = $this->tblUsersDateBirthDateSecond;
                 $arrReturn['tblUsersDateBirth_print'] = $this->tblUsersDateBirth_print;
-
 
                 $arrReturn['tblUsersGender'] = $this->tblUsersGender;
                 $arrReturn['tblUsersGender_print'] = $this->tblUsersGender_print;
@@ -598,9 +598,9 @@ class ObjectUsersDetails
                 $arrReturn['tblUsersNotes'] = $this->tblUsersNotes;
                 $arrReturn['tblUsersNotes_edit'] = $this->tblUsersNotes_edit;
             }
-        } catch (Error $recordDetailsGet) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('recordDetailsGet: ' . $recordDetailsGet->message());
+        } catch (\Exception $recordDetailsGet) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('recordDetailsGet: ' . $recordDetailsGet->getMessage());
             }
         } finally {
             //

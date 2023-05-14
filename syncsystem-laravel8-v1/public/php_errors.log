@@ -268,3 +268,4 @@ Stack trace:
 #8 {main}
   thrown in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\vendor\laravel\framework\src\Illuminate\Support\Facades\Facade.php on line 258
 [16-Apr-2023 15:10:05 America/Sao_Paulo] PHP Warning:  require(K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config/../config-application-poc.php): Failed to open stream: No such file or directory in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\config\gSystemConfig.php on line 2
+[14-May-2023 21:57:20 UTC] PHP Fatal error:  Cannot use int as default value for property SyncSystemNS\ObjectCategoriesDetails::$tblCategoriesSortOrder_print of type string in K:\syncsystem\tecnologias\php\laravel\aula\laravel8\syncsystem-laravel8-v1\components_php\syncsystem-ns\ObjectCategoriesDetails.php on line 24

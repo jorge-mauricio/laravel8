@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 class ObjectCategoriesDetails
@@ -18,8 +21,8 @@ class ObjectCategoriesDetails
     private float|null $tblCategoriesID = null;
     private float $tblCategoriesIdParent = 0;
     private float $tblCategoriesSortOrder = 0;
-    private float $tblCategoriesSortOrder_print = 0;
-    private float $tblCategoriesCategoryType = 0; // Review: check categories insert to see if 0 is default value
+    private string $tblCategoriesSortOrder_print = '0';
+    private int $tblCategoriesCategoryType = 0; // Review: check categories insert to see if 0 is default value
 
     private string $tblCategoriesDateCreation = ''; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
     private string $tblCategoriesDateTimezone = '';
@@ -110,6 +113,7 @@ class ObjectCategoriesDetails
     private object|null $tblCategoriesDate1DateObj = null;
     private string|null $tblCategoriesDate1DateYear = null, $tblCategoriesDate1DateDay = null, $tblCategoriesDate1DateMonth = null;
     private string|null $tblCategoriesDate1DateHour = null, $tblCategoriesDate1DateHour_print = '', $tblCategoriesDate1DateMinute = null, $tblCategoriesDate1DateMinute_print = '', $tblCategoriesDate1DateSecond = null, $tblCategoriesDate1DateSecond_print = '';
+    // TODO: linting - vs code phpcs single_class_element_per_statement equivalent (ex: Generic.Formatting.DisallowMultipleStatements)
 
     private string|null $tblCategoriesDate2 = null;
     private string $tblCategoriesDate2_print = '';
@@ -230,17 +234,16 @@ class ObjectCategoriesDetails
     {
         // Value definition.
         // ----------------------
-        $this->idTbCategories = array_key_exists('_idTbCategories', $arrParameters) && $arrParameters['_idTbCategories'] !== null ? $arrParameters['_idTbCategories'] : $this->idTbCategories;
+        $this->idTbCategories = array_key_exists('_idTbCategories', $arrParameters) && $arrParameters['_idTbCategories'] !== null ? (float) $arrParameters['_idTbCategories'] : $this->idTbCategories;
         $this->arrSearchParameters = array_key_exists('_arrSearchParameters', $arrParameters) && $arrParameters['_arrSearchParameters'] !== null ? $arrParameters['_arrSearchParameters'] : $this->arrSearchParameters;
 
-        $this->terminal = array_key_exists('_terminal', $arrParameters) && $arrParameters['_terminal'] !== null ? $arrParameters['_terminal'] : $this->terminal;
+        $this->terminal = array_key_exists('_terminal', $arrParameters) && $arrParameters['_terminal'] !== null ? (int) $arrParameters['_terminal'] : $this->terminal;
         if ($this->terminal === 1) {
             $this->labelPrefix = 'frontend';
         }
 
         $this->arrSpecialParameters = array_key_exists('_arrSpecialParameters', $arrParameters) && $arrParameters['_arrSpecialParameters'] !== null ? $arrParameters['_arrSpecialParameters'] : $this->arrSpecialParameters;
         // ----------------------
-    
     }
     // **************************************************************************************
 
@@ -262,19 +265,19 @@ class ObjectCategoriesDetails
         // Logic.
         try {
             $this->resultsCategoryDetails = \SyncSystemNS\FunctionsDB::genericTableGet02(
-                $GLOBALS['configSystemDBTableCategories'], 
-                $this->arrSearchParameters, 
-                '', 
-                '', 
-                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01($GLOBALS['configSystemDBTableCategories'], 'all', 'string'), 
-                1, 
+                config('app.gSystemConfig.configSystemDBTableCategories'),
+                $this->arrSearchParameters,
+                '',
+                '',
+                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01(config('app.gSystemConfig.configSystemDBTableCategories'), 'all', 'string'),
+                1,
                 $this->arrSpecialParameters
             );
 
             // Debug.
             //echo 'resultsCategoryDetails=<pre>';
             //var_dump($this->resultsCategoryDetails);
-            //echo '</pre><br />';    
+            //echo '</pre><br />';
 
             // if ($this->resultsCategoryDetails['returnStatus'] === true) {
             if ($this->resultsCategoryDetails['returnStatus'] === true && isset($this->resultsCategoryDetails[0])) {
@@ -287,9 +290,9 @@ class ObjectCategoriesDetails
                 $this->tblCategoriesID = $this->resultsCategoryDetails[0]->id;
                 $this->tblCategoriesIdParent = $this->resultsCategoryDetails[0]->id_parent;
 
-                $this->tblCategoriesSortOrder = $this->resultsCategoryDetails[0]->sort_order;
-                $this->tblCategoriesSortOrder_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesSortOrder, $GLOBALS['configSystemCurrency'], SS_VALUE_TYPE_DECIMAL);
-                
+                $this->tblCategoriesSortOrder = (float) $this->resultsCategoryDetails[0]->sort_order;
+                $this->tblCategoriesSortOrder_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesSortOrder, config('app.gSystemConfig.configSystemCurrency'), SS_VALUE_TYPE_DECIMAL);
+
                 $this->tblCategoriesCategoryType = $this->resultsCategoryDetails[0]->category_type;
 
                 $this->tblCategoriesDateCreation = $this->resultsCategoryDetails[0]->date_creation; // format: yyyy-mm-dd hh:MM:ss or yyyy-mm-dd
@@ -323,7 +326,7 @@ class ObjectCategoriesDetails
 
                 $this->tblCategoriesTitle = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->title, 'db');
                 $this->tblCategoriesDescription = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->description, 'db');
-                $this->tblCategoriesDescription_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->description, 'editTextBox=' . $GLOBALS['configBackendTextBox']);
+                $this->tblCategoriesDescription_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->description, 'editTextBox=' . config('app.gSystemConfig.configBackendTextBox'));
                 $this->tblCategoriesURLAlias = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->url_alias, 'db');
                 $this->tblCategoriesKeywordsTags = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->keywords_tags, 'db');
                 $this->tblCategoriesMetaDescription = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->meta_description, 'db');
@@ -331,127 +334,127 @@ class ObjectCategoriesDetails
                 $this->tblCategoriesMetaTitle = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->meta_title, 'db');
                 $this->tblCategoriesMetaInfo = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->meta_info, 'db');
 
-                if ($GLOBALS['enableCategoriesInfo1'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo1FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo1FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo1') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo1FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo1FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo1 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db');
                         $this->tblCategoriesInfo1_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo1FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo1FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo1FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo1FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo1 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo1_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info1, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo2'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo2FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo2FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo2') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo2FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo2FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo2 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info2, 'db');
                         $this->tblCategoriesInfo2_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info2, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo2FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo2FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo2FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo2FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo2 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info2, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo2_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info2, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo3'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo3FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo3FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo3') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo3FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo3FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo3 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info3, 'db');
                         $this->tblCategoriesInfo3_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info3, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo3FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo3FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo3FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo3FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo3 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info3, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo3_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info3, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo4'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo4FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo4FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo4') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo4FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo4FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo4 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info4, 'db');
                         $this->tblCategoriesInfo4_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info4, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo4FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo4FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo4FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo4FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo4 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info4, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo4_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info4, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo5'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo5FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo5FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo5') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo5FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo5FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo5 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info5, 'db');
                         $this->tblCategoriesInfo5_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info5, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo5FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo5FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo5FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo5FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo5 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info5, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo5_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info5, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo6'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo6FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo6FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo6') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo6FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo6FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo6 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info6, 'db');
                         $this->tblCategoriesInfo6_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info6, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo6FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo6FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo6FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo6FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo6 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info6, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo6_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info6, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo7'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo7FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo7FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo7') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo7FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo7FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo7 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info7, 'db');
                         $this->tblCategoriesInfo7_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info7, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo7FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo7FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo7FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo7FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo7 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info7, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo7_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info7, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo8'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo8FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo8FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo8') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo8FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo8FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo8 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info8, 'db');
                         $this->tblCategoriesInfo8_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info8, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo8FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo8FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo8FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo8FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo8 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info8, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo8_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info8, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo9'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo9FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo9FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo9') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo9FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo9FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo9 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info9, 'db');
                         $this->tblCategoriesInfo9_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info9, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo9FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo9FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo9FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo9FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo9 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info9, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo9_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info9, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                if ($GLOBALS['enableCategoriesInfo10'] === 1) {
-                    if ($GLOBALS['configCategoriesInfo10FieldType'] === SS_FIELD_TYPE_SINGLE_LINE || $GLOBALS['configCategoriesInfo10FieldType'] === SS_FIELD_TYPE_MULTILINE) {
+                if (config('app.gSystemConfig.enableCategoriesInfo10') === 1) {
+                    if (config('app.gSystemConfig.configCategoriesInfo10FieldType') === SS_FIELD_TYPE_SINGLE_LINE || config('app.gSystemConfig.configCategoriesInfo10FieldType') === SS_FIELD_TYPE_MULTILINE) {
                         $this->tblCategoriesInfo10 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info10, 'db');
                         $this->tblCategoriesInfo10_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info10, 'db');
                     }
 
                     // Encrypted.
-                    if ($GLOBALS['configCategoriesInfo10FieldType'] === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || $GLOBALS['configCategoriesInfo10FieldType'] === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
+                    if (config('app.gSystemConfig.configCategoriesInfo10FieldType') === SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED || config('app.gSystemConfig.configCategoriesInfo10FieldType') === SS_FIELD_TYPE_MULTILINE_ENCRYPTED) {
                         $this->tblCategoriesInfo10 = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info10, 'db'), SS_ENCRYPT_METHOD_DATA);
                         $this->tblCategoriesInfo10_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info10, 'db'), SS_ENCRYPT_METHOD_DATA);
                     }
                 }
-                                
+
                 $this->tblCategoriesInfoSmall1 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info_small1, 'db');
                 $this->tblCategoriesInfoSmall1_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info_small1, 'db');
                 $this->tblCategoriesInfoSmall2 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info_small2, 'db');
@@ -462,30 +465,30 @@ class ObjectCategoriesDetails
                 $this->tblCategoriesInfoSmall4_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info_small4, 'db');
                 $this->tblCategoriesInfoSmall5 = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info_small5, 'db');
                 $this->tblCategoriesInfoSmall5_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->info_small5, 'db');
-                          
-                $this->tblCategoriesNumber1 = $this->resultsCategoryDetails[0]->number1;
-                $this->tblCategoriesNumber1_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber1, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber1FieldType']);
-                //$this->tblCategoriesNumber1_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber1, $GLOBALS['configSystemCurrency'], 1);
-                $this->tblCategoriesNumber2 = $this->resultsCategoryDetails[0]->number2;
-                $this->tblCategoriesNumber2_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber2, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber2FieldType']);
-                $this->tblCategoriesNumber3 = $this->resultsCategoryDetails[0]->number3;
-                $this->tblCategoriesNumber3_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber3, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber3FieldType']);
-                $this->tblCategoriesNumber4 = $this->resultsCategoryDetails[0]->number4;
-                $this->tblCategoriesNumber4_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber4, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber4FieldType']);
-                $this->tblCategoriesNumber5 = $this->resultsCategoryDetails[0]->number5;
-                $this->tblCategoriesNumber5_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber5, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumber5FieldType']);
 
-                $this->tblCategoriesNumberSmall1 = $this->resultsCategoryDetails[0]->number_small1;
-                $this->tblCategoriesNumberSmall1_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall1, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumberS1FieldType']);
-                $this->tblCategoriesNumberSmall2 = $this->resultsCategoryDetails[0]->number_small2;
-                $this->tblCategoriesNumberSmall2_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall2, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumberS2FieldType']);
-                $this->tblCategoriesNumberSmall3 = $this->resultsCategoryDetails[0]->number_small3;
-                $this->tblCategoriesNumberSmall3_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall3, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumberS3FieldType']);
-                $this->tblCategoriesNumberSmall4 = $this->resultsCategoryDetails[0]->number_small4;
-                $this->tblCategoriesNumberSmall4_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall4, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumberS4FieldType']);
-                $this->tblCategoriesNumberSmall5 = $this->resultsCategoryDetails[0]->number_small5;
-                $this->tblCategoriesNumberSmall5_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall5, $GLOBALS['configSystemCurrency'], $GLOBALS['configCategoriesNumberS5FieldType']);
-                
+                $this->tblCategoriesNumber1 = (float) $this->resultsCategoryDetails[0]->number1;
+                $this->tblCategoriesNumber1_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber1, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumber1FieldType'));
+                //$this->tblCategoriesNumber1_print = \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber1, config('app.gSystemConfig.configSystemCurrency'], 1);
+                $this->tblCategoriesNumber2 = (float) $this->resultsCategoryDetails[0]->number2;
+                $this->tblCategoriesNumber2_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber2, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumber2FieldType'));
+                $this->tblCategoriesNumber3 = (float) $this->resultsCategoryDetails[0]->number3;
+                $this->tblCategoriesNumber3_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber3, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumber3FieldType'));
+                $this->tblCategoriesNumber4 = (float) $this->resultsCategoryDetails[0]->number4;
+                $this->tblCategoriesNumber4_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber4, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumber4FieldType'));
+                $this->tblCategoriesNumber5 = (float) $this->resultsCategoryDetails[0]->number5;
+                $this->tblCategoriesNumber5_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumber5, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumber5FieldType'));
+
+                $this->tblCategoriesNumberSmall1 = (float) $this->resultsCategoryDetails[0]->number_small1;
+                $this->tblCategoriesNumberSmall1_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall1, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumberS1FieldType'));
+                $this->tblCategoriesNumberSmall2 = (float) $this->resultsCategoryDetails[0]->number_small2;
+                $this->tblCategoriesNumberSmall2_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall2, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumberS2FieldType'));
+                $this->tblCategoriesNumberSmall3 = (float) $this->resultsCategoryDetails[0]->number_small3;
+                $this->tblCategoriesNumberSmall3_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall3, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumberS3FieldType'));
+                $this->tblCategoriesNumberSmall4 = (float) $this->resultsCategoryDetails[0]->number_small4;
+                $this->tblCategoriesNumberSmall4_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall4, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumberS4FieldType'));
+                $this->tblCategoriesNumberSmall5 = (float) $this->resultsCategoryDetails[0]->number_small5;
+                $this->tblCategoriesNumberSmall5_print = (string) \SyncSystemNS\FunctionsGeneric::valueMaskRead($this->tblCategoriesNumberSmall5, config('app.gSystemConfig.configSystemCurrency'), config('app.gSystemConfig.configCategoriesNumberS5FieldType'));
+
                 // Dates
                 $this->tblCategoriesDate1 = $this->resultsCategoryDetails[0]->date1;
                 if ($this->tblCategoriesDate1) {
@@ -494,17 +497,17 @@ class ObjectCategoriesDetails
                     $this->tblCategoriesDate1DateYear = $this->tblCategoriesDate1DateObj->format('Y');
                     $this->tblCategoriesDate1DateDay = $this->tblCategoriesDate1DateObj->format('d');
                     $this->tblCategoriesDate1DateMonth = $this->tblCategoriesDate1DateObj->format('m');
-            
+
                     $this->tblCategoriesDate1DateHour = $this->tblCategoriesDate1DateObj->format('H');
                     $this->tblCategoriesDate1DateHour_print = $this->tblCategoriesDate1DateHour;
-            
+
                     $this->tblCategoriesDate1DateMinute = $this->tblCategoriesDate1DateObj->format('i');
                     $this->tblCategoriesDate1DateMinute_print = $this->tblCategoriesDate1DateMinute;
-            
+
                     $this->tblCategoriesDate1DateSecond = $this->tblCategoriesDate1DateObj->format('s');
                     $this->tblCategoriesDate1DateSecond_print = $this->tblCategoriesDate1DateSecond;
-            
-                    $this->tblCategoriesDate1_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate1, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate1Type']);
+
+                    $this->tblCategoriesDate1_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate1, config('app.gSystemConfig.configBackendDateFormat'), 0, config('app.gSystemConfig.configCategoriesDate1Type'));
                 }
                 $this->tblCategoriesDate2 = $this->resultsCategoryDetails[0]->date2;
                 if ($this->tblCategoriesDate2) {
@@ -513,17 +516,17 @@ class ObjectCategoriesDetails
                     $this->tblCategoriesDate2DateYear = $this->tblCategoriesDate2DateObj->format('Y');
                     $this->tblCategoriesDate2DateDay = $this->tblCategoriesDate2DateObj->format('d');
                     $this->tblCategoriesDate2DateMonth = $this->tblCategoriesDate2DateObj->format('m');
-            
+
                     $this->tblCategoriesDate2DateHour = $this->tblCategoriesDate2DateObj->format('H');
                     $this->tblCategoriesDate2DateHour_print = $this->tblCategoriesDate2DateHour;
-            
+
                     $this->tblCategoriesDate2DateMinute = $this->tblCategoriesDate2DateObj->format('i');
                     $this->tblCategoriesDate2DateMinute_print = $this->tblCategoriesDate2DateMinute;
-            
+
                     $this->tblCategoriesDate2DateSecond = $this->tblCategoriesDate2DateObj->format('s');
                     $this->tblCategoriesDate2DateSecond_print = $this->tblCategoriesDate2DateSecond;
-            
-                    $this->tblCategoriesDate2_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate2, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate2Type']);
+
+                    $this->tblCategoriesDate2_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate2, config('app.gSystemConfig.configBackendDateFormat'), 0, config('app.gSystemConfig.configCategoriesDate2Type'));
                 }
                 $this->tblCategoriesDate3 = $this->resultsCategoryDetails[0]->date3;
                 if ($this->tblCategoriesDate3) {
@@ -532,17 +535,17 @@ class ObjectCategoriesDetails
                     $this->tblCategoriesDate3DateYear = $this->tblCategoriesDate3DateObj->format('Y');
                     $this->tblCategoriesDate3DateDay = $this->tblCategoriesDate3DateObj->format('d');
                     $this->tblCategoriesDate3DateMonth = $this->tblCategoriesDate3DateObj->format('m');
-            
+
                     $this->tblCategoriesDate3DateHour = $this->tblCategoriesDate3DateObj->format('H');
                     $this->tblCategoriesDate3DateHour_print = $this->tblCategoriesDate3DateHour;
-            
+
                     $this->tblCategoriesDate3DateMinute = $this->tblCategoriesDate3DateObj->format('i');
                     $this->tblCategoriesDate3DateMinute_print = $this->tblCategoriesDate3DateMinute;
-            
+
                     $this->tblCategoriesDate3DateSecond = $this->tblCategoriesDate3DateObj->format('s');
                     $this->tblCategoriesDate3DateSecond_print = $this->tblCategoriesDate3DateSecond;
-            
-                    $this->tblCategoriesDate3_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate3, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate3Type']);
+
+                    $this->tblCategoriesDate3_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate3, config('app.gSystemConfig.configBackendDateFormat'), 0, config('app.gSystemConfig.configCategoriesDate3Type'));
                 }
                 $this->tblCategoriesDate4 = $this->resultsCategoryDetails[0]->date4;
                 if ($this->tblCategoriesDate4) {
@@ -551,17 +554,17 @@ class ObjectCategoriesDetails
                     $this->tblCategoriesDate4DateYear = $this->tblCategoriesDate4DateObj->format('Y');
                     $this->tblCategoriesDate4DateDay = $this->tblCategoriesDate4DateObj->format('d');
                     $this->tblCategoriesDate4DateMonth = $this->tblCategoriesDate4DateObj->format('m');
-            
+
                     $this->tblCategoriesDate4DateHour = $this->tblCategoriesDate4DateObj->format('H');
                     $this->tblCategoriesDate4DateHour_print = $this->tblCategoriesDate4DateHour;
-            
+
                     $this->tblCategoriesDate4DateMinute = $this->tblCategoriesDate4DateObj->format('i');
                     $this->tblCategoriesDate4DateMinute_print = $this->tblCategoriesDate4DateMinute;
-            
+
                     $this->tblCategoriesDate4DateSecond = $this->tblCategoriesDate4DateObj->format('s');
                     $this->tblCategoriesDate4DateSecond_print = $this->tblCategoriesDate4DateSecond;
-            
-                    $this->tblCategoriesDate4_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate4, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate4Type']);
+
+                    $this->tblCategoriesDate4_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate4, config('app.gSystemConfig.configBackendDateFormat'), 0, config('app.gSystemConfig.configCategoriesDate4Type'));
                 }
                 $this->tblCategoriesDate5 = $this->resultsCategoryDetails[0]->date5;
                 if ($this->tblCategoriesDate5) {
@@ -570,19 +573,19 @@ class ObjectCategoriesDetails
                     $this->tblCategoriesDate5DateYear = $this->tblCategoriesDate5DateObj->format('Y');
                     $this->tblCategoriesDate5DateDay = $this->tblCategoriesDate5DateObj->format('d');
                     $this->tblCategoriesDate5DateMonth = $this->tblCategoriesDate5DateObj->format('m');
-            
+
                     $this->tblCategoriesDate5DateHour = $this->tblCategoriesDate5DateObj->format('H');
                     $this->tblCategoriesDate5DateHour_print = $this->tblCategoriesDate5DateHour;
-            
+
                     $this->tblCategoriesDate5DateMinute = $this->tblCategoriesDate5DateObj->format('i');
                     $this->tblCategoriesDate5DateMinute_print = $this->tblCategoriesDate5DateMinute;
-            
+
                     $this->tblCategoriesDate5DateSecond = $this->tblCategoriesDate5DateObj->format('s');
                     $this->tblCategoriesDate5DateSecond_print = $this->tblCategoriesDate5DateSecond;
-            
-                    $this->tblCategoriesDate5_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate5, $GLOBALS['configBackendDateFormat'], 0, $GLOBALS['configCategoriesDate5Type']);
+
+                    $this->tblCategoriesDate5_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblCategoriesDate5, config('app.gSystemConfig.configBackendDateFormat'), 0, config('app.gSystemConfig.configCategoriesDate5Type'));
                 }
-          
+
                 /*
                 TODO: check the select statement in this part
                 $this->tblCategoriesIdItem1 = $this->resultsCategoryDetails[0]->id_item1;
@@ -591,7 +594,7 @@ class ObjectCategoriesDetails
                 $this->tblCategoriesIdItem4 = $this->resultsCategoryDetails[0]->id_item4;
                 $this->tblCategoriesIdItem5 = $this->resultsCategoryDetails[0]->id_item5;
                 */
-                
+
                 $this->tblCategoriesImageMain = (string)$this->resultsCategoryDetails[0]->image_main;
                 $this->tblCategoriesFile1 = (string)$this->resultsCategoryDetails[0]->file1;
                 $this->tblCategoriesFile2 = (string)$this->resultsCategoryDetails[0]->file2;
@@ -600,63 +603,63 @@ class ObjectCategoriesDetails
                 $this->tblCategoriesFile5 = (string)$this->resultsCategoryDetails[0]->file5;
 
                 $this->tblCategoriesActivation = $this->resultsCategoryDetails[0]->activation;
-                $this->tblCategoriesActivation_print = $this->tblCategoriesActivation === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblCategoriesActivation_print = $this->tblCategoriesActivation === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 $this->tblCategoriesActivation1 = $this->resultsCategoryDetails[0]->activation1;
-                $this->tblCategoriesActivation1_print = $this->tblCategoriesActivation1 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblCategoriesActivation1_print = $this->tblCategoriesActivation1 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
-                    
+
                 $this->tblCategoriesActivation2 = $this->resultsCategoryDetails[0]->activation2;
-                $this->tblCategoriesActivation2_print = $this->tblCategoriesActivation2 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblCategoriesActivation2_print = $this->tblCategoriesActivation2 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 // Debug.
                 //dd('this->tblCategoriesActivation2=' . $this->tblCategoriesActivation2 === 0);
                 //dd('gettype=' . gettype($this->tblCategoriesActivation2));
-                    
+
                 $this->tblCategoriesActivation3 = $this->resultsCategoryDetails[0]->activation3;
-                $this->tblCategoriesActivation3_print = $this->tblCategoriesActivation3 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblCategoriesActivation3_print = $this->tblCategoriesActivation3 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 $this->tblCategoriesActivation4 = $this->resultsCategoryDetails[0]->activation4;
-                $this->tblCategoriesActivation4_print = $this->tblCategoriesActivation4 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblCategoriesActivation4_print = $this->tblCategoriesActivation4 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
 
                 $this->tblCategoriesActivation5 = $this->resultsCategoryDetails[0]->activation5;
-                $this->tblCategoriesActivation5_print = $this->tblCategoriesActivation5 === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation1')
+                $this->tblCategoriesActivation5_print = $this->tblCategoriesActivation5 === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation1')
                 ;
-                    
+
                 // Debug.
                 // echo 'appLabelsGet=<pre>';
-                // var_dump(\SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemActivation0'));
-                // echo '</pre><br />';    
-          
+                // var_dump(\SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemActivation0'));
+                // echo '</pre><br />';
+
                 $this->tblCategoriesIdStatus = $this->resultsCategoryDetails[0]->id_status;
-                $this->tblCategoriesIdStatus_print = $this->tblCategoriesIdStatus === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemDropDownSelectNone') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::contentMaskRead(\SyncSystemNS\FunctionsDB::genericFieldGet01($this->tblCategoriesIdStatus, $GLOBALS['configSystemDBTableFiltersGeneric'], 'title'), 'db')
+                $this->tblCategoriesIdStatus_print = $this->tblCategoriesIdStatus === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemDropDownSelectNone')
+                :
+                    \SyncSystemNS\FunctionsGeneric::contentMaskRead(\SyncSystemNS\FunctionsDB::genericFieldGet01($this->tblCategoriesIdStatus, config('app.gSystemConfig.configSystemDBTableFiltersGeneric'), 'title'), 'db')
                 ;
-                
+
                 /*
                 if (this.tblCategoriesIdStatus == 0) {
                     this.tblCategoriesIdStatus_print = FunctionsGeneric.appLabelsGet(gSystemConfig.configLanguageBackend.appLabels, this.labelPrefix + 'ItemDropDownSelectNone');
@@ -666,15 +669,15 @@ class ObjectCategoriesDetails
                 */
 
                 $this->tblCategoriesRestrictedAccess = $this->resultsCategoryDetails[0]->restricted_access;
-                $this->tblCategoriesRestrictedAccess_print = $this->tblCategoriesRestrictedAccess === 0 ? 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemRestrictedAccess0') 
-                : 
-                    \SyncSystemNS\FunctionsGeneric::appLabelsGet($GLOBALS['configLanguageBackend']->appLabels, $this->labelPrefix . 'ItemRestrictedAccess1')
+                $this->tblCategoriesRestrictedAccess_print = $this->tblCategoriesRestrictedAccess === 0 ?
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemRestrictedAccess0')
+                :
+                    \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, $this->labelPrefix . 'ItemRestrictedAccess1')
                 ;
-                          
+
                 $this->tblCategoriesNotes = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->notes, 'db');
                 $this->tblCategoriesNotes_edit = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsCategoryDetails[0]->notes, 'db');
-                          
+
                 // Build return array.
                 $arrReturn['tblCategoriesID'] = $this->tblCategoriesID;
                 $arrReturn['tblCategoriesIdParent'] = $this->tblCategoriesIdParent;
@@ -777,7 +780,7 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate1DateSecond'] = $this->tblCategoriesDate1DateSecond;
                 $arrReturn['tblCategoriesDate1DateSecond_print'] = $this->tblCategoriesDate1DateSecond;
                 $arrReturn['tblCategoriesDate1_print'] = $this->tblCategoriesDate1_print;
-                
+
                 $arrReturn['tblCategoriesDate2'] = $this->tblCategoriesDate2;
                 $arrReturn['tblCategoriesDate2DateObj'] = $this->tblCategoriesDate2DateObj;
                 $arrReturn['tblCategoriesDate2DateYear'] = $this->tblCategoriesDate2DateYear;
@@ -829,7 +832,7 @@ class ObjectCategoriesDetails
                 $arrReturn['tblCategoriesDate5DateSecond'] = $this->tblCategoriesDate5DateSecond;
                 $arrReturn['tblCategoriesDate5DateSecond_print'] = $this->tblCategoriesDate5DateSecond;
                 $arrReturn['tblCategoriesDate5_print'] = $this->tblCategoriesDate5_print;
-                
+
                 $arrReturn['tblCategoriesImageMain'] = $this->tblCategoriesImageMain;
                 $arrReturn['tblCategoriesFile1'] = $this->tblCategoriesFile1;
                 $arrReturn['tblCategoriesFile2'] = $this->tblCategoriesFile2;
@@ -867,9 +870,9 @@ class ObjectCategoriesDetails
 
             //return ['data' => 'testing recordDetailsGet'];
             //return $arrReturn;
-        } catch (Error $recordDetailsGetError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('recordDetailsGetError: ' . $recordDetailsGetError->message());
+        } catch (\Exception $recordDetailsGetError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('recordDetailsGetError: ' . $recordDetailsGetError->getMessage());
             }
         } finally {
             //

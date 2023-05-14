@@ -46,6 +46,7 @@ $lintingRules = [
     //'modernize_strpos' => true, // needs PHP 8+ or polyfill
     //'no_useless_concat_operator' => false, // TODO switch back on when the `src/Console/Application.php` no longer needs the concat
     //'use_arrow_functions' => false, // TODO switch on when # of PR's is lower
+    'single_class_element_per_statement' => false, // TODO: reflect on vs code phpcs linter
 ];
 
 $config = new PhpCsFixer\Config();

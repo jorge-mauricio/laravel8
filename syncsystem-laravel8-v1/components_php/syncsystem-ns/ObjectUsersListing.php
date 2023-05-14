@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace SyncSystemNS;
 
 class ObjectUsersListing
@@ -25,7 +28,7 @@ class ObjectUsersListing
         // Define values.
         // ----------------------
         $this->arrSearchParameters = array_key_exists('_arrSearchParameters', $arrParameters) ? $arrParameters['_arrSearchParameters'] : [];
-        $this->configSortOrder = array_key_exists('_configSortOrder', $arrParameters) ? $arrParameters['_configSortOrder'] : $GLOBALS['configCategoriesSort'];
+        $this->configSortOrder = array_key_exists('_configSortOrder', $arrParameters) ? $arrParameters['_configSortOrder'] : config('app.gSystemConfig.configCategoriesSort');
         $this->strNRecords = array_key_exists('_strNRecords', $arrParameters) ? $arrParameters['_strNRecords'] : '';
         $this->arrSpecialParameters = array_key_exists('_arrSpecialParameters', $arrParameters) ? $arrParameters['_arrSpecialParameters'] : [];
         // ----------------------
@@ -53,11 +56,11 @@ class ObjectUsersListing
         // Logic.
         try {
             $this->resultsUsersListing = \SyncSystemNS\FunctionsDB::genericTableGet02(
-                $GLOBALS['configSystemDBTableUsers'],
+                config('app.gSystemConfig.configSystemDBTableUsers'),
                 $this->arrSearchParameters,
                 $this->configSortOrder,
                 $this->strNRecords,
-                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01($GLOBALS['configSystemDBTableUsers'], 'all', 'string'),
+                \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01(config('app.gSystemConfig.configSystemDBTableUsers'), 'all', 'string'),
                 1,
                 $this->arrSpecialParameters
             );
@@ -70,9 +73,9 @@ class ObjectUsersListing
             //echo 'resultsUsersListing(inside recordsListingGet)=<pre>';
             //var_dump($this->resultsUsersListing);
             //echo '</pre><br />';
-        } catch (Error $recordsListingGetError) {
-            if ($GLOBALS['configDebug'] === true) {
-                throw new Error('recordsListingGetError: ' . $recordsListingGetError->message());
+        } catch (\Exception $recordsListingGetError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('recordsListingGetError: ' . $recordsListingGetError->getMessage());
             }
         } finally {
             //
