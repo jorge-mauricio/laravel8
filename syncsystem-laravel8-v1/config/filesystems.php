@@ -1,4 +1,5 @@
 <?php
+
 // require __DIR__ . '/../config-application.php'; // SyncSystem customized configuration. // error - language load function
 
 return [
@@ -54,6 +55,7 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
+            // TODO: update with config files
         ],
 
         's3' => [
@@ -80,16 +82,19 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
-        public_path(env('CONFIG_DIRECTORY_FILES_SD')) => storage_path('app/' . env('CONFIG_DIRECTORY_FILES')),
+        // public_path('storage') => storage_path('app/public'),
+        // public_path(env('CONFIG_DIRECTORY_FILES_SD')) => storage_path('app/' . env('CONFIG_DIRECTORY_FILES')), // working
+        public_path(config('app.gSystemConfig.configDirectoryFilesSD')) => storage_path(config('app.gSystemConfig.configDirectoryFiles')),
         // public_path('files-layout') => resource_path('app_files_layout'),
         // public_path($GLOBALS['configDirectoryFilesLayoutSD']) => resource_path('app_files_layout'),
         // public_path(config('app.configDirectoryFilesLayoutSD')) => resource_path('app_files_layout'), // working
         // public_path(env('CONFIG_DIRECTORY_FILES_LAYOUT_SD')) => resource_path('app_files_layout'), // working
-        public_path(env('CONFIG_DIRECTORY_FILES_LAYOUT_SD')) => resource_path(env('CONFIG_DIRECTORY_FILES_LAYOUT')), // working
+        // public_path(env('CONFIG_DIRECTORY_FILES_LAYOUT_SD')) => resource_path(env('CONFIG_DIRECTORY_FILES_LAYOUT')), // working
+        public_path(config('app.gSystemConfig.configDirectoryFilesLayoutSD')) => resource_path(config('app.gSystemConfig.configDirectoryFilesLayout')),
         // public_path('app_resources') => resource_path('app_resources'),
         // public_path('fonts') => resource_path('app_fonts'),
-        public_path(env('CONFIG_DIRECTORY_FONTS_SD')) => resource_path(env('CONFIG_DIRECTORY_FONTS')),
+        // public_path(env('CONFIG_DIRECTORY_FONTS_SD')) => resource_path(env('CONFIG_DIRECTORY_FONTS')), // working
+        public_path(config('app.gSystemConfig.configDirectoryFontsSD')) => resource_path(config('app.gSystemConfig.configDirectoryFonts')),
         // TODO: maybe use function to get value from config.
     ],
 

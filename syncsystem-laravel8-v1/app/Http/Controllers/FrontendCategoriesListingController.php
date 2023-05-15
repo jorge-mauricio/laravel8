@@ -30,12 +30,12 @@ class FrontendCategoriesListingController extends Controller
     {
         // Variables.
         // ----------------------
-        $apiCategoriesDetailsCurrentResponse;
+        $apiCategoriesDetailsCurrentResponse = null;
         // ----------------------
 
 
         // Debug.
-        echo '$this->_idParentCategories=' . $this->_idParentCategories . '<br />';
+        // echo '$this->_idParentCategories=' . $this->_idParentCategories . '<br />';
 
 
         try {
@@ -44,10 +44,10 @@ class FrontendCategoriesListingController extends Controller
             $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get('https://backendnode.fullstackwebdesigner.com/api/categories/' . $this->_idParentCategories . '/?apiKey=fswd@2008');
             // Note / TODO: On production, set verify to true.
 
-            
+
             return $apiCategoriesDetailsCurrentResponse->json();
-        } catch(Exception $apiError) {
-            echo 'Error reading API: ' . $apiError->getMessage();              
+        } catch(\Exception $apiError) {
+            echo 'Error reading API: ' . $apiError->getMessage();
         } finally {
 
         }

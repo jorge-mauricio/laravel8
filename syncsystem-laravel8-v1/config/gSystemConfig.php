@@ -1,7 +1,8 @@
 <?php
-require __DIR__ . '/../config-application-poc.php'; // SyncSystem customized configuration.
+//TODO: delete file
+//require __DIR__ . '/../config-application-poc.php'; // SyncSystem customized configuration.
 
-return $gSystemConfig;
+//return $gSystemConfig;
 
 /*
 return [
@@ -10,7 +11,7 @@ return [
     //$gSystemConfig
     //...$gSystemConfig
     //array(array_fill(...$gSystemConfig))
-    
+
     //'configDebug' => 'testing configuration',
     //'configDebugArr' => [
     //    'info1' => 'testin one',
@@ -18,4 +19,3 @@ return [
     //],
 ];
 */
-    

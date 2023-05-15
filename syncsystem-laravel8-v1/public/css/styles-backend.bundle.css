@@ -1029,7 +1029,6 @@ input, textarea, select {
     word-wrap: break-word;
     overflow-wrap: break-word;
     -webkit-hyphens: auto;
-        -ms-hyphens: auto;
             hyphens: auto;
 }
 /* ************************************************************************************** */

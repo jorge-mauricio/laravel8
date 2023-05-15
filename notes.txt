@@ -39,7 +39,7 @@
 	- execute symlinks defined on configuration:
 	TODO: create a composer setup script.
 		- update new simlinks: syncsystem-laravel8-v1\config\filesystems.php
-		- terminal (root): php artisan storage:link			
+		- terminal (root): php artisan storage:link
 
 	- open 3 terminals in syncsystem-laravel8-v1 path
 		- terminal 1 (webpack compile): npm run watch
@@ -68,8 +68,14 @@
 
 			- note: when debugging secure routes, better to clear caches:
 				- terminal: 
+composer dump-autoload
+composer dump-autoload -o
+php artisan clear-compiled
+php artisan optimize
 php artisan route:clear
+php artisan view:clear
 php artisan cache:clear
+php artisan config:cache
 php artisan config:clear
 
 

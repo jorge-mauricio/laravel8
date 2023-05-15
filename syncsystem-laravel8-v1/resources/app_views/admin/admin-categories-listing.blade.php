@@ -110,6 +110,10 @@
             // var_dump(config('gSystemConfig.configDebug')); // working
             // var_dump(config('gSystemConfig.configDebugArr.info1')); // working
             // var_dump(config('gSystemConfig'));
+
+            // echo 'configDirectoryFilesLayoutSD=<pre>';
+            // var_dump(config('app.gSystemConfig.configDirectoryFilesLayoutSD'));
+            // echo '</pre><br />';
         @endphp
     </pre>
 

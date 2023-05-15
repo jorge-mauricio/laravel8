@@ -70,7 +70,11 @@ Route::delete(
         return response()->json($authenticationDeleteResults);
     }
 )
-    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPIAuthentication'));
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPIAuthentication') . '.' .
+        'delete'
+    );
     // ->name('api.authentication.authenticationDelete');
 // **************************************************************************************
 
@@ -186,7 +190,11 @@ Route::post(
         return response()->json($insertCategoriesResults);
     }
 )
-    ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPICategories'));
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPICategories') . '.' .
+        'insert'
+    );
 
 //Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
 // **************************************************************************************
@@ -230,7 +238,7 @@ Route::put(
 )
     ->name(
         config('app.gSystemConfig.configRouteAPI') . '.' .
-        config('app.gSystemConfig.configRouteAPICategories') . '/' .
+        config('app.gSystemConfig.configRouteAPICategories') . '.' .
         config('app.gSystemConfig.configRouteAPIActionEdit')
     );
 
@@ -251,7 +259,7 @@ Route::get(
 )
     ->name(
         config('app.gSystemConfig.configRouteAPI') . '.' .
-        config('app.gSystemConfig.configRouteAPIUsers') . '/' .
+        config('app.gSystemConfig.configRouteAPIUsers') . '.' .
         config('app.gSystemConfig.configRouteAPIDetails')
     );
 // **************************************************************************************

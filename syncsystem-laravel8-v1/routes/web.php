@@ -178,7 +178,11 @@ Route::group(
                 AdminCategoriesController::class, 'adminCategoriesInsert'
             ]
         )
-            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendCategories'));
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendCategories') . '.' .
+                'insert'
+            );
             // ->name('admin.categories.insert');
         // **************************************************************************************
 

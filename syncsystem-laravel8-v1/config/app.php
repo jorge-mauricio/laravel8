@@ -2,8 +2,40 @@
 
 declare(strict_types=1);
 
-//require __DIR__ . '/../config-application.php'; // SyncSystem customized configuration.
-require __DIR__ . '../../config-application-poc.php'; // SyncSystem customized configuration.
+// General constants.
+// **************************************************************************************
+/*
+// Generic value field types.
+define('SS_VALUE_TYPE_GENERAL_NUMBER', 1);
+define('SS_VALUE_TYPE_SYSTEM_CURRENCY', 2);
+define('SS_VALUE_TYPE_DECIMAL', 3);
+define('SS_VALUE_TYPE_SYSTEM_CURRENCY_DECIMAL', 4);
+
+// Generic field types.
+define('SS_FIELD_TYPE_SINGLE_LINE', 1);
+define('SS_FIELD_TYPE_MULTILINE', 2);
+define('SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED', 11);
+define('SS_FIELD_TYPE_MULTILINE_ENCRYPTED', 12);
+
+// Encrypt method
+define('SS_ENCRYPT_METHOD_NONE', 0);
+define('SS_ENCRYPT_METHOD_HASH', 1);
+define('SS_ENCRYPT_METHOD_DATA', 2);
+
+// Encrypt method - hash library.
+define('SS_ENCRYPT_METHOD_HASH_MD5', 11);
+
+// Encrypt method - encrypt library.
+define('SS_ENCRYPT_METHOD_DATA_MCRYPT', 21);
+define('SS_ENCRYPT_METHOD_DATA_DEFUSE', 22);
+define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_SIMPLE', 23);
+define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_COMPLEX_16_16', 24);
+define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_256_CBC_COMPLEX_32_16', 26);
+*/
+// **************************************************************************************
+
+require __DIR__ . '/../config-application.php'; // SyncSystem customized configuration.
+//require __DIR__ . '../../config-application-poc.php'; // SyncSystem customized configuration.
 
 return [
 
