@@ -66,9 +66,9 @@ class AdminDashboardController extends AdminBaseController
             // Call user details API.
             $apiUsersLoggedDetailsCurrentResponse = Http::withOptions(['verify' => false])
                 ->get(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbUsersLogged . '/',
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbUsersLogged . '/',
                     [
-                        'apiKey' => env('CONFIG_API_KEY_SYSTEM')
+                        'apiKey' => config('app.gSystemConfig.configAPIKeySystem')
                     ]
                 );
             $arrUsersLoggedDetailsJson = $apiUsersLoggedDetailsCurrentResponse->json();

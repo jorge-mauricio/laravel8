@@ -137,9 +137,9 @@ class AdminRecordsController extends AdminBaseController
             //$arrData = array_merge($arrData, $req->all());
             $apiRecordsDeleteResponse = Http::withOptions(['verify' => false])
                 ->delete(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                     array_merge(
-                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
+                        ['apiKey' => config('app.gSystemConfig.configAPIKeySystem')],
                         $req->all()
                     ) // ...$req->all() (splat only works on php 8.1 and up)
                     /*'tblRecordsID' => $tblRecordsID,

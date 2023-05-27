@@ -38,6 +38,23 @@ require __DIR__ . '/../config-application.php'; // SyncSystem customized configu
 //require __DIR__ . '../../config-application-poc.php'; // SyncSystem customized configuration.
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Configuration - SyncSystem Multiplatform
+    |--------------------------------------------------------------------------
+    |
+    | Array of configuration values stored in $gSystemConfig variable.
+    |
+    */
+
+    //'gSystemConfig' => 'testing configuration',
+    /*
+    'gSystemConfig' => [
+        'configDebug' => true,
+    ],
+    */
+    //'gSystemConfig' => $GLOBALS['gSystemConfig'],
+    'gSystemConfig' => $gSystemConfig,
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +67,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    //'name' => env('APP_NAME', 'Laravel'),
+    'name' => $gSystemConfig['configSystemClientName'],
 
     /*
     |--------------------------------------------------------------------------
@@ -104,9 +122,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
-    //'timezone' => $GLOBALS['configSystemTimeZone'],
-    //'timezone' => $gSystemConfig['configSystemTimeZone'],
+    //'timezone' => 'UTC',
+    'timezone' => $gSystemConfig['configSystemTimeZone'],
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +136,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    //'locale' => 'en',
+    'locale' => $gSystemConfig['configFrontendLanguage'],
 
     /*
     |--------------------------------------------------------------------------
@@ -145,7 +163,8 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    //'faker_locale' => 'en_US',
+    'faker_locale' => $gSystemConfig['configFrontendLanguage'],
 
     /*
     |--------------------------------------------------------------------------
@@ -161,24 +180,6 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Configuration - SyncSystem Multiplatform
-    |--------------------------------------------------------------------------
-    |
-    | Configuration parameters for SyncSystem Multiplatform
-    |
-    */
-
-    //'gSystemConfig' => 'testing configuration',
-    /*
-    'gSystemConfig' => [
-        'configDebug' => true,
-    ],
-    */
-    //'gSystemConfig' => $GLOBALS['gSystemConfig'],
-    'gSystemConfig' => $gSystemConfig,
 
     /*
     |--------------------------------------------------------------------------
@@ -232,7 +233,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*

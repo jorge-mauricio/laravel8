@@ -36,7 +36,7 @@ class FunctionsDBDelete
 
         // Logic.
         try {
-            $objSQLRecordsGenericDelete = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
+            $objSQLRecordsGenericDelete = DB::table(config('app.gSystemConfig.configSystemDBTablePrefix') . $strTable);
 
             // Parameters.
             if (count($arrSearchParameters) > 0) {

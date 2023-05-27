@@ -427,7 +427,7 @@ class CategoriesInsert extends Model
 
         // Logic.
         try {
-            $this->resultsSQLCategoriesInsert = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . config('app.gSystemConfig.configSystemDBTableCategories'));
+            $this->resultsSQLCategoriesInsert = DB::table(config('app.gSystemConfig.configSystemDBTablePrefix') . config('app.gSystemConfig.configSystemDBTableCategories'));
             $this->resultsSQLCategoriesInsert = $this->resultsSQLCategoriesInsert->insert($this->arrSQLCategoriesInsertParams);
 
             if ($this->resultsSQLCategoriesInsert === true) {

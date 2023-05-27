@@ -92,8 +92,6 @@ Route::get(
 )
     ->name(config('app.gSystemConfig.configRouteBackend'));
     // ->name('admin');
-
-// TODO: replace routes with config values (dynamic).
 // **************************************************************************************
 
 // Admin - Login - POST (check username and password).
@@ -184,6 +182,10 @@ Route::group(
                 'insert'
             );
             // ->name('admin.categories.insert');
+            // TODO: investigate further the error when using the same route name (even with different request types)
+                // ref: https://laracasts.com/discuss/channels/laravel/unable-to-prepare-route-widgets-for-serialization-another-route-has-already-been-assigned-name-widgetsindex
+                    // It was indeed a naming overlap as Laravel automatically namspaces routes when using the resource and apiResource methods with the following pattern {resourceName}.{controllerAction}. In that specific case it means widgets.index|show|store|update|destroy were defined twice.
+                        // Maybe, has something to do with the controller / method pattern
         // **************************************************************************************
 
         // Admin - Categories - edit - GET.

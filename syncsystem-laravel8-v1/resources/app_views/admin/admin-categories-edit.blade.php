@@ -1883,7 +1883,7 @@
                                             <div id="divCategoriesImageMainDelete" style="position: relative; display: inline-block;">
                                                 <a class="ss-backend-delete01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configSystemURLSSL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1891,7 +1891,7 @@
                                                                                     recordValue: '',
                                                                                     patchType: 'fileDelete',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn){
                                                                                     // alert(JSON.stringify(_resObjReturn));
@@ -1954,7 +1954,7 @@
                                             <div id="divCategoriesFile1Delete" style="position: relative; display: inline-block;">
                                                 <a class="ss-backend-delete01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configSystemURLSSL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1962,7 +1962,7 @@
                                                                                     recordValue: '',
                                                                                     patchType: 'fileDelete',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn){
                                                                                     // alert(JSON.stringify(_resObjReturn));
@@ -2025,7 +2025,7 @@
                                             <div id="divCategoriesFile2Delete" style="position: relative; display: inline-block;">
                                                 <a class="ss-backend-delete01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configSystemURLSSL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -2033,7 +2033,7 @@
                                                                                     recordValue: '',
                                                                                     patchType: 'fileDelete',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn){
                                                                                     // alert(JSON.stringify(_resObjReturn));
@@ -2096,7 +2096,7 @@
                                             <div id="divCategoriesFile3Delete" style="position: relative; display: inline-block;">
                                                 <a class="ss-backend-delete01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configSystemURLSSL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -2104,7 +2104,7 @@
                                                                                     recordValue: '',
                                                                                     patchType: 'fileDelete',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn){
                                                                                     // alert(JSON.stringify(_resObjReturn));
@@ -2167,7 +2167,7 @@
                                             <div id="divCategoriesFile4Delete" style="position: relative; display: inline-block;">
                                                 <a class="ss-backend-delete01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configSystemURLSSL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -2175,7 +2175,7 @@
                                                                                     recordValue: '',
                                                                                     patchType: 'fileDelete',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn){
                                                                                     // alert(JSON.stringify(_resObjReturn));
@@ -2238,7 +2238,7 @@
                                             <div id="divCategoriesFile5Delete" style="position: relative; display: inline-block;">
                                                 <a class="ss-backend-delete01"
                                                     onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configSystemURLSSL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                    ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -2246,7 +2246,7 @@
                                                                                     recordValue: '',
                                                                                     patchType: 'fileDelete',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn){
                                                                                     // alert(JSON.stringify(_resObjReturn));

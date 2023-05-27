@@ -99,7 +99,7 @@ class FunctionsDB
                 echo '</pre><br />';
                 */
 
-                $objResultGenericField = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
+                $objResultGenericField = DB::table(config('app.gSystemConfig.configSystemDBTablePrefix') . $strTable);
                 $objResultGenericField = $objResultGenericField->select($fieldName);
                 $objResultGenericField = $objResultGenericField->where('id', '=', (float) \SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $idRecord, 'db_sanitize'));
                 $objResultGenericField = $objResultGenericField->get()->toArray();
@@ -182,7 +182,7 @@ class FunctionsDB
             //DB::setFetchMode(PDO::FETCH_ASSOC);
             // $resultsSQLGenericTable = DB::table('posts')->where('id', $id);
             //->toArray()
-            $resultsSQLGenericTable = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
+            $resultsSQLGenericTable = DB::table(config('app.gSystemConfig.configSystemDBTablePrefix') . $strTable);
 
             if ($strReturnFields !== '') {
                 $resultsSQLGenericTable = $resultsSQLGenericTable->select(explode(',', $strReturnFields));

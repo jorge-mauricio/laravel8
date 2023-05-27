@@ -372,7 +372,7 @@ class CategoriesUpdate extends Model
 
         // Logic.
         try {
-            $this->resultsSQLCategoriesUpdate = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . config('app.gSystemConfig.configSystemDBTableCategories'));
+            $this->resultsSQLCategoriesUpdate = DB::table(config('app.gSystemConfig.configSystemDBTablePrefix') . config('app.gSystemConfig.configSystemDBTableCategories'));
             $this->resultsSQLCategoriesUpdate = $this->resultsSQLCategoriesUpdate->where('id', '=', \SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $this->arrSQLCategoriesUpdateParams['id'], 'db_sanitize'));
             $this->resultsSQLCategoriesUpdate = $this->resultsSQLCategoriesUpdate->update($this->arrSQLCategoriesUpdateParams);
 

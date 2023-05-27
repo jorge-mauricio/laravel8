@@ -32,28 +32,32 @@ http://fullstackwebdesigner.com
 $gSystemConfig = [];
 
 
-$gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
+// $gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
+$gSystemConfig['configDebug'] = env('APP_DEBUG'); // true (debug mode) | false (production mode)
+    // condition to APP_ENV
 $gSystemConfig['configCache'] = true; // false (no chache) | true (cache)
 $gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
 
 // Error handling / displaying.
 // ----------------------
-ini_set('display_errors', 1); //Show all errors.
-//error_reporting(0); //Ocultar todos erros.
-//error_reporting(E_ALL); //alpshost
-//error_reporting(E_STRICT & ~E_STRICT); //Locaweb Linux 5.4 | HostGator Linux 5.5 | e 1 (windows)
+ini_set('display_errors', 1); // Show all errors.
+//error_reporting(0); // Hide all errors.
+//error_reporting(E_ALL); // alpshost
+//error_reporting(E_STRICT & ~E_STRICT); // Locaweb Linux 5.4 | HostGator Linux 5.5 | e 1 (windows)
 //error_reporting(E_ALL | E_STRICT);
 //error_reporting(error_reporting() & ~E_NOTICE);
 // ----------------------
 
 
 // Timezone configuration.
-date_default_timezone_set('America/Sao_Paulo'); // not wired
+date_default_timezone_set('America/Sao_Paulo'); // not wired // double check
 // **************************************************************************************
 
 // General constants.
 // **************************************************************************************
 /**/
+// TODO: find a place for the constants:
+    // ref: https://stackoverflow.com/questions/42155536/what-is-the-best-practice-for-adding-constants-in-laravel-long-list
 // Generic value field types.
 define('SS_VALUE_TYPE_GENERAL_NUMBER', 1);
 define('SS_VALUE_TYPE_SYSTEM_CURRENCY', 2);
@@ -86,8 +90,7 @@ define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_256_CBC_COMPLEX_32_16', 26);
 // General configuration.
 // **************************************************************************************
 // Basic information.
-$gSystemConfig['configSystemClientName'] = "Planejamento Visual";
-$gSystemConfig['configSystemClientName'] = 'Planejamento Visual';
+$gSystemConfig['configSystemClientName'] = "Planejamento Visual çé";
 $gSystemConfig['configSystemClientDocument'] = ''; // SSN | CPF
 $gSystemConfig['configSystemClientCompanyNameLegal'] = '';
 $gSystemConfig['configSystemClientCompanyDocument'] = ''; // CPNJ
@@ -117,20 +120,26 @@ $gSystemConfig['configDevSite'] = 'http://www.planejamentovisual.com.br'; // htt
 $gSystemConfig['configCopyrightYear'] = '2008';
 
 // Endpoints configurations.
-$configSystemURL = 'http://multiplatformv1.syncsystem.com.br'; // http://multiplatformv1.syncsystem.com.br
-    // TODO: move to .env
-$configSystemURLSSL = 'http://multiplatformv1.syncsystem.com.br'; // http://multiplatformv1.syncsystem.com.br
+    // TODO: condition to APP_ENV (localhost, domain)
+// $configSystemURL = 'http://multiplatformv1.syncsystem.com.br'; // http://multiplatformv1.syncsystem.com.br
+$gSystemConfig['configSystemURL'] = env('CONFIG_SYSTEM_URL'); // http://multiplatformv1.syncsystem.com.br
+        // TODO: move to .env
+$gSystemConfig['configSystemURLSSL'] = $gSystemConfig['configSystemURL']; // http://multiplatformv1.syncsystem.com.br
     // TODO: move to .env
 
-$configAPIURL = $configSystemURLSSL; // process.env.CONFIG_API_URL;
+// $configAPIURL = $configSystemURLSSL; // process.env.CONFIG_API_URL;
+$gSystemConfig['configAPIURL'] = env('CONFIG_API_URL');
     // TODO: move to .env (maybe delete from here)
-// $configURLFrontendReact = process.env.CONFIG_URL_FRONTEND_REACT;
+$gSystemConfig['configURLFrontendReact'] = env('CONFIG_URL_FRONTEND_REACT');
     // TODO: move to .env  (maybe delete from here)
+$gSystemConfig['configURLFrontendLaravel'] = env('CONFIG_URL_FRONTEND_LARAVEL');
 
 $gSystemConfig['configSystemURLImages'] = '/'; // '..' = relative path | '/' = root | http://www.nomedodominio.com.br = absolute path | remote (AWS s3): https:// multiplatformnodev1.s3.sa-east-1.amazonaws.com (note: gSystemConfig.configDirectoryFilesSD has to be "")
-$configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
+//$configSystemURLImagesRemote = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
+$gSystemConfig['configSystemURLImagesRemote'] = 'https://multiplatformnodev1.s3.sa-east-1.amazonaws.com';
     // maybe it´s not needed
-$gSystemConfig['configFrontendReactURLImages'] = $configSystemURL . '/';
+//$gSystemConfig['configFrontendReactURLImages'] = $configSystemURL . '/';
+$gSystemConfig['configFrontendReactURLImages'] = $gSystemConfig['configURLFrontendLaravel'] . '/';
 
 $configFrontendDefaultView = 'frontend_php';
     // TODO: evaluate if will be needed
@@ -140,9 +149,11 @@ $configFrontendMobileDefaultView = 'frontend_php_mobile';
 
 // DB especial configuration.
 // ----------------------
-$gSystemConfig['configSystemDBTablePrefix'] = 'prefix_ssmv1_';
-    // TODO: move to .env
+//$gSystemConfig['configSystemDBTablePrefix'] = 'prefix_ssmv1_';
+$gSystemConfig['configSystemDBTablePrefix'] = env('CONFIG_SYSTEM_DB_TABLE_PREFIX');
+    // TODO: move to .env and test
     // Maybe not, because of the node version
+    // Create condition for reding .env file without being served (for node DB build).
 $gSystemConfig['configSystemDBType'] = 2; // 2 - MySQL | 3 - SQL Server
     // TODO: move to .env
 $gSystemConfig['enableSystemDBSizeOptimize'] = 0; // 0-disable (all fields created) | 1-enable (only enabled fields created on database setup)
@@ -151,6 +162,7 @@ $gSystemConfig['enableSystemDBSizeOptimize'] = 0; // 0-disable (all fields creat
 // Table names.
 // ----------------------
 //TODO: Update db setup file with variable names.
+//TODO: evaluate moving to .env.
 $gSystemConfig['configSystemDBTableCounter'] = 'counter';
 $gSystemConfig['configSystemDBTableCategories'] = 'categories';
 $gSystemConfig['configSystemDBTableFiles'] = 'files';
@@ -412,6 +424,15 @@ $gSystemConfig['configArrUsersImageSize'] = $gSystemConfig['enableDefaultImageSi
 $gSystemConfig['configEmailComponent'] = 1; // 1 -
 $gSystemConfig['configEmailFormat'] = 1; // 0 - text | 1 - HTML
 // ----------------------
+
+// APIs.
+// ----------------------
+// .env
+// gSystemConfig.configAPIKeyInternal = "createSecretPassword";
+//gSystemConfig.configAPIKeySystem = 'createSecretPassword'; // Note: for node deploy, value must be hard coded (TODO: Research architecture to retrieve server variables .env in react).
+$gSystemConfig['configAPIKeySystem'] = env('CONFIG_API_KEY_SYSTEM');
+// gSystemConfig.configAPIKeySystem = process.env.CONFIG_API_KEY_SYSTEM;
+// ----------------------
 // **************************************************************************************
 
 
@@ -424,8 +445,10 @@ $gSystemConfig['configFrontendTextBox'] = 1; // 1 - no formatting | 2 - basic fo
 
 //$configSystemTimeZone = 'America/Sao_Paulo'; // UTC | America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
 $gSystemConfig['configSystemTimeZone'] = 'America/Sao_Paulo'; // UTC | America/Sao_Paulo (pt-BR) | Atlantic/South_Georgia (en-US) | America/New_York (en-US)  | (en-GB)
-$configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
-$configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
+//$configBackendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
+$gSystemConfig['configBackendLanguage'] = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node code uses)
+//$configFrontendLanguage = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
+$gSystemConfig['configFrontendLanguage'] = 'en_US'; // en_US | pt_BR // TODO: DELETE - moved to language (check to see if node or react code uses)
 
 $gSystemConfig['configBackendDateFormat'] = 1; // 1 - portuguese dd/mm/yyyy | 2 - britanic mm/dd/yyyy
 $gSystemConfig['configBackendDateFieldType'] = 11; // 0 - simple field | 1 - JQuery DatePicker | 2 - dropdown menu | 11 - js-datepicker (https:// www.npmjs.com/package/js-datepicker)

@@ -46,7 +46,7 @@ class FunctionsDBUpdate
 
         // Logic.
         try {
-            $objSQLRecordsGenericUpdate = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
+            $objSQLRecordsGenericUpdate = DB::table(config('app.gSystemConfig.configSystemDBTablePrefix') . $strTable);
 
             // Parameters.
             if (count($arrSearchParameters) > 0) {
@@ -154,7 +154,7 @@ class FunctionsDBUpdate
 
         // Logic.
         try {
-            $objSQLRecordsGenericUpdate = DB::table(env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . $strTable);
+            $objSQLRecordsGenericUpdate = DB::table(config('app.gSystemConfig.configSystemDBTablePrefix') . $strTable);
 
             // Parameters.
             if (count($arrSearchParameters) > 0) {

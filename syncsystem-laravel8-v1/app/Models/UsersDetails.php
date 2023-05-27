@@ -63,7 +63,7 @@ class UsersDetails extends Authenticatable
      */
     public function __construct(?array $_oudRecordParameters = null)
     {
-        $this->table = env('CONFIG_SYSTEM_DB_TABLE_PREFIX') . config('app.gSystemConfig.configSystemDBTableUsers');
+        $this->table = config('app.gSystemConfig.configSystemDBTablePrefix') . config('app.gSystemConfig.configSystemDBTableUsers');
 
         // Define values.
         if ($_oudRecordParameters !== null) {

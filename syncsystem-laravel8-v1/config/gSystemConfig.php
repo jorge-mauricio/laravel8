@@ -1,4 +1,5 @@
 <?php
+
 //TODO: delete file
 //require __DIR__ . '/../config-application-poc.php'; // SyncSystem customized configuration.
 

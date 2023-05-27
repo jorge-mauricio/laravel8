@@ -84,9 +84,9 @@ class AdminCategoriesController extends AdminBaseController
             */
             $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])
                 ->get(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . $this->idParentCategories . '/', // phpcs:ignore
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . $this->idParentCategories . '/', // phpcs:ignore
                     array_merge(
-                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
+                        ['apiKey' => config('app.gSystemConfig.configAPIKeySystem')],
                         $req->all()
                     )
                 );
@@ -266,9 +266,9 @@ class AdminCategoriesController extends AdminBaseController
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
                 //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
                 ->post(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/',
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/',
                     array_merge(
-                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
+                        ['apiKey' => config('app.gSystemConfig.configAPIKeySystem')],
                         $req->all()
                     ) // ...$req->all() (splat only works on php 8.1 and up)
                     /*'tblCategoriesID' => $tblCategoriesID,
@@ -429,12 +429,12 @@ class AdminCategoriesController extends AdminBaseController
                 // API call (edit).
                 $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
                     ->put(
-                        env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
+                        config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [
                             'strTable' => config('app.gSystemConfig.configSystemDBTableCategories'),
                             'idRecord' => $tblCategoriesID,
                             'arrData' => $tblCategoriesArrDataFilesUpdate,
-                            'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
                         ]
                     );
                 $arrCategoriesFilesUpdateJson = $apiCategoriesFilesUpdateResponse->json();
@@ -573,9 +573,13 @@ class AdminCategoriesController extends AdminBaseController
 
         // Logic.
         try {
-            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get(env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbCategories . '/', [
-                'apiKey' => env('CONFIG_API_KEY_SYSTEM')
-            ]);
+            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])
+                ->get(
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbCategories . '/',
+                    [
+                        'apiKey' => config('app.gSystemConfig.configAPIKeySystem')
+                    ]
+                );
             $arrCategoriesDetailsJson = $apiCategoriesDetailsCurrentResponse->json();
 
             if ($arrCategoriesDetailsJson['returnStatus'] === true) {
@@ -676,9 +680,9 @@ class AdminCategoriesController extends AdminBaseController
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
                 //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
                 ->put(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
                     array_merge(
-                        ['apiKey' => env('CONFIG_API_KEY_SYSTEM')],
+                        ['apiKey' => config('app.gSystemConfig.configAPIKeySystem')],
                         $req->all()
                     ) // ...$req->all() (splat only works on php 8.1 and up)
                     /*'tblCategoriesID' => $tblCategoriesID,
@@ -804,12 +808,12 @@ class AdminCategoriesController extends AdminBaseController
                 // API call (edit).
                 $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
                     ->put(
-                        env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
+                        config('app.gSystemConfig.configAPIURL')  . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [
                             'strTable' => config('app.gSystemConfig.configSystemDBTableCategories'),
                             'idRecord' => $tblCategoriesID,
                             'arrData' => $tblCategoriesArrDataFilesUpdate,
-                            'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
                         ]
                     );
                 $arrCategoriesFilesUpdateJson = $apiCategoriesFilesUpdateResponse->json();

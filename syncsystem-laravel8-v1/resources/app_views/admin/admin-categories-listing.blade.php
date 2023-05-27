@@ -98,7 +98,7 @@
             //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
             //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
 
-            //echo 'apiKey=' . \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) . '<br />';
+            //echo 'apiKey=' . \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) . '<br />';
 
             // var_dump($templateData['cphBody']);
             // var_dump($templateData['additionalData']);
@@ -1001,7 +1001,7 @@
                                     <td id="formCategoriesListing_elementActivation{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                         <a id="linkActivation{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                             onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                      ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                      ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $categoriesRow['id'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1009,7 +1009,7 @@
                                                                                     recordValue: '{{ $categoriesRow['activation'] === 1 ? 0 : 1 }}',
                                                                                     patchType: 'toggleValue',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn) {
                                                                                     // alert(JSON.stringify(_resObjReturn));
@@ -1054,7 +1054,7 @@
                                         <td id="formCategoriesListing_elementActivation1{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation1'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation1{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}',
                                                                                         strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1062,7 +1062,7 @@
                                                                                         recordValue: '{{ $categoriesRow['activation1'] === 1 ? 0 : 1 }}',
                                                                                         patchType: 'toggleValue',
                                                                                         ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                     },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
@@ -1105,7 +1105,7 @@
                                         <td id="formCategoriesListing_elementActivation2{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation2'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation2{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}',
                                                                                         strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1113,7 +1113,7 @@
                                                                                         recordValue: '{{ $categoriesRow['activation2'] === 1 ? 0 : 1 }}',
                                                                                         patchType: 'toggleValue',
                                                                                         ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                     },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
@@ -1156,7 +1156,7 @@
                                         <td id="formCategoriesListing_elementActivation3{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation3'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation3{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}',
                                                                                         strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1164,7 +1164,7 @@
                                                                                         recordValue: '{{ $categoriesRow['activation3'] === 1 ? 0 : 1 }}',
                                                                                         patchType: 'toggleValue',
                                                                                         ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                     },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
@@ -1207,7 +1207,7 @@
                                         <td id="formCategoriesListing_elementActivation4{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation4'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation4{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}',
                                                                                         strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1215,7 +1215,7 @@
                                                                                         recordValue: '{{ $categoriesRow['activation4'] === 1 ? 0 : 1 }}',
                                                                                         patchType: 'toggleValue',
                                                                                         ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                     },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
@@ -1258,7 +1258,7 @@
                                         <td id="formCategoriesListing_elementActivation5{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['activation5'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkActivation5{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                     {
                                                                                         idRecord: '{{ $categoriesRow['id'] }}',
                                                                                         strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1266,7 +1266,7 @@
                                                                                         recordValue: '{{ $categoriesRow['activation5'] === 1 ? 0 : 1 }}',
                                                                                         patchType: 'toggleValue',
                                                                                         ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                     },
                                                                                     async function(_resObjReturn) {
                                                                                         // alert(JSON.stringify(_resObjReturn));
@@ -1309,7 +1309,7 @@
                                         <td id="formCategoriesListing_elementRestrictedAccess{{ $categoriesRow['id'] }}" style="text-align: center;" class="{{ $categoriesRow['restricted_access'] === 0 ? '' : 'ss-backend-table-bg-deactive' }}">
                                             <a id="linkRestrictedAccess{{ $categoriesRow['id'] }}" class="ss-backend-links01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                          ajaxRecordsPatch01_async('{{ env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                          ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
                                                                                 {
                                                                                     idRecord: '{{ $categoriesRow['id'] }}',
                                                                                     strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1317,7 +1317,7 @@
                                                                                     recordValue: '{{ $categoriesRow['restricted_access'] === 1 ? 0 : 1 }}',
                                                                                     patchType: 'toggleValue',
                                                                                     ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(env('CONFIG_API_KEY_SYSTEM'), 'env'), 2) }}'
+                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                                 },
                                                                                 async function(_resObjReturn) {
                                                                                     if(_resObjReturn.returnStatus === true) {

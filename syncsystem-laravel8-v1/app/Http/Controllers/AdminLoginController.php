@@ -96,11 +96,13 @@ class AdminLoginController extends AdminBaseController
             // API call.
             $apiAuthenticationCheckResponse = Http::withOptions(['verify' => false])
                 ->post(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+                    // env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
                     array_merge(
                         [
                             'verificationType' => 'user_admin', // Changed from user_backend
-                            'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                            // 'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
                         ],
                         $req->all()
                     )
@@ -279,13 +281,15 @@ class AdminLoginController extends AdminBaseController
             // TODO: evaluate getting token data from header
             $apiAuthenticationDeleteResponse = Http::withOptions(['verify' => false])
                 ->delete(
-                    env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+                    // env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
                     array_merge(
                         [
                             // 'idTbUsers' => $idTbUsersLogged,
                             'idTbUsersLoggedCrypt' => $idTbUsersLoggedCrypt,
                             'verificationType' => 'user_admin', // Changed from user_backend
-                            'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                            // 'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
                         ],
                         $req->all()
                     )
