@@ -5,11 +5,12 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 // Controllers.
+use App\Http\Controllers\FrontendHomeController;
+use App\Http\Controllers\FrontendCategoriesListingController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminCategoriesController;
 use App\Http\Controllers\AdminRecordsController;
-use App\Http\Controllers\FrontendCategoriesListingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,20 @@ Route::get('/', function () {
 
 });*/
 // **************************************************************************************
+
+
+// Home.
+// **************************************************************************************
+Route::get(
+    '/' . config('app.gSystemConfig.configRouteFrontend'),
+    [
+        FrontendHomeController::class, 'render'
+    ]
+)
+    ->name('frontend.home');
+    //->name(config('app.gSystemConfig.configRouteFrontend'));
+// **************************************************************************************
+
 
 // Admin - Layout - GET.
 // Debug: http://127.0.0.1:8000/admin/layout

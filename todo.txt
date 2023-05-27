@@ -26,6 +26,10 @@
 				- layout
 				- partials
 
+- db
+	- align charset and collation with setup file
+		syncsystem-laravel8-v1\config\database.php
+
 - Pagination
 	- test case: last page - 1 record
 		- delete record

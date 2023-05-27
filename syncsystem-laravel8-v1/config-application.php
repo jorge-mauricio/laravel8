@@ -313,7 +313,7 @@ $gSystemConfig['configRouteBackendFormsFieldsOptions'] = 'forms-fields-options';
 $gSystemConfig['configRouteBackendFiltersGeneric'] = 'filters-generic';
 $gSystemConfig['configRouteBackendUsers'] = 'users';
 
-$gSystemConfig['configRouteFrontend'] = 'en'; // (blank) - root | en
+$gSystemConfig['configRouteFrontend'] = ''; // (blank) - root | en
 $gSystemConfig['configRouteFrontendMobile'] = 'en-mobile'; // (blank) - responsive | // NOTE: only in use if layout not responsive
 
 $gSystemConfig['configRouteFrontendActionEdit'] = 'edit';

@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">{{-- en | en-us --}}
     <head>
-        {{-- include tracking --}}
+        {{-- Include tracking. --}}
         @include('tracking-codes')
 
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">{{-- Bootstrap required. --}}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />{{-- Bootstrap required. --}}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <title>@yield('cphTitle'){{-- $templateData['cphTitle'] --}}</title>
 
-        <?php // Style Sheets - personalized. http://localhost:3000 | ../../ ?>
+        {{-- Style Sheets - personalized. http://localhost:8000 | ../../ --}}
         <!--% if(gSystemConfig.configDebug === true){ %-->
-            <link rel="stylesheet" type="text/css" href="{{ asset('css/styles-backend.bundle.css') }}" media="screen" title="Default" />{{-- Dev --}}
+            <link rel="stylesheet" type="text/css" href="{{ asset(config('app.gSystemConfig.configDirectoryStylesSD') . '/' . 'styles-backend.bundle.css') }}" media="screen" title="Default" />{{-- Dev --}}
         <!--% } %>
         <% if(gSystemConfig.configDebug === false){ %-->
             <!--link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend.bundle.css" media="screen" title="Default" /--><!--Production (custom styles)-->
             <!--link rel="stylesheet" type="text/css" href="/<%- gSystemConfig.configDirectoryDistSD %>/styles-backend-vendor.bundle.css" media="screen" title="Default" /--><!--Production (vendor styles)-->
         <!--% } %-->
-        <link rel="canonical" href="<?php echo config('app.gSystemConfig.configSystemURL'); ?>" />
+        <link rel="canonical" href="{{ config('app.gSystemConfig.configSystemURL') }}" />
 
         {{--
             Favicon - 16x16 | 32x32 | 64x64 (pixels).
