@@ -102,9 +102,7 @@
             </h1>
 
             {{-- Messages --}}
-            <div id="messageSuccess" class="ss-frontend-success" style="display: none;"></div>
-            <div id="messageError" class="ss-frontend-error" style="display: none;"></div>
-            <div id="messageAlert" class="ss-frontend-alert" style="display: none;"></div>
+            @include('frontend.partials.messages-status')
 
             <main>
                 {{-- Content place holder - body --}}
