@@ -82,3 +82,9 @@ php artisan config:clear
 
 - configure sanctum (production domains, test domains, etc)
 	\config\sanctum.php
+
+- Deploy:
+	Update .env variables:
+		CONFIG_SYSTEM_DB_TABLE_PREFIX
+
+		

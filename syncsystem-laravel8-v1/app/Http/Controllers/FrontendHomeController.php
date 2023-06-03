@@ -7,19 +7,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class FrontendHomeController extends Controller
+class FrontendHomeController extends FrontendBaseController
 {
     // Properties.
     // ----------------------
-    protected string|null $masterPageFrontendSelect = 'layout-admin-iframe';
-    private string|null $returnURL = null;
+    //protected string|null $masterPageFrontendSelect = 'layout-frontend-main';
 
-    private array $cookiesData;
     private array $templateData;
-
-    private string|null $messageSuccess = '';
-    private string|null $messageError = '';
-    private string|null $messageAlert = '';
     // ----------------------
 
     // Constructor.
@@ -29,15 +23,15 @@ class FrontendHomeController extends Controller
      */
     public function __construct(Request $req)
     {
-        //parent::__construct();
+        parent::__construct();
         $this->build($req);
     }
     // **************************************************************************************
 
-    // Admin login.
+    // Frontend home.
     // **************************************************************************************
     /**
-     * Admin login.
+     * Frontend home.
      * @return void
      */
     private function build(Request $req): void
@@ -45,10 +39,10 @@ class FrontendHomeController extends Controller
         // Logic.
         try {
             // Title - content place holder.
-            $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'frontendHomeTitleMain');
+            $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageFrontend')->appLabels, 'frontendHomeTitleMain');
 
             // Title - current - content place holder.
-            $this->templateData['cphTitleCurrent'] = '';
+            $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageFrontend')->appLabels, 'frontendHomeTitleMain');
 
             // Body - content place holder.
             $this->templateData['cphBody'] = '';
@@ -62,10 +56,10 @@ class FrontendHomeController extends Controller
     }
     // **************************************************************************************
 
-    // Home.
+    // Render view.
     // **************************************************************************************
     /**
-     * Home.
+     * Render view.
      * @return View
      */
     public function render(Request $req): View

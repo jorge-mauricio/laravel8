@@ -61,9 +61,9 @@
         --}}
 
         <meta name="author" content="<?php echo \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application'); ?>" />
-		<meta name="designer" content="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'layoutDevName'); ?>" />
-		<meta name="copyright" content="<?php echo config('app.gSystemConfig.configCopyrightYear'); ?>, <?php echo \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application'); ?>" />
-		<meta name="rating" content="general" />{{-- general | mature | restricted | 14 years --}}
+        <meta name="designer" content="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'layoutDevName'); ?>" />
+        <meta name="copyright" content="<?php echo config('app.gSystemConfig.configCopyrightYear'); ?>, <?php echo \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application'); ?>" />
+        <meta name="rating" content="general" />{{-- general | mature | restricted | 14 years --}}
 
         {{-- JS includes. --}}
         @include('admin.partials.js-head')
