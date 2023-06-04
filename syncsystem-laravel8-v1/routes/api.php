@@ -12,6 +12,7 @@ use App\Http\Controllers\ApiCategoriesListingController;
 use App\Http\Controllers\ApiCategoriesInsertController;
 use App\Http\Controllers\ApiCategoriesDetailsController;
 use App\Http\Controllers\ApiCategoriesUpdateController;
+use App\Http\Controllers\ApiUsersListingController;
 use App\Http\Controllers\ApiUsersDetailsController;
 
 /*
@@ -245,6 +246,23 @@ Route::put(
 //Route::post('/categories/',[ApiCategoriesInsertController::class, 'insertCategories'])->name('api.categories.insert');
 // **************************************************************************************
 
+// API - Users - listing - GET.
+// **************************************************************************************
+Route::get(
+    '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/{idParent?}',
+    [
+        ApiUsersListingController::class, 'getUsersListing'
+    ],
+    function ($usersListingResults) {
+        return response()->json($usersListingResults);
+    }
+)
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPIUsers')
+    );
+// **************************************************************************************
+
 // API - Users - details - GET.
 // TODO: create another endpoint with /edit
 // **************************************************************************************
@@ -253,8 +271,8 @@ Route::get(
     [
         ApiUsersDetailsController::class, 'getUsersDetails'
     ],
-    function ($detailsUsersResults) {
-        return response()->json($detailsUsersResults);
+    function ($usersDetailsResults) {
+        return response()->json($usersDetailsResults);
     }
 )
     ->name(

@@ -35,10 +35,10 @@ class ObjectUsersListing
     }
     // **************************************************************************************
 
-    // Get categories listing according to search parameters.
+    // Get users listing according to search parameters.
     // **************************************************************************************
     /**
-     * Get categories listing according to search parameters.
+     * Get users listing according to search parameters.
      * @param float $terminal 0 - backend | 1 - frontend
      * @param float $returnType 1 - array | 3 - Json Object | 10 - html
      * @return array

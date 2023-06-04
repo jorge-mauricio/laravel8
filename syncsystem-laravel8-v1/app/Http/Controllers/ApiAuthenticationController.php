@@ -120,7 +120,7 @@ class ApiAuthenticationController extends Controller
 
                 // Object build.
                 $objUsersLogin = new \SyncSystemNS\ObjectUsersListing($arrUsersLoginParameters);
-                $resultsUsersListing = $objUsersLogin->recordsListingGet(0, 3);
+                $resultsUsersListing = $objUsersLogin->recordsListingGet(0, 1);
                 //$resultsUsersListing = (array) json_decode($objUsersLogin->recordsListingGet(0, 3), true);
                 //$resultsUsersListing = json_decode(json_encode($objUsersLogin->recordsListingGet(0, 3)), true); // working
 

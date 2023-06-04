@@ -46,10 +46,10 @@ class FrontendCategoriesListingController extends Controller
 
 
             return $apiCategoriesDetailsCurrentResponse->json();
-        } catch(\Exception $apiError) {
+        } catch (\Exception $apiError) {
             echo 'Error reading API: ' . $apiError->getMessage();
         } finally {
-
+            //
         }
     }
     // **************************************************************************************

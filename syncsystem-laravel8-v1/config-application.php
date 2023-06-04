@@ -2459,6 +2459,11 @@ $gSystemConfig['enableUsersImageMain'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersStatus'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersNotes'] = 1; // 0 - disable | 1 - enable
 
+// Pagination.
+$gSystemConfig['enableUsersBackendPagination'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['enableUsersBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
+$gSystemConfig['configUsersBackendPaginationNRecords'] = 15;
+
 // Big information fields.
 $gSystemConfig['enableUsersInfo1'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configUsersInfo1FieldType'] = 1; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)

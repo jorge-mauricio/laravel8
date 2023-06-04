@@ -91,31 +91,29 @@
         // alert(window.location.origin);
     </script>
 
-    <pre>
-        @php
-            // Debug.
-            //echo '_GET=' . $_GET['masterPageSelect'] . '<br />';
-            //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
-            //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
+    @php
+        // Debug.
+        //echo '_GET=' . $_GET['masterPageSelect'] . '<br />';
+        //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
+        //echo 'masterPageSelect=' . $masterPageSelect . '<br />';
 
-            //echo 'apiKey=' . \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) . '<br />';
+        //echo 'apiKey=' . \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) . '<br />';
 
-            // var_dump($templateData['cphBody']);
-            // var_dump($templateData['additionalData']);
-            // var_dump($_pageNumber);
-            // var_dump($_pagingTotalRecords);
-            // var_dump($_pagingTotal);
+        // var_dump($templateData['cphBody']);
+        // var_dump($templateData['additionalData']);
+        // var_dump($_pageNumber);
+        // var_dump($_pagingTotalRecords);
+        // var_dump($_pagingTotal);
 
-            // var_dump(config('app.gSystemConfig')); // working
-            // var_dump(config('gSystemConfig.configDebug')); // working
-            // var_dump(config('gSystemConfig.configDebugArr.info1')); // working
-            // var_dump(config('gSystemConfig'));
+        // var_dump(config('app.gSystemConfig')); // working
+        // var_dump(config('gSystemConfig.configDebug')); // working
+        // var_dump(config('gSystemConfig.configDebugArr.info1')); // working
+        // var_dump(config('gSystemConfig'));
 
-            // echo 'configDirectoryFilesLayoutSD=<pre>';
-            // var_dump(config('app.gSystemConfig.configDirectoryFilesLayoutSD'));
-            // echo '</pre><br />';
-        @endphp
-    </pre>
+        // echo 'configDirectoryFilesLayoutSD=<pre>';
+        // var_dump(config('app.gSystemConfig.configDirectoryFilesLayoutSD'));
+        // echo '</pre><br />';
+    @endphp
 
     <section class="ss-backend-layout-section-data01">
         @if (count($arrCategoriesListing) < 1)

@@ -141,9 +141,9 @@ class CategoriesListing extends Model
             //echo 'oclRecords=<pre>';
             //var_dump($oclRecords);
             //echo '</pre><br />';
-        } catch (\Exception $cphBodyBuildError) {
+        } catch (\Exception $categoriesListingModelError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new \Error('cphBodyBuildError: ' . $cphBodyBuildError->getMessage());
+                throw new \Error('categoriesListingModelError: ' . $categoriesListingModelError->getMessage());
             }
         } finally {
             //

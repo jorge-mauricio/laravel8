@@ -44,9 +44,12 @@ class ApiCategoriesListingController extends Controller
     // ----------------------
     // NOTE: maybe, delete this controller
 
-
     // Constructor.
     // **************************************************************************************
+    /**
+     * Constructor.
+     * @param Request $req
+     */
     //public function __construct(?float $idParent = null)
     //public function __construct(float|string $_idTbCategories = null)
     public function __construct(Request $req)
@@ -223,4 +226,5 @@ class ApiCategoriesListingController extends Controller
         // return response()->json();
         // return Response::json($backendCategoriesListing); // worked - needs to change method´s return type to mixed
     }
+    // **************************************************************************************
 }
