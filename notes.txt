@@ -65,6 +65,8 @@
 				Client ID: 3
 				Client secret: JwEpOFupn0DvuM2iPKa1PpT0XuXr9JCOqKVoJdVA
 
+		http://localhost:8000/system/users/0
+
 
 			- note: when debugging secure routes, better to clear caches:
 				- terminal: 

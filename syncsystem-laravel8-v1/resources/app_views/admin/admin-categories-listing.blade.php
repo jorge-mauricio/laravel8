@@ -171,6 +171,7 @@
                 <input type="hidden" id="formCategoriesListing_pageNumber" name="pageNumber" value="{{ $pageNumber }}" />
                 <input type="hidden" id="formCategoriesListing_masterPageSelect" name="masterPageSelect" value="{{ $masterPageSelect }}" />
 
+                {{-- TODO: create css class for this part. --}}
                 <div style="position: relative; display: block; overflow: hidden;">
                     <table class="ss-backend-table-listing01">
                         <caption class="ss-backend-table-header-text01 ss-backend-table-title">
@@ -1661,7 +1662,7 @@
 
                             {{-- TODO: filters. --}}
 
-
+                            {{-- Information fields. --}}
                             @if (config('app.gSystemConfig.enableCategoriesInfo1') === 1)
                                 <tr id="inputRowCategories_info1" class="ss-backend-table-bg-light">
                                     <td class="ss-backend-table-bg-medium">

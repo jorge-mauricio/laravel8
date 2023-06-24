@@ -137,6 +137,7 @@ class FunctionsCrypto
             // Data.
             // ----------------------
             if ($encryptMethod === SS_ENCRYPT_METHOD_DATA) {
+            // if ($encryptMethod === SS_ENCRYPT_METHOD_DATA && (string) $strValue !== '') {
                 // MCrypt PHP library.
                 if (config('app.gSystemConfig.configCryptData') === SS_ENCRYPT_METHOD_DATA_MCRYPT) {
                     $strReturn = \SyncSystemNS\FunctionsCrypto::mCryptDecrypt($strValue, config('app.gSystemConfig.configCryptKey32Byte'));
@@ -173,8 +174,12 @@ class FunctionsCrypto
             // ----------------------
         } catch (\Exception $decryptValueError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new \Error('decryptValueError: ' . $decryptValueError->getMessage());
-                // TODO: log error
+                if ($decryptValueError->getMessage() !== 'Ciphertext is too short.') {
+                    throw new \Error('decryptValueError: ' . $decryptValueError->getMessage());
+                    // TODO: log error
+                } else {
+                    $strReturn = 'decryptValueError: ' . $decryptValueError->getMessage();
+                }
             }
         } finally {
             //
