@@ -135,6 +135,229 @@ class AdminUsersController extends AdminBaseController
 
         // Return with view.
         return view('admin.admin-users-listing')->with('templateData', $this->templateData); // working
+            // TODO: replace with config variables
+    }
+    // **************************************************************************************
+
+    // Handle users insert.
+    // **************************************************************************************
+    /**
+     * Handle users insert.
+     * @param Request $req
+     * @return RedirectResponse
+     */
+    public function adminUsersInsert(Request $req): RedirectResponse
+    {
+        // Variables.
+        // ----------------------
+        $tblUsersImageMain = '';
+
+        $apiUsersInsertResponse = null;
+        $arrUsersInsertJson = null;
+
+        //$tblCategoriesID = null;
+        //$tblCategoriesIdParent = null;
+        //$tblCategoriesSortOrder = 0;
+        //$tblCategoriesCategoryType = null;
+        // ----------------------
+
+        // Define values.
+        // ----------------------
+        // $tblCategoriesID = null;
+        //$tblCategoriesIdParent = $req->post('id_parent');
+        //$tblCategoriesSortOrder = $req->post('sort_order');
+        //$tblCategoriesCategoryType = $req->post('category_type');
+
+
+        $this->idParent = $req->post('idParent');
+        $this->pageNumber = (int) $req->post('pageNumber');
+        $this->masterPageSelect = $req->post('masterPageSelect');
+        // ----------------------
+
+        // Return URL build.
+        // ----------------------
+        // TODO: think about using buildReturnURL method (base controller).
+        $this->returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $this->idParent . '/';
+        $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
+        if ($this->pageNumber) {
+            $this->returnURL .= '&pageNumber=' . $this->pageNumber;
+        }
+        // ----------------------
+
+        // Logic.
+        try {
+            // API call.
+            $apiUsersInsertResponse = Http::withOptions(['verify' => false])
+                ->post(
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/',
+                    array_merge(
+                        ['apiKey' => config('app.gSystemConfig.configAPIKeySystem')],
+                        $req->all()
+                    ) // ...$req->all() (splat only works on php 8.1 and up)
+                );
+            $arrUsersInsertJson = $apiUsersInsertResponse->json();
+
+            // Files upload (in frontend server).
+            $resultsFunctionsFiles = null;
+            $formfileFieldsReference = null;
+            $tblUsersID = $arrUsersInsertJson['idRecordInsert'];
+
+            // Build file fields references.
+            foreach (request()->allFiles() as $arrKey => $fileObject) {
+                $formfileFieldsReference[$arrKey] = [
+                    'originalFileName' => $fileObject->getClientOriginalName(),
+                    'fileSize' => $fileObject->getSize(),
+                    'temporaryFilePath' => $fileObject->getPathname(),
+                    'fileExtension' => $fileObject->extension(),
+                    'fileNamePrefix' => '',
+                    'fileNameSufix' => '',
+                    'fileDirectoryUpload' => '',
+                ];
+
+                // Debug.
+                //echo 'arrKey=' . $arrKey . '<br />';
+                //echo 'fileObject=' . $fileObject->getClientOriginalName() . '<br />';
+                //array_push($formfileFieldsReference);
+            }
+
+            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple(
+                $tblUsersID,
+                $req,
+                config('app.gSystemConfig.configDirectoryFilesUpload'),
+                '',
+                $formfileFieldsReference
+            );
+
+            if ($resultsFunctionsFiles['returnStatus'] === true) {
+                $tblUsersArrDataFilesUpdate = null;
+                $tblUsersImageMain = isset($resultsFunctionsFiles['image_main']) === true ? $resultsFunctionsFiles['image_main'] : $tblUsersImageMain;
+
+                // Resize images.
+                if ($tblUsersImageMain !== '') {
+                    $tblUsersArrDataFilesUpdate['image_main'] = $tblUsersImageMain;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrUsersImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblUsersImageMain
+                    );
+                }
+
+                // TODO: error check for image upload and resize.
+                // API call (edit).
+                $apiUsersFilesUpdateResponse = Http::withOptions(['verify' => false])
+                    ->put(
+                        config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
+                        [
+                            'strTable' => config('app.gSystemConfig.configSystemDBTableUsers'),
+                            'idRecord' => $tblUsersID,
+                            'arrData' => $tblUsersArrDataFilesUpdate,
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
+                        ]
+                    );
+                $arrUsersFilesUpdateJson = $apiUsersFilesUpdateResponse->json();
+                // TODO: error check for update.
+
+                // Debug.
+                //echo 'arrCategoriesUpdateJson=<pre>';
+                //var_dump($arrCategoriesUpdateJson);
+                //echo '</pre><br />';
+            }
+
+            // Debug.
+            //echo 'req=<pre>';
+            //var_dump($req);
+            //echo '</pre><br />';
+
+            //echo 'req->input=<pre>';
+            //var_dump($req->post('id_parent'));
+            //echo '</pre><br />';
+            //echo 'method=' . $method . '<br />';
+
+            //echo 'req->post=<pre>';
+            //var_dump($req->post('date1'));
+            //echo '</pre><br />';
+
+            //echo 'req->post(dateSQLWrite)=<pre>';
+            //var_dump(\SyncSystemNS\FunctionsGeneric::dateSQLWrite($req->post('date1'), $GLOBALS['configBackendDateFormat']));
+            //echo '</pre><br />';
+
+            //echo 'req->all()=<pre>';
+            //var_dump($req->all());
+            //echo '</pre><br />';
+
+            //echo 'tblCategoriesID=' . $tblCategoriesID . '<br />';
+            //echo 'tblCategoriesIdParent=' . $tblCategoriesIdParent . '<br />';
+            //echo 'tblCategoriesSortOrder=' . $tblCategoriesSortOrder . '<br />';
+            //echo 'tblCategoriesCategoryType=' . $tblCategoriesCategoryType . '<br />';
+
+            //echo 'idParentCategories=' . $this->idParentCategories . '<br />';
+            //echo 'pageNumber=' . $this->pageNumber . '<br />';
+            //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
+
+            //echo 'image_main=<pre>';
+            //var_dump($req->file('image_main'));
+            // '</pre><br />';
+
+            //echo 'originalFileName=<pre>';
+            //var_dump($formfileFieldsReference['image_main']['originalFileName']);
+            //echo '</pre><br />';
+
+            //echo 'temporaryFilePath=<pre>';
+            //var_dump($formfileFieldsReference['image_main']['temporaryFilePath']);
+            //echo '</pre><br />';
+
+            //echo 'configDirectoryFilesUpload=<pre>';
+            //var_dump($GLOBALS['configDirectoryFilesUpload']);
+            //echo '</pre><br />';
+
+            //echo 'configDirectoryFilesUpload=<pre>';
+            //var_dump($GLOBALS['configDirectoryFilesUpload']);
+            //echo '</pre><br />';
+
+            //echo 'resultsFunctionsFiles=<pre>';
+            //var_dump($resultsFunctionsFiles);
+            //echo '</pre><br />';
+            /*
+            echo 'tblCategoriesImageMain=<pre>';
+            var_dump($tblCategoriesImageMain);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile1=<pre>';
+            var_dump($tblCategoriesImageFile1);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile2=<pre>';
+            var_dump($tblCategoriesImageFile2);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile3=<pre>';
+            var_dump($tblCategoriesImageFile3);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile4=<pre>';
+            var_dump($tblCategoriesImageFile4);
+            echo '</pre><br />';
+
+            echo 'tblCategoriesImageFile5=<pre>';
+            var_dump($tblCategoriesImageFile5);
+            echo '</pre><br />';
+            */
+
+            //exit();
+        } catch (\Exception $adminUsersInsertError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('adminUsersInsertError: ' . $adminUsersInsertError->getMessage());
+            }
+        } finally {
+            //
+        }
+
+        // Redirect.
+        if ($arrUsersInsertJson['returnStatus'] === true) {
+            return redirect($this->returnURL)->with('messageSuccess', $arrUsersInsertJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage2'));
+        } else {
+            return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage3'));
+        }
     }
     // **************************************************************************************
 }

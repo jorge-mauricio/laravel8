@@ -13,6 +13,7 @@ use App\Http\Controllers\ApiCategoriesInsertController;
 use App\Http\Controllers\ApiCategoriesDetailsController;
 use App\Http\Controllers\ApiCategoriesUpdateController;
 use App\Http\Controllers\ApiUsersListingController;
+use App\Http\Controllers\ApiUsersInsertController;
 use App\Http\Controllers\ApiUsersDetailsController;
 
 /*
@@ -260,6 +261,25 @@ Route::get(
     ->name(
         config('app.gSystemConfig.configRouteAPI') . '.' .
         config('app.gSystemConfig.configRouteAPIUsers')
+    );
+// **************************************************************************************
+
+// API - Users - POST (insert record).
+// **************************************************************************************
+// dev: http://localhost:8001/api/admin/users/
+Route::post(
+    '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/',
+    [
+        ApiUsersInsertController::class, 'insertUsers'
+    ],
+    function ($insertUsersResults) {
+        return response()->json($insertUsersResults);
+    }
+)
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPIUsers') . '.' .
+        'insert'
     );
 // **************************************************************************************
 

@@ -12,7 +12,6 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminRecordsController;
 use App\Http\Controllers\AdminUsersController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -205,4 +204,19 @@ Route::get(
     ]
 )
     ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendUsers'));
+// **************************************************************************************
+
+// Admin - Users - POST (insert record).
+// **************************************************************************************
+Route::post(
+    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/',
+    [
+        AdminUsersController::class, 'adminUsersInsert'
+    ]
+)
+    ->name(
+        config('app.gSystemConfig.configRouteBackend') . '.' .
+        config('app.gSystemConfig.configRouteBackendUsers') . '.' .
+        'insert'
+    );
 // **************************************************************************************

@@ -357,7 +357,7 @@ class AdminCategoriesController extends AdminBaseController
             //echo '</pre><br />';
             //exit();
 
-
+            // TODO: move upload to backend.
             $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple(
                 $tblCategoriesID,
                 $req,

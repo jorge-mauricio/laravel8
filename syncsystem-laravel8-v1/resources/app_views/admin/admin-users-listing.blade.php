@@ -623,7 +623,6 @@
                     </table>
                 </div>
 
-
                 {{-- Pagination. --}}
                 {{-- ---------------------- --}}
                 @if (config('app.gSystemConfig.enableUsersBackendPagination') === 1)
@@ -772,91 +771,91 @@
                         @endif
 
                         @if (config('app.gSystemConfig.enableUsersDateBirth') !== 0)
-                        <tr id="inputRowUsers_date_birth" class="ss-backend-table-bg-light">
-                            <td class="ss-backend-table-bg-medium">
-                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDateBirth') }}:
-                            </td>
-                            <td>
-                                {{-- Dropdown menu. --}}
-                                @if (config('app.gSystemConfig.configUsersDateBirth') === 2)
-                                    @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
-                                        <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
-                                                <option
-                                                    value="{{ $arrayRow }}"
-                                                    {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
-                                                >
-                                                    {{ $arrayRow }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        /
-                                        <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
-                                                <option
-                                                    value="{{ $arrayRow }}"
-                                                    {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
-                                                >
-                                                    {{ $arrayRow }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        /
-                                        <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
-                                                <option
-                                                    value="{{ $arrayRow }}"
-                                                    {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
-                                                >
-                                                    {{ $arrayRow }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    @else
-                                        <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
-                                                <option
-                                                    value="{{ $arrayRow }}"
-                                                    {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
-                                                >
-                                                    {{ $arrayRow }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        /
-                                        <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
-                                                <option
-                                                    value="{{ $arrayRow }}"
-                                                    {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
-                                                >
-                                                    {{ $arrayRow }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        /
-                                        <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
-                                                <option
-                                                    value="{{ $arrayRow }}"
-                                                    {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
-                                                >
-                                                    {{ $arrayRow }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                            <tr id="inputRowUsers_date_birth" class="ss-backend-table-bg-light">
+                                <td class="ss-backend-table-bg-medium">
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDateBirth') }}:
+                                </td>
+                                <td>
+                                    {{-- Dropdown menu. --}}
+                                    @if (config('app.gSystemConfig.enableUsersDateBirth') === 2)
+                                        @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
+                                            <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                    <option
+                                                        value="{{ $arrayRow }}"
+                                                        {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
+                                                    >
+                                                        {{ $arrayRow }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            /
+                                            <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                    <option
+                                                        value="{{ $arrayRow }}"
+                                                        {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
+                                                    >
+                                                        {{ $arrayRow }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            /
+                                            <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                    <option
+                                                        value="{{ $arrayRow }}"
+                                                        {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
+                                                    >
+                                                        {{ $arrayRow }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        @else
+                                            <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                    <option
+                                                        value="{{ $arrayRow }}"
+                                                        {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
+                                                    >
+                                                        {{ $arrayRow }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            /
+                                            <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                    <option
+                                                        value="{{ $arrayRow }}"
+                                                        {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
+                                                    >
+                                                        {{ $arrayRow }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            /
+                                            <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                    <option
+                                                        value="{{ $arrayRow }}"
+                                                        {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
+                                                    >
+                                                        {{ $arrayRow }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        @endif
                                     @endif
-                                @endif
 
-                                {{-- js-datepicker. --}}
-                                @if (config('app.gSystemConfig.configUsersDateBirth') === 11)
-                                    <input type="text" id="users_date_birth" name="date_birth" class="ss-backend-field-date01" autocomplete="off" value="" />
-                                    <script>
-                                        const dpDate1 = datepicker("#users_date_birth", jsDatepickerBirthBackendConfigOptions);
-                                    </script>
-                                @endif
-                            </td>
-                        </tr>
+                                    {{-- js-datepicker. --}}
+                                    @if (config('app.gSystemConfig.enableUsersDateBirth') === 11)
+                                        <input type="text" id="users_date_birth" name="date_birth" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                        <script>
+                                            const dpDate1 = datepicker("#users_date_birth", jsDatepickerBirthBackendConfigOptions);
+                                        </script>
+                                    @endif
+                                </td>
+                            </tr>
                         @endif
                         @if (config('app.gSystemConfig.enableUsersGender') === 1)
                         <tr id="inputRowUsers_gender" class="ss-backend-table-bg-light">
