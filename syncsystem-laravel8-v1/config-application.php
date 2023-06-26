@@ -36,6 +36,7 @@ $gSystemConfig = [];
 $gSystemConfig['configDebug'] = env('APP_DEBUG'); // true (debug mode) | false (production mode)
     // condition to APP_ENV
 $gSystemConfig['configCache'] = true; // false (no chache) | true (cache)
+    // TODO: research if can disable bfcache also.
 $gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
 
 // Error handling / displaying.

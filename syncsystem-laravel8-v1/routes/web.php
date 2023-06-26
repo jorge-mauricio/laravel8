@@ -220,3 +220,19 @@ Route::post(
         'insert'
     );
 // **************************************************************************************
+
+// Admin - Users - edit - GET.
+// **************************************************************************************
+// Debug: http://localhost:8000/admin/users/edit/2026/?masterPageSelect=layout-admin-main
+Route::get(
+    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/{idTbUsers?}',
+    [
+        AdminUsersController::class, 'adminUsersEdit'
+    ]
+)
+    ->name(
+        config('app.gSystemConfig.configRouteBackend') . '.' .
+        config('app.gSystemConfig.configRouteBackendUsers') . '.' .
+        config('app.gSystemConfig.configRouteBackendActionEdit')
+    );
+// **************************************************************************************

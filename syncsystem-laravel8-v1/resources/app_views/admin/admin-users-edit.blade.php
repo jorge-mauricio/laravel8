@@ -1,27 +1,12 @@
 @php
     // Variables.
-    $idParent = $templateData['idParent'];
-
-    $_pagingNRecords = config('app.gSystemConfig.configUsersBackendPaginationNRecords');
-    $_pagingTotalRecords = 0;
-    $_pagingTotal = 0;
-    $_pageNumber = (int) $pageNumber;
-    if (config('app.gSystemConfig.enableUsersBackendPagination') === 1) {
-        $_pagingTotalRecords = $templateData['_pagingTotalRecords'];
-        $_pagingTotal = intval(ceil($_pagingTotalRecords / $_pagingNRecords));
-        // if (!$_pageNumber) { // TODO: double check this logic.
-        // if ($_pageNumber === '') { // TODO: double check this logic. // Verified - 0 (null) changes to 1
-        if (!$_pageNumber) {
-            $_pageNumber = 1;
-        }
-    }
-
+    $idTbUsers = $templateData['idTbUsers'];
     $titleCurrent = $templateData['cphTitleCurrent'];
-    $arrUsersListing = $templateData['cphBody']['arrUsersListing'];
+    $oudRecord = $templateData['cphBody']['oudRecord'];
 
     // Meta title.
     $metaTitle = '';
-    $metaTitle .= \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersTitleMain');
+    $metaTitle .= \SyncSystemNS\FunctionsGeneric::contentMaskRead(config('app.gSystemConfig.configSystemClientName'), 'config-application') . ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersTitleEdit');
     if ($titleCurrent) {
         $metaTitle .= ' - ' . $titleCurrent;
     }
@@ -36,7 +21,8 @@
     $metaURLCurrent = config('app.gSystemConfig.configSystemURL') . '/';
     $metaURLCurrent .= config('app.gSystemConfig.configRouteBackend') . '/';
     $metaURLCurrent .= config('app.gSystemConfig.configRouteBackendUsers') . '/';
-    $metaURLCurrent .= $idParent . '/';
+    $metaURLCurrent .= config('app.gSystemConfig.configRouteBackendActionEdit') . '/';
+    $metaURLCurrent .= $oudRecord['tblUsersID'] . '/';
     // if ($masterPageSelect !== '') {
         $metaURLCurrent .= '?masterPageSelect=' . $masterPageSelect;
     // }
@@ -52,13 +38,14 @@
 @endsection
 
 @section('cphHead')
-    <meta name="title" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaTitle); ?>" />{{-- Bellow 160 characters. --}}
-    <meta name="description" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaDescription); ?>" />{{-- Bellow 100 characters. --}}
-    <meta name="keywords" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaKeywords); ?>" />{{-- Bellow 60 characters. --}}
+    {{-- TODO: evaluate changing these outputs to {{}} (or {!! !!}). --}}
+    <meta name="title" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaTitle); ?>" /> {{-- Bellow 160 characters. --}}
+    <meta name="description" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaDescription); ?>" /> {{-- Bellow 100 characters. --}}
+    <meta name="keywords" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaKeywords); ?>" /> {{-- Bellow 60 characters. --}}
 
     {{-- Open Graph tags. --}}
     <meta property="og:title" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaTitle); ?>" />
-    <meta property="og:type" content="website" />{{-- http://ogp.me/#types | https://developers.facebook.com/docs/reference/opengraph/ --}}
+    <meta property="og:type" content="website" /> {{-- http://ogp.me/#types | https://developers.facebook.com/docs/reference/opengraph/ --}}
     <meta property="og:url" content="<?php echo $metaURLCurrent; ?>" />
     <meta property="og:description" content="<?php echo \SyncSystemNS\FunctionsGeneric::removeHTML01($metaDescription); ?>" />
     <meta property="og:image" content="<?php echo config('app.gSystemConfig.configSystemURL') . '/' . config('app.gSystemConfig.configDirectoryFilesLayoutSD') . '/' . 'icon-logo-og.png'; ?>" /> {{-- The recommended resolution for the OG image is 1200x627 pixels, the size up to 5MB. // 120x120px, up to 1MB JPG ou PNG, lower than 300k and minimum dimension 300x200 pixels. --}}
@@ -73,634 +60,18 @@
 @section('cphBody')
     @include('admin.partials.messages-status')
 
-    @php
-        // Debug.
-        /*
-        echo 'arrUsersListing=<pre>';
-        var_dump($arrUsersListing);
-        echo '</pre><br />';
-        */
-    @endphp
-
-    <section class="ss-backend-layout-section-data01">
-        @if (count($arrUsersListing) < 1)
-            <div class="ss-backend-alert ss-backend-layout-div-records-empty">
-                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage1') }}
-            </div>
-        @else
-            <div style="position: relative; display: block; overflow: hidden; margin-bottom: 2px;">
-                <button
-                    id="users_delete"
-                    name="users_delete"
-                    onclick="elementMessage01('formUsersListing_method', 'DELETE');
-                            formSubmit('formUsersListing', '', '', '/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/?_method=DELETE');
-                            "
-                    class="ss-backend-btn-base ss-backend-btn-action-cancel"
-                    style="float: right;">
-                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDelete') }}
-                </button>
-            </div>
-
-            <form
-                id="formUsersListing"
-                name="formUsersListing"
-                method="POST"
-                action=""
-                enctype="application/x-www-form-urlencoded"
-            >
-                @csrf
-                <input type="hidden" id="formUsersListing_method" name="_method" value="">
-
-                <input type="hidden" id="formUsersListing_strTable" name="strTable" value="{{ config('app.gSystemConfig.configSystemDBTableUsers') }}" />
-
-                <input type="hidden" id="formUsersListing_idParent" name="idParent" value="{{ $idParent }}" />
-                <input type="hidden" id="formUsersListing_pageReturn" name="pageReturn" value="{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') }}" />
-                <input type="hidden" id="formUsersListing_pageNumber" name="pageNumber" value="{{ $pageNumber }}" />
-                <input type="hidden" id="formUsersListing_masterPageSelect" name="masterPageSelect" value="{{ $masterPageSelect }}" />
-
-                <div style="position: relative; display: block; overflow: hidden;">
-                    <table class="ss-backend-table-listing01">
-                        <caption class="ss-backend-table-header-text01 ss-backend-table-title">
-                            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersTitleMain') }}
-                        </caption>
-                        <thead class="ss-backend-table-bg-dark ss-backend-table-header-text01">
-                            <tr>
-                                @if (config('app.gSystemConfig.enableUsersSortOrder') === 1)
-                                    <td style="width: 40px; text-align: left;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemSortOrderA') }}
-                                    </td>
-                                @endif
-
-                                @if (config('app.gSystemConfig.enableUsersImageMain') === 1)
-                                    <td style="width: 100px; text-align: left;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemImage') }}
-                                    </td>
-                                @endif
-
-                                @if (config('app.gSystemConfig.enableUsersNameFull') === 1)
-                                    <td style="text-align: left;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersNameFull') }}
-                                    </td>
-                                @endif
-
-                                @if (config('app.gSystemConfig.enableUsersNameFirst') === 1)
-                                    <td style="text-align: left;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersNameFirst') }}
-                                    </td>
-                                @endif
-
-                                <td style="width: 100px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemFunctions') }}
-                                </td>
-
-                                <td style="width: 40px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivationA') }}
-                                </td>
-
-                                @if (config('app.gSystemConfig.enableUsersActivation1') === 1)
-                                    <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersActivation1') }}
-                                    </td>
-                                @endif
-                                @if (config('app.gSystemConfig.enableUsersActivation2') === 1)
-                                    <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersActivation2') }}
-                                    </td>
-                                @endif
-                                @if (config('app.gSystemConfig.enableUsersActivation3') === 1)
-                                    <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersActivation3') }}
-                                    </td>
-                                @endif
-                                @if (config('app.gSystemConfig.enableUsersActivation4') === 1)
-                                    <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersActivation4') }}
-                                    </td>
-                                @endif
-                                @if (config('app.gSystemConfig.enableUsersActivation5') === 1)
-                                    <td style="width: 40px; text-align: center;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersActivation5') }}
-                                    </td>
-                                @endif
-
-                                <td style="width: 40px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemEdit') }}
-                                </td>
-                                <td style="width: 40px; text-align: center;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDelete') }}
-                                </td>
-                            </tr>
-                        </thead>
-
-                        <tbody class="ss-backend-table-listing-text01">
-                            @foreach ($arrUsersListing as $usersRow)
-                                <tr class="ss-backend-table-bg-light">
-                                    @if (config('app.gSystemConfig.enableUsersSortOrder') === 1)
-                                        <td style="text-align: center;">
-                                            {{ \SyncSystemNS\FunctionsGeneric::valueMaskRead($usersRow['sort_order'], '', 3, null) }}
-                                        </td>
-                                    @endif
-
-                                    @if (config('app.gSystemConfig.enableUsersImageMain') === 1)
-                                        <td style="text-align: center;">
-                                            @if ((string) $usersRow['image_main'] !== '')
-                                                {{-- No pop-up. --}}
-                                                @if (config('app.gSystemConfig.configImagePopup') === 0)
-                                                    <img src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $usersRow['image_main'] . '?v=' . $cacheClear }}"
-                                                        alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }}"
-                                                        class="ss-backend-images-listing" />
-                                                @endif
-
-                                                {{-- GLightbox. --}}
-                                                @if (config('app.gSystemConfig.configImagePopup') === 4)
-                                                    <a href="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/g' . $usersRow['image_main'] . '?v=' . $cacheClear }}"
-                                                        title="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }}"
-                                                        class="glightbox_users_image_main{{ $usersRow['id'] }}"
-                                                        data-glightbox="title:{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }};">
-
-                                                        <img src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $usersRow['image_main'] . '?v=' . $cacheClear }}"
-                                                            alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }}"
-                                                            class="ss-backend-images-listing" />
-                                                    </a>
-                                                    <script>
-                                                        /*
-                                                        let lightboxDescription = GLightbox({
-                                                            loop: false,
-                                                            autoplayVideos: true,
-                                                            openEffect: "fade", // zoom, fade, none
-                                                            slideEffect: "slide", // slide, fade, zoom, none
-                                                            moreText: "+", // More text for descriptions on mobile devices.
-                                                            touchNavigation: true,
-                                                            descPosition: "bottom", // Global position for slides description, you can define a specific position on each slide (bottom, top, left, right).
-                                                            selector: "glightbox_users_image_main"
-                                                        });
-                                                        */
-
-                                                        gLightboxBackendConfigOptions.selector = "glightbox_users_image_main{{ $usersRow['id'] }}";
-                                                        // Note: With ID in the selector, will open individual pop-ups. Without id (same class name in all links) will enable scroll.
-                                                        // data-glightbox="title: Title example.; description: Description example."
-                                                        let glightboxUsersImageMain{{ $usersRow['id'] }} = GLightbox(gLightboxBackendConfigOptions);
-                                                    </script>
-                                                @endif
-                                            @endif
-
-
-                                        </td>
-                                    @endif
-
-                                    <td style="text-align: left;">
-                                        {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['name_full'], 'db') }}
-                                        <div>
-                                            @if (config('app.gSystemConfig.enableUsersUsername') === 1)
-                                                <strong>
-                                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersUsername') }}:
-                                                </strong>
-
-                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['username'], 'db') }}
-                                            @endif
-
-                                            @if (config('app.gSystemConfig.enableUsersEmail') === 1)
-                                                <strong>
-                                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemEmail') }}:
-                                                </strong>
-
-                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['email'], 'db') }}
-                                            @endif
-
-
-                                            <strong>
-                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemPassword') }}:
-                                            </strong>
-
-                                            {{ \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['password'], 'db'), SS_ENCRYPT_METHOD_DATA) }}
-                                        </div>
-                                    </td>
-
-                                    @if (config('app.gSystemConfig.enableUsersNameFirst') === 1)
-                                        <td style="text-align: center;">
-                                            {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['name_first'], 'db') }}
-                                        </td>
-                                    @endif
-
-                                    <td style="text-align: center;">
-
-                                    </td>
-
-                                    <td id="formUsersListing_elementActivation{{ $usersRow['id'] }}" style="text-align: center;" class="{{ $usersRow['activation'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                        <a id="linkActivation{{ $usersRow['id'] }}" class="ss-backend-links01"
-                                            onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                      ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
-                                                                                {
-                                                                                    idRecord: '{{ $usersRow['id'] }}',
-                                                                                    strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
-                                                                                    strField:'activation',
-                                                                                    recordValue: '{{ $usersRow['activation'] === 1 ? 0 : 1 }}',
-                                                                                    patchType: 'toggleValue',
-                                                                                    ajaxFunction: true,
-                                                                                    apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
-                                                                                },
-                                                                                async function(_resObjReturn) {
-                                                                                    // alert(JSON.stringify(_resObjReturn));
-
-                                                                                    // if (_resObjReturn.objReturn.returnStatus === true) { // For some reason, the promise object is returning without an object inside.
-                                                                                    if (_resObjReturn.returnStatus === true) {
-                                                                                        // alert('returnStatus=', true);
-
-                                                                                        // Check status.
-                                                                                        if (_resObjReturn.recordUpdatedValue === '0') {
-                                                                                            // Change cell color.
-                                                                                            elementCSSAdd('formUsersListing_elementActivation{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                            // Change link text.
-                                                                                            elementMessage01('linkActivation{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}');
-                                                                                        }
-
-                                                                                        if (_resObjReturn.recordUpdatedValue === '1') {
-                                                                                            // Change cell color.
-                                                                                            elementCSSRemove('formUsersListing_elementActivation{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                            // Change link text.
-                                                                                            elementMessage01('linkActivation{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') }}');
-                                                                                        }
-
-                                                                                        // Success message.
-                                                                                        elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage11') }}');
-
-                                                                                    } else {
-                                                                                        // Show error.
-                                                                                        elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
-                                                                                    }
-
-                                                                                    // Hide ajax progress bar.
-                                                                                    htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                });">
-                                            {{ $usersRow['activation'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}
-                                        </a>
-                                    </td>
-
-                                    @if (config('app.gSystemConfig.enableUsersActivation1') === 1)
-                                        <td id="formUsersListing_elementActivation1{{ $usersRow['id'] }}" style="text-align: center;" class="{{ $usersRow['activation1'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation1{{ $usersRow['id'] }}" class="ss-backend-links01"
-                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
-                                                                                    {
-                                                                                        idRecord: '{{ $usersRow['id'] }}',
-                                                                                        strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
-                                                                                        strField:'activation1',
-                                                                                        recordValue: '{{ $usersRow['activation1'] === 1 ? 0 : 1 }}',
-                                                                                        patchType: 'toggleValue',
-                                                                                        ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
-                                                                                    },
-                                                                                    async function(_resObjReturn) {
-                                                                                        // alert(JSON.stringify(_resObjReturn));
-
-                                                                                        if (_resObjReturn.returnStatus === true) {
-                                                                                            // Check status.
-                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
-                                                                                                // Change cell color.
-                                                                                                elementCSSAdd('formUsersListing_elementActivation1{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation1{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}');
-                                                                                            }
-
-                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
-                                                                                                // Change cell color.
-                                                                                                elementCSSRemove('formUsersListing_elementActivation1{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation1{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') }}');
-                                                                                            }
-
-                                                                                            // Success message.
-                                                                                            elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage11') }}');
-
-                                                                                        } else {
-                                                                                            // Show error.
-                                                                                            elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
-                                                                                        }
-
-                                                                                        // Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                {{ $usersRow['activation1'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}
-                                            </a>
-                                        </td>
-                                    @endif
-
-                                    @if (config('app.gSystemConfig.enableUsersActivation2') === 1)
-                                        <td id="formUsersListing_elementActivation2{{ $usersRow['id'] }}" style="text-align: center;" class="{{ $usersRow['activation2'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation2{{ $usersRow['id'] }}" class="ss-backend-links01"
-                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
-                                                                                    {
-                                                                                        idRecord: '{{ $usersRow['id'] }}',
-                                                                                        strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
-                                                                                        strField:'activation2',
-                                                                                        recordValue: '{{ $usersRow['activation2'] === 1 ? 0 : 1 }}',
-                                                                                        patchType: 'toggleValue',
-                                                                                        ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
-                                                                                    },
-                                                                                    async function(_resObjReturn) {
-                                                                                        // alert(JSON.stringify(_resObjReturn));
-
-                                                                                        if (_resObjReturn.returnStatus === true) {
-                                                                                            // Check status.
-                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
-                                                                                                // Change cell color.
-                                                                                                elementCSSAdd('formUsersListing_elementActivation2{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation2{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}');
-                                                                                            }
-
-                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
-                                                                                                // Change cell color.
-                                                                                                elementCSSRemove('formUsersListing_elementActivation2{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation2{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') }}');
-                                                                                            }
-
-                                                                                            // Success message.
-                                                                                            elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage11') }}');
-
-                                                                                        } else {
-                                                                                            // Show error.
-                                                                                            elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
-                                                                                        }
-
-                                                                                        // Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                {{ $usersRow['activation2'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}
-                                            </a>
-                                        </td>
-                                    @endif
-
-                                    @if (config('app.gSystemConfig.enableUsersActivation3') === 1)
-                                        <td id="formUsersListing_elementActivation3{{ $usersRow['id'] }}" style="text-align: center;" class="{{ $usersRow['activation3'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation3{{ $usersRow['id'] }}" class="ss-backend-links01"
-                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
-                                                                                    {
-                                                                                        idRecord: '{{ $usersRow['id'] }}',
-                                                                                        strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
-                                                                                        strField:'activation3',
-                                                                                        recordValue: '{{ $usersRow['activation3'] === 1 ? 0 : 1 }}',
-                                                                                        patchType: 'toggleValue',
-                                                                                        ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
-                                                                                    },
-                                                                                    async function(_resObjReturn) {
-                                                                                        // alert(JSON.stringify(_resObjReturn));
-
-                                                                                        if (_resObjReturn.returnStatus === true) {
-                                                                                            // Check status.
-                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
-                                                                                                // Change cell color.
-                                                                                                elementCSSAdd('formUsersListing_elementActivation3{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation3{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}');
-                                                                                            }
-
-                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
-                                                                                                // Change cell color.
-                                                                                                elementCSSRemove('formUsersListing_elementActivation3{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation3{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') }}');
-                                                                                            }
-
-                                                                                            // Success message.
-                                                                                            elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage11') }}');
-
-                                                                                        } else {
-                                                                                            // Show error.
-                                                                                            elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
-                                                                                        }
-
-                                                                                        // Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                {{ $usersRow['activation3'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}
-                                            </a>
-                                        </td>
-                                    @endif
-
-                                    @if (config('app.gSystemConfig.enableUsersActivation4') === 1)
-                                        <td id="formUsersListing_elementActivation4{{ $usersRow['id'] }}" style="text-align: center;" class="{{ $usersRow['activation4'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation4{{ $usersRow['id'] }}" class="ss-backend-links01"
-                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
-                                                                                    {
-                                                                                        idRecord: '{{ $usersRow['id'] }}',
-                                                                                        strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
-                                                                                        strField:'activation4',
-                                                                                        recordValue: '{{ $usersRow['activation4'] === 1 ? 0 : 1 }}',
-                                                                                        patchType: 'toggleValue',
-                                                                                        ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
-                                                                                    },
-                                                                                    async function(_resObjReturn) {
-                                                                                        // alert(JSON.stringify(_resObjReturn));
-
-                                                                                        if (_resObjReturn.returnStatus === true) {
-                                                                                            // Check status.
-                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
-                                                                                                // Change cell color.
-                                                                                                elementCSSAdd('formUsersListing_elementActivation4{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation4{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}');
-                                                                                            }
-
-                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
-                                                                                                // Change cell color.
-                                                                                                elementCSSRemove('formUsersListing_elementActivation4{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation4{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') }}');
-                                                                                            }
-
-                                                                                            // Success message.
-                                                                                            elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage11') }}');
-
-                                                                                        } else {
-                                                                                            // Show error.
-                                                                                            elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
-                                                                                        }
-
-                                                                                        // Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                {{ $usersRow['activation4'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}
-                                            </a>
-                                        </td>
-                                    @endif
-
-                                    @if (config('app.gSystemConfig.enableUsersActivation5') === 1)
-                                        <td id="formUsersListing_elementActivation5{{ $usersRow['id'] }}" style="text-align: center;" class="{{ $usersRow['activation5'] === 1 ? '' : 'ss-backend-table-bg-deactive' }}">
-                                            <a id="linkActivation5{{ $usersRow['id'] }}" class="ss-backend-links01"
-                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                        ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
-                                                                                    {
-                                                                                        idRecord: '{{ $usersRow['id'] }}',
-                                                                                        strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
-                                                                                        strField:'activation5',
-                                                                                        recordValue: '{{ $usersRow['activation5'] === 1 ? 0 : 1 }}',
-                                                                                        patchType: 'toggleValue',
-                                                                                        ajaxFunction: true,
-                                                                                        apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
-                                                                                    },
-                                                                                    async function(_resObjReturn) {
-                                                                                        // alert(JSON.stringify(_resObjReturn));
-
-                                                                                        if (_resObjReturn.returnStatus === true) {
-                                                                                            // Check status.
-                                                                                            if (_resObjReturn.recordUpdatedValue === '0') { //TODO: check type to change comparison (string or int)
-                                                                                                // Change cell color.
-                                                                                                elementCSSAdd('formUsersListing_elementActivation5{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation5{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}');
-                                                                                            }
-
-                                                                                            if (_resObjReturn.recordUpdatedValue === '1') {
-                                                                                                // Change cell color.
-                                                                                                elementCSSRemove('formUsersListing_elementActivation5{{ $usersRow['id'] }}', 'ss-backend-table-bg-deactive');
-
-                                                                                                // Change link text.
-                                                                                                elementMessage01('linkActivation5{{ $usersRow['id'] }}', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') }}');
-                                                                                            }
-
-                                                                                            // Success message.
-                                                                                            elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage11') }}');
-
-                                                                                        } else {
-                                                                                            // Show error.
-                                                                                            elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
-                                                                                        }
-
-                                                                                        // Hide ajax progress bar.
-                                                                                        htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
-                                                                                    });">
-                                                {{ $usersRow['activation5'] === 1 ? \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1A') : \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0A') }}
-                                            </a>
-                                        </td>
-                                    @endif
-
-                                    <td style="text-align: center;">
-                                        <a href="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/' . $usersRow['id'] . '/?' . $queryDefault }}" class="ss-backend-links01">
-                                            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemEdit') }}
-                                        </a>
-                                    </td>
-                                    <td style="text-align: center;">
-                                        <input type="checkbox" name="idsRecordsDelete[]" value="{{ $usersRow['id'] }}" class="ss-backend-field-checkbox" />
-                                        <!--input type="checkbox" name="idsRecordsDelete" value="{{ $usersRow['id'] }}" class="ss-backend-field-checkbox" /-->
-                                        <!--input type="checkbox" name="arrIdsRecordsDelete" value="${usersRow.id}" class="ss-backend-field-checkbox" /-->
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-
-                        <tfoot class="ss-backend-table-foot ss-backend-table-listing-text01" style="display: none;">
-                            <tr>
-                                <td style="text-align: left;">
-
-                                </td>
-                                <td style="text-align: center;">
-
-                                </td>
-                                <td style="text-align: center;">
-
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-                {{-- Pagination. --}}
-                {{-- ---------------------- --}}
-                @if (config('app.gSystemConfig.enableUsersBackendPagination') === 1)
-                    <div class="ss-backend-paging" style="position: relative; display: block; overflow: hidden; text-align: center;">
-                        {{-- Page numbers. --}}
-                        @if (config('app.gSystemConfig.enableUsersBackendPaginationNumbering') === 1)
-                            <div class="ss-backend-paging-number-link-a" style="position: relative; display: block; overflow: hidden;">
-                                @for ($pageNumberOutput = 0; $pageNumberOutput <  $_pagingTotal; $pageNumberOutput++)
-                                    @if ($pageNumberOutput + 1 === $_pageNumber)
-                                        {{ $pageNumberOutput + 1 }}
-                                    @else
-                                        <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=' . $pageNumberOutput + 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingPageCounter01') . ' ' . $pageNumberOutput + 1 }}" class="ss-backend-paging-number-link">
-                                            {{ $pageNumberOutput + 1 }}
-                                        </a>
-                                    @endif
-                                @endfor
-                            </div>
-                        @endif
-
-                        {{-- Page controls. --}}
-                        {{-- TODO: optimize this logic. --}}
-                        {{-- TODO: evaluate slash before ?. --}}
-                        {{-- TODO: evaluate slash URL (for everything  / change node version to match). --}}
-                        {{-- NOTE: $idParent used to be $_idParent - re-aveluate.  --}}
-                        <div style="position: relative; display: block; overflow: hidden;">
-                            @if ($_pageNumber === 1)
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=1' }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingFirst') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingFirst') }}
-                                </a>
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=' . (int) $_pageNumber - 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingPrevious') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingPrevious') }}
-                                </a>
-                            @else
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=1' }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingFirst') }}" class="ss-backend-paging-btn">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingFirst') }}
-                                </a>
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=' . (int) $_pageNumber - 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingPrevious') }}" class="ss-backend-paging-btn">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingPrevious') }}
-                                </a>
-                            @endif
-
-                            @if ($_pageNumber === $_pagingTotal)
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=' . (int) $_pageNumber + 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingNext') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingNext') }}
-                                </a>
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=' . $_pagingTotal }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingLast') }}" class="ss-backend-paging-btn" style="visibility: hidden;">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingLast') }}
-                                </a>
-                            @else
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=' . (int) $_pageNumber + 1 }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingNext') }}" class="ss-backend-paging-btn">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingNext') }}
-                                </a>
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $idParent . '?pageNumber=' . $_pagingTotal }}" title="{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingLast') }}" class="ss-backend-paging-btn">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendPagingLast') }}
-                                </a>
-                            @endif
-                        </div>
-
-                        <div style="position: relative; display: block; overflow: hidden;">
-                            {{ $_pageNumber }} / {{ $_pagingTotal }}
-                        </div>
-                    </div>
-                @endif
-                {{-- ---------------------- --}}
-            </form>
-        @endif
-    </section>
-
     {{-- Form. --}}
     <section class="ss-backend-layout-section-form01">
         <form
             id="formUsers"
             name="formUsers"
             method="POST"
-            action="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') }}"
+            action="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') }}/?_method=PUT }}"
             enctype="multipart/form-data"
         >
             @csrf
+
+            <input type="hidden" id="formUsersEdit_method" name="_method" value="PUT" />
 
             <div style="position: relative; display: block; overflow: hidden;">
                 <script>
@@ -737,7 +108,6 @@
                                 </td>
                             </tr>
                         @endif
-
 
                         @if (config('app.gSystemConfig.enableUsersNameFull') === 1)
                             <tr id="inputRowUsers_name_full" class="ss-backend-table-bg-light">
@@ -1578,16 +948,23 @@
             </div>
             <div style="position: relative; display: block; overflow: hidden; clear: both; margin-top: 2px;">
                 <button id="users_include" name="users_include" class="ss-backend-btn-base ss-backend-btn-action-execute" style="float: left;">
-                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendButtonSend') }}
+                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendButtonUpdate') }}
                 </button>
+
+                <a onclick="history.go(-1);" class="ss-backend-btn-base ss-backend-btn-action-alert" style="float: right;">
+                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendButtonBack') }}
+                </a>
             </div>
 
-            <input type="hidden" id="users_id_parent" name="id_parent" value="{{ $idParent }}" />
-            <input type="hidden" id="users_id_type" name="id_type" value="1" />
+            <input type="hidden" id="users_id" name="id" value="{{ $oudRecord['tblUsersID'] }}" />
+            <input type="hidden" id="users_id_parent" name="id_parent" value="{{ $oudRecord['tblUsersIdParent'] }}" />
+            <input type="hidden" id="users_id_type" name="id_type" value="{{ $oudRecord['tblUsersIdType'] }}" />
             <input type="hidden" id="users_name_title" name="name_title" value="" />
-            <input type="hidden" id="users_id_status" name="id_status" value="0" />
+                {{-- TODO: double check if this name_title should be blank --}}
+            <input type="hidden" id="users_id_status" name="id_status" value="{{ $oudRecord['tblUsersIdStatus'] }}" />
 
-            <input type="hidden" id="users_idParent" name="idParent" value="{{ $idParent }}" />
+            <input type="hidden" id="users_idParent" name="idParent" value="{{ $oudRecord['tblUsersIdParent'] }}" />
+                {{-- TODO: evaluate if should be the array variable or the view variable. ex: $idParent --}}
             <input type="hidden" id="users_pageNumber" name="pageNumber" value="{{ $pageNumber }}" />
             <input type="hidden" id="users_masterPageSelect" name="masterPageSelect" value="{{ $masterPageSelect }}" />
         </form>

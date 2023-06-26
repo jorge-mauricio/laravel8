@@ -268,81 +268,6 @@ class AdminUsersController extends AdminBaseController
             //var_dump($req);
             //echo '</pre><br />';
 
-            //echo 'req->input=<pre>';
-            //var_dump($req->post('id_parent'));
-            //echo '</pre><br />';
-            //echo 'method=' . $method . '<br />';
-
-            //echo 'req->post=<pre>';
-            //var_dump($req->post('date1'));
-            //echo '</pre><br />';
-
-            //echo 'req->post(dateSQLWrite)=<pre>';
-            //var_dump(\SyncSystemNS\FunctionsGeneric::dateSQLWrite($req->post('date1'), $GLOBALS['configBackendDateFormat']));
-            //echo '</pre><br />';
-
-            //echo 'req->all()=<pre>';
-            //var_dump($req->all());
-            //echo '</pre><br />';
-
-            //echo 'tblCategoriesID=' . $tblCategoriesID . '<br />';
-            //echo 'tblCategoriesIdParent=' . $tblCategoriesIdParent . '<br />';
-            //echo 'tblCategoriesSortOrder=' . $tblCategoriesSortOrder . '<br />';
-            //echo 'tblCategoriesCategoryType=' . $tblCategoriesCategoryType . '<br />';
-
-            //echo 'idParentCategories=' . $this->idParentCategories . '<br />';
-            //echo 'pageNumber=' . $this->pageNumber . '<br />';
-            //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
-
-            //echo 'image_main=<pre>';
-            //var_dump($req->file('image_main'));
-            // '</pre><br />';
-
-            //echo 'originalFileName=<pre>';
-            //var_dump($formfileFieldsReference['image_main']['originalFileName']);
-            //echo '</pre><br />';
-
-            //echo 'temporaryFilePath=<pre>';
-            //var_dump($formfileFieldsReference['image_main']['temporaryFilePath']);
-            //echo '</pre><br />';
-
-            //echo 'configDirectoryFilesUpload=<pre>';
-            //var_dump($GLOBALS['configDirectoryFilesUpload']);
-            //echo '</pre><br />';
-
-            //echo 'configDirectoryFilesUpload=<pre>';
-            //var_dump($GLOBALS['configDirectoryFilesUpload']);
-            //echo '</pre><br />';
-
-            //echo 'resultsFunctionsFiles=<pre>';
-            //var_dump($resultsFunctionsFiles);
-            //echo '</pre><br />';
-            /*
-            echo 'tblCategoriesImageMain=<pre>';
-            var_dump($tblCategoriesImageMain);
-            echo '</pre><br />';
-
-            echo 'tblCategoriesImageFile1=<pre>';
-            var_dump($tblCategoriesImageFile1);
-            echo '</pre><br />';
-
-            echo 'tblCategoriesImageFile2=<pre>';
-            var_dump($tblCategoriesImageFile2);
-            echo '</pre><br />';
-
-            echo 'tblCategoriesImageFile3=<pre>';
-            var_dump($tblCategoriesImageFile3);
-            echo '</pre><br />';
-
-            echo 'tblCategoriesImageFile4=<pre>';
-            var_dump($tblCategoriesImageFile4);
-            echo '</pre><br />';
-
-            echo 'tblCategoriesImageFile5=<pre>';
-            var_dump($tblCategoriesImageFile5);
-            echo '</pre><br />';
-            */
-
             //exit();
         } catch (\Exception $adminUsersInsertError) {
             if (config('app.gSystemConfig.configDebug') === true) {
@@ -358,6 +283,75 @@ class AdminUsersController extends AdminBaseController
         } else {
             return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage3'));
         }
+    }
+    // **************************************************************************************
+
+    // Admin Users Edit.
+    // **************************************************************************************
+    /**
+     * Admin Users Listing Controller.
+     * @param float|string $_idTbUsers
+     * @return View
+     */
+    public function adminUsersEdit(float|string $_idTbUsers = null): View
+    {
+        // Variables.
+        // ----------------------
+        $idTbUsers = null;
+
+        $arrUsersDetailsJson = null;
+        $arrUsersDetails = null;
+
+        $apiURLUsersDetailsCurrent = null;
+        $apiUsersDetailsCurrentResponse = null;
+        // ----------------------
+
+        // Value definition.
+        // ----------------------
+        $idTbUsers = $_idTbUsers;
+        // ----------------------
+
+        // Logic.
+        try {
+            $apiUsersDetailsCurrentResponse = Http::withOptions(['verify' => false])
+                ->get(
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbUsers . '/',
+                    [
+                        'apiKey' => config('app.gSystemConfig.configAPIKeySystem')
+                    ]
+                );
+            $arrUsersDetailsJson = $apiUsersDetailsCurrentResponse->json();
+
+            if ($arrUsersDetailsJson['returnStatus'] === true) {
+                // Build template data.
+                $this->templateData['idTbUsers'] = $idTbUsers;
+
+                // Title - current - content place holder.
+                $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersTitleEdit');
+
+                // Title - content place holder.
+                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
+
+                // Body - content place holder.
+                $this->templateData['cphBody']['oudRecord'] = $arrUsersDetailsJson['oudRecord'];
+            }
+
+            // Debug.
+            /*
+            echo 'idTbUsers=<pre>';
+            var_dump($idTbUsers);
+            echo '</pre><br />';
+            */
+        } catch (\Exception $adminUsersEditError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('adminUsersEditError: ' . $adminUsersEditError->getMessage());
+            }
+        } finally {
+            //
+        }
+
+        // Return with view.
+        return view('admin.admin-users-edit')->with('templateData', $this->templateData);
     }
     // **************************************************************************************
 }

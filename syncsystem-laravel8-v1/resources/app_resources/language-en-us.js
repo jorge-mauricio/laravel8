@@ -90,7 +90,7 @@ exports.appLabels = {
   backendItemKeywords: 'Keywords',
   backendItemKeywordsInstruction01: 'Key words or key phrases, separated by commas (,). Important for search mecanisms indexing.',
 
-  backendItemURLInstructions1: 'Full URL address - ex: http:// www.',
+  backendItemURLInstructions1: 'Full URL address - ex: http://www.',
 
   backendItemNotes: 'Notes',
   backendItemNotesInternal: 'Internal Notes',

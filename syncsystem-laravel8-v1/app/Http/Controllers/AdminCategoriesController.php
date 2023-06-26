@@ -137,7 +137,7 @@ class AdminCategoriesController extends AdminBaseController
                 if ((float) $this->idParentCategories > 0) {
                     $this->templateData['cphTitleCurrent'] = $this->arrCategoriesDetails['tblCategoriesTitle'];
                 } else {
-                    $this->templateData['cphTitleCurrent'] = '';
+                    $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesTitleMain');
                 }
 
                 // Title - content place holder.
@@ -590,7 +590,7 @@ class AdminCategoriesController extends AdminBaseController
                 $this->templateData['idTbCategories'] = $idTbCategories;
 
                 // Title - current - content place holder.
-                $this->templateData['cphTitleCurrent'] = '';
+                $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesTitleEdit');
 
                 // Title - content place holder.
                 $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
@@ -615,6 +615,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Return with view.
         return view('admin.admin-categories-edit')->with('templateData', $this->templateData);
+            // TODO: replace route name with config variables.
     }
     // **************************************************************************************
 
