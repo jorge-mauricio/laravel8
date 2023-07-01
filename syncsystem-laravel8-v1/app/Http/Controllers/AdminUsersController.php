@@ -220,6 +220,18 @@ class AdminUsersController extends AdminBaseController
                 //array_push($formfileFieldsReference);
             }
 
+            // Debug.
+            /*
+            echo 'formfileFieldsReference=<pre>';
+            var_dump($formfileFieldsReference);
+            echo '</pre><br />';
+
+            echo 'configDirectoryFilesUpload=<pre>';
+            var_dump(config('app.gSystemConfig.configDirectoryFilesUpload'));
+            echo '</pre><br />';
+            exit();
+            */
+
             $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple(
                 $tblUsersID,
                 $req,

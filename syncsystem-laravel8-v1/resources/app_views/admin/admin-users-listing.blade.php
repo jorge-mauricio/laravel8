@@ -207,19 +207,19 @@
                                                 {{-- No pop-up. --}}
                                                 @if (config('app.gSystemConfig.configImagePopup') === 0)
                                                     <img src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $usersRow['image_main'] . '?v=' . $cacheClear }}"
-                                                        alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }}"
+                                                        alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['name_full'], 'db') }}"
                                                         class="ss-backend-images-listing" />
                                                 @endif
 
                                                 {{-- GLightbox. --}}
                                                 @if (config('app.gSystemConfig.configImagePopup') === 4)
                                                     <a href="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/g' . $usersRow['image_main'] . '?v=' . $cacheClear }}"
-                                                        title="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }}"
+                                                        title="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['name_full'], 'db') }}"
                                                         class="glightbox_users_image_main{{ $usersRow['id'] }}"
-                                                        data-glightbox="title:{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }};">
+                                                        data-glightbox="title:{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['name_full'], 'db') }};">
 
                                                         <img src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $usersRow['image_main'] . '?v=' . $cacheClear }}"
-                                                            alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['title'], 'db') }}"
+                                                            alt="{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($usersRow['name_full'], 'db') }}"
                                                             class="ss-backend-images-listing" />
                                                     </a>
                                                     <script>
@@ -780,7 +780,7 @@
                                     @if (config('app.gSystemConfig.enableUsersDateBirth') === 2)
                                         @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
                                             <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
@@ -791,7 +791,7 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
@@ -802,7 +802,7 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
@@ -813,7 +813,7 @@
                                             </select>
                                         @else
                                             <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
@@ -824,7 +824,7 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
@@ -835,7 +835,7 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $dateNowYear == $arrayRow ? ' selected' : ''}}

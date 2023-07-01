@@ -38,8 +38,15 @@ class ObjectUsersDetails
     private string|null $tblUsersDateBirth = null;
     private string $tblUsersDateBirth_print = '';
     private object|null $tblUsersDateBirthDateObj = null;
-    private string|null $tblUsersDateBirthDateYear = null, $tblUsersDateBirthDateDay = null, $tblUsersDateBirthDateMonth = null;
-    private string|null $tblUsersDateBirthDateHour = null, $tblUsersDateBirthDateHour_print = '', $tblUsersDateBirthDateMinute = null, $tblUsersDateBirthDateMinute_print = '', $tblUsersDateBirthDateSecond = null, $tblUsersDateBirthDateSecond_print = '';
+    private string|null $tblUsersDateBirthDateYear = null;
+    private string|null $tblUsersDateBirthDateDay = null;
+    private string|null $tblUsersDateBirthDateMonth = null;
+    private string|null $tblUsersDateBirthDateHour = null;
+    private string $tblUsersDateBirthDateHour_print = '';
+    private string|null $tblUsersDateBirthDateMinute = null;
+    private string $tblUsersDateBirthDateMinute_print = '';
+    private string|null $tblUsersDateBirthDateSecond = null;
+    private string $tblUsersDateBirthDateSecond_print = '';
 
     private int $tblUsersGender = 0;
     private string $tblUsersGender_print = '';
@@ -258,7 +265,7 @@ class ObjectUsersDetails
                     $this->tblUsersDateBirthDateSecond = $this->tblUsersDateBirthDateObj->format('s');
                     $this->tblUsersDateBirthDateSecond_print = $this->tblUsersDateBirthDateSecond;
 
-                    $this->tblUsersDateBirth_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblUsersDateBirth, config('app.gSystemConfig.configBackendDateFormat'), 0, config('app.gSystemConfig.configUsersDateBirthType'));
+                    $this->tblUsersDateBirth_print = \SyncSystemNS\FunctionsGeneric::dateRead01($this->tblUsersDateBirth, config('app.gSystemConfig.configBackendDateFormat'), 0, 4);
                 }
 
                 $this->tblUsersGender = $this->resultsUsersDetails[0]->gender;
@@ -305,8 +312,7 @@ class ObjectUsersDetails
                 $this->tblUsersUsername = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->username, 'db');
                 $this->tblUsersEmail = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->email, 'db');
                 $this->tblUsersPassword = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->password, 'db');
-                //$this->tblUsersPassword_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->password, 'db'), SS_ENCRYPT_METHOD_DATA);
-                   //TODO: test decryption
+                $this->tblUsersPassword_edit = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->password, 'db'), SS_ENCRYPT_METHOD_DATA);
                 $this->tblUsersPasswordHint = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->password_hint, 'db');
                 $this->tblUsersPasswordLength = \SyncSystemNS\FunctionsGeneric::contentMaskRead($this->resultsUsersDetails[0]->password_length, 'db');
 
@@ -511,11 +517,11 @@ class ObjectUsersDetails
                 $arrReturn['tblUsersDateBirthDateDay'] = $this->tblUsersDateBirthDateDay;
                 $arrReturn['tblUsersDateBirthDateMonth'] = $this->tblUsersDateBirthDateMonth;
                 $arrReturn['tblUsersDateBirthDateHour'] = $this->tblUsersDateBirthDateHour;
-                $arrReturn['tblUsersDateBirthDateHour_print'] = $this->tblUsersDateBirthDateHour;
+                $arrReturn['tblUsersDateBirthDateHour_print'] = $this->tblUsersDateBirthDateHour_print;
                 $arrReturn['tblUsersDateBirthDateMinute'] = $this->tblUsersDateBirthDateMinute;
-                $arrReturn['tblUsersDateBirthDateMinute_print'] = $this->tblUsersDateBirthDateMinute;
+                $arrReturn['tblUsersDateBirthDateMinute_print'] = $this->tblUsersDateBirthDateMinute_print;
                 $arrReturn['tblUsersDateBirthDateSecond'] = $this->tblUsersDateBirthDateSecond;
-                $arrReturn['tblUsersDateBirthDateSecond_print'] = $this->tblUsersDateBirthDateSecond;
+                $arrReturn['tblUsersDateBirthDateSecond_print'] = $this->tblUsersDateBirthDateSecond_print;
                 $arrReturn['tblUsersDateBirth_print'] = $this->tblUsersDateBirth_print;
 
                 $arrReturn['tblUsersGender'] = $this->tblUsersGender;

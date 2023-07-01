@@ -67,8 +67,9 @@ class FunctionsFiles
                 // ----------------------
                 if (config('app.gSystemConfig.configUploadType') === 1) {
                     try {
-                        //$postedFile->file('image_main')->storeAs('public/app_files_public/', 'testing.jpg'); // Debug.
-                        $postedFile->file($formfileFieldsReferenceKey)->storeAs(config('app.gSystemConfig.configDirectoryFiles') . '/', $fileName);
+                        // $postedFile->file('image_main')->storeAs('public/app_files_public/', 'testing.jpg'); // Debug.
+                        // $postedFile->file($formfileFieldsReferenceKey)->storeAs(config('app.gSystemConfig.configDirectoryFiles') . '/', $fileName); // working
+                        $postedFile->file($formfileFieldsReferenceKey)->storeAs($directoryUpload . '/', $fileName);
                     } catch (\Exception $filesUploadMultipleError) {
                         if (config('app.gSystemConfig.configDebug') === true) {
                             throw new \Error('filesUploadMultipleError: ' . $filesUploadMultipleError->getMessage());

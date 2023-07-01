@@ -231,8 +231,11 @@ $gSystemConfig['configDirectoryBuildLaravel'] = 'public';
 
 // Upload directories.
 // $configDirectoryFilesUpload = $configPhysicalPathRoot . '/' . $configDirectoryFilesVisualization;
-$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configPhysicalPathRoot'] . PATH_SEPARATOR . $gSystemConfig['configDirectoryFilesVisualization'];
-    // DIRECTORY_SEPARATOR (alternative, if problem)
+//$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configPhysicalPathRoot'] . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . $gSystemConfig['configDirectoryFilesVisualization'];
+//$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configPhysicalPathRoot'] . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . $gSystemConfig['configDirectoryFilesVisualization'];
+$gSystemConfig['configDirectoryFilesUpload'] = $gSystemConfig['configDirectoryFiles'];
+    // DIRECTORY_SEPARATOR (alternative, if problem with PATH_SEPARATOR)
+    // TODO: review these variables and sync with the other versions.
 
 // $configDirectoryFilesUpload = $configPhysicalPathRoot + "\\" + $configDirectoryFilesVisualization;
 // ----------------------

@@ -59,7 +59,7 @@
 
 @section('cphBody')
     @include('admin.partials.messages-status')
-
+    {{-- @dump($oudRecord) --}}
     {{-- Form. --}}
     <section class="ss-backend-layout-section-form01">
         <form
@@ -101,7 +101,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemSortOrder') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="0" />
+                                    <input type="text" id="users_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="{{ $oudRecord['tblUsersSortOrder_print'] }}" />
                                     <script>
                                         Inputmask(inputmaskGenericBackendConfigOptions).mask("users_sort_order");
                                     </script>
@@ -115,7 +115,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersNameFull') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_name_full" name="name_full" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_name_full" name="name_full" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersNameFull'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -125,7 +125,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersNameFirst') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_name_first" name="name_first" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_name_first" name="name_first" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersNameFirst'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -135,7 +135,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersNameLast') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_name_last" name="name_last" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_name_last" name="name_last" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersNameLast'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -147,13 +147,14 @@
                                 </td>
                                 <td>
                                     {{-- Dropdown menu. --}}
+                                    {{-- TODO: test ===. --}}
                                     @if (config('app.gSystemConfig.enableUsersDateBirth') === 2)
                                         @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
                                             <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
-                                                        {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
+                                                        {{ $oudRecord['tblUsersDateBirthDateDay'] == $arrayRow ? ' selected' : ''}}
                                                     >
                                                         {{ $arrayRow }}
                                                     </option>
@@ -161,10 +162,10 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
-                                                        {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
+                                                        {{ $oudRecord['tblUsersDateBirthDateMonth'] == $arrayRow ? ' selected' : ''}}
                                                     >
                                                         {{ $arrayRow }}
                                                     </option>
@@ -172,10 +173,10 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
-                                                        {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
+                                                        {{ $oudRecord['tblUsersDateBirthDateYear'] == $arrayRow ? ' selected' : ''}}
                                                     >
                                                         {{ $arrayRow }}
                                                     </option>
@@ -183,10 +184,10 @@
                                             </select>
                                         @else
                                             <select id="users_date_birth_month" name="date_birth_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
-                                                        {{ $dateNowMonth == $arrayRow ? ' selected' : ''}}
+                                                        {{ $oudRecord['tblUsersDateBirthDateMonth'] == $arrayRow ? ' selected' : ''}}
                                                     >
                                                         {{ $arrayRow }}
                                                     </option>
@@ -194,10 +195,10 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_day" name="date_birth_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
-                                                        {{ $dateNowDay == $arrayRow ? ' selected' : ''}}
+                                                        {{ $oudRecord['tblUsersDateBirthDateDay'] == $arrayRow ? ' selected' : ''}}
                                                     >
                                                         {{ $arrayRow }}
                                                     </option>
@@ -205,10 +206,10 @@
                                             </select>
                                             /
                                             <select id="users_date_birth_year" name="date_birth_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => 4]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => 4]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
-                                                        {{ $dateNowYear == $arrayRow ? ' selected' : ''}}
+                                                        {{ $oudRecord['tblUsersDateBirthDateYear'] == $arrayRow ? ' selected' : ''}}
                                                     >
                                                         {{ $arrayRow }}
                                                     </option>
@@ -219,7 +220,7 @@
 
                                     {{-- js-datepicker. --}}
                                     @if (config('app.gSystemConfig.enableUsersDateBirth') === 11)
-                                        <input type="text" id="users_date_birth" name="date_birth" class="ss-backend-field-date01" autocomplete="off" value="" />
+                                        <input type="text" id="users_date_birth" name="date_birth" class="ss-backend-field-date01" autocomplete="off" value="{{ $oudRecord['tblUsersDateBirth_print'] }}" />
                                         <script>
                                             const dpDate1 = datepicker("#users_date_birth", jsDatepickerBirthBackendConfigOptions);
                                         </script>
@@ -234,15 +235,15 @@
                             </td>
                             <td>
                                 <label class="ss-backend-field-radio-label">
-                                    <input type="radio" name="gender" checked value="0" class="ss-backend-field-radio" />
+                                    <input type="radio" name="gender"{{ $oudRecord['tblUsersGender'] === 0 ? ' checked' : '' }} checked value="0" class="ss-backend-field-radio" />
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemGender0') }}:
                                 </label>
                                 <label class="ss-backend-field-radio-label">
-                                    <input type="radio" name="gender" value="1" class="ss-backend-field-radio" />
+                                    <input type="radio" name="gender"{{ $oudRecord['tblUsersGender'] === 1 ? ' checked' : '' }} value="1" class="ss-backend-field-radio" />
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemGender1') }}:
                                 </label>
                                 <label class="ss-backend-field-radio-label">
-                                    <input type="radio" name="gender" value="2" class="ss-backend-field-radio" />
+                                    <input type="radio" name="gender"{{ $oudRecord['tblUsersGender'] === 2 ? ' checked' : '' }} value="2" class="ss-backend-field-radio" />
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemGender2') }}:
                                 </label>
                             </td>
@@ -254,7 +255,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersDocument') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_document" name="document" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_document" name="document" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersDocument'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -265,7 +266,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressStreet') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_address_street" name="address_street" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_address_street" name="address_street" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersAddressStreet'] }}" />
                                 </td>
                             </tr>
 
@@ -274,7 +275,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressNumber') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_address_number" name="address_number" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_address_number" name="address_number" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersAddressNumber'] }}" />
                                 </td>
                             </tr>
 
@@ -283,7 +284,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressComplement') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_address_complement" name="address_complement" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_address_complement" name="address_complement" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersAddressComplement'] }}" />
                                 </td>
                             </tr>
 
@@ -292,7 +293,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressNeighborhood') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_neighborhood" name="neighborhood" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_neighborhood" name="neighborhood" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersNeighborhood'] }}" />
                                 </td>
                             </tr>
 
@@ -301,7 +302,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressDistrict') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_district" name="district" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_district" name="district" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersDistrict'] }}" />
                                 </td>
                             </tr>
 
@@ -310,7 +311,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressCounty') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_county" name="county" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_county" name="county" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersCounty'] }}" />
                                 </td>
                             </tr>
 
@@ -319,7 +320,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressCity') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_city" name="city" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_city" name="city" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersCity'] }}" />
                                 </td>
                             </tr>
 
@@ -328,7 +329,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressState') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_state" name="state" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_state" name="state" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersState'] }}" />
                                 </td>
                             </tr>
 
@@ -337,7 +338,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressCountry') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_country" name="country" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_country" name="country" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersCountry'] }}" />
                                 </td>
                             </tr>
 
@@ -346,7 +347,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemAddressZipCode') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_zip_code" name="zip_code" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_zip_code" name="zip_code" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersZipCode'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -358,10 +359,10 @@
                                 </td>
                                 <td>
                                     @if (config('app.gSystemConfig.enableUsersPhoneInternationalCode') === 1)
-                                        +<input type="text" id="users_phone1_international_code" name="phone1_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="" />
+                                        +<input type="text" id="users_phone1_international_code" name="phone1_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="{{ $oudRecord['tblUsersPhone1InternationalCode'] }}" />
                                     @endif
-                                    (<input type="text" id="users_phone1_area_code" name="phone1_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="" />)
-                                    <input type="text" id="users_phone1" name="phone1" class="ss-backend-field-tel01" maxlength="255" value="" />
+                                    (<input type="text" id="users_phone1_area_code" name="phone1_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="{{ $oudRecord['tblUsersPhone1AreaCode'] }}" />)
+                                    <input type="text" id="users_phone1" name="phone1" class="ss-backend-field-tel01" maxlength="255" value="{{ $oudRecord['tblUsersPhone1'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -372,10 +373,10 @@
                                 </td>
                                 <td>
                                     @if (config('app.gSystemConfig.enableUsersPhoneInternationalCode') === 1)
-                                        +<input type="text" id="users_phone2_international_code" name="phone2_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="" />
+                                        +<input type="text" id="users_phone2_international_code" name="phone2_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="{{ $oudRecord['tblUsersPhone2InternationalCode'] }}" />
                                     @endif
-                                    (<input type="text" id="users_phone2_area_code" name="phone2_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="" />)
-                                    <input type="text" id="users_phone2" name="phone2" class="ss-backend-field-tel01" maxlength="255" value="" />
+                                    (<input type="text" id="users_phone2_area_code" name="phone2_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="{{ $oudRecord['tblUsersPhone2AreaCode'] }}" />)
+                                    <input type="text" id="users_phone2" name="phone2" class="ss-backend-field-tel01" maxlength="255" value="{{ $oudRecord['tblUsersPhone2'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -386,10 +387,10 @@
                                 </td>
                                 <td>
                                     @if (config('app.gSystemConfig.enableUsersPhoneInternationalCode') === 1)
-                                        +<input type="text" id="users_phone3_international_code" name="phone3_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="" />
+                                        +<input type="text" id="users_phone3_international_code" name="phone3_international_code" class="ss-backend-field-tel-ac01" maxlength="3" value="{{ $oudRecord['tblUsersPhone3InternationalCode'] }}" />
                                     @endif
-                                    (<input type="text" id="users_phone3_area_code" name="phone3_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="" />)
-                                    <input type="text" id="users_phone3" name="phone3" class="ss-backend-field-tel01" maxlength="255" value="" />
+                                    (<input type="text" id="users_phone3_area_code" name="phone3_area_code" class="ss-backend-field-tel-ac01" maxlength="10" value="{{ $oudRecord['tblUsersPhone3AreaCode'] }}" />)
+                                    <input type="text" id="users_phone3" name="phone3" class="ss-backend-field-tel01" maxlength="255" value="{{ $oudRecord['tblUsersPhone3'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -400,7 +401,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendUsersUsername') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_username" name="username" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_username" name="username" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersUsername'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -411,7 +412,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemEmail') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="users_email" name="email" class="ss-backend-field-text01" maxlength="255" value="" />
+                                    <input type="text" id="users_email" name="email" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersEmail'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -421,7 +422,7 @@
                                 {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemPassword') }}:
                             </td>
                             <td>
-                                <input type="password" id="users_password" name="password" class="ss-backend-field-text01" maxlength="255" value="" />
+                                <input type="password" id="users_password" name="password" class="ss-backend-field-text01" maxlength="255" value="{{ $oudRecord['tblUsersPassword_edit'] }}" />
                             </td>
                         </tr>
 
@@ -434,19 +435,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo1FieldType') === 1)
-                                        <input type="text" id="users_info1" name="info1" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info1" name="info1" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo1_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo1FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info1" name="info1" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info1" name="info1" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo1_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info1" name="info1" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info1" name="info1" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo1_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info1";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -456,12 +457,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo1FieldType') === 11)
-                                        <input type="text" id="users_info1" name="info1" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info1" name="info1" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo1_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo1FieldType') === 12)
-                                        <textarea id="users_info1" name="info1" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info1" name="info1" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo1_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -475,19 +476,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo2FieldType') === 1)
-                                        <input type="text" id="users_info2" name="info2" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info2" name="info2" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo2_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo2FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info2" name="info2" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info2" name="info2" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo2_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info2" name="info2" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info2" name="info2" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo2_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info2";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -497,12 +498,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo2FieldType') === 11)
-                                        <input type="text" id="users_info2" name="info2" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info2" name="info2" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo2_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo2FieldType') === 12)
-                                        <textarea id="users_info2" name="info2" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info2" name="info2" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo2_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -516,19 +517,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo3FieldType') === 1)
-                                        <input type="text" id="users_info3" name="info3" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info3" name="info3" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo3_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo3FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info3" name="info3" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info3" name="info3" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo3_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info3" name="info3" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info3" name="info3" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo3_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info3";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -538,12 +539,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo3FieldType') === 11)
-                                        <input type="text" id="users_info3" name="info3" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info3" name="info3" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo3_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo3FieldType') === 12)
-                                        <textarea id="users_info3" name="info3" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info3" name="info3" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo3_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -557,19 +558,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo4FieldType') === 1)
-                                        <input type="text" id="users_info4" name="info4" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info4" name="info4" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo4_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo4FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info4" name="info4" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info4" name="info4" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo4_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info4" name="info4" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info4" name="info4" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo4_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info4";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -579,12 +580,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo4FieldType') === 11)
-                                        <input type="text" id="users_info4" name="info4" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info4" name="info4" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo4_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo4FieldType') === 12)
-                                        <textarea id="users_info4" name="info4" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info4" name="info4" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo4_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -598,19 +599,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo5FieldType') === 1)
-                                        <input type="text" id="users_info5" name="info5" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info5" name="info5" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo5_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo5FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info5" name="info5" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info5" name="info5" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo5_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info5" name="info5" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info5" name="info5" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo5_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info5";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -620,12 +621,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo5FieldType') === 11)
-                                        <input type="text" id="users_info5" name="info5" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info5" name="info5" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo5_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo5FieldType') === 12)
-                                        <textarea id="users_info5" name="info5" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info5" name="info5" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo5_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -639,19 +640,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo6FieldType') === 1)
-                                        <input type="text" id="users_info6" name="info6" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info6" name="info6" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo6_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo6FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info6" name="info6" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info6" name="info6" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo6_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info6" name="info6" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info6" name="info6" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo6_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info6";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -661,12 +662,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo6FieldType') === 11)
-                                        <input type="text" id="users_info6" name="info6" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info6" name="info6" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo6_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo6FieldType') === 12)
-                                        <textarea id="users_info6" name="info6" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info6" name="info6" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo6_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -680,19 +681,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo7FieldType') === 1)
-                                        <input type="text" id="users_info7" name="info7" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info7" name="info7" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo7_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo7FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info7" name="info7" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info7" name="info7" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo7_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info7" name="info7" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info7" name="info7" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo7_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info7";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -702,12 +703,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo7FieldType') === 11)
-                                        <input type="text" id="users_info7" name="info7" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info7" name="info7" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo7_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo7FieldType') === 12)
-                                        <textarea id="users_info7" name="info7" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info7" name="info7" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo7_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -721,19 +722,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo8FieldType') === 1)
-                                        <input type="text" id="users_info8" name="info8" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info8" name="info8" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo8_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo8FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info8" name="info8" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info8" name="info8" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo8_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info8" name="info8" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info8" name="info8" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo8_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info8";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -743,12 +744,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo8FieldType') === 11)
-                                        <input type="text" id="users_info8" name="info8" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info8" name="info8" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo8_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo8FieldType') === 12)
-                                        <textarea id="users_info8" name="info8" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info8" name="info8" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo8_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -762,19 +763,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo9FieldType') === 1)
-                                        <input type="text" id="users_info9" name="info9" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info9" name="info9" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo9_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo9FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info9" name="info9" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info9" name="info9" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo9_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info9" name="info9" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info9" name="info9" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo9_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info9";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -784,12 +785,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo9FieldType') === 11)
-                                        <input type="text" id="users_info9" name="info9" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info9" name="info9" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo9_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo9FieldType') === 12)
-                                        <textarea id="users_info9" name="info9" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info9" name="info9" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo9_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -803,19 +804,19 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo10FieldType') === 1)
-                                        <input type="text" id="users_info10" name="info10" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info10" name="info10" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo10_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configUsersInfo10FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="users_info10" name="info10" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info10" name="info10" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo10_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox')  === 18)
-                                            <textarea id="users_info10" name="info10" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="users_info10" name="info10" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo10_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#users_info10";
                                                 tinymce.init(tinyMCEBackendConfig);
@@ -825,12 +826,12 @@
 
                                     {{-- Single line (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo10FieldType') === 11)
-                                        <input type="text" id="users_info10" name="info10" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="users_info10" name="info10" class="ss-backend-field-text01" value="{{ $oudRecord['tblUsersInfo10_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline (encrypted). --}}
                                     @if (config('app.gSystemConfig.configUsersInfo10FieldType') === 12)
-                                        <textarea id="users_info10" name="info10" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="users_info10" name="info10" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersInfo10_edit'] }}</textarea>
                                     @endif
                                 </td>
                             </tr>
@@ -843,6 +844,48 @@
                                 </td>
                                 <td>
                                     <input type="file" id="users_image_main" name="image_main" class="ss-backend-field-file-upload" />
+                                    @if ($oudRecord['tblUsersImageMain'] !== '')
+                                        <img id="imgUsersImageMain" src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $oudRecord['tblUsersImageMain'] . '?v=' . $cacheClear }}" alt="{{ $oudRecord['tblUsersTitle'] }}" class="ss-backend-images-edit" />
+                                        <div id="divUsersImageMainDelete" style="position: relative; display: inline-block;">
+                                            <a class="ss-backend-delete01"
+                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                                            {
+                                                                                idRecord: '{{ $oudRecord['tblUsersID'] }}',
+                                                                                strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
+                                                                                strField:'image_main',
+                                                                                recordValue: '',
+                                                                                patchType: 'fileDelete',
+                                                                                ajaxFunction: true,
+                                                                                apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
+                                                                            },
+                                                                            async function(_resObjReturn){
+                                                                                // alert(JSON.stringify(_resObjReturn));
+
+                                                                                if(_resObjReturn.objReturn.returnStatus == true)
+                                                                                {
+                                                                                    // Delete files.
+
+
+                                                                                    // Hide elements.
+                                                                                    htmlGenericStyle01('imgUsersImageMain', 'display', 'none');
+                                                                                    htmlGenericStyle01('divUsersImageMainDelete', 'display', 'none');
+
+                                                                                    // Success message.
+                                                                                    elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
+
+                                                                                }else{
+                                                                                    // Show error.
+                                                                                    elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
+                                                                                }
+
+                                                                                // Hide ajax progress bar.
+                                                                                htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                            });">
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemImageDelete') }}
+                                            </a>
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -853,8 +896,8 @@
                             </td>
                             <td>
                                 <select id="users_activation" name="activation" class="ss-backend-field-dropdown01">
-                                    <option value="1" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                    <option value="0">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                    <option value="1"{{ $oudRecord['tblUsersActivation'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                    <option value="0"{{ $oudRecord['tblUsersActivation'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                 </select>
                             </td>
                         </tr>
@@ -866,8 +909,8 @@
                                 </td>
                                 <td>
                                     <select id="users_activation1" name="activation1" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                    <option value="1"{{ $oudRecord['tblUsersActivation1'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                    <option value="0"{{ $oudRecord['tblUsersActivation1'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -880,8 +923,8 @@
                                 </td>
                                 <td>
                                     <select id="users_activation2" name="activation2" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                    <option value="1"{{ $oudRecord['tblUsersActivation2'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                    <option value="0"{{ $oudRecord['tblUsersActivation2'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -894,8 +937,8 @@
                                 </td>
                                 <td>
                                     <select id="users_activation3" name="activation3" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                    <option value="1"{{ $oudRecord['tblUsersActivation3'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                    <option value="0"{{ $oudRecord['tblUsersActivation3'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -908,8 +951,8 @@
                                 </td>
                                 <td>
                                     <select id="users_activation4" name="activation4" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                    <option value="1"{{ $oudRecord['tblUsersActivation4'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                    <option value="0"{{ $oudRecord['tblUsersActivation4'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -922,8 +965,8 @@
                                 </td>
                                 <td>
                                     <select id="users_activation5" name="activation5" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                    <option value="1"{{ $oudRecord['tblUsersActivation5'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                    <option value="0"{{ $oudRecord['tblUsersActivation5'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -935,7 +978,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemNotesInternal') }}:
                                 </td>
                                 <td>
-                                    <textarea id="users_notes" name="notes" class="ss-backend-field-text-area01"></textarea>
+                                    <textarea id="users_notes" name="notes" class="ss-backend-field-text-area01">{{ $oudRecord['tblUsersNotes_edit'] }}</textarea>
                                 </td>
                             </tr>
                         @endif

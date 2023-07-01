@@ -1163,7 +1163,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate1FieldType') === 2)
                                         @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
                                             <select id="categories_date1_day" name="date1_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate1DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1174,7 +1174,7 @@
                                             </select>
                                             /
                                             <select id="categories_date1_month" name="date1_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate1DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1185,7 +1185,7 @@
                                             </select>
                                             /
                                             <select id="categories_date1_year" name="date1_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate1DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1196,7 +1196,7 @@
                                             </select>
                                         @else
                                             <select id="categories_date1_month" name="date1_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate1DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1207,7 +1207,7 @@
                                             </select>
                                             /
                                             <select id="categories_date1_day" name="date1_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate1DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1218,7 +1218,7 @@
                                             </select>
                                             /
                                             <select id="categories_date1_year" name="date1_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate1DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1265,7 +1265,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate1Type') === 2 || config('app.gSystemConfig.configCategoriesDate1Type') === 3 || config('app.gSystemConfig.configCategoriesDate1Type') === 55 || config('app.gSystemConfig.configCategoriesDate1Type') === 66)
                                         -
                                         <select id="categories_date1_hour" name="date1_hour" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate1DateHour'] == $arrayRow ? ' selected' : ''}}
@@ -1276,7 +1276,7 @@
                                         </select>
                                         :
                                         <select id="categories_date1_minute" name="date1_minute" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate1DateMinute'] == $arrayRow ? ' selected' : ''}}
@@ -1288,7 +1288,7 @@
                                         @if (config('app.gSystemConfig.configCategoriesDate1Type') === 2)
                                             :
                                             <select id="categories_date1_seconds" name="date1_seconds" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate1Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate1DateSecond'] == $arrayRow ? ' selected' : ''}}
@@ -1313,7 +1313,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate2FieldType') === 2)
                                         @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
                                             <select id="categories_date2_day" name="date2_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate2DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1324,7 +1324,7 @@
                                             </select>
                                             /
                                             <select id="categories_date2_month" name="date2_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate2DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1335,7 +1335,7 @@
                                             </select>
                                             /
                                             <select id="categories_date2_year" name="date2_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate2DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1346,7 +1346,7 @@
                                             </select>
                                         @else
                                             <select id="categories_date2_month" name="date2_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate2DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1357,7 +1357,7 @@
                                             </select>
                                             /
                                             <select id="categories_date2_day" name="date2_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate2DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1368,7 +1368,7 @@
                                             </select>
                                             /
                                             <select id="categories_date2_year" name="date2_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate2DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1405,7 +1405,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate2Type') === 2 || config('app.gSystemConfig.configCategoriesDate2Type') === 3 || config('app.gSystemConfig.configCategoriesDate2Type') === 55 || config('app.gSystemConfig.configCategoriesDate2Type') === 66)
                                         -
                                         <select id="categories_date2_hour" name="date2_hour" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate2DateHour'] == $arrayRow ? ' selected' : ''}}
@@ -1416,7 +1416,7 @@
                                         </select>
                                         :
                                         <select id="categories_date2_minute" name="date2_minute" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate2DateMinute'] == $arrayRow ? ' selected' : ''}}
@@ -1428,7 +1428,7 @@
                                         @if (config('app.gSystemConfig.configCategoriesDate2Type')=== 2)
                                             :
                                             <select id="categories_date2_seconds" name="date2_seconds" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate2Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate2DateSecond'] == $arrayRow ? ' selected' : ''}}
@@ -1453,7 +1453,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate3FieldType') === 2)
                                         @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
                                             <select id="categories_date3_day" name="date3_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate3DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1464,7 +1464,7 @@
                                             </select>
                                             /
                                             <select id="categories_date3_month" name="date3_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate3DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1475,7 +1475,7 @@
                                             </select>
                                             /
                                             <select id="categories_date3_year" name="date3_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate3DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1486,7 +1486,7 @@
                                             </select>
                                         @else
                                             <select id="categories_date3_month" name="date3_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate3DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1497,7 +1497,7 @@
                                             </select>
                                             /
                                             <select id="categories_date3_day" name="date3_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate3DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1508,7 +1508,7 @@
                                             </select>
                                             /
                                             <select id="categories_date3_year" name="date3_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate3DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1545,7 +1545,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate3Type') === 2 || config('app.gSystemConfig.configCategoriesDate3Type') === 3 || config('app.gSystemConfig.configCategoriesDate3Type') === 55 || config('app.gSystemConfig.configCategoriesDate3Type') === 66)
                                         -
                                         <select id="categories_date3_hour" name="date3_hour" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate3DateHour'] == $arrayRow ? ' selected' : ''}}
@@ -1556,7 +1556,7 @@
                                         </select>
                                         :
                                         <select id="categories_date3_minute" name="date3_minute" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate3DateMinute'] == $arrayRow ? ' selected' : ''}}
@@ -1568,7 +1568,7 @@
                                         @if (config('app.gSystemConfig.configCategoriesDate3Type') === 2)
                                             :
                                             <select id="categories_date3_seconds" name="date3_seconds" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate3Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate3DateSecond'] == $arrayRow ? ' selected' : ''}}
@@ -1593,7 +1593,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate4FieldType') === 2)
                                         @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
                                             <select id="categories_date4_day" name="date4_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate4DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1604,7 +1604,7 @@
                                             </select>
                                             /
                                             <select id="categories_date4_month" name="date4_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate4DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1615,7 +1615,7 @@
                                             </select>
                                             /
                                             <select id="categories_date4_year" name="date4_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate4DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1626,7 +1626,7 @@
                                             </select>
                                         @else
                                             <select id="categories_date4_month" name="date4_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate4DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1637,7 +1637,7 @@
                                             </select>
                                             /
                                             <select id="categories_date4_day" name="date4_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate4DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1648,7 +1648,7 @@
                                             </select>
                                             /
                                             <select id="categories_date4_year" name="date4_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate4DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1685,7 +1685,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate4Type') === 2 || config('app.gSystemConfig.configCategoriesDate4Type') === 3 || config('app.gSystemConfig.configCategoriesDate4Type') === 55 || config('app.gSystemConfig.configCategoriesDate4Type') === 66)
                                         -
                                         <select id="categories_date4_hour" name="date4_hour" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate4DateHour'] == $arrayRow ? ' selected' : ''}}
@@ -1696,7 +1696,7 @@
                                         </select>
                                         :
                                         <select id="categories_date4_minute" name="date4_minute" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate4DateMinute'] == $arrayRow ? ' selected' : ''}}
@@ -1708,7 +1708,7 @@
                                         @if (config('app.gSystemConfig.configCategoriesDate4Type') === 2)
                                             :
                                             <select id="categories_date4_seconds" name="date4_seconds" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate4Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate4DateSecond'] == $arrayRow ? ' selected' : ''}}
@@ -1733,7 +1733,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate5FieldType') === 2)
                                         @if (config('app.gSystemConfig.configBackendDateFormat') === 1)
                                             <select id="categories_date5_day" name="date5_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate5DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1744,7 +1744,7 @@
                                             </select>
                                             /
                                             <select id="categories_date5_month" name="date5_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate5DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1755,7 +1755,7 @@
                                             </select>
                                             /
                                             <select id="categories_date5_year" name="date5_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate5DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1766,7 +1766,7 @@
                                             </select>
                                         @else
                                             <select id="categories_date5_month" name="date5_month" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('mm', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate5DateMonth'] == $arrayRow ? ' selected' : ''}}
@@ -1777,7 +1777,7 @@
                                             </select>
                                             /
                                             <select id="categories_date5_day" name="date5_day" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('d', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate5DateDay'] == $arrayRow ? ' selected' : ''}}
@@ -1788,7 +1788,7 @@
                                             </select>
                                             /
                                             <select id="categories_date5_year" name="date5_year" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('y', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate5DateYear'] == $arrayRow ? ' selected' : ''}}
@@ -1825,7 +1825,7 @@
                                     @if (config('app.gSystemConfig.configCategoriesDate5Type') === 2 || config('app.gSystemConfig.configCategoriesDate5Type') === 3 || config('app.gSystemConfig.configCategoriesDate5Type') === 55 || config('app.gSystemConfig.configCategoriesDate5Type') === 66)
                                         -
                                         <select id="categories_date5_hour" name="date5_hour" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('h', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate5DateHour'] == $arrayRow ? ' selected' : ''}}
@@ -1836,7 +1836,7 @@
                                         </select>
                                         :
                                         <select id="categories_date5_minute" name="date5_minute" class="ss-backend-field-dropdown01">
-                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                            @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('m', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                 <option
                                                     value="{{ $arrayRow }}"
                                                     {{ $ocdRecord['tblCategoriesDate5DateMinute'] == $arrayRow ? ' selected' : ''}}
@@ -1848,7 +1848,7 @@
                                         @if (config('app.gSystemConfig.configCategoriesDate5Type') === 2)
                                             :
                                             <select id="categories_date5_seconds" name="date5_seconds" class="ss-backend-field-dropdown01">
-                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, [ 'dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
+                                                @foreach (\SyncSystemNS\FunctionsGeneric::timeTableFill01('s', 1, ['dateType' => config('app.gSystemConfig.configCategoriesDate5Type')]) as $arrayRow)
                                                     <option
                                                         value="{{ $arrayRow }}"
                                                         {{ $ocdRecord['tblCategoriesDate5DateSecond'] == $arrayRow ? ' selected' : ''}}
