@@ -15,6 +15,7 @@ use App\Http\Controllers\ApiCategoriesUpdateController;
 use App\Http\Controllers\ApiUsersListingController;
 use App\Http\Controllers\ApiUsersInsertController;
 use App\Http\Controllers\ApiUsersDetailsController;
+use App\Http\Controllers\ApiUsersUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -176,7 +177,7 @@ Route::get(
 
 // API - Categories - POST (insert record).
 // **************************************************************************************
-// dev: http://localhost:8001/api/admin/categories/
+// dev: http://localhost:8001/api/categories/
 //Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/',[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
 /**/
 Route::post(
@@ -222,7 +223,8 @@ Route::get(
 
 // API - Categories - PUT (update record).
 // **************************************************************************************
-// dev: http://localhost:8001/api/admin/categories/
+// dev: http://localhost:8001/api/categories/
+// TODO: double check in all versions if the id (idTbCategories) is necessary.
 //Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/'. $GLOBALS['configRouteAPIActionEdit'] . '/' ,[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
 /**/
 Route::put(
@@ -266,7 +268,7 @@ Route::get(
 
 // API - Users - POST (insert record).
 // **************************************************************************************
-// dev: http://localhost:8001/api/admin/users/
+// dev: http://localhost:8001/api/users/
 Route::post(
     '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/',
     [
@@ -299,5 +301,24 @@ Route::get(
         config('app.gSystemConfig.configRouteAPI') . '.' .
         config('app.gSystemConfig.configRouteAPIUsers') . '.' .
         config('app.gSystemConfig.configRouteAPIDetails')
+    );
+// **************************************************************************************
+
+// API - Users - PUT (update record).
+// **************************************************************************************
+// dev: http://localhost:8001/api/users/edit/2026
+Route::put(
+    '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/{idTbUsers?}',
+    [
+        ApiUsersUpdateController::class, 'updateUsers'
+    ],
+    function ($updateUsersResults) {
+        return response()->json($updateUsersResults);
+    }
+)
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPIUsers') . '.' .
+        config('app.gSystemConfig.configRouteAPIActionEdit')
     );
 // **************************************************************************************

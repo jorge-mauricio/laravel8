@@ -43,7 +43,6 @@ class ApiCategoriesUpdateController extends Controller
      */
     public function updateCategories(Request $req): array
     {
-
         // Build parameters.
         // ----------------------
         $this->arrCategoriesUpdateParameters['_tblCategoriesID'] = (float) $req->post('id');

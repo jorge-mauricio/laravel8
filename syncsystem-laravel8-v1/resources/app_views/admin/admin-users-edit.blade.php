@@ -66,7 +66,7 @@
             id="formUsers"
             name="formUsers"
             method="POST"
-            action="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') }}/?_method=PUT }}"
+            action="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') }}/?_method=PUT"
             enctype="multipart/form-data"
         >
             @csrf

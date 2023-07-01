@@ -366,4 +366,157 @@ class AdminUsersController extends AdminBaseController
         return view('admin.admin-users-edit')->with('templateData', $this->templateData);
     }
     // **************************************************************************************
+
+    // Handle users edit update.
+    // **************************************************************************************
+    /**
+     * Handle users edit update.
+     * @param Request $req
+     * @return RedirectResponse
+     */
+    public function adminUsersUpdate(Request $req): RedirectResponse
+    {
+        // Variables.
+        // ----------------------
+        $idTbUsers = null;
+
+        $tblUsersImageMain = '';
+
+        $apiUsersUpdateResponse = null;
+        $arrUsersUpdateJson = null;
+        // ----------------------
+
+        // Define values.
+        // ----------------------
+        $idTbUsers = $req->post('id');
+
+        $this->idParent = $req->post('idParent');
+        $this->pageNumber = (int) $req->post('pageNumber'); // TODO: check why this variable is coming in as string
+        $this->masterPageSelect = $req->post('masterPageSelect');
+        // ----------------------
+
+        // Return URL build.
+        // ----------------------
+        // TODO: think about using buildReturnURL method (base controller).
+        $this->returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . $this->idParent . '/';
+        $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
+        if ($this->pageNumber) {
+            $this->returnURL .= '&pageNumber=' . $this->pageNumber;
+        }
+        // ----------------------
+
+        // Logic.
+        try {
+            // API call.
+            // TODO: evaluate moving file upload before insert records (to eliminate update later).
+            $apiUsersUpdateResponse = Http::withOptions(['verify' => false])
+                ->put(
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
+                    array_merge(
+                        ['apiKey' => config('app.gSystemConfig.configAPIKeySystem')],
+                        $req->all()
+                    ) // ...$req->all() (splat only works on php 8.1 and up)
+                );
+            $arrUsersUpdateJson = $apiUsersUpdateResponse->json();
+
+            // Files upload (in frontend server).
+            $resultsFunctionsFiles = null;
+            $formfileFieldsReference = null;
+            $tblUsersID = $arrUsersUpdateJson['idRecordUpdate'];
+
+            // Build file fields references.
+            foreach (request()->allFiles() as $arrKey => $fileObject) {
+                $formfileFieldsReference[$arrKey] = [
+                    'originalFileName' => $fileObject->getClientOriginalName(),
+                    'fileSize' => $fileObject->getSize(),
+                    'temporaryFilePath' => $fileObject->getPathname(),
+                    'fileExtension' => $fileObject->extension(),
+                    'fileNamePrefix' => '',
+                    'fileNameSufix' => '',
+                    'fileDirectoryUpload' => '',
+                ];
+
+                // Debug.
+                //echo 'arrKey=' . $arrKey . '<br />';
+                //echo 'fileObject=' . $fileObject->getClientOriginalName() . '<br />';
+                //array_push($formfileFieldsReference);
+            }
+
+            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple(
+                $tblUsersID,
+                $req,
+                config('app.gSystemConfig.configDirectoryFilesUpload'),
+                '',
+                $formfileFieldsReference
+            );
+
+            if ($resultsFunctionsFiles['returnStatus'] === true) {
+                $tblUsersArrDataFilesUpdate = null;
+                $tblUsersImageMain = isset($resultsFunctionsFiles['image_main']) === true ? $resultsFunctionsFiles['image_main'] : $tblUsersImageMain;
+
+                // Resize images.
+                if ($tblUsersImageMain !== '') {
+                    $tblUsersArrDataFilesUpdate['image_main'] = $tblUsersImageMain;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrUsersImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblUsersImageMain
+                    );
+                }
+
+                // TODO: error check for image upload and resize.
+                // API call (edit).
+                $apiUsersFilesUpdateResponse = Http::withOptions(['verify' => false])
+                    ->put(
+                        config('app.gSystemConfig.configAPIURL')  . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
+                        [
+                            'strTable' => config('app.gSystemConfig.configSystemDBTableUsers'),
+                            'idRecord' => $tblUsersID,
+                            'arrData' => $tblUsersArrDataFilesUpdate,
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
+                        ]
+                    );
+                $arrUsersFilesUpdateJson = $apiUsersFilesUpdateResponse->json();
+                // TODO: error check for update.
+
+                // Debug.
+                //echo 'arrCategoriesUpdateJson=<pre>';
+                //var_dump($arrCategoriesUpdateJson);
+                //echo '</pre><br />';
+            }
+
+            // Debug.
+            /*
+            echo 'idTbCategories=<pre>';
+            var_dump($idTbCategories);
+            echo '</pre><br />';
+
+            echo 'arrCategoriesUpdateJson=<pre>';
+            var_dump($arrCategoriesUpdateJson);
+            echo '</pre><br />';
+            */
+            // exit();
+        } catch (\Exception $adminUsersUpdateError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('adminUsersUpdateError: ' . $adminUsersUpdateError->getMessage());
+            }
+        } finally {
+            //
+        }
+
+        // Redirect.
+        $redirectParameters = [];
+        if ($arrUsersUpdateJson['returnStatus'] === true) {
+            $redirectParameters = [
+                'messageSuccess' => $arrUsersUpdateJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage7')
+            ];
+        } else {
+            $redirectParameters = [
+                'messageError' => \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage8')
+            ];
+        }
+
+        return redirect($this->returnURL)->with($redirectParameters);
+    }
+    // **************************************************************************************
 }

@@ -236,3 +236,21 @@ Route::get(
         config('app.gSystemConfig.configRouteBackendActionEdit')
     );
 // **************************************************************************************
+
+// Admin - Users - edit - PUT.
+// TODO: reflect this pattern in node version.
+// **************************************************************************************
+// Debug: http://localhost:8000/admin/users/edit/1999/?masterPageSelect=layout-admin-main
+Route::put(
+    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/{idTbUsers?}',
+    [
+        AdminUsersController::class, 'adminUsersUpdate'
+    ]
+)
+    ->name(
+        config('app.gSystemConfig.configRouteBackend') . '.' .
+        config('app.gSystemConfig.configRouteBackendUsers') . '.' .
+        config('app.gSystemConfig.configRouteBackendActionEdit')
+    );
+    // ->name('admin.categories.update');
+// **************************************************************************************

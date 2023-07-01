@@ -84,9 +84,9 @@ class ApiUsersListingController extends Controller
             $this->activation5 = $req->query('activation5');
         }
 
-        // if ($req->query('pageNumber') !== null) {
-        //     $this->pageNumber = (int) $req->query('pageNumber');
-        // }
+        if ($req->query('pageNumber') !== null) {
+            $this->pageNumber = (int) $req->query('pageNumber');
+        }
         /*
         if ($req->query('pagingNRecords') !== null) {
             $this->pagingNRecords = $req->query('pagingNRecords');
