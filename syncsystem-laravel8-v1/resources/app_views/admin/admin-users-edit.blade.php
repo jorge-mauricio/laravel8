@@ -845,8 +845,10 @@
                                 <td>
                                     <input type="file" id="users_image_main" name="image_main" class="ss-backend-field-file-upload" />
                                     @if ($oudRecord['tblUsersImageMain'] !== '')
-                                        <img id="imgUsersImageMain" src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $oudRecord['tblUsersImageMain'] . '?v=' . $cacheClear }}" alt="{{ $oudRecord['tblUsersTitle'] }}" class="ss-backend-images-edit" />
+                                        <img id="imgUsersImageMain" src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $oudRecord['tblUsersImageMain'] . '?v=' . $cacheClear }}" alt="{{ $oudRecord['tblUsersNameFull'] }}" class="ss-backend-images-edit" />
+                                            {{-- TODO: condition tblUsersNameFull to being enabled, etc. --}}
                                         <div id="divUsersImageMainDelete" style="position: relative; display: inline-block;">
+                                            {{-- TODO: investigate why this stopped working after config refactor (configSystemURLSSL) --}}
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
                                                 ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
@@ -859,11 +861,10 @@
                                                                                 ajaxFunction: true,
                                                                                 apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                             },
-                                                                            async function(_resObjReturn){
+                                                                            async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
+                                                                                if(_resObjReturn.objReturn.returnStatus == true) {
                                                                                     // Delete files.
 
 
@@ -874,7 +875,7 @@
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
                                                                                 }

@@ -88,3 +88,5 @@ ref: https://youtu.be/T9q1uT2BEZI?t=1337
 	- review
 		- research redis
 
+- after root user endpoint is done, redo tests for user delete, image delete and so on
+

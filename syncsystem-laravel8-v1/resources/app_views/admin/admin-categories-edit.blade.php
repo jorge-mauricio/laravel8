@@ -1873,10 +1873,11 @@
                                     <input type="file" id="categories_image_main" name="image_main" class="ss-backend-field-file-upload" />
                                     @if ($ocdRecord['tblCategoriesImageMain'] !== '')
                                         <img id="imgCategoriesImageMain" src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $ocdRecord['tblCategoriesImageMain'] . '?v=' . $cacheClear }}" alt="{{ $ocdRecord['tblCategoriesTitle'] }}" class="ss-backend-images-edit" />
+                                        {{-- TODO: investigate why this stopped working after config refactor (configSystemURLSSL) - maybe it never worked and it was supposed to change to API. --}}
                                         <div id="divCategoriesImageMainDelete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
                                                                             {
                                                                                 idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
@@ -1886,11 +1887,10 @@
                                                                                 ajaxFunction: true,
                                                                                 apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                             },
-                                                                            async function(_resObjReturn){
+                                                                            async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
+                                                                                if(_resObjReturn.objReturn.returnStatus == true) {
                                                                                     // Delete files.
 
 

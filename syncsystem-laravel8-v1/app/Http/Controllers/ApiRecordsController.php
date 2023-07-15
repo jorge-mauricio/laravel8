@@ -119,22 +119,53 @@ class ApiRecordsController extends Controller
         $this->arrRecordsPatchParameters['_apiKey'] = $req->post('apiKey'); // TODO: evaluate if this is necessary
         */
 
+        // Debug.
+
+        // echo 'req() (inside api records patch controller)=<pre>';
+        // var_dump(json_last_error());
+        // var_dump($req->all());
+        // var_dump($req->strField);
+        // var_dump($req);
+        // var_dump($req->post());
+        // var_dump($req->getContent()); // working
+        // var_dump(json_decode($req->getContent(), true)); // working
+        // var_dump(json_encode($req->getContent()));
+        // var_dump($req->json()->all()['strTable']); // working
+        // var_dump($req->json()); // working
+
+        // var_dump($req->all('strTable'));
+        // echo '</pre><br />';
+        // exit();
+
+
         // Define values.
         // ----------------------
+        /* not working with $req->post() method
         $strTable = $req->post('strTable');
-        $idRecord = (float)$req->post('idRecord');
+        $idRecord = (float) $req->post('idRecord');
         $strField = $req->post('strField');
         $recordValue = $req->post('recordValue');
         $patchType = $req->post('patchType');
-        $ajaxFunction = (bool)$req->post('ajaxFunction');
+        $ajaxFunction = (bool) $req->post('ajaxFunction');
         $this->apiKey = $req->post('apiKey'); // TODO: evaluate if this is necessary
+        */
+
+        $strTable = $req->json()->all()['strTable'];
+        $idRecord = (float) $req->json()->all()['idRecord'];
+        $strField = $req->json()->all()['strField'];
+        $recordValue = $req->json()->all()['recordValue'];
+        $patchType = $req->json()->all()['patchType'];
+        $ajaxFunction = (bool) $req->json()->all()['ajaxFunction'];
+        $this->apiKey = $req->json()->all()['apiKey']; // TODO: evaluate if this is necessary
         // ----------------------
 
         // Debug.
-        //echo 'req->all() (inside api records patch controller=<pre>';
-        //var_dump($req->all());
-        //var_dump($req);
-        //echo '</pre><br />';
+        // echo 'req->all() (inside api records patch controller=<pre>';
+        // var_dump($req->all());
+        // var_dump($req);
+        // var_dump($req->post('patchType'));
+        // echo '</pre><br />';
+        // exit();
 
         // Logic.
         try {

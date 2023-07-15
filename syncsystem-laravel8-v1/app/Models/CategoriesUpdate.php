@@ -269,7 +269,6 @@ class CategoriesUpdate extends Model
         $this->tblCategoriesNotes = isset($arrParameters['_tblCategoriesNotes']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesNotes'], 'db_write_text') : $this->tblCategoriesNotes;
         // ----------------------
 
-
         // Build insert parameters.
         // ----------------------
         $this->arrSQLCategoriesUpdateParams['id'] = $this->tblCategoriesID;

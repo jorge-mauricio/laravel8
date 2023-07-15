@@ -272,7 +272,6 @@ class UsersUpdate extends Model
         $this->tblUsersNotes = isset($arrParameters['_tblUsersNotes']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblUsersNotes'], 'db_write_text') : $this->tblUsersNotes;
         // ----------------------
 
-
         // Build insert parameters.
         // ----------------------
         $this->arrSQLUsersUpdateParams['id'] = $this->tblUsersID;
