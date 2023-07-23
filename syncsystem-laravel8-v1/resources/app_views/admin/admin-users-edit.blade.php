@@ -851,11 +851,11 @@
                                             {{-- TODO: investigate why this stopped working after config refactor (configSystemURLSSL) --}}
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
                                                                             {
                                                                                 idRecord: '{{ $oudRecord['tblUsersID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableUsers') }}',
-                                                                                strField:'image_main',
+                                                                                strField: 'image_main',
                                                                                 recordValue: '',
                                                                                 patchType: 'fileDelete',
                                                                                 ajaxFunction: true,
@@ -864,7 +864,7 @@
                                                                             async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true) {
+                                                                                if(_resObjReturn.returnStatus === true) {
                                                                                     // Delete files.
 
 

@@ -1888,4 +1888,79 @@ class FunctionsGeneric
         // ----------------------
     }
     // **************************************************************************************
+
+    // Select image size array based on table.
+    // **************************************************************************************
+    /**
+     * Select image size array based on table.
+     * @static
+     * @param string $strTable
+     * @return array
+     * @example \SyncSystemNS\FunctionsGeneric::arrImageSizeSelect($strTable)
+     */
+    public static function arrImageSizeSelect($strTable): array
+    {
+        // Variables.
+        // ----------------------
+        $arrReturn = config('app.gSystemConfig.configArrDefaultImageSize');
+        // ----------------------
+
+        // Logic.
+        if ($strTable) {
+            if (config('app.gSystemConfig.enableDefaultImageSize') === 0) {
+                // Categories.
+                if ($strTable == config('app.gSystemConfig.configSystemDBTableCategories')) {
+                    $arrReturn = config('app.gSystemConfig.configArrCategoriesImageSize');
+                }
+                /*
+                // Files.
+                if (strTable == gSystemConfig.configSystemDBTableFiles) {
+                    arrReturn = gSystemConfig.configArrFilesImageSize;
+                }
+
+                // Content.
+                if (strTable == gSystemConfig.configSystemDBTableContent) {
+                    arrReturn = gSystemConfig.configArrContentImageSize;
+                }
+
+                // Products.
+                if (strTable == gSystemConfig.configSystemDBTableProducts) {
+                    arrReturn = gSystemConfig.configArrProductsImageSize;
+                }
+
+                // Publications.
+                if (strTable == gSystemConfig.configSystemDBTablePublications) {
+                    arrReturn = gSystemConfig.configArrProductsImageSize;
+                }
+
+                // Registers.
+                if (strTable == gSystemConfig.configSystemDBTableRegisters) {
+                    arrReturn = gSystemConfig.configArrRegistersImageSize;
+                }
+
+                // Quizzes.
+                if (strTable == gSystemConfig.configSystemDBTableQuizzes) {
+                    arrReturn = gSystemConfig.configArrQuizzesImageSize;
+                }
+
+                // Quizzes options.
+                if (strTable == gSystemConfig.configSystemDBTableQuizzesOptions) {
+                    arrReturn = gSystemConfig.configArrQuizzesOptionsImageSize;
+                }
+
+                // Forms fields options.
+                if (strTable == gSystemConfig.configSystemDBTableFormsFieldsOptions) {
+                    arrReturn = gSystemConfig.configArrFormsFieldsOptionsImageSize;
+                }
+                */
+                // Users.
+                if ($strTable === config('app.gSystemConfig.configSystemDBTableUsers')) {
+                    $arrReturn = config('app.gSystemConfig.configArrUsersImageSize');
+                }
+              }
+        }
+
+        return $arrReturn;
+    }
+    // **************************************************************************************
 }

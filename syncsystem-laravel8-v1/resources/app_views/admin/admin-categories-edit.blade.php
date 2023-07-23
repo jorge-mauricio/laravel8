@@ -1881,7 +1881,7 @@
                                                                             {
                                                                                 idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
-                                                                                strField:'image_main',
+                                                                                strField: 'image_main',
                                                                                 recordValue: '',
                                                                                 patchType: 'fileDelete',
                                                                                 ajaxFunction: true,
@@ -1890,7 +1890,8 @@
                                                                             async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true) {
+                                                                                // if(_resObjReturn.objReturn.returnStatus == true) { // Note: changed to _resObjReturn.returnStatus because it now comunicates directly with the API. TODO: update multiplatform node admin version.
+                                                                                if (_resObjReturn.returnStatus === true) {
                                                                                     // Delete files.
 
 
@@ -1901,7 +1902,7 @@
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
                                                                                 }
@@ -1947,21 +1948,20 @@
                                         <div id="divCategoriesFile1Delete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
                                                                             {
                                                                                 idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
-                                                                                strField:'file1',
+                                                                                strField: 'file1',
                                                                                 recordValue: '',
                                                                                 patchType: 'fileDelete',
                                                                                 ajaxFunction: true,
                                                                                 apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                             },
-                                                                            async function(_resObjReturn){
+                                                                            async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
+                                                                                if (_resObjReturn.returnStatus === true) {
                                                                                     // Delete files.
 
 
@@ -1972,7 +1972,7 @@
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
                                                                                 }
@@ -2018,21 +2018,20 @@
                                         <div id="divCategoriesFile2Delete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
                                                                             {
                                                                                 idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
-                                                                                strField:'file2',
+                                                                                strField: 'file2',
                                                                                 recordValue: '',
                                                                                 patchType: 'fileDelete',
                                                                                 ajaxFunction: true,
                                                                                 apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                             },
-                                                                            async function(_resObjReturn){
+                                                                            async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
+                                                                                if (_resObjReturn.returnStatus === true) {
                                                                                     // Delete files.
 
 
@@ -2043,7 +2042,7 @@
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
                                                                                 }
@@ -2089,21 +2088,20 @@
                                         <div id="divCategoriesFile3Delete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
                                                                             {
                                                                                 idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
-                                                                                strField:'file3',
+                                                                                strField: 'file3',
                                                                                 recordValue: '',
                                                                                 patchType: 'fileDelete',
                                                                                 ajaxFunction: true,
                                                                                 apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                             },
-                                                                            async function(_resObjReturn){
+                                                                            async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
+                                                                                if (_resObjReturn.returnStatus === true) {
                                                                                     // Delete files.
 
 
@@ -2114,7 +2112,7 @@
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
                                                                                 }
@@ -2160,21 +2158,20 @@
                                         <div id="divCategoriesFile4Delete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
                                                                             {
                                                                                 idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
-                                                                                strField:'file4',
+                                                                                strField: 'file4',
                                                                                 recordValue: '',
                                                                                 patchType: 'fileDelete',
                                                                                 ajaxFunction: true,
                                                                                 apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                             },
-                                                                            async function(_resObjReturn){
+                                                                            async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
+                                                                                if (_resObjReturn.returnStatus === true) {
                                                                                     // Delete files.
 
 
@@ -2185,7 +2182,7 @@
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
                                                                                 }
@@ -2231,21 +2228,20 @@
                                         <div id="divCategoriesFile5Delete" style="position: relative; display: inline-block;">
                                             <a class="ss-backend-delete01"
                                                 onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
-                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') }}/',
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
                                                                             {
                                                                                 idRecord: '{{ $ocdRecord['tblCategoriesID'] }}',
                                                                                 strTable: '{{ config('app.gSystemConfig.configSystemDBTableCategories') }}',
-                                                                                strField:'file5',
+                                                                                strField: 'file5',
                                                                                 recordValue: '',
                                                                                 patchType: 'fileDelete',
                                                                                 ajaxFunction: true,
                                                                                 apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
                                                                             },
-                                                                            async function(_resObjReturn){
+                                                                            async function(_resObjReturn) {
                                                                                 // alert(JSON.stringify(_resObjReturn));
 
-                                                                                if(_resObjReturn.objReturn.returnStatus == true)
-                                                                                {
+                                                                                if (_resObjReturn.returnStatus === true) {
                                                                                     // Delete files.
 
 
@@ -2256,7 +2252,7 @@
                                                                                     // Success message.
                                                                                     elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
 
-                                                                                }else{
+                                                                                } else {
                                                                                     // Show error.
                                                                                     elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
                                                                                 }

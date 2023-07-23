@@ -104,6 +104,7 @@ class ApiRecordsController extends Controller
         $recordValue = null;
         // $arrRecordsPatchParameters = [];
         $resultsSQLRecordsUpdate = null;
+        $updateRecordsGeneric10Result = null; // TODO: change this to resultsSQLRecordsUpdate
         // ----------------------
 
         // Build parameters.
@@ -153,7 +154,7 @@ class ApiRecordsController extends Controller
         $strTable = $req->json()->all()['strTable'];
         $idRecord = (float) $req->json()->all()['idRecord'];
         $strField = $req->json()->all()['strField'];
-        $recordValue = $req->json()->all()['recordValue'];
+        $recordValue = (string) $req->json()->all()['recordValue'];
         $patchType = $req->json()->all()['patchType'];
         $ajaxFunction = (bool) $req->json()->all()['ajaxFunction'];
         $this->apiKey = $req->json()->all()['apiKey']; // TODO: evaluate if this is necessary
@@ -169,7 +170,28 @@ class ApiRecordsController extends Controller
 
         // Logic.
         try {
+            // TODO: check api key.
+
+            // setValue
+            // ----------------------
+            // TODO: test.
+            if ($patchType === 'setValue') {
+                $updateRecordsGeneric10Result = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10(
+                    $strTable,
+                    $strField,
+                    $recordValue,
+                    ['id;' . $idRecord . ';i']
+                );
+
+                if ($updateRecordsGeneric10Result['returnStatus'] === true) {
+                    $this->arrReturn['recordUpdatedValue'] = $recordValue;
+                    // TODO: update with return status or refactor.
+                }
+            }
+            // ----------------------
+
             // toggleValue
+            // ----------------------
             //if ($this->arrRecordsPatchParameters['_patchType'] === 'toggleValue') {
             //if ($this->patchType === 'toggleValue') {
             if ($patchType === 'toggleValue') {
@@ -214,6 +236,68 @@ class ApiRecordsController extends Controller
                 }
                 //$this->ruAPI = new RecordsUpdate($this->arrRecordsPatchParameters);
                 //$this->arrReturn = $this->ruAPI->updateRecord();
+            }
+            // ----------------------
+
+            // fileDelete
+            // ----------------------
+            if ($patchType === 'fileDelete') {
+                // Search file name to delete.
+                $fileNameDelete = '';
+                $arrResultFileDelete = [];
+
+                $resultsRecordDetails = \SyncSystemNS\FunctionsDB::genericTableGet02(
+                    $strTable,
+                    ['id;' . $idRecord . ';i'],
+                    '',
+                    '',
+                    $strField,
+                    1
+                );
+
+                // Debug.
+                // echo 'resultsRecordDetails=<pre>';
+                // var_dump($resultsRecordDetails);
+                // echo '</pre>';
+                // exit();
+
+                $fileNameDelete = $resultsRecordDetails[0]->$strField;
+                if ($fileNameDelete) {
+                    $arrResultFileDelete = \SyncSystemNS\FunctionsFiles::fileDelete02(
+                        $fileNameDelete,
+                        '',
+                        \SyncSystemNS\FunctionsGeneric::arrImageSizeSelect($strTable)
+                    );
+                }
+                // TODO: status check.
+
+                // Debug.
+                // echo 'fileNameDelete=<pre>';
+                // var_dump($fileNameDelete);
+                // echo '</pre><br />';
+
+                // echo 'arrResultFileDelete=<pre>';
+                // var_dump($arrResultFileDelete);
+                // echo '</pre><br />';
+
+                // echo '\SyncSystemNS\FunctionsGeneric::arrImageSizeSelect($strTable)=<pre>';
+                // var_dump(\SyncSystemNS\FunctionsGeneric::arrImageSizeSelect($strTable));
+                // echo '</pre><br />';
+                // exit();
+
+                // Update field.
+                $updateRecordsGeneric10Result = \SyncSystemNS\FunctionsDBUpdate::updateRecordGeneric10(
+                    $strTable,
+                    $strField,
+                    $recordValue,
+                    ['id;' . $idRecord . ';i']
+                );
+
+                if ($updateRecordsGeneric10Result['returnStatus'] === true) {
+                    $this->arrReturn['returnStatus'] = $updateRecordsGeneric10Result['returnStatus'];
+                    $this->arrReturn['nRecords'] = $updateRecordsGeneric10Result['nRecords'];
+                    $this->arrReturn['recordUpdatedValue'] = $recordValue;
+                }
             }
         } catch (\Exception $patchRecordsError) {
             if (config('app.gSystemConfig.configDebug') === true) {
