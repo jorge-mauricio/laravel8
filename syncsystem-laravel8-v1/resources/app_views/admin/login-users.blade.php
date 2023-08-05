@@ -18,6 +18,7 @@
     // Meta URL current.
     $metaURLCurrent = config('app.gSystemConfig.configSystemURL') . '/';
     $metaURLCurrent .= config('app.gSystemConfig.configRouteBackend') . '/';
+    $metaURLCurrent .= config('app.gSystemConfig.configRouteBackendLoginUsers') . '/';
     if ($masterPageSelect !== '') {
         $metaURLCurrent .= '?masterPageSelect=' . $masterPageSelect;
     }
@@ -76,7 +77,7 @@
 
         {{-- Header. --}}
         <header class="ss-backend-title01" style="position: absolute; display: block; right: 10px; top: 30px; text-align: right; font-size: 24px;">
-            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'layoutSystemName') }}
+            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendLoginUsersTitleMain') }}
         </header>
 
         {{-- Login. --}}
@@ -87,7 +88,7 @@
                 id="formLogin"
                 name="formLogin"
                 method="POST"
-                action="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLogin') }}"
+                action="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLoginUsers') }}"
                 enctype="multipart/form-data"
             >
                 @csrf

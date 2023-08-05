@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\FrontendHomeController;
 use App\Http\Controllers\FrontendCategoriesListingController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminLoginUsersController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminRecordsController;
 use App\Http\Controllers\AdminUsersController;
@@ -96,6 +97,7 @@ Route::controller(OrderController::class)->group(function () {
 });
 */
 
+// TODO: move to external file (routes-admin).
 // Admin - Home - Login.
 // **************************************************************************************
 // Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.login');
@@ -126,7 +128,7 @@ Route::post(
     //Route::group(['middleware' => 'auth:sanctum'], function () {
 Route::group(
     [
-        'middleware' => ['setHeaders.token.web', 'auth:sanctum']
+        'middleware' => ['setHeaders.token.web:' . config('app.gSystemConfig.configCookiePrefixUserAdmin'), 'auth:sanctum']
     ],
     function () {
         // TODO: make auth sanctum conditioned to $GLOBALS['configRegistersAuthenticationType'] === 11
@@ -194,63 +196,93 @@ Route::group(
 //     ->middleware('auth:sanctum');
 
 
-// TODO: another middleware for root auth
-// Admin - Users - listing - GET.
+// Admin - Users - Login.
 // **************************************************************************************
 Route::get(
-    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/{idParent?}',
+    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLoginUsers') . '/',
     [
-        AdminUsersController::class, 'adminUsersListing'
+        AdminLoginUsersController::class, 'adminLoginUsers'
     ]
 )
-    ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendUsers'));
+    ->name(config('app.gSystemConfig.configRouteBackend')  . '.' . config('app.gSystemConfig.configRouteBackendLoginUsers'));
+    // ->name('admin');
 // **************************************************************************************
 
-// Admin - Users - POST (insert record).
+// Admin - Login - Users - POST (check username and password).
 // **************************************************************************************
 Route::post(
-    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/',
+    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLoginUsers') . '/',
     [
-        AdminUsersController::class, 'adminUsersInsert'
+        AdminLoginUsersController::class, 'adminLoginUsersCheck'
     ]
 )
-    ->name(
-        config('app.gSystemConfig.configRouteBackend') . '.' .
-        config('app.gSystemConfig.configRouteBackendUsers') . '.' .
-        'insert'
-    );
+    ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendLoginUsers'));
 // **************************************************************************************
 
-// Admin - Users - edit - GET.
-// **************************************************************************************
-// Debug: http://localhost:8000/admin/users/edit/2026/?masterPageSelect=layout-admin-main
-Route::get(
-    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/{idTbUsers?}',
+Route::group(
     [
-        AdminUsersController::class, 'adminUsersEdit'
-    ]
-)
-    ->name(
-        config('app.gSystemConfig.configRouteBackend') . '.' .
-        config('app.gSystemConfig.configRouteBackendUsers') . '.' .
-        config('app.gSystemConfig.configRouteBackendActionEdit')
-    );
-// **************************************************************************************
+        'middleware' => ['setHeaders.token.web:' . config('app.gSystemConfig.configCookiePrefixUserRoot'), 'auth:sanctum']
+    ],
+    function () {
+        // TODO: another middleware for root auth
+        // Admin - Users - listing - GET.
+        // **************************************************************************************
+        Route::get(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/{idParent?}',
+            [
+                AdminUsersController::class, 'adminUsersListing'
+            ]
+        )
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendUsers'));
+        // **************************************************************************************
 
-// Admin - Users - edit - PUT.
-// TODO: reflect this pattern in node version.
-// **************************************************************************************
-// Debug: http://localhost:8000/admin/users/edit/1999/?masterPageSelect=layout-admin-main
-Route::put(
-    '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/{idTbUsers?}',
-    [
-        AdminUsersController::class, 'adminUsersUpdate'
-    ]
-)
-    ->name(
-        config('app.gSystemConfig.configRouteBackend') . '.' .
-        config('app.gSystemConfig.configRouteBackendUsers') . '.' .
-        config('app.gSystemConfig.configRouteBackendActionEdit')
-    );
-    // ->name('admin.categories.update');
-// **************************************************************************************
+        // Admin - Users - POST (insert record).
+        // **************************************************************************************
+        Route::post(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/',
+            [
+                AdminUsersController::class, 'adminUsersInsert'
+            ]
+        )
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendUsers') . '.' .
+                'insert'
+            );
+        // **************************************************************************************
+
+        // Admin - Users - edit - GET.
+        // **************************************************************************************
+        // Debug: http://localhost:8000/admin/users/edit/2026/?masterPageSelect=layout-admin-main
+        Route::get(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/{idTbUsers?}',
+            [
+                AdminUsersController::class, 'adminUsersEdit'
+            ]
+        )
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendUsers') . '.' .
+                config('app.gSystemConfig.configRouteBackendActionEdit')
+            );
+        // **************************************************************************************
+
+        // Admin - Users - edit - PUT.
+        // TODO: reflect this pattern in node version.
+        // **************************************************************************************
+        // Debug: http://localhost:8000/admin/users/edit/1999/?masterPageSelect=layout-admin-main
+        Route::put(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/{idTbUsers?}',
+            [
+                AdminUsersController::class, 'adminUsersUpdate'
+            ]
+        )
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendUsers') . '.' .
+                config('app.gSystemConfig.configRouteBackendActionEdit')
+            );
+            // ->name('admin.categories.update');
+        // **************************************************************************************
+    }
+);

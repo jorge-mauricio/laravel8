@@ -2,7 +2,7 @@
 
 // TODO: think about moving to resource folder
 // Author information.
-// **************************************************************************************
+// ************************************************************************************************************************
 /*
 SyncSystem – less code, more logic.
 A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
@@ -18,7 +18,8 @@ Price quotes can be requested through the website.
 Website / contact:
 http://fullstackwebdesigner.com
 */
-// **************************************************************************************
+// ************************************************************************************************************************
+// TODO: update separators based on maximum character limit standard.
 
 // PHP configuration.
 // **************************************************************************************
@@ -71,7 +72,12 @@ define('SS_FIELD_TYPE_MULTILINE', 2);
 define('SS_FIELD_TYPE_SINGLE_LINE_ENCRYPTED', 11);
 define('SS_FIELD_TYPE_MULTILINE_ENCRYPTED', 12);
 
-// Encrypt method
+// Authentication type.
+define('SS_AUTHENTICATION_TYPE_CUSTOM', 1);
+define('SS_AUTHENTICATION_TYPE_SANCTUM', 11);
+define('SS_AUTHENTICATION_TYPE_PASSPORT', 12);
+
+// Encrypt method.
 define('SS_ENCRYPT_METHOD_NONE', 0);
 define('SS_ENCRYPT_METHOD_HASH', 1);
 define('SS_ENCRYPT_METHOD_DATA', 2);
@@ -86,6 +92,10 @@ define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_SIMPLE', 23);
 define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_128_CBC_COMPLEX_16_16', 24);
 define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_256_CBC_COMPLEX_32_16', 26);
 
+// Authentication store.
+define('SS_AUTHENTICATION_STORE_COOKIE', 1);
+define('SS_AUTHENTICATION_STORE_SESSION', 2);
+define('SS_AUTHENTICATION_STORE_HEADER', 3);
 // **************************************************************************************
 
 // General configuration.
@@ -1624,7 +1634,7 @@ $gSystemConfig['configRegistersInputOrder'] = [
 
 // Authentication method.
 $gSystemConfig['configRegistersAuthenticationMethod'] = 3; // 1 - cookie | 2 - session | 3 - token (API)
-$gSystemConfig['configRegistersAuthenticationType'] = 11; // (WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
+$gSystemConfig['configRegistersAuthenticationType'] = 11; // (WIP) 1 - custom (SS_AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (SS_AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (SS_AUTHENTICATION_TYPE_PASSPORT)
 $gSystemConfig['configRegistersAuthenticationCheck'] = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
 $gSystemConfig['configRegistersAuthenticationStore'] = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
 
@@ -2428,14 +2438,14 @@ $gSystemConfig['configUsersInputOrder'] = [
 
 // Authentication method.
 $gSystemConfig['configUsersMasterAuthenticationMethod'] = 3; // 1 - cookie | 2 session | 3 - token (API)
-$gSystemConfig['configUsersMasterAuthenticationType'] = 11; // (WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
+$gSystemConfig['configUsersMasterAuthenticationType'] = 11; // (WIP) 1 - custom (SS_AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (SS_AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (SS_AUTHENTICATION_TYPE_PASSPORT)
 $gSystemConfig['configUsersMasterAuthenticationCheck'] = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
 $gSystemConfig['configUsersMasterAuthenticationStore'] = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
 
-$gSystemConfig['configUsersAuthenticationType'] = 11; // (WIP) 1 - custom (AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (AUTHENTICATION_TYPE_PASSPORT)
+$gSystemConfig['configUsersAuthenticationType'] = 11; // (WIP) 1 - custom (SS_AUTHENTICATION_TYPE_CUSTOM) | 11 - sanctum (SS_AUTHENTICATION_TYPE_SANCTUM) | 12 - passport (SS_AUTHENTICATION_TYPE_PASSPORT)
 $gSystemConfig['configUsersAuthenticationMethod'] = 3; // 1 - cookie | 2 - session | 3 - token (API)
 $gSystemConfig['configUsersAuthenticationCheck'] = 1; // 0 - only checks if the cookie / session is empty or not (faster) | 1 - reads the database and checks if the user exists and is active (safer, but slower)
-$gSystemConfig['configUsersAuthenticationStore'] = 1; // (store in frontend) 1 - cookie | 2 session | 3 - header
+$gSystemConfig['configUsersAuthenticationStore'] = 1; // (store in frontend) 1 - cookie (SS_AUTHENTICATION_STORE_COOKIE) | 2 session (SS_AUTHENTICATION_STORE_SESSION) | 3 - header (SS_AUTHENTICATION_STORE_HEADER)
 
 // Basic resources.
 $gSystemConfig['enableUsersSortOrder'] = 1; // 0 - disable | 1 - enable

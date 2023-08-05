@@ -100,6 +100,8 @@ class ApiUsersListingController extends Controller
             // Parameters build - listing.
             array_push($this->arrSearchParameters, 'id_parent;' . $this->idParent . ';i');
             array_push($this->arrSearchParameters, 'id;11;!i'); // user - root (backend node)
+            array_push($this->arrSearchParameters, 'id;12;!i'); // user - root (backend PHP Laravel - Data - MCrypt PHP)
+            array_push($this->arrSearchParameters, 'id;14;!i'); // user - root (backend PHP Laravel - Data - Defuse php-encryption)
             // TODO: include laravel root user (and update DB setup file and update node code base - admin_node/users-listing.js)
 
             if ($this->activation !== null) {
