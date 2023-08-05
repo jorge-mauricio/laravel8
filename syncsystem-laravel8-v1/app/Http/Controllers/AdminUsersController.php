@@ -125,9 +125,9 @@ class AdminUsersController extends AdminBaseController
             // return 'admin categories listing (controller) idTbCategories = ' . $idTbCategories;
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
-        } catch (\Exception $adminCategoriesListingError) {
+        } catch (\Exception $adminUsersListingError) {
             if (config('app.gSystemConfig.configDebug') === true) {
-                throw new \Error('adminCategoriesListingError: ' . $adminCategoriesListingError->getMessage());
+                throw new \Error('adminUsersListingError: ' . $adminUsersListingError->getMessage());
             }
         } finally {
             //

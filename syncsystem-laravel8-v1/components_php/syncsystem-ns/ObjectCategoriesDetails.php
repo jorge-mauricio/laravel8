@@ -111,33 +111,68 @@ class ObjectCategoriesDetails
     // private DateTime $tblCategoriesDate2DateObj = new DateTime();
     // private object $tblCategoriesDate1DateObj = new DateTime();
     private object|null $tblCategoriesDate1DateObj = null;
-    private string|null $tblCategoriesDate1DateYear = null, $tblCategoriesDate1DateDay = null, $tblCategoriesDate1DateMonth = null;
-    private string|null $tblCategoriesDate1DateHour = null, $tblCategoriesDate1DateHour_print = '', $tblCategoriesDate1DateMinute = null, $tblCategoriesDate1DateMinute_print = '', $tblCategoriesDate1DateSecond = null, $tblCategoriesDate1DateSecond_print = '';
+    private string|null $tblCategoriesDate1DateYear = null;
+    private string|null $tblCategoriesDate1DateDay = null;
+    private string|null $tblCategoriesDate1DateMonth = null;
+    private string|null $tblCategoriesDate1DateHour = null;
+    private string $tblCategoriesDate1DateHour_print = '';
+    private string|null $tblCategoriesDate1DateMinute = null;
+    private string|null $tblCategoriesDate1DateMinute_print = '';
+    private string|null $tblCategoriesDate1DateSecond = null;
+    private string $tblCategoriesDate1DateSecond_print = '';
     // TODO: linting - vs code phpcs single_class_element_per_statement equivalent (ex: Generic.Formatting.DisallowMultipleStatements)
 
     private string|null $tblCategoriesDate2 = null;
     private string $tblCategoriesDate2_print = '';
     private object|null $tblCategoriesDate2DateObj = null;
-    private string|null $tblCategoriesDate2DateYear = null, $tblCategoriesDate2DateDay = null, $tblCategoriesDate2DateMonth = null;
-    private string|null $tblCategoriesDate2DateHour = null, $tblCategoriesDate2DateHour_print = '', $tblCategoriesDate2DateMinute = null, $tblCategoriesDate2DateMinute_print = '', $tblCategoriesDate2DateSecond = null, $tblCategoriesDate2DateSecond_print = '';
+    private string|null $tblCategoriesDate2DateYear = null;
+    private string|null $tblCategoriesDate2DateDay = null;
+    private string|null $tblCategoriesDate2DateMonth = null;
+    private string|null $tblCategoriesDate2DateHour = null;
+    private string $tblCategoriesDate2DateHour_print = '';
+    private string|null $tblCategoriesDate2DateMinute = null;
+    private string $tblCategoriesDate2DateMinute_print = '';
+    private string|null $tblCategoriesDate2DateSecond = null;
+    private string $tblCategoriesDate2DateSecond_print = '';
 
     private string|null $tblCategoriesDate3 = null;
     private string $tblCategoriesDate3_print = '';
     private object|null $tblCategoriesDate3DateObj = null;
-    private string|null $tblCategoriesDate3DateYear = null, $tblCategoriesDate3DateDay = null, $tblCategoriesDate3DateMonth = null;
-    private string|null $tblCategoriesDate3DateHour = null, $tblCategoriesDate3DateHour_print = '', $tblCategoriesDate3DateMinute = null, $tblCategoriesDate3DateMinute_print = '', $tblCategoriesDate3DateSecond = null, $tblCategoriesDate3DateSecond_print = '';
+    private string|null $tblCategoriesDate3DateYear = null;
+    private string|null $tblCategoriesDate3DateDay = null;
+    private string|null $tblCategoriesDate3DateMonth = null;
+    private string|null $tblCategoriesDate3DateHour = null;
+    private string $tblCategoriesDate3DateHour_print = '';
+    private string|null $tblCategoriesDate3DateMinute = null;
+    private string $tblCategoriesDate3DateMinute_print = '';
+    private string|null $tblCategoriesDate3DateSecond = null;
+    private string $tblCategoriesDate3DateSecond_print = '';
 
     private string|null $tblCategoriesDate4 = null;
     private string $tblCategoriesDate4_print = '';
     private object|null $tblCategoriesDate4DateObj = null;
-    private string|null $tblCategoriesDate4DateYear = null, $tblCategoriesDate4DateDay = null, $tblCategoriesDate4DateMonth = null;
-    private string|null $tblCategoriesDate4DateHour = null, $tblCategoriesDate4DateHour_print = '', $tblCategoriesDate4DateMinute = null, $tblCategoriesDate4DateMinute_print = '', $tblCategoriesDate4DateSecond = null, $tblCategoriesDate4DateSecond_print = '';
+    private string|null $tblCategoriesDate4DateYear = null;
+    private string|null $tblCategoriesDate4DateDay = null;
+    private string|null $tblCategoriesDate4DateMonth = null;
+    private string|null $tblCategoriesDate4DateHour = null;
+    private string $tblCategoriesDate4DateHour_print = '';
+    private string|null $tblCategoriesDate4DateMinute = null;
+    private string $tblCategoriesDate4DateMinute_print = '';
+    private string|null $tblCategoriesDate4DateSecond = null;
+    private string $tblCategoriesDate4DateSecond_print = '';
 
     private string|null $tblCategoriesDate5 = null;
     private string $tblCategoriesDate5_print = '';
     private object|null $tblCategoriesDate5DateObj = null;
-    private string|null $tblCategoriesDate5DateYear = null, $tblCategoriesDate5DateDay = null, $tblCategoriesDate5DateMonth = null;
-    private string|null $tblCategoriesDate5DateHour = null, $tblCategoriesDate5DateHour_print = '', $tblCategoriesDate5DateMinute = null, $tblCategoriesDate5DateMinute_print = '', $tblCategoriesDate5DateSecond = null, $tblCategoriesDate5DateSecond_print = '';
+    private string|null $tblCategoriesDate5DateYear = null;
+    private string|null $tblCategoriesDate5DateDay = null;
+    private string|null $tblCategoriesDate5DateMonth = null;
+    private string|null $tblCategoriesDate5DateHour = null;
+    private string $tblCategoriesDate5DateHour_print = '';
+    private string|null $tblCategoriesDate5DateMinute = null;
+    private string $tblCategoriesDate5DateMinute_print = '';
+    private string|null $tblCategoriesDate5DateSecond = null;
+    private string $tblCategoriesDate5DateSecond_print = '';
 
     private float $tblCategoriesIdItem1 = 0;
     private float $tblCategoriesIdItem2 = 0;

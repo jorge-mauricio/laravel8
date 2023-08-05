@@ -70,7 +70,8 @@ class ApiUsersUpdateController extends Controller
         $this->arrUsersUpdateParameters['_tblUsersAddressStreet'] = $req->post('address_street');
         $this->arrUsersUpdateParameters['_tblUsersAddressNumber'] = $req->post('address_number');
         $this->arrUsersUpdateParameters['_tblUsersAddressComplement'] = $req->post('address_complement');
-        $this->arrUsersUpdateParameters['_tblUsersNeighborhood'] = $req->post('district');
+        $this->arrUsersUpdateParameters['_tblUsersNeighborhood'] = $req->post('neighborhood');
+        $this->arrUsersUpdateParameters['_tblUsersDistrict'] = $req->post('district');
         $this->arrUsersUpdateParameters['_tblUsersCounty'] = $req->post('county');
         $this->arrUsersUpdateParameters['_tblUsersCity'] = $req->post('city');
         $this->arrUsersUpdateParameters['_tblUsersState'] = $req->post('state');

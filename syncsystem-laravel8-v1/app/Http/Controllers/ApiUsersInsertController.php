@@ -73,7 +73,8 @@ class ApiUsersInsertController extends Controller
         $this->arrUsersInsertParameters['_tblUsersAddressStreet'] = $req->post('address_street');
         $this->arrUsersInsertParameters['_tblUsersAddressNumber'] = $req->post('address_number');
         $this->arrUsersInsertParameters['_tblUsersAddressComplement'] = $req->post('address_complement');
-        $this->arrUsersInsertParameters['_tblUsersNeighborhood'] = $req->post('district');
+        $this->arrUsersInsertParameters['_tblUsersNeighborhood'] = $req->post('neighborhood');
+        $this->arrUsersInsertParameters['_tblUsersDistrict'] = $req->post('district');
         $this->arrUsersInsertParameters['_tblUsersCounty'] = $req->post('county');
         $this->arrUsersInsertParameters['_tblUsersCity'] = $req->post('city');
         $this->arrUsersInsertParameters['_tblUsersState'] = $req->post('state');

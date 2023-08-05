@@ -1957,7 +1957,7 @@ class FunctionsGeneric
                 if ($strTable === config('app.gSystemConfig.configSystemDBTableUsers')) {
                     $arrReturn = config('app.gSystemConfig.configArrUsersImageSize');
                 }
-              }
+            }
         }
 
         return $arrReturn;

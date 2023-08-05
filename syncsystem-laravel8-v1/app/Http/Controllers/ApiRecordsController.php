@@ -200,8 +200,10 @@ class ApiRecordsController extends Controller
                 $valueUpdate = '';
 
                 // Get current value.
-                //$valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($this->arrRecordsPatchParameters['_idRecord'], $GLOBALS['configSystemDBTableCategories'], $this->arrRecordsPatchParameters['_strField']);
-                $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($idRecord, config('app.gSystemConfig.configSystemDBTableCategories'), $strField);
+                // $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($this->arrRecordsPatchParameters['_idRecord'], $GLOBALS['configSystemDBTableCategories'], $this->arrRecordsPatchParameters['_strField']);
+                // $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($idRecord, config('app.gSystemConfig.configSystemDBTableCategories'), $strField);
+                $valueCurrent = \SyncSystemNS\FunctionsDB::genericFieldGet01($idRecord, $strTable, $strField);
+
 
                 // Define update value.
                 if ($valueCurrent === '1') {
