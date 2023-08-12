@@ -123,7 +123,7 @@ Route::post(
     ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendLogin'));
 // **************************************************************************************
 
-// Protected routes.
+// Protected routes (user admin).
 //Route::group(['middleware' => 'setHeaders.token.web'], function () {
     //Route::group(['middleware' => 'auth:sanctum'], function () {
 Route::group(
@@ -172,21 +172,6 @@ Route::group(
         // Admin.
         require_once 'routes-admin-categories.php';
         // ----------------------
-
-        // Admin - Records - DELETE.
-        // TODO: change to system/records
-        // **************************************************************************************
-        //Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
-        //Route::delete('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesDelete'])->name('admin.categories.delete');
-        Route::delete(
-            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') . '/',
-            [
-                AdminRecordsController::class, 'adminRecordsDelete'
-            ]
-        )
-            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendRecords'));
-            // ->name('admin.records.delete');
-        // **************************************************************************************
     }
 );
 //});
@@ -194,7 +179,6 @@ Route::group(
 //     ->name('admin.dashboard')
 //     //->middleware('auth');
 //     ->middleware('auth:sanctum');
-
 
 // Admin - Users - Login.
 // **************************************************************************************
@@ -219,6 +203,7 @@ Route::post(
     ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendLoginUsers'));
 // **************************************************************************************
 
+// Protected routes (user root).
 Route::group(
     [
         'middleware' => ['setHeaders.token.web:' . config('app.gSystemConfig.configCookiePrefixUserRoot'), 'auth:sanctum']
@@ -294,6 +279,34 @@ Route::group(
                 config('app.gSystemConfig.configRouteBackendActionEdit')
             );
             // ->name('admin.categories.update');
+        // **************************************************************************************
+    }
+);
+
+// Protected routes (any logged user).
+Route::group(
+    [
+        'middleware' => [
+            'setHeaders.token.web',
+            // 'setHeaders.token.web:' . config('app.gSystemConfig.configCookiePrefixUserAdmin'),
+            // 'setHeaders.token.web:' . config('app.gSystemConfig.configCookiePrefixUserRoot'),
+            'auth:sanctum'
+        ]
+    ],
+    function () {
+        // Admin - Records - DELETE.
+        // TODO: change to system/records
+        // **************************************************************************************
+        //Route::post('/' . $GLOBALS['configRouteBackend'] . '/' . $GLOBALS['configRouteBackendCategories'] . '/',[AdminCategoriesController::class, 'adminCategoriesInsert'])->name('admin.categories.insert');
+        //Route::delete('/system/categories/',[AdminCategoriesController::class, 'adminCategoriesDelete'])->name('admin.categories.delete');
+        Route::delete(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendRecords') . '/',
+            [
+                AdminRecordsController::class, 'adminRecordsDelete'
+            ]
+        )
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendRecords'));
+            // ->name('admin.records.delete');
         // **************************************************************************************
     }
 );

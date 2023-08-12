@@ -291,8 +291,13 @@ class AdminLoginUsersController extends AdminBaseController
                 $returnURL .= config('app.gSystemConfig.configRouteBackendLoginUsers') . '/';
 
                 // Delete cookies / sessions.
-                if (config('app.gSystemConfig.configUsersAuthenticationStore') === 1) {
+                if (config('app.gSystemConfig.configUsersAuthenticationStore') === SS_AUTHENTICATION_STORE_COOKIE) {
                     \SyncSystemNS\FunctionsCookies::cookieDelete(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserRoot'));
+                }
+
+                // Sanctum authentication.
+                if (config('app.gSystemConfig.configUsersAuthenticationType') === SS_AUTHENTICATION_TYPE_SANCTUM) {
+                    session()->forget(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserRoot') . '_login_token');
                 }
             } else {
                 $returnURL .= config('app.gSystemConfig.configRouteBackendUsers') . '/';
