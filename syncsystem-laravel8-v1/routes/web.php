@@ -121,4 +121,3 @@ require_once 'routes-admin-categories.php';
 // Admin.
 require_once 'routes-admin-users.php';
 // ----------------------
-
