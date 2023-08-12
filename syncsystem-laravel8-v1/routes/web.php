@@ -225,6 +225,17 @@ Route::group(
     ],
     function () {
         // TODO: another middleware for root auth
+        // Admin - Users - Logoff - POST.
+        // **************************************************************************************
+        Route::get(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLogOffUsersRoot') . '/',
+            [
+                AdminLoginUsersController::class, 'adminUsersLogoff'
+            ]
+        )
+            ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendLogOffUsersRoot'));
+        // **************************************************************************************
+
         // Admin - Users - listing - GET.
         // **************************************************************************************
         Route::get(

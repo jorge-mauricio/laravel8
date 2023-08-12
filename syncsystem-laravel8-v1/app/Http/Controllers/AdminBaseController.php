@@ -71,6 +71,7 @@ class AdminBaseController extends Controller
         // Define values.
         $cacheClear = $dateNow->format('YmdHis'); // TODO: create a config option to enable.
         $this->idTbUsersLogged = $this->getLoggedID(config('app.gSystemConfig.configCookiePrefixUserAdmin'));
+        $this->idTbUsersRootLogged = $this->getLoggedID(config('app.gSystemConfig.configCookiePrefixUserRoot'));
 
         // Share between views.
         View::share([
@@ -82,6 +83,9 @@ class AdminBaseController extends Controller
             'messageSuccess' => $messageSuccess,
             'messageError' => $messageError,
             'messageAlert' => $messageAlert,
+
+            'idTbUsersLogged' => $this->idTbUsersLogged,
+            'idTbUsersRootLogged' => $this->idTbUsersRootLogged,
 
             'dateNow' => $dateNow,
             'dateNowDay' => $dateNowDay,
@@ -194,23 +198,49 @@ class AdminBaseController extends Controller
     // **************************************************************************************
     /**
      * Return the decrypted ID from the logged profile.
-     * @param string $verificationType user_admin | user_admin_root
+     * @param string $verificationType configCookiePrefixUserAdmin | configCookiePrefixUserRoot
      * @return ?float
      */
     protected function getLoggedID(string $verificationType): ?float
     {
         $loggedID = null;
 
-        if (config('app.gSystemConfig.configUsersAuthenticationStore') === 1 && $verificationType === 'user_admin') {
-            $loggedID = (float) \SyncSystemNS\FunctionsCrypto::decryptValue(
-                \SyncSystemNS\FunctionsGeneric::contentMaskRead(
-                    \SyncSystemNS\FunctionsCookies::cookieRead(
-                        config('app.gSystemConfig.configCookiePrefix') . '_' . $verificationType
+        if (config('app.gSystemConfig.configUsersAuthenticationStore') === SS_AUTHENTICATION_STORE_COOKIE) {
+            // User root.
+            if (
+                $verificationType === config('app.gSystemConfig.configCookiePrefixUserRoot') &&
+                \SyncSystemNS\FunctionsCookies::cookieRead(
+                    config('app.gSystemConfig.configCookiePrefix') . '_' . $verificationType
+                ) !== ''
+            ) {
+                $loggedID = (float) \SyncSystemNS\FunctionsCrypto::decryptValue(
+                    \SyncSystemNS\FunctionsGeneric::contentMaskRead(
+                        \SyncSystemNS\FunctionsCookies::cookieRead(
+                            config('app.gSystemConfig.configCookiePrefix') . '_' . $verificationType
+                        ),
+                        'cookie'
                     ),
-                    'cookie'
-                ),
-                SS_ENCRYPT_METHOD_DATA
-            );
+                    SS_ENCRYPT_METHOD_DATA
+                );
+            }
+
+            // User admin.
+            if (
+                $verificationType === config('app.gSystemConfig.configCookiePrefixUserAdmin') &&
+                \SyncSystemNS\FunctionsCookies::cookieRead(
+                    config('app.gSystemConfig.configCookiePrefix') . '_' . $verificationType
+                ) !== ''
+            ) {
+                $loggedID = (float) \SyncSystemNS\FunctionsCrypto::decryptValue(
+                    \SyncSystemNS\FunctionsGeneric::contentMaskRead(
+                        \SyncSystemNS\FunctionsCookies::cookieRead(
+                            config('app.gSystemConfig.configCookiePrefix') . '_' . $verificationType
+                        ),
+                        'cookie'
+                    ),
+                    SS_ENCRYPT_METHOD_DATA
+                );
+            }
         }
 
         return $loggedID;

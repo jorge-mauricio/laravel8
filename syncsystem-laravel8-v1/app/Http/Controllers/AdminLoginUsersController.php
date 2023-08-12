@@ -238,4 +238,91 @@ class AdminLoginUsersController extends AdminBaseController
         }
     }
     // **************************************************************************************
+
+    // Admin users logoff (delete cookies / sessions / tokens).
+    // **************************************************************************************
+    /**
+     * Admin users logoff (delete cookies / sessions / tokens).
+     * @param Request $req
+     * @param Response $req
+     * @return RedirectResponse
+     */
+    public function adminUsersLogoff(Request $req, Response $res): RedirectResponse | Response
+    {
+        // Variables.
+        // ----------------------
+        $returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/'; // TODO: review
+        $apiAuthenticationDeleteResponse = null;
+        $arrAuthenticationDeleteJson = null;
+
+        $idTbUsersRootLogged = null;
+        $idTbUsersRootLoggedCrypt = null;
+        // ----------------------
+
+        // Logic.
+        try {
+            // Define values.
+            // TODO: check which variable contains data to redirect to the right page (user / root).
+            $idTbUsersRootLogged = $this->idTbUsersRootLogged;
+            $idTbUsersRootLoggedCrypt = \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite((string) $idTbUsersRootLogged, 'db_write_text'), SS_ENCRYPT_METHOD_DATA);
+                // TODO: encrypt
+
+            // API call.
+            // TODO: evaluate getting token data from header
+            $apiAuthenticationDeleteResponse = Http::withOptions(['verify' => false])
+                ->delete(
+                    // env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+                    array_merge(
+                        [
+                            // 'idTbUsers' => $idTbUsersRootLogged,
+                            'idTbUsersRootLoggedCrypt' => $idTbUsersRootLoggedCrypt,
+                            // 'verificationType' => 'user_root', // Changed from user_backend
+                            'verificationType' => config('app.gSystemConfig.configCookiePrefixUserRoot'),
+                            // 'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
+                        ],
+                        $req->all()
+                    )
+                );
+            $arrAuthenticationDeleteJson = $apiAuthenticationDeleteResponse->json();
+
+            if ($arrAuthenticationDeleteJson['returnStatus'] === true) {
+                $returnURL .= config('app.gSystemConfig.configRouteBackendLoginUsers') . '/';
+
+                // Delete cookies / sessions.
+                if (config('app.gSystemConfig.configUsersAuthenticationStore') === 1) {
+                    \SyncSystemNS\FunctionsCookies::cookieDelete(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserRoot'));
+                }
+            } else {
+                $returnURL .= config('app.gSystemConfig.configRouteBackendUsers') . '/';
+            }
+
+            // Debug.
+            // echo 'arrAuthenticationDeleteJson=<pre>';
+            // var_dump($arrAuthenticationDeleteJson);
+            // echo '</pre><br />';
+
+            // echo '_COOKIE=<pre>';
+            // var_dump($_COOKIE);
+            // echo '</pre><br />';
+            // exit();
+        } catch (\Exception $adminUsersLogoffError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('adminUsersLogoffError: ' . $adminUsersLogoffError->getMessage());
+            }
+        } finally {
+            //
+        }
+
+        // Redirect.
+        if ($arrAuthenticationDeleteJson['returnStatus'] === true) {
+            return redirect($returnURL)
+                ->with('messageSuccess', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageLogin2'));
+        } else {
+            return redirect($returnURL)
+                ->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI1e'));
+        }
+    }
+    // **************************************************************************************
 }

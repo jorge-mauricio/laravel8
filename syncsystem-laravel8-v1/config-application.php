@@ -307,7 +307,7 @@ $gSystemConfig['configRouteBackendLogin'] = 'login';
 $gSystemConfig['configRouteBackendLogOff'] = 'logoff'; // TODO: change to logoff.
 $gSystemConfig['configRouteBackendLoginUsers'] = 'login-users';
 // $configRouteBackendLogOffUsers = "logoff-users";
-$gSystemConfig['configRouteBackendLogOffUsersRoot'] = 'logoff-users-root'; // TODO: change to logoff.
+$gSystemConfig['configRouteBackendLogOffUsersRoot'] = 'logoff-users-root'; // TODO: change to logoff. // TODO: change to something like: users/logoff
 $gSystemConfig['configRouteBackendDashboard'] = 'dashboard'; // main
 
 $gSystemConfig['configRouteBackendActionEdit'] = 'edit';

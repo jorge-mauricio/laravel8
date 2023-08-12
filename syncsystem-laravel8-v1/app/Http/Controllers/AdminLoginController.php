@@ -292,7 +292,8 @@ class AdminLoginController extends AdminBaseController
                         [
                             // 'idTbUsers' => $idTbUsersLogged,
                             'idTbUsersLoggedCrypt' => $idTbUsersLoggedCrypt,
-                            'verificationType' => 'user_admin', // Changed from user_backend
+                            // 'verificationType' => 'user_admin', // Changed from user_backend
+                            'verificationType' => config('app.gSystemConfig.configCookiePrefixUserAdmin'),
                             // 'apiKey' => env('CONFIG_API_KEY_SYSTEM'),
                             'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
                         ],

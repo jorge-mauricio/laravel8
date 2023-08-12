@@ -403,6 +403,7 @@ class ApiAuthenticationController extends Controller
         // Define values.
         // ----------------------
         $tblUsersIDCrypt = $req->post('idTbUsersLoggedCrypt');
+        $idTbUsersRootLoggedCrypt = $req->post('idTbUsersRootLoggedCrypt');
 
         $actionType = $req->post('actionType');
         $verificationType = $req->post('verificationType');
@@ -412,8 +413,30 @@ class ApiAuthenticationController extends Controller
         try {
             // User - Admin
             // ----------------------
-            if ($verificationType === 'user_admin') {
+            if ($verificationType === config('app.gSystemConfig.configCookiePrefixUserAdmin')) {
                 $tblUsersID = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($tblUsersIDCrypt, 'db'), SS_ENCRYPT_METHOD_DATA);
+
+                // Parameters build.
+                $arrRecordSearchParameters = ['id;' . $tblUsersID . ';i'];
+                $oudRecordParameters = [
+                    '_arrSearchParameters' => $arrRecordSearchParameters,
+                    '_idTbUsers' => $tblUsersID,
+                    '_terminal' => $this->terminal,
+                    '_arrSpecialParameters' => ['returnType' => 1],
+                ];
+
+                // Model method (Sanctum).
+                $oudRecord = new UsersDetails($oudRecordParameters);
+                $oudRecordData = $oudRecord->cphBodyBuild();
+                $authenticationDeleteResult = $oudRecord->tokens()->where('tokenable_id', $tblUsersID)->where('name', $verificationType)->delete();
+
+                if ($authenticationDeleteResult > 0) {
+                    $arrReturn['returnStatus'] = true;
+                }
+            }
+
+            if ($verificationType === config('app.gSystemConfig.configCookiePrefixUserRoot')) {
+                $tblUsersID = \SyncSystemNS\FunctionsCrypto::decryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskRead($idTbUsersRootLoggedCrypt, 'db'), SS_ENCRYPT_METHOD_DATA);
 
                 // Parameters build.
                 $arrRecordSearchParameters = ['id;' . $tblUsersID . ';i'];

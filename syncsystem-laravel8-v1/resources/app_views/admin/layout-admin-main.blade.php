@@ -1,3 +1,12 @@
+@php
+    // TODO: condition with
+    /*
+    $tblUsersIDLogged = '';
+    $tblUsersRootIDLogged = '';
+    echo 'user admin=' . \SyncSystemNS\FunctionsCookies::cookieRead(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserAdmin')) . '<br />';
+    echo 'user root=' . \SyncSystemNS\FunctionsCookies::cookieRead(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserRoot')) . '<br />';
+    */
+@endphp
 <!DOCTYPE html>
 <html lang="en-us">{{-- en | en-us --}}
     <head>
@@ -78,6 +87,16 @@
 		</style>
     </head>
     <body>
+    @php
+        // Debug.
+        // echo 'idTbUsersLogged=';
+        // var_dump($idTbUsersLogged);
+        // echo '<br />';
+
+        // echo 'idTbUsersRootLogged=';
+        // var_dump($idTbUsersRootLogged);
+        // echo '<br />';
+    @endphp
         <div id="containerMain" style="position: relative; display: flex; flex-direction: column; min-height: 100vh;">
             <header style="position: relative; display: block; overflow: hidden;">
                 <div style="position: relative; display: block; height: 20px; background-color: #6c7880; overflow: hidden;">
@@ -127,21 +146,13 @@
 
                     <nav style="position: relative; display: block; padding-top: 20px; margin-left: 37px; z-index: 1;">
                         <ul class="ss-backend-menu-ul01">
-                            <li class="ss-backend-menu-li01">
-                                <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendCategories') . '/0' }}"
-                                    class="ss-backend-menu-link"
-                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStartToolTip'); ?>">
-                                        <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStart'); ?>
-                                </a>
-                            </li>
-
-                            {{-- <%# User - Root.%> --}}
-                            {{-- <% if(additionalData.cookiesData[gSystemConfig.configCookiePrefix + "_" + gSystemConfig.configCookiePrefixUserRoot]){ %> --}}
+                            {{-- User - Admin. --}}
+                            @if ($idTbUsersLogged)
                                 <li class="ss-backend-menu-li01">
-                                    <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/123' /* TODO: substitute with the id */ }}"
+                                    <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendCategories') . '/0' }}"
                                         class="ss-backend-menu-link"
-                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersPasswordEditToolTip'); ?>">
-                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersPasswordEdit'); ?>
+                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStartToolTip'); ?>">
+                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStart'); ?>
                                     </a>
                                 </li>
 
@@ -152,7 +163,26 @@
                                             <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersLogOff'); ?>
                                     </a>
                                 </li>
-                            {{-- <% } %> --}}
+                            @endif
+
+                            {{-- User - Root. --}}
+                            @if ($idTbUsersRootLogged)
+                                <li class="ss-backend-menu-li01">
+                                    <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendUsers') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/' . $idTbUsersRootLogged }}"
+                                        class="ss-backend-menu-link"
+                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersPasswordEditToolTip'); ?>">
+                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersPasswordEdit'); ?>
+                                    </a>
+                                </li>
+
+                                <li class="ss-backend-menu-li01">
+                                    <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLogOffUsersRoot') . '/' }}"
+                                        class="ss-backend-menu-link"
+                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuLogUsersOffToolTip'); ?>">
+                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersLogOff'); ?>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </nav>
 
