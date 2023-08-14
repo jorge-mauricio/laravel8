@@ -311,6 +311,7 @@ class AdminLoginController extends AdminBaseController
                 // Sanctum authentication.
                 if (config('app.gSystemConfig.configUsersAuthenticationType') === SS_AUTHENTICATION_TYPE_SANCTUM) {
                     session()->forget(config('app.gSystemConfig.configCookiePrefix') . '_' . config('app.gSystemConfig.configCookiePrefixUserAdmin') . '_login_token');
+                    session()->flush();
                 }
             } else {
                 $returnURL .= config('app.gSystemConfig.configRouteBackendDashboard') . '/';

@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+
+class {{ class }} extends AdminBaseController
+{
+    // Constructor.
+    // **************************************************************************************
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+    // **************************************************************************************
+}

@@ -68,6 +68,8 @@
 		http://localhost:8000/system/users/0
 
 		http://localhost:8000/system/login-users/
+			- root
+			- system
 
 
 			- note: when debugging secure routes, better to clear caches:
@@ -81,6 +83,10 @@ php artisan view:clear
 php artisan cache:clear
 php artisan config:cache
 php artisan config:clear
+
+	- custom stubs:
+		- Admin Controller:
+			- terminal: php artisan make:controller --type=admin AdminFiltersGenericController
 
 
 

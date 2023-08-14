@@ -116,6 +116,12 @@ require_once 'routes-admin-login-users.php';
 require_once 'routes-admin-categories.php';
 // ----------------------
 
+// Filters Generic - import from external routes file.
+// ----------------------
+// Admin.
+require_once 'routes-admin-filters-generic.php';
+// ----------------------
+
 // Users - import from external routes file.
 // ----------------------
 // Admin.

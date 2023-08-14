@@ -640,7 +640,7 @@ $gSystemConfig['enableCategoriesMetaTitle'] = 1; // 0 - disable | 1 - enable
 // Pagination.
 $gSystemConfig['enableCategoriesBackendPagination'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableCategoriesBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
-$gSystemConfig['configCategoriesBackendPaginationNRecords'] = 1000;
+$gSystemConfig['configCategoriesBackendPaginationNRecords'] = 20;
 
 // Resources.
 $gSystemConfig['enableCategoriesImages'] = 1; // 0 - disable | 1 - enable
@@ -681,7 +681,7 @@ $gSystemConfig['configCategoriesBindRegister5IDReference'] = 3892; // category I
 $gSystemConfig['configCategoriesBindRegister5Sort'] = 'name'; // options: name | name_first | name_last | name_company | date_register esc | date_register desc | sort_order
 // ----------------------
 
-// Optioinal fields (field titles in the language configuration file).
+// Optional fields (field titles in the language configuration file).
 // ----------------------
 // Generic filters.
 $gSystemConfig['enableCategoriesFilterGeneric1'] = 1; // 0 - disable | 1 - checkbox | 2 - listbox | 3 - dropdown | 4 - radio
@@ -877,7 +877,7 @@ $gSystemConfig['enableFilesBackendPagination'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableFilesBackendPaginationNumbering'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configFilesBackendPaginationNRecords'] = 15;
 
-// Optioinal fields (field titles in the language configuration file).
+// Optional fields (field titles in the language configuration file).
 // Big information fields.
 $gSystemConfig['enableFilesInfo1'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['configFilesInfo1FieldType'] = 12; // 1 - single line | 2 - multiline | 11 - single (encrypted) | 12 - multiline (encrypted)

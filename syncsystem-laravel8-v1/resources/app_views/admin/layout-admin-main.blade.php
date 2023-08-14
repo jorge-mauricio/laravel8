@@ -149,20 +149,70 @@
                             {{-- User - Admin. --}}
                             @if ($idTbUsersLogged)
                                 <li class="ss-backend-menu-li01">
-                                    <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendCategories') . '/0' }}"
+                                    <a
+                                        href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendCategories') . '/0' }}"
                                         class="ss-backend-menu-link"
-                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStartToolTip'); ?>">
-                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStart'); ?>
+                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStartToolTip'); ?>"
+                                    >
+                                        <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuStart'); ?>
                                     </a>
                                 </li>
 
                                 <li class="ss-backend-menu-li01">
-                                    <a href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLogOff') . '/' }}"
+                                    <a
+                                        href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendLogOff') . '/' }}"
                                         class="ss-backend-menu-link"
-                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuLogUsersOffToolTip'); ?>">
-                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersLogOff'); ?>
+                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuLogUsersOffToolTip'); ?>"
+                                    >
+                                        <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuUsersLogOff'); ?>
                                     </a>
                                 </li>
+
+                                @if (config('app.gSystemConfig.enableBackendSearch') === 1)
+                                    <li class="ss-backend-menu-li01">
+                                        <a
+                                            href="#"
+                                            class="ss-backend-menu-link"
+                                            title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuSearchToolTip'); ?>"
+                                        >
+                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuSearch'); ?>
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if (config('app.gSystemConfig.enableBackendMaintenanceCategories') === 1)
+                                    <li class="ss-backend-menu-li01">
+                                        <a
+                                            onclick="htmlGenericStyle01('divSubmenuCategoriesFiltersGeneric', 'display', 'block');"
+                                            title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuCategoriesMaintenanceToolTip'); ?>"
+                                            class="ss-backend-menu-link"
+                                        >
+                                            <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendMenuCategoriesMaintenance'); ?>
+                                        </a>
+                                        {{-- TODO: double-check layout margin indent. --}}
+                                        <div id="divSubmenuCategoriesFiltersGeneric" style="position: relative; display: none; margin-left: 20px;">
+                                            @if (config('app.gSystemConfig.enableCategoriesStatus') === 1)
+                                                <a
+                                                    href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/?tableName=' . config('app.gSystemConfig.configSystemDBTableCategories') . '&filterIndex=2' }}"
+                                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesStatus'); ?>"
+                                                    class="ss-backend-menu-link"
+                                                >
+                                                    - <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesStatus'); ?>
+                                                </a>
+                                            @endif
+
+                                            @if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') !== 0)
+                                                <a
+                                                    href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/?tableName=' . config('app.gSystemConfig.configSystemDBTableCategories') . '&filterIndex=101' }}"
+                                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesFilterGeneric1'); ?>"
+                                                    class="ss-backend-menu-link"
+                                                >
+                                                    - <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesFilterGeneric1'); ?>
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endif
                             @endif
 
                             {{-- User - Root. --}}
