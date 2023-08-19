@@ -139,7 +139,6 @@ class ApiCategoriesListingController extends Controller
                 ],
             ];
 
-
             // Parameters build - listing.
             array_push($this->arrSearchParameters, 'id_parent;' . $this->idTbCategories . ';i'); // 781
             // array_push($this->arrSearchParameters, 'activation;0;i'); // debug / test

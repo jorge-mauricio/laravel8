@@ -69,7 +69,7 @@ class AdminFiltersGenericController extends AdminBaseController
 
         // Logic.
         try {
-            /*
+            /**/
             $apiFiltersGenericListingCurrentResponse = Http::withOptions(['verify' => false])
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' .
@@ -143,17 +143,15 @@ class AdminFiltersGenericController extends AdminBaseController
                 unset($this->templateData['cphBody']['arrFiltersGenericListing']['returnStatus']); // Clean extra data.
 
                 // TODO: pass _pagingTotalRecords and _pagingTotal values
-                if (config('app.gSystemConfig.enableFiltersGenericBackendPagination') === 1) {
-                    $this->templateData['_pagingTotalRecords'] = $this->arrFiltersGenericListingJson['_pagingTotalRecords'];
-                }
+                // if (config('app.gSystemConfig.enableFiltersGenericBackendPagination') === 1) {
+                    // $this->templateData['_pagingTotalRecords'] = $this->arrFiltersGenericListingJson['_pagingTotalRecords'];
+                // }
             }
-
 
             // Debug.
             // return 'admin categories listing (controller) idTbCategories = ' . $idTbCategories;
             // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
-            */
         } catch (\Exception $adminFiltersGenericListingError) {
             if (config('app.gSystemConfig.configDebug') === true) {
                 throw new \Error('adminFiltersGenericListingError: ' . $adminFiltersGenericListingError->getMessage());

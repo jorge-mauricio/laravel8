@@ -28,7 +28,7 @@ class ObjectCategoriesListing
         // Define values.
         // ----------------------
         $this->arrSearchParameters = array_key_exists('_arrSearchParameters', $arrParameters) ? $arrParameters['_arrSearchParameters'] : [];
-        $this->configSortOrder = array_key_exists('_configSortOrder', $arrParameters) ? $arrParameters['_configSortOrder'] : $GLOBALS['configCategoriesSort'];
+        $this->configSortOrder = array_key_exists('_configSortOrder', $arrParameters) ? $arrParameters['_configSortOrder'] : config('app.gSystemConfig.configCategoriesSort');
         $this->strNRecords = array_key_exists('_strNRecords', $arrParameters) ? $arrParameters['_strNRecords'] : '';
         $this->arrSpecialParameters = array_key_exists('_arrSpecialParameters', $arrParameters) ? $arrParameters['_arrSpecialParameters'] : [];
         // ----------------------

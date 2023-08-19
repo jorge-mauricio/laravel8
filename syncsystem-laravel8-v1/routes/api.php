@@ -46,6 +46,12 @@ require_once 'routes-api-authentication.php';
 require_once 'routes-api-categories.php';
 // ----------------------
 
+// Categories - import from external routes file.
+// ----------------------
+// API.
+require_once 'routes-api-filters-generic.php';
+// ----------------------
+
 // Users - import from external routes file.
 // ----------------------
 // API.

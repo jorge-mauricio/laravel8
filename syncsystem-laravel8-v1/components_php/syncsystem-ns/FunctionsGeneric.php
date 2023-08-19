@@ -1752,59 +1752,59 @@ class FunctionsGeneric
         }
         }
         // ----------------------
-
+        */
         // Filters generic.
         // ----------------------
         // if(strTable == "filters_generic")
-        if (strTable == gSystemConfig.configSystemDBTableFiltersGeneric) {
-        if (buildType == 'all') {
-            arrTableFieldsQueryBuild = ['id'];
-            gSystemConfig.enableFiltersGenericSortOrder == 1 ? arrTableFieldsQueryBuild.push('sort_order') : '';
-            arrTableFieldsQueryBuild.push('date_creation', 'date_edit', 'filter_index', 'table_name', 'title');
-            gSystemConfig.enableFiltersGenericDescription == 1 ? arrTableFieldsQueryBuild.push('description') : '';
-            gSystemConfig.configFiltersGenericURLAlias == 1 ? arrTableFieldsQueryBuild.push('url_alias') : '';
-            gSystemConfig.enableFiltersGenericKeywordsTags == 1 ? arrTableFieldsQueryBuild.push('keywords_tags') : '';
-            gSystemConfig.enableFiltersGenericMetaDescription == 1 ? arrTableFieldsQueryBuild.push('meta_description') : '';
-            gSystemConfig.enableFiltersGenericMetaTitle == 1 ? arrTableFieldsQueryBuild.push('meta_title') : '';
-            arrTableFieldsQueryBuild.push('meta_info');
-            gSystemConfig.enableFiltersGenericInfoS1 == 1 ? arrTableFieldsQueryBuild.push('info_small1') : '';
-            gSystemConfig.enableFiltersGenericInfoS2 == 1 ? arrTableFieldsQueryBuild.push('info_small2') : '';
-            gSystemConfig.enableFiltersGenericInfoS3 == 1 ? arrTableFieldsQueryBuild.push('info_small3') : '';
-            gSystemConfig.enableFiltersGenericInfoS4 == 1 ? arrTableFieldsQueryBuild.push('info_small4') : '';
-            gSystemConfig.enableFiltersGenericInfoS5 == 1 ? arrTableFieldsQueryBuild.push('info_small5') : '';
-            gSystemConfig.enableFiltersGenericNumberS1 == 1 ? arrTableFieldsQueryBuild.push('number_small1') : '';
-            gSystemConfig.enableFiltersGenericNumberS2 == 1 ? arrTableFieldsQueryBuild.push('number_small2') : '';
-            gSystemConfig.enableFiltersGenericNumberS3 == 1 ? arrTableFieldsQueryBuild.push('number_small3') : '';
-            gSystemConfig.enableFiltersGenericNumberS4 == 1 ? arrTableFieldsQueryBuild.push('number_small4') : '';
-            gSystemConfig.enableFiltersGenericNumberS5 == 1 ? arrTableFieldsQueryBuild.push('number_small5') : '';
-            gSystemConfig.enableFiltersGenericImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
-            gSystemConfig.enableFiltersGenericConfigSelection == 1 ? arrTableFieldsQueryBuild.push('config_selection') : '';
-            arrTableFieldsQueryBuild.push('activation');
-            gSystemConfig.enableFiltersGenericActivation1 == 1 ? arrTableFieldsQueryBuild.push('activation1') : '';
-            gSystemConfig.enableFiltersGenericActivation2 == 1 ? arrTableFieldsQueryBuild.push('activation2') : '';
-            gSystemConfig.enableFiltersGenericActivation3 == 1 ? arrTableFieldsQueryBuild.push('activation3') : '';
-            gSystemConfig.enableFiltersGenericActivation4 == 1 ? arrTableFieldsQueryBuild.push('activation4') : '';
-            gSystemConfig.enableFiltersGenericActivation5 == 1 ? arrTableFieldsQueryBuild.push('activation5') : '';
-            gSystemConfig.enableFiltersGenericNotes == 1 ? arrTableFieldsQueryBuild.push('notes') : '';
-        }
+        if ($strTable === config('app.gSystemConfig.configSystemDBTableFiltersGeneric')) {
+            if ($buildType === 'all') {
+                $arrTableFieldsQueryBuild = ['id'];
+                config('app.gSystemConfig.enableFiltersGenericSortOrder') === 1 ? array_push($arrTableFieldsQueryBuild, 'sort_order') : '';
+                array_push($arrTableFieldsQueryBuild, 'date_creation', 'date_edit', 'filter_index', 'table_name', 'title');
+                config('app.gSystemConfig.enableFiltersGenericDescription') === 1 ? array_push($arrTableFieldsQueryBuild, 'description') : '';
+                config('app.gSystemConfig.configFiltersGenericURLAlias') === 1 ? array_push($arrTableFieldsQueryBuild, 'url_alias') : '';
+                config('app.gSystemConfig.enableFiltersGenericKeywordsTags') === 1 ? array_push($arrTableFieldsQueryBuild, 'keywords_tags') : '';
+                config('app.gSystemConfig.enableFiltersGenericMetaDescription') === 1 ? array_push($arrTableFieldsQueryBuild, 'meta_description') : '';
+                config('app.gSystemConfig.enableFiltersGenericMetaTitle') === 1 ? array_push($arrTableFieldsQueryBuild, 'meta_title') : '';
+                array_push($arrTableFieldsQueryBuild, 'meta_info');
+                config('app.gSystemConfig.enableFiltersGenericInfoS1') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small1') : '';
+                config('app.gSystemConfig.enableFiltersGenericInfoS2') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small2') : '';
+                config('app.gSystemConfig.enableFiltersGenericInfoS3') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small3') : '';
+                config('app.gSystemConfig.enableFiltersGenericInfoS4') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small4') : '';
+                config('app.gSystemConfig.enableFiltersGenericInfoS5') === 1 ? array_push($arrTableFieldsQueryBuild, 'info_small5') : '';
+                config('app.gSystemConfig.enableFiltersGenericNumberS1') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small1') : '';
+                config('app.gSystemConfig.enableFiltersGenericNumberS2') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small2') : '';
+                config('app.gSystemConfig.enableFiltersGenericNumberS3') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small3') : '';
+                config('app.gSystemConfig.enableFiltersGenericNumberS4') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small4') : '';
+                config('app.gSystemConfig.enableFiltersGenericNumberS5') === 1 ? array_push($arrTableFieldsQueryBuild, 'number_small5') : '';
+                config('app.gSystemConfig.enableFiltersGenericImageMain') === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+                config('app.gSystemConfig.enableFiltersGenericConfigSelection') === 1 ? array_push($arrTableFieldsQueryBuild, 'config_selection') : '';
+                array_push($arrTableFieldsQueryBuild, 'activation');
+                config('app.gSystemConfig.enableFiltersGenericActivation1') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation1') : '';
+                config('app.gSystemConfig.enableFiltersGenericActivation2') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation2') : '';
+                config('app.gSystemConfig.enableFiltersGenericActivation3') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation3') : '';
+                config('app.gSystemConfig.enableFiltersGenericActivation4') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation4') : '';
+                config('app.gSystemConfig.enableFiltersGenericActivation5') === 1 ? array_push($arrTableFieldsQueryBuild, 'activation5') : '';
+                config('app.gSystemConfig.enableFiltersGenericNotes') === 1 ? array_push($arrTableFieldsQueryBuild, 'notes') : '';
+            }
 
-        // File fields.
-        if (buildType == 'files') {
-            gSystemConfig.enableFiltersGenericImageMain == 1 ? arrTableFieldsQueryBuild.push('image_main') : '';
-        }
+            // File fields.
+            if ($buildType === 'files') {
+                config('app.gSystemConfig.enableFiltersGenericImageMain') === 1 ? array_push($arrTableFieldsQueryBuild, 'image_main') : '';
+            }
         }
         // ----------------------
 
         // Filters generic binding.
         // ----------------------
         // if(strTable == "filters_generic_binding")
-        if (strTable == gSystemConfig.configSystemDBTableFiltersGenericBinding) {
-        if (buildType == 'all') {
-            arrTableFieldsQueryBuild = ['id', 'sort_order', 'date_creation', 'date_edit', 'id_filters_generic', 'id_filter_index', 'id_record', 'notes'];
-        }
+        if ($strTable === config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding')) {
+            if ($buildType === 'all') {
+                $arrTableFieldsQueryBuild = ['id', 'sort_order', 'date_creation', 'date_edit', 'id_filters_generic', 'id_filter_index', 'id_record', 'notes'];
+            }
         }
         // ----------------------
-        */
+
         // Users.
         // ----------------------
         if ($strTable === config('app.gSystemConfig.configSystemDBTableUsers')) {

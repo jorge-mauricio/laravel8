@@ -17,7 +17,7 @@
     }
 
     $titleCurrent = $templateData['cphTitleCurrent'];
-    $arrCategoriesDetails = $templateData['cphBody']['arrCategoriesDetails'];
+    $arrCategoriesDetails = $templateData['cphBody']['arrCategoriesDetails']; // TODO: evaluate casting as object
     $arrCategoriesListing = $templateData['cphBody']['arrCategoriesListing'];
 
     // Meta title.
