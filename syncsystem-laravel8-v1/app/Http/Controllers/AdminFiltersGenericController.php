@@ -89,23 +89,23 @@ class AdminFiltersGenericController extends AdminBaseController
             $this->arrFiltersGenericListingJson = $apiFiltersGenericListingCurrentResponse->json();
 
             // Debug.
-            // dd($apiCategoriesListingCurrentResponse);
-            // echo 'apiCategoriesListingCurrentResponse=<pre>';
-            // var_dump($apiCategoriesListingCurrentResponse);
+            // dd($apiFiltersGenericListingCurrentResponse);
+            // echo 'apiFiltersGenericListingCurrentResponse=<pre>';
+            // var_dump($apiFiltersGenericListingCurrentResponse);
             // echo '</pre>';
 
-            // echo 'apiCategoriesListingCurrentResponse->json()=<pre>';
-            // var_dump($apiCategoriesListingCurrentResponse->json());
+            // echo 'apiFiltersGenericListingCurrentResponse->json()=<pre>';
+            // var_dump($apiFiltersGenericListingCurrentResponse->json());
             // echo '</pre>';
 
-            //echo 'arrCategoriesListingJson=<pre>';
-            //var_dump($arrCategoriesListingJson);
+            //echo 'arrFiltersGenericListingJson=<pre>';
+            //var_dump($arrFiltersGenericListingJson);
             //echo '</pre>';
 
             //exit();
 
-            // echo '$this->arrCategoriesListingJson[returnStatus]=<pre>';
-            // var_dump($this->arrCategoriesListingJson['returnStatus']);
+            // echo '$this->arrFiltersGenericListingJson[returnStatus]=<pre>';
+            // var_dump($this->arrFiltersGenericListingJson['returnStatus']);
             // echo '</pre>';
 
 
@@ -121,8 +121,8 @@ class AdminFiltersGenericController extends AdminBaseController
 
                 // Title - current - content place holder.
                 $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericTitleMain');
-                if ($this->tableName === config('app.gSystemConfig.configSystemDBTableCategories')) {
-                    $this->templateData['cphTitleCurrent'] .= ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesTitleMain');
+                if ($this->tableName === config('app.gSystemConfig.configSystemDBTableFiltersGeneric')) {
+                    $this->templateData['cphTitleCurrent'] .= ' - ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericTitleMain');
                 }
 
                 // Title - content place holder.
@@ -133,8 +133,8 @@ class AdminFiltersGenericController extends AdminBaseController
 
                 // Body - content place holder.
                 // TODO: build content object.
-                // $this->templateData['cphBody'] = 'idTbCategories = ' . $idParentCategories;
-                // $this->templateData['cphBody'] = '_idParentCategories = ' . $_idParentCategories; // debug
+                // $this->templateData['cphBody'] = 'idTbFiltersGeneric = ' . $idParentFiltersGeneric;
+                // $this->templateData['cphBody'] = '_idParentFiltersGeneric = ' . $_idParentFiltersGeneric; // debug
 
                 //$this->templateData['cphBody'] = 'partial-layout-admin-categories-listing';
                 //NOTE: maybe change to dots in the blade layout to get the partial directly
@@ -149,8 +149,8 @@ class AdminFiltersGenericController extends AdminBaseController
             }
 
             // Debug.
-            // return 'admin categories listing (controller) idTbCategories = ' . $idTbCategories;
-            // $this->templateData['cphBody'] = $apiCategoriesListingCurrentResponse;
+            // return 'admin categories listing (controller) idTbFiltersGeneric = ' . $idTbFiltersGeneric;
+            // $this->templateData['cphBody'] = $apiFiltersGenericListingCurrentResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
         } catch (\Exception $adminFiltersGenericListingError) {
             if (config('app.gSystemConfig.configDebug') === true) {
@@ -219,15 +219,11 @@ class AdminFiltersGenericController extends AdminBaseController
                         $req->all()
                     ) // ...$req->all() (splat only works on php 8.1 and up)
                 );
-            // Note: images can be sent through Http, but needs another architecture.
-            // ref: https://stackoverflow.com/questions/63897164/laravel-http-client-how-to-send-file
-            // ref: https://laracasts.com/discuss/channels/laravel/sending-uploaded-file-to-external-api-using-the-http-client
             $arrFiltersGenericInsertJson = $apiFiltersGenericInsertResponse->json();
 
             // Files upload (in frontend server).
             $resultsFunctionsFiles = null;
             $formfileFieldsReference = null;
-            //$formfileFieldsReference = [];
             $tblFiltersGenericID = $arrFiltersGenericInsertJson['idRecordInsert'];
 
             // Build file fields references.
@@ -327,44 +323,6 @@ class AdminFiltersGenericController extends AdminBaseController
             //var_dump($req->all());
             //echo '</pre><br />';
 
-            //echo 'tblFiltersGenericID=' . $tblFiltersGenericID . '<br />';
-            //echo 'tblFiltersGenericIdParent=' . $tblFiltersGenericIdParent . '<br />';
-            //echo 'tblFiltersGenericSortOrder=' . $tblFiltersGenericSortOrder . '<br />';
-            //echo 'tblFiltersGenericCategoryType=' . $tblFiltersGenericCategoryType . '<br />';
-
-            //echo 'idParentFiltersGeneric=' . $this->idParentFiltersGeneric . '<br />';
-            //echo 'pageNumber=' . $this->pageNumber . '<br />';
-            //echo 'masterPageSelect=' . $this->masterPageSelect . '<br />';
-
-            //echo 'image_main=<pre>';
-            //var_dump($req->file('image_main'));
-            // '</pre><br />';
-
-            //echo 'originalFileName=<pre>';
-            //var_dump($formfileFieldsReference['image_main']['originalFileName']);
-            //echo '</pre><br />';
-
-            //echo 'temporaryFilePath=<pre>';
-            //var_dump($formfileFieldsReference['image_main']['temporaryFilePath']);
-            //echo '</pre><br />';
-
-            //echo 'configDirectoryFilesUpload=<pre>';
-            //var_dump($GLOBALS['configDirectoryFilesUpload']);
-            //echo '</pre><br />';
-
-            //echo 'configDirectoryFilesUpload=<pre>';
-            //var_dump($GLOBALS['configDirectoryFilesUpload']);
-            //echo '</pre><br />';
-
-            //echo 'resultsFunctionsFiles=<pre>';
-            //var_dump($resultsFunctionsFiles);
-            //echo '</pre><br />';
-            /*
-            echo 'tblFiltersGenericImageMain=<pre>';
-            var_dump($tblFiltersGenericImageMain);
-            echo '</pre><br />';
-            */
-
             //exit();
         } catch (\Exception $adminFiltersGenericInsertError) {
             if (config('app.gSystemConfig.configDebug') === true) {
@@ -380,6 +338,76 @@ class AdminFiltersGenericController extends AdminBaseController
         } else {
             return redirect($this->returnURL)->with('messageError', \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage3'));
         }
+    }
+    // **************************************************************************************
+
+    // Admin Filters Generic Edit.
+    // **************************************************************************************
+    /**
+     * Admin Filters Generic Listing Controller.
+     * @param float|string $_idTbFiltersGeneric
+     * @return View
+     */
+    public function adminFiltersGenericEdit(float|string $_idTbFiltersGeneric = null): View
+    {
+        // Variables.
+        // ----------------------
+        $idTbFiltersGeneric = null;
+
+        $arrFiltersGenericDetailsJson = null;
+        $apiFiltersGenericDetailsResponse = null;
+        // ----------------------
+
+        // Value definition.
+        // ----------------------
+        $idTbFiltersGeneric = $_idTbFiltersGeneric;
+        // ----------------------
+
+        // Logic.
+        try {
+            $apiFiltersGenericDetailsResponse = Http::withOptions(['verify' => false])
+                ->get(
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbFiltersGeneric . '/',
+                    [
+                        'apiKey' => config('app.gSystemConfig.configAPIKeySystem')
+                    ]
+                );
+            $arrFiltersGenericDetailsJson = $apiFiltersGenericDetailsResponse->json();
+
+            if ($arrFiltersGenericDetailsJson['returnStatus'] === true) {
+                //$arrFiltersGenericDetails = $arrFiltersGenericDetailsJson['ofgdRecord'];
+
+                // Build template data.
+                //$this->templateData['idParentFiltersGeneric'] = $this->idParentFiltersGeneric;
+                $this->templateData['idTbFiltersGeneric'] = $idTbFiltersGeneric;
+
+                // Title - current - content place holder.
+                $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericTitleEdit');
+
+                // Title - content place holder.
+                $this->templateData['cphTitle'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'configSiteTile') . ' - ' . $this->templateData['cphTitleCurrent'];
+
+                // Body - content place holder.
+                $this->templateData['cphBody']['ofgdRecord'] = $arrFiltersGenericDetailsJson['ofgdRecord'];
+            }
+
+            // Debug.
+            /*
+            echo 'idTbFiltersGeneric=<pre>';
+            var_dump($idTbFiltersGeneric);
+            echo '</pre><br />';
+            */
+        } catch (\Exception $adminFiltersGenericEditError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('adminFiltersGenericEditError: ' . $adminFiltersGenericEditError->getMessage());
+            }
+        } finally {
+            //
+        }
+
+        // Return with view.
+        return view('admin.admin-filters-generic-edit')->with('templateData', $this->templateData);
+            // TODO: replace route name with config variables.
     }
     // **************************************************************************************
 }

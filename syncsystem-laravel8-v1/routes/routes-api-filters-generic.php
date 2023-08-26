@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 // Controllers.
 use App\Http\Controllers\ApiFiltersGenericListingController;
 use App\Http\Controllers\ApiFiltersGenericInsertController;
+use App\Http\Controllers\ApiFiltersGenericDetailsController;
 
 // API - Filters Generic - listing - GET.
 // **************************************************************************************
@@ -41,5 +42,23 @@ Route::post(
         config('app.gSystemConfig.configRouteAPI') . '.' .
         config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '.' .
         'insert'
+    );
+// **************************************************************************************
+
+// API - Filters Generic - details - GET.
+// **************************************************************************************
+Route::get(
+    '/' . config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/{idTbFiltersGeneric?}',
+    [
+        ApiFiltersGenericDetailsController::class, 'getFiltersGenericDetails'
+    ],
+    function ($detailsFiltersGenericResults) {
+        return response()->json($detailsFiltersGenericResults);
+    }
+)
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '.' .
+        config('app.gSystemConfig.configRouteAPIDetails')
     );
 // **************************************************************************************

@@ -570,7 +570,7 @@
                                     @endif
 
                                     <td style="text-align: center;">
-                                        <a href="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendCategories') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/' . $filtersGenericRow['id'] . '/?' . $queryDefault }}" class="ss-backend-links01">
+                                        <a href="/{{ config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/' . $filtersGenericRow['id'] . '/?' . $queryDefault }}" class="ss-backend-links01">
                                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemEdit') }}
                                         </a>
                                     </td>

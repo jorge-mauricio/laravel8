@@ -42,13 +42,16 @@ class AdminBaseController extends Controller
             $this->masterPageSelect = $_POST['masterPageSelect'];
         }
 
-        $pageNumber = isset($_GET['pageNumber']) ? $_GET['pageNumber'] : '';
+        $pageNumber = isset($_GET['pageNumber']) ? $_GET['pageNumber'] : null;
+        // $filterIndex = isset($_GET['filterIndex']) ? $_GET['filterIndex'] : null;
+        // $tableName = isset($_GET['tableName']) ? $_GET['tableName'] : null;
+
         $queryDefault = ''; // TODO: evaluate if it will remain in base controller or move to blade template.
         $cacheClear = '';
 
         //$messageSuccess = '';
         //isset($_GET['messageSuccess']) ? $messageSuccess = $_GET['messageSuccess'] : $messageSuccess = '';
-        $messageSuccess = isset($_GET['messageSuccess']) ? $_GET['messageSuccess'] : '';
+        $messageSuccess = isset($_GET['messageSuccess']) ? $_GET['messageSuccess'] : ''; // TODO: evaluate changing to null.
         $messageError = isset($_GET['messageError']) ? $_GET['messageError'] : '';
         $messageAlert = isset($_GET['messageAlert']) ? $_GET['messageAlert'] : '';
 
@@ -64,9 +67,16 @@ class AdminBaseController extends Controller
 
         // Build default return query.
         $queryDefault .= 'masterPageSelect=' . $this->masterPageSelect;
-        if ($pageNumber !== '') {
+        // if ($pageNumber !== '') {
+        if ($pageNumber) {
             $queryDefault .= '&pageNumber=' . $pageNumber;
         }
+        // if ($filterIndex) {
+        //     $queryDefault .= '&filterIndex=' . $filterIndex;
+        // }
+        // if ($tableName) {
+        //     $queryDefault .= '&tableName=' . $tableName;
+        // }
 
         // Define values.
         $cacheClear = $dateNow->format('YmdHis'); // TODO: create a config option to enable.

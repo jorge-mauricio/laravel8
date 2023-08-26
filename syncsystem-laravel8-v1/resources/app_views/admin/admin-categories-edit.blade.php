@@ -2397,7 +2397,7 @@
                         @endif
                     </tbody>
                 </table>
-            </div>
+            </div> {{-- TODO: evaluate wrapping the div til the bottom (after the input hiddens). --}}
             {{-- TODO: transform into CSS class. --}}
             <div style="position: relative; display: block; overflow: hidden; clear: both; margin-top: 2px;">
                 <button id="categories_include" name="categories_include" class="ss-backend-btn-base ss-backend-btn-action-execute" style="float: left;">

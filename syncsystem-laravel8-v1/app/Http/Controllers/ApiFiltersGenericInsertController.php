@@ -33,10 +33,10 @@ class ApiFiltersGenericInsertController extends Controller
     }
     // **************************************************************************************
 
-    // Handle category insert record and return data.
+    // Handle filters generic insert record and return data.
     // **************************************************************************************
     /**
-     * Handle category insert record and return data.
+     * Handle filters generic insert record and return data.
      * @param Request $req
      * @return array
      */
