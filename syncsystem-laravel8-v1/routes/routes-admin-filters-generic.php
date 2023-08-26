@@ -26,5 +26,20 @@ Route::group(
         )
             ->name(config('app.gSystemConfig.configRouteBackend') . '.' . config('app.gSystemConfig.configRouteBackendFiltersGeneric'));
         // **************************************************************************************
+
+        // Admin - Filters Generic - POST (insert record).
+        // **************************************************************************************
+        Route::post(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/',
+            [
+                AdminFiltersGenericController::class, 'adminFiltersGenericInsert'
+            ]
+        )
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '.' .
+                'insert'
+            );
+        // **************************************************************************************
     }
 );

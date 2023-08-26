@@ -52,6 +52,7 @@ class AdminCategoriesController extends AdminBaseController
     /**
      * Admin categories listing.
      * @param float|string $_idParentCategories
+     * @param Request $req
      * @return View
      */
     // public function adminCategoriesListing(float|string $idParent = null): string //TODO: change to the right type

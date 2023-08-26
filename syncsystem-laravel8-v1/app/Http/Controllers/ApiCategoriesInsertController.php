@@ -207,7 +207,7 @@ class ApiCategoriesInsertController extends Controller
             //echo '</pre><br />';
 
             //exit();
-        } catch (\Error $insertCategoriesError) {
+        } catch (\Exception $insertCategoriesError) {
             if (config('app.gSystemConfig.configDebug') === true) {
                 throw new \Error('insertCategoriesError: ' . $insertCategoriesError->getMessage());
             }

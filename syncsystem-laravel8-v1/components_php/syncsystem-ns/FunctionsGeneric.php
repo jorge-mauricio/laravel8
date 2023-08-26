@@ -609,7 +609,7 @@ class FunctionsGeneric
 
         // Variables.
         // ----------------------
-        $strReturn = $valueData;
+        $strReturn = (string) $valueData;
         // ----------------------
 
         // Logic.
