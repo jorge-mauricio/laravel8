@@ -119,7 +119,6 @@ class AdminBaseController extends Controller
         $idFormsFields = null;
 
         $filterIndex = null;
-
         $tableName = '';
 
         $pageReturn = '';
@@ -136,6 +135,9 @@ class AdminBaseController extends Controller
 
         //$this->idParent = $req->post('idParent');
         $idParent = $req->idParent;
+
+        $filterIndex = $req->filterIndex;
+        $tableName = $req->tableName;
 
         //$this->pageReturn = $req->post('pageReturn');
         //$this->pageNumber = $req->post('pageNumber');
@@ -161,6 +163,7 @@ class AdminBaseController extends Controller
 
         // Logic.
         // ----------------------
+        // TODO: research how to build the query (and reorder the items).
         $strReturn = '/' . $pageReturn;
         if ($idParent !== null) {
             $strReturn .= '/' . $idParent;
@@ -174,6 +177,7 @@ class AdminBaseController extends Controller
         if ($idFormsFields) {
             $strReturn .= '/' . $idFormsFields;
         }
+
         $strReturn .= '?masterPageSelect=' . $masterPageSelect;
         if ($pageNumber) {
             $strReturn .= '&pageNumber=' . $pageNumber;

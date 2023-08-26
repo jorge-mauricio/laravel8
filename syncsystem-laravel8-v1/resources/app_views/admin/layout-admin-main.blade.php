@@ -201,15 +201,17 @@
                                                 </a>
                                             @endif
 
-                                            @if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') !== 0)
-                                                <a
-                                                    href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/?tableName=' . config('app.gSystemConfig.configSystemDBTableCategories') . '&filterIndex=101' }}"
-                                                    title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesFilterGeneric1'); ?>"
-                                                    class="ss-backend-menu-link"
-                                                >
-                                                    - <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesFilterGeneric1'); ?>
-                                                </a>
-                                            @endif
+                                            @for ($countFilterIndex = 1; $countFilterIndex <= 10; $countFilterIndex++)
+                                                @if (config('app.gSystemConfig.enableCategoriesFilterGeneric' . $countFilterIndex) !== 0)
+                                                    <a
+                                                        href="{{ '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/?tableName=' . config('app.gSystemConfig.configSystemDBTableCategories') . '&filterIndex=10' . $countFilterIndex }}"
+                                                        title="<?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesFilterGeneric' . $countFilterIndex); ?>"
+                                                        class="ss-backend-menu-link"
+                                                    >
+                                                        - <?php echo \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesFilterGeneric' . $countFilterIndex); ?>
+                                                    </a>
+                                                @endif
+                                            @endfor
                                         </div>
                                     </li>
                                 @endif

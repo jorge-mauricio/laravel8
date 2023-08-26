@@ -192,6 +192,7 @@ class AdminFiltersGenericController extends AdminBaseController
         // Return URL build.
         // ----------------------
         // TODO: think about using buildReturnURL method (base controller).
+        // $this->returnURL = $this->buildReturnURL($req); // Double check how the initial part of the address will be concatenated with the query strings.
         $this->returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/';
         $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
         if ($this->filterIndex) {
