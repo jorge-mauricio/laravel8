@@ -79,7 +79,7 @@
 @section('cphBody')
     @include('admin.partials.messages-status')
 
-    @dump($templateData)
+    {{-- @dump($templateData) --}}
 
     <section class="ss-backend-layout-section-data01">
         @if (count($arrFiltersGenericListing) < 1)

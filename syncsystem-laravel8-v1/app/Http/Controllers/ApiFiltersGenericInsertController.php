@@ -16,7 +16,7 @@ class ApiFiltersGenericInsertController extends Controller
     private string $configAPIKey = '';
 
     private array|null $arrFiltersGenericInsertParameters = [];
-    private mixed $fgiAPI; // TODO: change to the right type.
+    private array|null|FiltersGenericInsert $fgiAPI = null;
 
     private float|null $terminal = 0;
     private string $apiKey = '';
