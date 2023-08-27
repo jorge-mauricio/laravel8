@@ -407,7 +407,161 @@ class AdminFiltersGenericController extends AdminBaseController
 
         // Return with view.
         return view('admin.admin-filters-generic-edit')->with('templateData', $this->templateData);
-            // TODO: replace route name with config variables.
+    }
+    // **************************************************************************************
+
+    // Handle filters generic edit update.
+    // **************************************************************************************
+    /**
+     * Handle filters generic edit update.
+     * @param Request $req
+     * @return RedirectResponse
+     */
+    public function adminFiltersGenericUpdate(Request $req): RedirectResponse
+    {
+        // Variables.
+        // ----------------------
+        $idTbFiltersGeneric = null;
+
+        $tblFiltersGenericImageMain = '';
+
+        $apiFiltersGenericUpdateResponse = null;
+        $arrFiltersGenericUpdateJson = null;
+
+        //$tblFiltersGenericID = null;
+        //$tblFiltersGenericIdParent = null;
+        //$tblFiltersGenericSortOrder = 0;
+        //$tblFiltersGenericCategoryType = null;
+        // ----------------------
+
+        // Define values.
+        // ----------------------
+        $idTbFiltersGeneric = $req->post('id');
+        $this->filterIndex = (int) $req->post('filterIndex');
+        $this->tableName = $req->post('tableName');
+        $this->masterPageSelect = $req->post('masterPageSelect');
+        // ----------------------
+
+        // Return URL build.
+        // ----------------------
+        // TODO: think about using buildReturnURL method (base controller).
+        $this->returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/';
+        $this->returnURL .= '?masterPageSelect=' . $this->masterPageSelect;
+        $this->returnURL .= '&filterIndex=' . $this->filterIndex;
+        $this->returnURL .= '&tableName=' . $this->tableName;
+        // ----------------------
+
+        // Logic.
+        try {
+            // API call.
+            $apiFiltersGenericUpdateResponse = Http::withOptions(['verify' => false])
+                ->put(
+                    config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
+                    array_merge(
+                        ['apiKey' => config('app.gSystemConfig.configAPIKeySystem')],
+                        $req->all()
+                    ) // ...$req->all() (splat only works on php 8.1 and up)
+                );
+            $arrFiltersGenericUpdateJson = $apiFiltersGenericUpdateResponse->json();
+
+            // Files upload (in frontend server).
+            $resultsFunctionsFiles = null;
+            $formfileFieldsReference = null;
+            $tblFiltersGenericID = $arrFiltersGenericUpdateJson['idRecordUpdate'];
+
+            // Build file fields references.
+            foreach (request()->allFiles() as $arrKey => $fileObject) {
+                $formfileFieldsReference[$arrKey] = [
+                    'originalFileName' => $fileObject->getClientOriginalName(),
+                    'fileSize' => $fileObject->getSize(),
+                    'temporaryFilePath' => $fileObject->getPathname(),
+                    'fileExtension' => $fileObject->extension(),
+                    'fileNamePrefix' => '',
+                    'fileNameSufix' => '',
+                    'fileDirectoryUpload' => '',
+                ];
+
+                // Debug.
+                //echo 'arrKey=' . $arrKey . '<br />';
+                //echo 'fileObject=' . $fileObject->getClientOriginalName() . '<br />';
+                //array_push($formfileFieldsReference);
+            }
+
+            $resultsFunctionsFiles = \SyncSystemNS\FunctionsFiles::filesUploadMultiple(
+                $tblFiltersGenericID,
+                $req,
+                config('app.gSystemConfig.configDirectoryFilesUpload'),
+                '',
+                $formfileFieldsReference
+            );
+
+            if ($resultsFunctionsFiles['returnStatus'] === true) {
+                $tblFiltersGenericArrDataFilesUpdate = null;
+                $tblFiltersGenericImageMain = isset($resultsFunctionsFiles['image_main']) === true ? $resultsFunctionsFiles['image_main'] : $tblFiltersGenericImageMain;
+
+                // Resize images.
+                if ($tblFiltersGenericImageMain !== '') {
+                    $tblFiltersGenericArrDataFilesUpdate['image_main'] = $tblFiltersGenericImageMain;
+                    $resultsFunctionsImageResize01 = \SyncSystemNS\FunctionsImage::imageResize01(
+                        config('app.gSystemConfig.configArrFiltersGenericImageSize'),
+                        config('app.gSystemConfig.configDirectoryFiles'),
+                        $tblFiltersGenericImageMain
+                    );
+                }
+
+                // TODO: error check for image upload and resize.
+                // API call (edit).
+                $apiFiltersGenericFilesUpdateResponse = Http::withOptions(['verify' => false])
+                    ->put(
+                        config('app.gSystemConfig.configAPIURL')  . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
+                        [
+                            'strTable' => config('app.gSystemConfig.configSystemDBTableFiltersGeneric'),
+                            'idRecord' => $tblFiltersGenericID,
+                            'arrData' => $tblFiltersGenericArrDataFilesUpdate,
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
+                        ]
+                    );
+                $arrFiltersGenericFilesUpdateJson = $apiFiltersGenericFilesUpdateResponse->json();
+                // TODO: error check for update.
+
+                // Debug.
+                //echo 'arrFiltersGenericUpdateJson=<pre>';
+                //var_dump($arrFiltersGenericUpdateJson);
+                //echo '</pre><br />';
+            }
+
+            // Debug.
+            /*
+            echo 'idTbFiltersGeneric=<pre>';
+            var_dump($idTbFiltersGeneric);
+            echo '</pre><br />';
+
+            echo 'arrFiltersGenericUpdateJson=<pre>';
+            var_dump($arrFiltersGenericUpdateJson);
+            echo '</pre><br />';
+            */
+            // exit();
+        } catch (\Exception $adminFiltersGenericUpdateError) {
+            if (config('app.gSystemConfig.configDebug') === true) {
+                throw new \Error('adminFiltersGenericUpdateError: ' . $adminFiltersGenericUpdateError->getMessage());
+            }
+        } finally {
+            //
+        }
+
+        // Redirect.
+        $redirectParameters = [];
+        if ($arrFiltersGenericUpdateJson['returnStatus'] === true) {
+            $redirectParameters = [
+                'messageSuccess' => $arrFiltersGenericUpdateJson['nRecords'] . ' ' . \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage7')
+            ];
+        } else {
+            $redirectParameters = [
+                'messageError' => \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage8')
+            ];
+        }
+
+        return redirect($this->returnURL)->with($redirectParameters);
     }
     // **************************************************************************************
 }

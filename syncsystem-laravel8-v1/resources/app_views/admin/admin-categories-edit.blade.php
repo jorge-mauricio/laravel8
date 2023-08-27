@@ -712,7 +712,7 @@
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -743,7 +743,7 @@
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -774,7 +774,7 @@
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -805,7 +805,7 @@
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -836,7 +836,7 @@
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif

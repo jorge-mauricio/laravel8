@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiFiltersGenericListingController;
 use App\Http\Controllers\ApiFiltersGenericInsertController;
 use App\Http\Controllers\ApiFiltersGenericDetailsController;
+use App\Http\Controllers\ApiFiltersGenericUpdateController;
 
 // API - Filters Generic - listing - GET.
 // **************************************************************************************
@@ -60,5 +61,24 @@ Route::get(
         config('app.gSystemConfig.configRouteAPI') . '.' .
         config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '.' .
         config('app.gSystemConfig.configRouteAPIDetails')
+    );
+// **************************************************************************************
+
+// API - Filters Generic - PUT (update record).
+// **************************************************************************************
+// dev: http://localhost:8001/api/filters-generic/
+Route::put(
+    '/' . config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
+    [
+        ApiFiltersGenericUpdateController::class, 'updateFiltersGeneric'
+    ],
+    function ($updateFiltersGenericResults) {
+        return response()->json($updateFiltersGenericResults);
+    }
+)
+    ->name(
+        config('app.gSystemConfig.configRouteAPI') . '.' .
+        config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '.' .
+        config('app.gSystemConfig.configRouteAPIActionEdit')
     );
 // **************************************************************************************

@@ -57,5 +57,21 @@ Route::group(
                 config('app.gSystemConfig.configRouteBackendActionEdit')
             );
         // **************************************************************************************
+
+        // Admin - Filters Generic - edit - PUT.
+        // **************************************************************************************
+        // Debug: http://localhost:8000/system/filters-generic/edit/2062/?masterPageSelect=layout-admin-main
+        Route::put(
+            '/' . config('app.gSystemConfig.configRouteBackend') . '/' . config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteBackendActionEdit') . '/{idTbFiltersGeneric?}',
+            [
+                AdminFiltersGenericController::class, 'adminFiltersGenericUpdate'
+            ]
+        )
+            ->name(
+                config('app.gSystemConfig.configRouteBackend') . '.' .
+                config('app.gSystemConfig.configRouteBackendFiltersGeneric') . '.' .
+                config('app.gSystemConfig.configRouteBackendActionEdit')
+            );
+        // **************************************************************************************
     }
 );

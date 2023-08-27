@@ -35,7 +35,7 @@
     // Define values.
     // ----------------------
     if (strlen($filterIndex) >= 3) {
-      $filtersGenericLabelIndex = substr(1, -1, (string) $filterIndex); // Delete the first number.
+      $filtersGenericLabelIndex = substr((string) $filterIndex, 1); // Delete the first number.
       $filtersGenericLabelIndex = (string) ((int) $filtersGenericLabelIndex); // Convert to int and back to string.
     }
 
@@ -78,8 +78,6 @@
 
 @section('cphBody')
     @include('admin.partials.messages-status')
-
-    {{-- @dump($templateData) --}}
 
     <section class="ss-backend-layout-section-data01">
         @if (count($arrFiltersGenericListing) < 1)

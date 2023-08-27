@@ -40,7 +40,7 @@
     // Define values.
     // ----------------------
     if (strlen($filterIndex) >= 3) {
-      $filtersGenericLabelIndex = substr(1, -1, (string) $filterIndex); // Delete the first number.
+      $filtersGenericLabelIndex = substr((string) $filterIndex, 1); // Delete the first number.
       $filtersGenericLabelIndex = (string) ((int) $filtersGenericLabelIndex); // Convert to int and back to string.
     }
 
@@ -99,6 +99,7 @@
         >
             @csrf
             <input type="hidden" id="formFiltersGenericEdit_method" name="_method" value="PUT" />
+
             <div style="position: relative; display: block; overflow: hidden;">
                 <script>
                     // Reorder table rows.
@@ -111,7 +112,7 @@
                 </script>
                 <table id="input_table_filters_generic" class="ss-backend-table-input01">
                     <caption class="ss-backend-table-header-text01 ss-backend-table-title">
-                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericTitleTable') }}
+                        {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericTitleTableEdit') }}
                             -
                         @if ($filtersGenericLabelIndex !== '')
                             {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backend' . $filtersGenericLabelModule . 'FilterGeneric' . $filtersGenericLabelIndex) }}
@@ -135,7 +136,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemSortOrder') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="filtersGeneric_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="0" />
+                                    <input type="text" id="filtersGeneric_sort_order" name="sort_order" class="ss-backend-field-numeric01" maxlength="10" value="{{ $ofgdRecord['tblFiltersGenericSortOrder'] }}" />
                                     <script>
                                         Inputmask(inputmaskGenericBackendConfigOptions).mask("filtersGeneric_sort_order");
                                     </script>
@@ -148,25 +149,25 @@
                                 {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericTitle') }}:
                             </td>
                             <td>
-                                <input type="text" id="inputRowFiltersGeneric_title" name="title" class="ss-backend-field-text01" maxlength="255" value="" />
+                                <input type="text" id="inputRowFiltersGeneric_title" name="title" class="ss-backend-field-text01" maxlength="255" value="{{ $ofgdRecord['tblFiltersGenericTitle'] }}" />
                             </td>
                         </tr>
 
                         @if (config('app.gSystemConfig.enableFiltersGenericDescription') === 1)
                             <tr id="inputRowFiltersGeneric_description" class="ss-backend-table-bg-light">
                                 <td class="ss-backend-table-bg-medium">
-                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericTitle') }}:
+                                    {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendFiltersGenericDescription') }}:
                                 </td>
                                 <td>
                                     {{-- No formatting. --}}
                                     @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericDescription_edit'] }}</textarea>
                                     @endif
 
 
                                     {{-- Quill. --}}
                                     @if (config('app.gSystemConfig.configBackendTextBox') === 13)
-                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericDescription_edit'] }}</textarea>
                                         <div id="toolbar">
                                             <button class="ql-bold">Bold</button>
                                             <button class="ql-italic">Italic</button>
@@ -185,7 +186,7 @@
 
                                     {{-- FroalaEditor. --}}
                                     @if (config('app.gSystemConfig.configBackendTextBox') === 15)
-                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericDescription_edit'] }}</textarea>
                                         <script>
                                             new FroalaEditor("#filtersGeneric_description");
                                         </script>
@@ -194,7 +195,7 @@
 
                                     {{-- TinyMCE. --}}
                                     @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox') === 18)
-                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01"></textarea>
+                                        <textarea id="filtersGeneric_description" name="description" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericDescription_edit'] }}</textarea>
                                         <script>
                                             tinyMCEBackendConfig.selector = "#filtersGeneric_description";
                                             tinymce.init(tinyMCEBackendConfig);
@@ -210,7 +211,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemURLAlias') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="filtersGeneric_url_alias" name="url_alias" class="ss-backend-field-text01" value="" />
+                                    <input type="text" id="filtersGeneric_url_alias" name="url_alias" class="ss-backend-field-text01" value="{{ $ofgdRecord['tblFiltersGenericURLAlias'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -221,7 +222,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemKeywords') }}:
                                 </td>
                                 <td>
-                                    <textarea id="filtersGeneric_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01"></textarea>
+                                    <textarea id="filtersGeneric_keywords_tags" name="keywords_tags" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericKeywordsTags'] }}</textarea>
                                     <div>
                                         ({{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemKeywordsInstruction01') }})
                                     </div>
@@ -235,7 +236,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemMetaDescription') }}:
                                 </td>
                                 <td>
-                                    <textarea id="filtersGeneric_meta_description" name="meta_description" class="ss-backend-field-text-area01"></textarea>
+                                    <textarea id="filtersGeneric_meta_description" name="meta_description" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericMetaDescription_edit'] }}</textarea>
                                 </td>
                             </tr>
                         @endif
@@ -246,7 +247,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemMetaTitle') }}:
                                 </td>
                                 <td>
-                                    <input type="text" id="filtersGeneric_meta_title" name="meta_title" class="ss-backend-field-text01" value="" />
+                                    <input type="text" id="filtersGeneric_meta_title" name="meta_title" class="ss-backend-field-text01" value="{{ $ofgdRecord['tblFiltersGenericMetaTitle'] }}" />
                                 </td>
                             </tr>
                         @endif
@@ -259,25 +260,25 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS1FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_info_small1" name="info_small1" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="filtersGeneric_info_small1" name="info_small1" class="ss-backend-field-text01" value="{{ $ofgdRecord['tblFiltersGenericInfoSmall1_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS1FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="filtersGeneric_info_small1" name="info_small1" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small1" name="info_small1" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall1_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox') === 18)
-                                            <textarea id="filtersGeneric_info_small1" name="info_small1" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small1" name="info_small1" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall1_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#filtersGeneric_info_small1";
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -290,25 +291,25 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS2FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_info_small2" name="info_small2" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="filtersGeneric_info_small2" name="info_small2" class="ss-backend-field-text01" value="{{ $ofgdRecord['tblFiltersGenericInfoSmall2_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS2FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="filtersGeneric_info_small2" name="info_small2" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small2" name="info_small2" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall2_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox') === 18)
-                                            <textarea id="filtersGeneric_info_small2" name="info_small2" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small2" name="info_small2" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall2_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#filtersGeneric_info_small2";
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -321,25 +322,25 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS3FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_info_small3" name="info_small3" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="filtersGeneric_info_small3" name="info_small3" class="ss-backend-field-text01" value="{{ $ofgdRecord['tblFiltersGenericInfoSmall3_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS3FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="filtersGeneric_info_small3" name="info_small3" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small3" name="info_small3" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall3_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox') === 18)
-                                            <textarea id="filtersGeneric_info_small3" name="info_small3" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small3" name="info_small3" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall3_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#filtersGeneric_info_small3";
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -352,25 +353,25 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS4FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_info_small4" name="info_small4" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="filtersGeneric_info_small4" name="info_small4" class="ss-backend-field-text01" value="{{ $ofgdRecord['tblFiltersGenericInfoSmall4_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS4FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="filtersGeneric_info_small4" name="info_small4" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small4" name="info_small4" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall4_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox') === 18)
-                                            <textarea id="filtersGeneric_info_small4" name="info_small4" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small4" name="info_small4" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall4_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#filtersGeneric_info_small4";
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -383,25 +384,25 @@
                                 <td>
                                     {{-- Single line. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS5FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_info_small5" name="info_small5" class="ss-backend-field-text01" value="" />
+                                        <input type="text" id="filtersGeneric_info_small5" name="info_small5" class="ss-backend-field-text01" value="{{ $ofgdRecord['tblFiltersGenericInfoSmall5_edit'] }}" />
                                     @endif
 
                                     {{-- Multiline. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericInfoS5FieldType') === 2)
                                         {{-- No formatting. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 1)
-                                            <textarea id="filtersGeneric_info_small5" name="info_small5" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small5" name="info_small5" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall5_edit'] }}</textarea>
                                         @endif
 
                                         {{-- TinyMCE. --}}
                                         @if (config('app.gSystemConfig.configBackendTextBox') === 17 || config('app.gSystemConfig.configBackendTextBox') === 18)
-                                            <textarea id="filtersGeneric_info_small5" name="info_small5" class="ss-backend-field-text-area01"></textarea>
+                                            <textarea id="filtersGeneric_info_small5" name="info_small5" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericInfoSmall5_edit'] }}</textarea>
                                             <script>
                                                 tinyMCEBackendConfig.selector = "#filtersGeneric_info_small5";
                                                 tinymce.init(tinyMCEBackendConfig);
                                             </script>
                                         @endif
-                                        @endif
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -414,7 +415,7 @@
                                 <td>
                                     {{-- General number. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS1FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_number_small1" name="number_small1" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small1" name="number_small1" class="ss-backend-field-numeric01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall1_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskGenericBackendConfigOptions).mask("filtersGeneric_number_small1");
                                         </script>
@@ -423,7 +424,7 @@
                                     {{-- System currency. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS1FieldType') === 2)
                                         {{ config('app.gSystemConfig.configSystemCurrency') }}
-                                        <input type="text" id="filtersGeneric_number_small1" name="number_small1" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small1" name="number_small1" class="ss-backend-field-currency01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall1_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskCurrencyBackendConfigOptions).mask("filtersGeneric_number_small1");
                                         </script>
@@ -440,7 +441,7 @@
                                 <td>
                                     {{-- General number. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS2FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_number_small2" name="number_small2" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small2" name="number_small2" class="ss-backend-field-numeric01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall2_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskGenericBackendConfigOptions).mask("filtersGeneric_number_small2");
                                         </script>
@@ -449,7 +450,7 @@
                                     {{-- System currency. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS2FieldType') === 2)
                                         {{ config('app.gSystemConfig.configSystemCurrency') }}
-                                        <input type="text" id="filtersGeneric_number_small2" name="number_small2" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small2" name="number_small2" class="ss-backend-field-currency01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall2_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskCurrencyBackendConfigOptions).mask("filtersGeneric_number_small2");
                                         </script>
@@ -466,7 +467,7 @@
                                 <td>
                                     {{-- General number. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS3FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_number_small3" name="number_small3" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small3" name="number_small3" class="ss-backend-field-numeric01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall3_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskGenericBackendConfigOptions).mask("filtersGeneric_number_small3");
                                         </script>
@@ -475,7 +476,7 @@
                                     {{-- System currency. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS3FieldType') === 2)
                                         {{ config('app.gSystemConfig.configSystemCurrency') }}
-                                        <input type="text" id="filtersGeneric_number_small3" name="number_small3" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small3" name="number_small3" class="ss-backend-field-currency01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall3_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskCurrencyBackendConfigOptions).mask("filtersGeneric_number_small3");
                                         </script>
@@ -492,7 +493,7 @@
                                 <td>
                                     {{-- General number. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS4FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_number_small4" name="number_small4" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small4" name="number_small4" class="ss-backend-field-numeric01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall4_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskGenericBackendConfigOptions).mask("filtersGeneric_number_small4");
                                         </script>
@@ -501,7 +502,7 @@
                                     {{-- System currency. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS4FieldType') === 2)
                                         {{ config('app.gSystemConfig.configSystemCurrency') }}
-                                        <input type="text" id="filtersGeneric_number_small4" name="number_small4" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small4" name="number_small4" class="ss-backend-field-currency01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall4_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskCurrencyBackendConfigOptions).mask("filtersGeneric_number_small4");
                                         </script>
@@ -518,7 +519,7 @@
                                 <td>
                                     {{-- General number. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS5FieldType') === 1)
-                                        <input type="text" id="filtersGeneric_number_small5" name="number_small5" class="ss-backend-field-numeric01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small5" name="number_small5" class="ss-backend-field-numeric01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall5_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskGenericBackendConfigOptions).mask("filtersGeneric_number_small5");
                                         </script>
@@ -527,7 +528,7 @@
                                     {{-- System currency. --}}
                                     @if (config('app.gSystemConfig.configFiltersGenericNumberS5FieldType') === 2)
                                         {{ config('app.gSystemConfig.configSystemCurrency') }}
-                                        <input type="text" id="filtersGeneric_number_small5" name="number_small5" class="ss-backend-field-currency01" value="0" maxlength="9" />
+                                        <input type="text" id="filtersGeneric_number_small5" name="number_small5" class="ss-backend-field-currency01" value="{{ $ofgdRecord['tblFiltersGenericNumberSmall5_print'] }}" maxlength="9" />
                                         <script>
                                             Inputmask(inputmaskCurrencyBackendConfigOptions).mask("filtersGeneric_number_small5");
                                         </script>
@@ -543,6 +544,48 @@
                                 </td>
                                 <td>
                                     <input type="file" id="filtersGeneric_image_main" name="image_main" class="ss-backend-field-file-upload" />
+                                    @if ($ofgdRecord['tblFiltersGenericImageMain'] !== '')
+                                        <img id="imgFiltersGenericImageMain" src="{{ config('app.gSystemConfig.configSystemURLImages') . config('app.gSystemConfig.configDirectoryFilesSD') . '/t' . $ofgdRecord['tblFiltersGenericImageMain'] . '?v=' . $cacheClear }}" alt="{{ $ofgdRecord['tblFiltersGenericTitle'] }}" class="ss-backend-images-edit" />
+                                        <div id="divFiltersGenericImageMainDelete" style="position: relative; display: inline-block;">
+                                            <a class="ss-backend-delete01"
+                                                onclick="htmlGenericStyle01('updtProgressGeneric', 'display', 'block');
+                                                ajaxRecordsPatch01_async('{{ config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') }}/',
+                                                                            {
+                                                                                idRecord: '{{ $ofgdRecord['tblFiltersGenericID'] }}',
+                                                                                strTable: '{{ config('app.gSystemConfig.configSystemDBTableFiltersGeneric') }}',
+                                                                                strField: 'image_main',
+                                                                                recordValue: '',
+                                                                                patchType: 'fileDelete',
+                                                                                ajaxFunction: true,
+                                                                                apiKey: '{{ \SyncSystemNS\FunctionsCrypto::encryptValue(\SyncSystemNS\FunctionsGeneric::contentMaskWrite(config('app.gSystemConfig.configAPIKeySystem'), 'env'), 2) }}'
+                                                                            },
+                                                                            async function(_resObjReturn) {
+                                                                                // alert(JSON.stringify(_resObjReturn));
+
+                                                                                // if(_resObjReturn.objReturn.returnStatus == true) { // Note: changed to _resObjReturn.returnStatus because it now comunicates directly with the API. TODO: update multiplatform node admin version.
+                                                                                if (_resObjReturn.returnStatus === true) {
+                                                                                    // Delete files.
+
+
+                                                                                    // Hide elements.
+                                                                                    htmlGenericStyle01('imgFiltersGenericImageMain', 'display', 'none');
+                                                                                    htmlGenericStyle01('divFiltersGenericImageMainDelete', 'display', 'none');
+
+                                                                                    // Success message.
+                                                                                    elementMessage01('divMessageSuccess', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessage6') }}');
+
+                                                                                } else {
+                                                                                    // Show error.
+                                                                                    elementMessage01('divMessageError', '{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'statusMessageAPI2e') }}');
+                                                                                }
+
+                                                                                // Hide ajax progress bar.
+                                                                                htmlGenericStyle01('updtProgressGeneric', 'display', 'none');
+                                                                            });">
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemImageDelete') }}
+                                            </a>
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -553,8 +596,8 @@
                             </td>
                             <td>
                                 <select id="filtersGeneric_activation" name="activation" class="ss-backend-field-dropdown01">
-                                    <option value="1" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                    <option value="0">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                    <option value="1"{{ $ofgdRecord['tblFiltersGenericActivation'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                    <option value="0"{{ $ofgdRecord['tblFiltersGenericActivation'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                 </select>
                             </td>
                         </tr>
@@ -566,8 +609,8 @@
                                 </td>
                                 <td>
                                     <select id="filtersGeneric_activation1" name="activation1" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                        <option value="1"{{ $ofgdRecord['tblFiltersGenericActivation1'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                        <option value="0"{{ $ofgdRecord['tblFiltersGenericActivation1'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -580,8 +623,8 @@
                                 </td>
                                 <td>
                                     <select id="filtersGeneric_activation2" name="activation2" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                        <option value="1"{{ $ofgdRecord['tblFiltersGenericActivation2'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                        <option value="0"{{ $ofgdRecord['tblFiltersGenericActivation2'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -594,8 +637,8 @@
                                 </td>
                                 <td>
                                     <select id="filtersGeneric_activation3" name="activation3" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                        <option value="1"{{ $ofgdRecord['tblFiltersGenericActivation3'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                        <option value="0"{{ $ofgdRecord['tblFiltersGenericActivation3'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -608,8 +651,8 @@
                                 </td>
                                 <td>
                                     <select id="filtersGeneric_activation4" name="activation4" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                        <option value="1"{{ $ofgdRecord['tblFiltersGenericActivation4'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                        <option value="0"{{ $ofgdRecord['tblFiltersGenericActivation4'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -622,8 +665,8 @@
                                 </td>
                                 <td>
                                     <select id="filtersGeneric_activation5" name="activation5" class="ss-backend-field-dropdown01">
-                                        <option value="1">{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
+                                        <option value="1"{{ $ofgdRecord['tblFiltersGenericActivation5'] === 1 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation1') }}</option>
+                                        <option value="0"{{ $ofgdRecord['tblFiltersGenericActivation5'] === 0 ? ' selected' : '' }}>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemActivation0') }}</option>
                                     </select>
                                 </td>
                             </tr>
@@ -635,7 +678,7 @@
                                     {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemNotesInternal') }}:
                                 </td>
                                 <td>
-                                    <textarea id="filtersGeneric_notes" name="notes" class="ss-backend-field-text-area01"></textarea>
+                                    <textarea id="filtersGeneric_notes" name="notes" class="ss-backend-field-text-area01">{{ $ofgdRecord['tblFiltersGenericNotes_edit'] }}</textarea>
                                 </td>
                             </tr>
                         @endif

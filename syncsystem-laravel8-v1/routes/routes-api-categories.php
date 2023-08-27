@@ -97,7 +97,7 @@ Route::get(
 //Route::post('/' . $GLOBALS['configRouteAPICategories'] . '/'. $GLOBALS['configRouteAPIActionEdit'] . '/' ,[ApiCategoriesInsertController::class, 'insertCategories'], function($insertCategoriesResults) {
 /**/
 Route::put(
-    '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/{idTbCategories?}',
+    '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
     [
         ApiCategoriesUpdateController::class, 'updateCategories'
     ],
