@@ -58,7 +58,7 @@ class AdminFiltersGenericController extends AdminBaseController
     {
         // Variables.
         // ----------------------
-        $apiFiltersGenericListingCurrentResponse = null;
+        $apiFiltersGenericListingResponse = null;
         // ----------------------
 
         // Value definition.
@@ -70,7 +70,7 @@ class AdminFiltersGenericController extends AdminBaseController
         // Logic.
         try {
             /**/
-            $apiFiltersGenericListingCurrentResponse = Http::withOptions(['verify' => false])
+            $apiFiltersGenericListingResponse = Http::withOptions(['verify' => false])
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' .
                     config('app.gSystemConfig.configRouteAPI') . '/' .
@@ -86,16 +86,16 @@ class AdminFiltersGenericController extends AdminBaseController
                 );
 
             // Note / TODO: On production, set verify to true.
-            $this->arrFiltersGenericListingJson = $apiFiltersGenericListingCurrentResponse->json();
+            $this->arrFiltersGenericListingJson = $apiFiltersGenericListingResponse->json();
 
             // Debug.
-            // dd($apiFiltersGenericListingCurrentResponse);
-            // echo 'apiFiltersGenericListingCurrentResponse=<pre>';
-            // var_dump($apiFiltersGenericListingCurrentResponse);
+            // dd($apiFiltersGenericListingResponse);
+            // echo 'apiFiltersGenericListingResponse=<pre>';
+            // var_dump($apiFiltersGenericListingResponse);
             // echo '</pre>';
 
-            // echo 'apiFiltersGenericListingCurrentResponse->json()=<pre>';
-            // var_dump($apiFiltersGenericListingCurrentResponse->json());
+            // echo 'apiFiltersGenericListingResponse->json()=<pre>';
+            // var_dump($apiFiltersGenericListingResponse->json());
             // echo '</pre>';
 
             //echo 'arrFiltersGenericListingJson=<pre>';
@@ -150,7 +150,7 @@ class AdminFiltersGenericController extends AdminBaseController
 
             // Debug.
             // return 'admin categories listing (controller) idTbFiltersGeneric = ' . $idTbFiltersGeneric;
-            // $this->templateData['cphBody'] = $apiFiltersGenericListingCurrentResponse;
+            // $this->templateData['cphBody'] = $apiFiltersGenericListingResponse;
             // echo '_GET (inside controller)=' . $_GET['masterPageSelect'] . '<br />';
         } catch (\Exception $adminFiltersGenericListingError) {
             if (config('app.gSystemConfig.configDebug') === true) {

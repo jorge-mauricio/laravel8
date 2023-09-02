@@ -75,9 +75,12 @@ class ApiFiltersGenericListingController extends Controller
         // Logic.
         try {
             // Parameters build - listing.
-            array_push($this->arrSearchParameters, 'filter_index;' . $this->filterIndex . ';s'); // debug: 101
-            array_push($this->arrSearchParameters, 'table_name;' . $this->tableName . ';s'); // debug: categories
-
+            if ($this->filterIndex !== null) {
+                array_push($this->arrSearchParameters, 'filter_index;' . $this->filterIndex . ';s'); // debug: 101
+            }
+            if ($this->tableName !== null) {
+                array_push($this->arrSearchParameters, 'table_name;' . $this->tableName . ';s'); // debug: categories
+            }
             $this->ofglRecordsParameters = [
                 '_arrSearchParameters' => $this->arrSearchParameters,
                 '_configSortOrder' => config('app.gSystemConfig.configFiltersGenericSort'),

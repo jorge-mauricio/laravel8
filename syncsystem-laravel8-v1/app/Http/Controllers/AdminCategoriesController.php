@@ -24,9 +24,9 @@ class AdminCategoriesController extends AdminBaseController
     private array $cookiesData;
     private array $templateData;
 
-    private array|null $arrCategoriesListingJson = null;
-    private array|null $arrCategoriesDetails = null;
-    private array|null $arrCategoriesListing = null;
+    // private array|null $arrCategoriesListingJson = null;
+    // private array|null $arrCategoriesDetails = null;
+    // private array|null $arrCategoriesListing = null;
 
     //private array|null $arrCategoriesInsertJson = null;
 
@@ -62,6 +62,13 @@ class AdminCategoriesController extends AdminBaseController
         // ----------------------
         // float|string $idParent = null;
         $apiCategoriesListingCurrentResponse = null;
+        $arrCategoriesListingJson = null;
+
+        $arrCategoriesDetails = null;
+        $arrCategoriesListing = null;
+
+        $apiFiltersGenericListingResponse = null;
+        $arrFiltersGenericListingJson = null;
         // ----------------------
 
         // Value definition.
@@ -72,6 +79,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Logic.
         try {
+            // Categories API call.
             // Debug: https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008
             // $apiCategoriesDetailsCurrentResponse = Http::get('https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008');
             // $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get('https://backendnode.fullstackwebdesigner.com/api/categories/' . $this->_idParentCategories . '/?apiKey=fswd@2008');
@@ -94,7 +102,26 @@ class AdminCategoriesController extends AdminBaseController
 
             // Note / TODO: On production, set verify to true.
             //return $apiCategoriesDetailsCurrentResponse->json();
-            $this->arrCategoriesListingJson = $apiCategoriesListingCurrentResponse->json();
+            $arrCategoriesListingJson = $apiCategoriesListingCurrentResponse->json();
+
+            // Filters generic API call.
+            $apiFiltersGenericListingResponse = Http::withOptions(['verify' => false])
+                ->get(
+                    config('app.gSystemConfig.configAPIURL') . '/' .
+                    config('app.gSystemConfig.configRouteAPI') . '/' .
+                    config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/',
+                    array_merge(
+                        [
+                            'tableName' => config('app.gSystemConfig.configSystemDBTableCategories'),
+                            // 'filterIndex' => $this->filterIndex,
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
+                        ],
+                        $req->all()
+                    )
+                );
+
+            // Note / TODO: On production, set verify to true.
+            $arrFiltersGenericListingJson = $apiFiltersGenericListingResponse->json();
 
             // Debug.
             // dd($apiCategoriesListingCurrentResponse);
@@ -117,9 +144,9 @@ class AdminCategoriesController extends AdminBaseController
             // echo '</pre>';
 
 
-            if ($this->arrCategoriesListingJson['returnStatus'] === true) {
-                $this->arrCategoriesDetails = $this->arrCategoriesListingJson['ocdRecord'];
-                $this->arrCategoriesListing = $this->arrCategoriesListingJson['oclRecords'];
+            if ($arrCategoriesListingJson['returnStatus'] === true) {
+                $arrCategoriesDetails = $arrCategoriesListingJson['ocdRecord'];
+                $arrCategoriesListing = $arrCategoriesListingJson['oclRecords'];
                 // Note: array listing array comes with extra data ("returnStatus" => true), so needs data treatment to clean it.
 
 
@@ -136,7 +163,7 @@ class AdminCategoriesController extends AdminBaseController
 
                 // if (floatval($this->idParentCategories) !== 0) {
                 if ((float) $this->idParentCategories > 0) {
-                    $this->templateData['cphTitleCurrent'] = $this->arrCategoriesDetails['tblCategoriesTitle'];
+                    $this->templateData['cphTitleCurrent'] = $arrCategoriesDetails['tblCategoriesTitle'];
                 } else {
                     $this->templateData['cphTitleCurrent'] = \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendCategoriesTitleMain');
                 }
@@ -155,19 +182,26 @@ class AdminCategoriesController extends AdminBaseController
                 //$this->templateData['cphBody'] = 'partial-layout-admin-categories-listing';
                 //NOTE: maybe change to dots in the blade layout to get the partial directly
 
-                $this->templateData['cphBody']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
-                $this->templateData['cphBody']['arrCategoriesListing'] = $this->arrCategoriesListing;
+                $this->templateData['cphBody']['arrCategoriesDetails'] = $arrCategoriesDetails;
+                $this->templateData['cphBody']['arrCategoriesListing'] = $arrCategoriesListing;
                 unset($this->templateData['cphBody']['arrCategoriesListing']['returnStatus']); // Clean extra data.
 
                 // TODO: pass _pagingTotalRecords and _pagingTotal values
                 if (config('app.gSystemConfig.enableCategoriesBackendPagination') === 1) {
-                    $this->templateData['_pagingTotalRecords'] = $this->arrCategoriesListingJson['_pagingTotalRecords'];
+                    $this->templateData['_pagingTotalRecords'] = $arrCategoriesListingJson['_pagingTotalRecords'];
+                }
+
+                if ($arrFiltersGenericListingJson['returnStatus'] === true) {
+                    $this->templateData['cphBody']['ofglRecords'] = $arrFiltersGenericListingJson['ofglRecords'];
+                    unset($this->templateData['cphBody']['ofglRecords']['returnStatus']); // Clean extra data.
+                } else {
+                    $this->templateData['cphBody']['ofglRecords'] = [];
+                    // TODO: test with empty results and optimize (deleting the else condition if returns empty array).
                 }
 
                 // Dynamic data.
                 //$this->templateData['additionalData']['arrCategoriesDetails'] = $this->arrCategoriesDetails;
                 //$this->templateData['additionalData']['arrCategoriesListing'] = $this->arrCategoriesListing;
-
 
                 // Layout.
                 //$this->templateData['masterPageSelect'] = $_GET['masterPageSelect']; // 'layout-admin-main'

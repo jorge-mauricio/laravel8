@@ -86,8 +86,6 @@
 @section('cphBody')
     @include('admin.partials.messages-status')
 
-    {{-- @dump($templateData) --}}
-
     {{-- Form. --}}
     <section class="ss-backend-layout-section-form01">
         <form
