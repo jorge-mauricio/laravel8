@@ -287,8 +287,9 @@ class AdminCategoriesController extends AdminBaseController
         try {
             // API call.
             /**/
-            //array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
-            //$arrData = array_merge($arrData, $req->all());
+            // array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
+            // $arrData = array_merge($arrData, $req->all());
+            // dd($req->post('idsCategoriesFiltersGeneric1'));
             /*
             withHeaders([
                     'Content-Type' => 'multipart/form-data'

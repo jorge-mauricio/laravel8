@@ -39,6 +39,17 @@ class CategoriesInsert extends Model
     private string $tblCategoriesMetaTitle = '';
     private string $tblCategoriesMetaInfo = '';
 
+    private array $arrIdsCategoriesFiltersGeneric1 = [];
+    private array $arrIdsCategoriesFiltersGeneric2 = [];
+    private array $arrIdsCategoriesFiltersGeneric3 = [];
+    private array $arrIdsCategoriesFiltersGeneric4 = [];
+    private array $arrIdsCategoriesFiltersGeneric5 = [];
+    private array $arrIdsCategoriesFiltersGeneric6 = [];
+    private array $arrIdsCategoriesFiltersGeneric7 = [];
+    private array $arrIdsCategoriesFiltersGeneric8 = [];
+    private array $arrIdsCategoriesFiltersGeneric9 = [];
+    private array $arrIdsCategoriesFiltersGeneric10 = [];
+
     private string $tblCategoriesInfo1 = '';
     private string $tblCategoriesInfo2 = '';
     private string $tblCategoriesInfo3 = '';
@@ -295,6 +306,17 @@ class CategoriesInsert extends Model
         $this->tblCategoriesRestrictedAccess = (isset($arrParameters['_tblCategoriesRestrictedAccess']) && $arrParameters['_tblCategoriesRestrictedAccess'] !== null) ? $arrParameters['_tblCategoriesRestrictedAccess'] : $this->tblCategoriesRestrictedAccess;
 
         $this->tblCategoriesNotes = isset($arrParameters['_tblCategoriesNotes']) ? \SyncSystemNS\FunctionsGeneric::contentMaskWrite($arrParameters['_tblCategoriesNotes'], 'db_write_text') : $this->tblCategoriesNotes;
+
+        $this->arrIdsCategoriesFiltersGeneric1 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric1']) && $arrParameters['_arrIdsCategoriesFiltersGeneric1'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric1'] : $this->arrIdsCategoriesFiltersGeneric1;
+        $this->arrIdsCategoriesFiltersGeneric2 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric2']) && $arrParameters['_arrIdsCategoriesFiltersGeneric2'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric2'] : $this->arrIdsCategoriesFiltersGeneric2;
+        $this->arrIdsCategoriesFiltersGeneric3 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric3']) && $arrParameters['_arrIdsCategoriesFiltersGeneric3'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric3'] : $this->arrIdsCategoriesFiltersGeneric3;
+        $this->arrIdsCategoriesFiltersGeneric4 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric4']) && $arrParameters['_arrIdsCategoriesFiltersGeneric4'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric4'] : $this->arrIdsCategoriesFiltersGeneric4;
+        $this->arrIdsCategoriesFiltersGeneric5 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric5']) && $arrParameters['_arrIdsCategoriesFiltersGeneric5'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric5'] : $this->arrIdsCategoriesFiltersGeneric5;
+        $this->arrIdsCategoriesFiltersGeneric6 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric6']) && $arrParameters['_arrIdsCategoriesFiltersGeneric6'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric6'] : $this->arrIdsCategoriesFiltersGeneric6;
+        $this->arrIdsCategoriesFiltersGeneric7 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric7']) && $arrParameters['_arrIdsCategoriesFiltersGeneric7'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric7'] : $this->arrIdsCategoriesFiltersGeneric7;
+        $this->arrIdsCategoriesFiltersGeneric8 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric8']) && $arrParameters['_arrIdsCategoriesFiltersGeneric8'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric8'] : $this->arrIdsCategoriesFiltersGeneric8;
+        $this->arrIdsCategoriesFiltersGeneric9 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric9']) && $arrParameters['_arrIdsCategoriesFiltersGeneric9'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric9'] : $this->arrIdsCategoriesFiltersGeneric9;
+        $this->arrIdsCategoriesFiltersGeneric10 = (isset($arrParameters['_arrIdsCategoriesFiltersGeneric10']) && $arrParameters['_arrIdsCategoriesFiltersGeneric10'] !== null) ? $arrParameters['_arrIdsCategoriesFiltersGeneric10'] : $this->arrIdsCategoriesFiltersGeneric10;
         // ----------------------
 
 
@@ -432,11 +454,175 @@ class CategoriesInsert extends Model
             $this->resultsSQLCategoriesInsert = $this->resultsSQLCategoriesInsert->insert($this->arrSQLCategoriesInsertParams);
 
             if ($this->resultsSQLCategoriesInsert === true) {
+                // Record filters generic.
+                // TODO (OPTIMIZE): make only one insert with multiple records.
+                // Store result in variables and check for errors.
+
+                // Filters generic 1 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric1')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric1 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 101,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 2 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric2')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric2 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 102,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 3 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric3')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric3 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 103,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 4 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric4')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric4 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 104,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 5 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric5')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric5 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 105,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 6 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric6')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric6 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 106,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 7 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric7')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric7 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 107,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 8 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric8')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric8 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 108,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 9 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric9')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric9 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 109,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
+                // Filters generic 10 - record.
+                if (config('app.gSystemConfig.enableCategoriesFilterGeneric10')) {
+                    foreach ($this->arrIdsCategoriesFiltersGeneric10 as $indexArrFiltersGeneric => $idFiltersGeneric) {
+                        \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                            '_tblFiltersGenericBindingID' => '',
+                            '_tblFiltersGenericBindingSortOrder' => '',
+                            '_tblFiltersGenericBindingDateCreation' => '',
+                            '_tblFiltersGenericBindingDateEdit' => '',
+                            '_tblFiltersGenericBindingIdFiltersGeneric' => $idFiltersGeneric,
+                            '_tblFiltersGenericBindingIdFilterIndex' => 110,
+                            '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                            '_tblFiltersGenericBindingNotes' => ''
+                        ]);
+                    }
+                }
+
                 $arrReturn = [
                     'returnStatus' => true,
                     'nRecords' => 1,
                     'idRecordInsert' => $this->arrSQLCategoriesInsertParams['id']
-                    //'idRecordInsert' => \SyncSystemNS\FunctionsDB::counterUniversalUpdate()
+                    // 'idRecordInsert' => \SyncSystemNS\FunctionsDB::counterUniversalUpdate()
                 ];
             }
         } catch (\Exception $addRecordError) {

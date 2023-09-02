@@ -123,6 +123,17 @@ class ApiCategoriesInsertController extends Controller
         $this->arrCategoriesInsertParameters['_tblCategoriesRestrictedAccess'] = (int) $req->post('restricted_access');
 
         $this->arrCategoriesInsertParameters['_tblCategoriesNotes'] = $req->post('notes');
+
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric1'] = $req->post('idsCategoriesFiltersGeneric1');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric2'] = $req->post('idsCategoriesFiltersGeneric2');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric3'] = $req->post('idsCategoriesFiltersGeneric3');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric4'] = $req->post('idsCategoriesFiltersGeneric4');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric5'] = $req->post('idsCategoriesFiltersGeneric5');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric6'] = $req->post('idsCategoriesFiltersGeneric6');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric7'] = $req->post('idsCategoriesFiltersGeneric7');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric8'] = $req->post('idsCategoriesFiltersGeneric8');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric9'] = $req->post('idsCategoriesFiltersGeneric9');
+        $this->arrCategoriesInsertParameters['_arrIdsCategoriesFiltersGeneric10'] = $req->post('idsCategoriesFiltersGeneric10');
         // ----------------------
 
         // Logic.
