@@ -210,7 +210,7 @@ class ObjectCategoriesDetails
     private string $tblCategoriesNotes = '';
     private string $tblCategoriesNotes_edit = '';
 
-    private string $ofglRecords;
+    private \SyncSystemNS\ObjectFiltersGenericListing|null $ofglRecords = null;
 
     private array $arrIdsCategoriesFiltersGeneric1 = [];
     private array $arrIdsCategoriesFiltersGeneric2 = [];
@@ -223,20 +223,20 @@ class ObjectCategoriesDetails
     private array $arrIdsCategoriesFiltersGeneric9 = [];
     private array $arrIdsCategoriesFiltersGeneric10 = [];
 
-    private array|null $arrIdsCategoriesFiltersGenericBinding;
+    private array|null $arrIdsCategoriesFiltersGenericBinding = null;
 
-    private array|null $arrIdsCategoriesFiltersGeneric1Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric2Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric3Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric4Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric5Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric6Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric7Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric8Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric9Binding;
-    private array|null $arrIdsCategoriesFiltersGeneric10Binding;
+    private array|null $arrIdsCategoriesFiltersGeneric1Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric2Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric3Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric4Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric5Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric6Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric7Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric8Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric9Binding = [];
+    private array|null $arrIdsCategoriesFiltersGeneric10Binding = [];
 
-    private array|null $arrCategoriesFiltersGeneric1Binding_print;
+    private array|null $arrCategoriesFiltersGeneric1Binding_print = [];
     private array|null $arrCategoriesFiltersGeneric2Binding_print;
     private array|null $arrCategoriesFiltersGeneric3Binding_print;
     private array|null $arrCategoriesFiltersGeneric4Binding_print;
@@ -247,6 +247,7 @@ class ObjectCategoriesDetails
     private array|null $arrCategoriesFiltersGeneric9Binding_print;
     private array|null $arrCategoriesFiltersGeneric10Binding_print;
 
+    /*
     private array $arrIdsCategoriesFiltersGeneric1BindingSelect = [];
     private array $arrIdsCategoriesFiltersGeneric2BindingSelect = [];
     private array $arrIdsCategoriesFiltersGeneric3BindingSelect = [];
@@ -257,6 +258,7 @@ class ObjectCategoriesDetails
     private array $arrIdsCategoriesFiltersGeneric8BindingSelect = [];
     private array $arrIdsCategoriesFiltersGeneric9BindingSelect = [];
     private array $arrIdsCategoriesFiltersGeneric10BindingSelect = [];
+    */
     // ----------------------
 
     // Constructor.
@@ -319,6 +321,122 @@ class ObjectCategoriesDetails
                 // $arrReturn = ['returnStatus' => true, ...$this->resultsCategoriesListing]; // error - research
                 // $arrReturn = array_merge(['returnStatus' => true], $this->resultsCategoryDetails); // working
                 $arrReturn['returnStatus'] = true;
+
+                // Filters generic.
+                $this->ofglRecords = new \SyncSystemNS\ObjectFiltersGenericListing([
+                    '_arrSearchParameters' => ['table_name;' . config('app.gSystemConfig.configSystemDBTableCategories') . ';s'],
+                    '_configSortOrder' => 'title',
+                    '_strNRecords' => '',
+                    '_arrSpecialParameters' => [
+                        'returnType' => 1,
+                        // 'pageNumber' => $this->pageNumber,
+                        // 'pagingNRecords' => $this->pagingNRecords
+                    ],
+                ]);
+                $resultsFiltersGenericListing = $this->ofglRecords->recordsListingGet(0, 1);
+                if (count($resultsFiltersGenericListing)) {
+                    // Strip arrays that has string as keys.
+                    $resultsFiltersGenericListing = array_filter($resultsFiltersGenericListing, function ($value, $key) {
+                        return !is_string($key);
+                    }, ARRAY_FILTER_USE_BOTH);
+
+                    // Force to array (for some reason, it's converting to an object).
+                    $resultsFiltersGenericListing = json_decode(json_encode($resultsFiltersGenericListing), true);
+                }
+
+                // Filters generic bindings.
+                $this->arrIdsCategoriesFiltersGenericBinding = \SyncSystemNS\FunctionsDB::genericTableGet02(
+                    config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                    ['id_record;' . $this->idTbCategories . ';i'], // TODO: swap for $this->tblCategoriesID (and sync with other versions).
+                    '',
+                    '',
+                    \SyncSystemNS\FunctionsGeneric::tableFieldsQueryBuild01(config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'), 'all', 'string'),
+                    1,
+                    ['returnType' => 1]
+                );
+
+                if ($this->arrIdsCategoriesFiltersGenericBinding['returnStatus'] === true) {
+                    // Strip arrays that has string as keys.
+                    // unset($this->arrIdsCategoriesFiltersGenericBinding['returnStatus']);
+                    $this->arrIdsCategoriesFiltersGenericBinding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($value, $key) {
+                        // return is_string($key) === false;
+                        return !is_string($key);
+                        // return is_array($value) === false;
+                        // return array_key_exists('filter_index', $arr);
+                    }, ARRAY_FILTER_USE_BOTH);
+
+                    // Filters generic - separation.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') !== 0) {
+                        // $this->arrIdsCategoriesFiltersGeneric1Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($value, $key) {
+                        //     return $value['id_filter_index'] === 101;
+                        // }, ARRAY_FILTER_USE_BOTH);
+
+                        $this->arrIdsCategoriesFiltersGeneric1Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            // return $arr->id_filter_index === 101; // Working. For some reason, the $arr is an object.
+                            $arr = json_decode(json_encode($arr), true); // Force converting to array.
+                            return $arr['id_filter_index'] === 101 && isset($arr['id_filter_index']);
+
+                            // \SyncSystemNS\FunctionsLog::logLaravel($arr);
+                            // return $arr['id_filter_index'] === 101;
+                            // return $arr->id_filter_index === 101; // for some reason, the $arr is an object.
+                            // return ($arr['filter_index'] === 101);
+
+                            // Debug.
+                            // echo 'arr=<pre>';
+                            // var_dump($arr);
+                            // echo '</pre><br/>';
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric1Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric1Binding), true);
+
+                        // Debug.
+                        // echo 'arrIdsCategoriesFiltersGeneric1Binding=<pre>';
+                        // var_dump($this->arrIdsCategoriesFiltersGeneric1Binding);
+                        // echo '</pre><br/>';
+
+                        // $this->arrIdsCategoriesFiltersGeneric1Binding = array_search(101, array_column($this->arrIdsCategoriesFiltersGenericBinding, 'filter_index'));
+
+                        // foreach ($this->arrIdsCategoriesFiltersGeneric1Binding as $arrFilterGeneric) {
+                        //     if (array_search($arrFilterGeneric['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'))) {
+
+                        //     }
+                        // }
+                        if (count($this->arrIdsCategoriesFiltersGeneric1Binding)) {
+                            // $this->arrCategoriesFiltersGeneric1Binding_print = '';
+                            $this->arrCategoriesFiltersGeneric1Binding_print = array_map(function ($arr) use ($resultsFiltersGenericListing) {
+                                $filtersGenericKeyMatch = array_search($arr['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                return $resultsFiltersGenericListing[$filtersGenericKeyMatch]['title'];
+
+                                // Debug.
+                                // echo 'filtersGenericKeyMatch=<pre>';
+                                // var_dump($filtersGenericKeyMatch);
+                                // echo '</pre><br/>';
+
+                                // echo 'filtersGenericKeyMatch=<pre>';
+                                // var_dump($resultsFiltersGenericListing[$filtersGenericKeyMatch]);
+                                // echo '</pre><br/>';
+
+                                // return array_search($arr['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                            }, $this->arrIdsCategoriesFiltersGeneric1Binding);
+                        }
+                        // TODO: refactor so the out put would be the id key and the title, for optimization.
+                        // Example: $arr['id_filters_generic'] => $resultsFiltersGenericListing[$filtersGenericKeyMatch]['title']
+                        // Sync to other frameworks.
+                    }
+                } else {
+                    // Condition for error.
+                }
+
+
+                // Debug.
+                $arrReturn['arrIdsCategoriesFiltersGenericBinding'] = $this->arrIdsCategoriesFiltersGenericBinding;
+
+                $arrReturn['ofglRecordsDebug'] = $this->ofglRecords;
+                $arrReturn['resultsFiltersGenericListing'] = $resultsFiltersGenericListing;
+
+                // exit();
+
+
+
 
                 // Define values.
                 //$this->tblCategoriesID = $this->resultsCategoryDetails[0]['id'];
@@ -896,6 +1014,9 @@ class ObjectCategoriesDetails
 
                 $arrReturn['tblCategoriesNotes'] = $this->tblCategoriesNotes;
                 $arrReturn['tblCategoriesNotes_edit'] = $this->tblCategoriesNotes_edit;
+
+                $arrReturn['arrIdsCategoriesFiltersGeneric1Binding'] = $this->arrIdsCategoriesFiltersGeneric1Binding;
+                $arrReturn['arrCategoriesFiltersGeneric1Binding_print'] = $this->arrCategoriesFiltersGeneric1Binding_print;
             }
 
             // Debug.

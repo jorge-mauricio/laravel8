@@ -48,68 +48,68 @@
 
     // Filters - Status.
     if (config('app.gSystemConfig.enableCategoriesStatus') === 1) {
-        $resultsCategoriesStatusListing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesStatusListing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 2;
         });
     }
 
     // Filter results according to filter_index.
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') !== 0) {
-        $resultsCategoriesFiltersGeneric1Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric1Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 101;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric2') !== 0) {
-        $resultsCategoriesFiltersGeneric2Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric2Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 102;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric3') !== 0) {
-        $resultsCategoriesFiltersGeneric3Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric3Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 103;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric4') !== 0) {
-        $resultsCategoriesFiltersGeneric4Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric4Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 104;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric5') !== 0) {
-        $resultsCategoriesFiltersGeneric5Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric5Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 105;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric6') !== 0) {
-        $resultsCategoriesFiltersGeneric6Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric6Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 106;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric7') !== 0) {
-        $resultsCategoriesFiltersGeneric7Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric7Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 107;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric8') !== 0) {
-        $resultsCategoriesFiltersGeneric8Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric8Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 108;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric9') !== 0) {
-        $resultsCategoriesFiltersGeneric9Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric9Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 109;
         });
     }
 
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric10') !== 0) {
-        $resultsCategoriesFiltersGeneric10Listing = array_filter($templateData['cphBody']['ofglRecords'], function($arr) {
+        $resultsCategoriesFiltersGeneric10Listing = array_filter($templateData['cphBody']['ofglRecords'], function ($arr) {
             return $arr['filter_index'] === 110;
         });
     }

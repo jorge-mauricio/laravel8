@@ -67,7 +67,7 @@ class AdminCategoriesController extends AdminBaseController
         $arrCategoriesDetails = null;
         $arrCategoriesListing = null;
 
-        $apiFiltersGenericListingResponse = null;
+        $apiFiltersGenericListingResponse = null; // TODO: evaluate changing these to properties, since they´re used in more the one method.
         $arrFiltersGenericListingJson = null;
         // ----------------------
 
@@ -116,7 +116,7 @@ class AdminCategoriesController extends AdminBaseController
                             // 'filterIndex' => $this->filterIndex,
                             'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
                         ],
-                        $req->all()
+                        // $req->all()
                     )
                 );
 
@@ -600,6 +600,9 @@ class AdminCategoriesController extends AdminBaseController
 
         $apiURLCategoriesDetailsCurrent = null;
         $apiCategoriesDetailsCurrentResponse = null;
+
+        $apiFiltersGenericListingResponse = null;
+        $arrFiltersGenericListingJson = null;
         // ----------------------
 
         // Value definition.
@@ -609,6 +612,7 @@ class AdminCategoriesController extends AdminBaseController
 
         // Logic.
         try {
+            // Categories details API call.
             $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbCategories . '/',
@@ -617,6 +621,25 @@ class AdminCategoriesController extends AdminBaseController
                     ]
                 );
             $arrCategoriesDetailsJson = $apiCategoriesDetailsCurrentResponse->json();
+
+            // Filters generic API call.
+            $apiFiltersGenericListingResponse = Http::withOptions(['verify' => false])
+                ->get(
+                    config('app.gSystemConfig.configAPIURL') . '/' .
+                    config('app.gSystemConfig.configRouteAPI') . '/' .
+                    config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/',
+                    array_merge(
+                        [
+                            'tableName' => config('app.gSystemConfig.configSystemDBTableCategories'),
+                            // 'filterIndex' => $this->filterIndex,
+                            'apiKey' => config('app.gSystemConfig.configAPIKeySystem'),
+                        ],
+                        // $req->all()
+                    )
+                );
+
+            // Note / TODO: On production, set verify to true.
+            $arrFiltersGenericListingJson = $apiFiltersGenericListingResponse->json();
 
             if ($arrCategoriesDetailsJson['returnStatus'] === true) {
                 //$arrCategoriesDetails = $arrCategoriesDetailsJson['ocdRecord'];
@@ -633,6 +656,14 @@ class AdminCategoriesController extends AdminBaseController
 
                 // Body - content place holder.
                 $this->templateData['cphBody']['ocdRecord'] = $arrCategoriesDetailsJson['ocdRecord'];
+
+                if ($arrFiltersGenericListingJson['returnStatus'] === true) {
+                    $this->templateData['cphBody']['ofglRecords'] = $arrFiltersGenericListingJson['ofglRecords'];
+                    unset($this->templateData['cphBody']['ofglRecords']['returnStatus']); // Clean extra data.
+                } else {
+                    $this->templateData['cphBody']['ofglRecords'] = [];
+                    // TODO: test with empty results and optimize (deleting the else condition if returns empty array).
+                }
             }
 
             // Debug.

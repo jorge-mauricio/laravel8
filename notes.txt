@@ -70,6 +70,8 @@
 		http://localhost:8000/system/login-users/
 			- root
 			- system
+		http://localhost:8000/system/categories/edit/2011/?masterPageSelect=layout-admin-main&pageNumber=20
+			- filters generic
 
 
 			- note: when debugging secure routes, better to clear caches:
@@ -87,6 +89,7 @@ php artisan config:clear
 	- custom stubs:
 		- Admin Controller:
 			- terminal: php artisan make:controller --type=admin AdminFiltersGenericController
+				TODO: change to ss-admin
 
 
 
