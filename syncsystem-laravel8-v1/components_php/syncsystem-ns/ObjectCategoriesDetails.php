@@ -355,7 +355,7 @@ class ObjectCategoriesDetails
                     ['returnType' => 1]
                 );
 
-                if ($this->arrIdsCategoriesFiltersGenericBinding['returnStatus'] === true) {
+                if (isset($this->arrIdsCategoriesFiltersGenericBinding['returnStatus']) && $this->arrIdsCategoriesFiltersGenericBinding['returnStatus'] === true) {
                     // Strip arrays that has string as keys.
                     // unset($this->arrIdsCategoriesFiltersGenericBinding['returnStatus']);
                     $this->arrIdsCategoriesFiltersGenericBinding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($value, $key) {

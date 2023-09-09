@@ -112,6 +112,17 @@ class ApiCategoriesUpdateController extends Controller
         $this->arrCategoriesUpdateParameters['_tblCategoriesRestrictedAccess'] = (int) $req->post('restricted_access');
 
         $this->arrCategoriesUpdateParameters['_tblCategoriesNotes'] = $req->post('notes');
+
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric1'] = $req->post('idsCategoriesFiltersGeneric1');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric2'] = $req->post('idsCategoriesFiltersGeneric2');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric3'] = $req->post('idsCategoriesFiltersGeneric3');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric4'] = $req->post('idsCategoriesFiltersGeneric4');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric5'] = $req->post('idsCategoriesFiltersGeneric5');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric6'] = $req->post('idsCategoriesFiltersGeneric6');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric7'] = $req->post('idsCategoriesFiltersGeneric7');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric8'] = $req->post('idsCategoriesFiltersGeneric8');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric9'] = $req->post('idsCategoriesFiltersGeneric9');
+        $this->arrCategoriesUpdateParameters['_arrIdsCategoriesFiltersGeneric10'] = $req->post('idsCategoriesFiltersGeneric10');
         // ----------------------
 
         // Logic.

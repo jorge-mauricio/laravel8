@@ -899,11 +899,13 @@ class AdminCategoriesController extends AdminBaseController
             echo 'idTbCategories=<pre>';
             var_dump($idTbCategories);
             echo '</pre><br />';
-
-            echo 'arrCategoriesUpdateJson=<pre>';
-            var_dump($arrCategoriesUpdateJson);
-            echo '</pre><br />';
             */
+
+            // echo 'arrCategoriesUpdateJson=<pre>';
+            // var_dump($arrCategoriesUpdateJson);
+            // echo '</pre><br />';
+            // dump($arrCategoriesUpdateJson);
+
             // exit();
         } catch (\Exception $adminCategoriesUpdateError) {
             if (config('app.gSystemConfig.configDebug') === true) {

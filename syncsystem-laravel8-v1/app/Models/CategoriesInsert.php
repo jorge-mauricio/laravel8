@@ -39,17 +39,6 @@ class CategoriesInsert extends Model
     private string $tblCategoriesMetaTitle = '';
     private string $tblCategoriesMetaInfo = '';
 
-    private array $arrIdsCategoriesFiltersGeneric1 = [];
-    private array $arrIdsCategoriesFiltersGeneric2 = [];
-    private array $arrIdsCategoriesFiltersGeneric3 = [];
-    private array $arrIdsCategoriesFiltersGeneric4 = [];
-    private array $arrIdsCategoriesFiltersGeneric5 = [];
-    private array $arrIdsCategoriesFiltersGeneric6 = [];
-    private array $arrIdsCategoriesFiltersGeneric7 = [];
-    private array $arrIdsCategoriesFiltersGeneric8 = [];
-    private array $arrIdsCategoriesFiltersGeneric9 = [];
-    private array $arrIdsCategoriesFiltersGeneric10 = [];
-
     private string $tblCategoriesInfo1 = '';
     private string $tblCategoriesInfo2 = '';
     private string $tblCategoriesInfo3 = '';
@@ -96,6 +85,17 @@ class CategoriesInsert extends Model
     private int $tblCategoriesRestrictedAccess = 0;
 
     private string $tblCategoriesNotes = '';
+
+    private array $arrIdsCategoriesFiltersGeneric1 = [];
+    private array $arrIdsCategoriesFiltersGeneric2 = [];
+    private array $arrIdsCategoriesFiltersGeneric3 = [];
+    private array $arrIdsCategoriesFiltersGeneric4 = [];
+    private array $arrIdsCategoriesFiltersGeneric5 = [];
+    private array $arrIdsCategoriesFiltersGeneric6 = [];
+    private array $arrIdsCategoriesFiltersGeneric7 = [];
+    private array $arrIdsCategoriesFiltersGeneric8 = [];
+    private array $arrIdsCategoriesFiltersGeneric9 = [];
+    private array $arrIdsCategoriesFiltersGeneric10 = [];
 
     private array $arrSQLCategoriesInsertParams = [];
     private mixed $resultsSQLCategoriesInsert;
