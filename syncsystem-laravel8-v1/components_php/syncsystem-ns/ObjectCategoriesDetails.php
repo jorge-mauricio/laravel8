@@ -237,15 +237,15 @@ class ObjectCategoriesDetails
     private array|null $arrIdsCategoriesFiltersGeneric10Binding = [];
 
     private array|null $arrCategoriesFiltersGeneric1Binding_print = [];
-    private array|null $arrCategoriesFiltersGeneric2Binding_print;
-    private array|null $arrCategoriesFiltersGeneric3Binding_print;
-    private array|null $arrCategoriesFiltersGeneric4Binding_print;
-    private array|null $arrCategoriesFiltersGeneric5Binding_print;
-    private array|null $arrCategoriesFiltersGeneric6Binding_print;
-    private array|null $arrCategoriesFiltersGeneric7Binding_print;
-    private array|null $arrCategoriesFiltersGeneric8Binding_print;
-    private array|null $arrCategoriesFiltersGeneric9Binding_print;
-    private array|null $arrCategoriesFiltersGeneric10Binding_print;
+    private array|null $arrCategoriesFiltersGeneric2Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric3Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric4Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric5Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric6Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric7Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric8Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric9Binding_print = [];
+    private array|null $arrCategoriesFiltersGeneric10Binding_print = [];
 
     /*
     private array $arrIdsCategoriesFiltersGeneric1BindingSelect = [];
@@ -402,9 +402,26 @@ class ObjectCategoriesDetails
                         // }
                         if (count($this->arrIdsCategoriesFiltersGeneric1Binding)) {
                             // $this->arrCategoriesFiltersGeneric1Binding_print = '';
-                            $this->arrCategoriesFiltersGeneric1Binding_print = array_map(function ($arr) use ($resultsFiltersGenericListing) {
-                                $filtersGenericKeyMatch = array_search($arr['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
-                                return $resultsFiltersGenericListing[$filtersGenericKeyMatch]['title'];
+                            // $this->arrCategoriesFiltersGeneric1Binding_print = array_map(function ($arr) use ($resultsFiltersGenericListing) {
+                            //     $idTblfiltersGenericKeyMatch = array_search($arr['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                            //     return $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+
+                            //     // Debug.
+                            //     // echo 'filtersGenericKeyMatch=<pre>';
+                            //     // var_dump($filtersGenericKeyMatch);
+                            //     // echo '</pre><br/>';
+
+                            //     // echo 'filtersGenericKeyMatch=<pre>';
+                            //     // var_dump($resultsFiltersGenericListing[$filtersGenericKeyMatch]);
+                            //     // echo '</pre><br/>';
+
+                            //     // return array_search($arr['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                            // }, $this->arrIdsCategoriesFiltersGeneric1Binding); // Working, but with sequenced array keys.
+
+                            array_walk($this->arrIdsCategoriesFiltersGeneric1Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                // return "{$item['id_filters_generic']} => {$resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title']}";
+                                $this->arrCategoriesFiltersGeneric1Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
 
                                 // Debug.
                                 // echo 'filtersGenericKeyMatch=<pre>';
@@ -415,28 +432,163 @@ class ObjectCategoriesDetails
                                 // var_dump($resultsFiltersGenericListing[$filtersGenericKeyMatch]);
                                 // echo '</pre><br/>';
 
+                                // echo 'item=<pre>';
+                                // var_dump($item);
+                                // echo '</pre><br/>';
+
                                 // return array_search($arr['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
-                            }, $this->arrIdsCategoriesFiltersGeneric1Binding);
+                            }, $resultsFiltersGenericListing);
+                            // $this->arrCategoriesFiltersGeneric1Binding_print =
                         }
                         // TODO: refactor so the out put would be the id key and the title, for optimization.
                         // Example: $arr['id_filters_generic'] => $resultsFiltersGenericListing[$filtersGenericKeyMatch]['title']
+                        // Try with array_walk.
                         // Sync to other frameworks.
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric2') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric2Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 102 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric2Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric2Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric2Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric2Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric2Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric3') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric3Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 103 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric3Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric3Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric3Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric3Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric3Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric4') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric4Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 104 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric4Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric4Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric4Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric4Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric4Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric5') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric5Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 105 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric5Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric5Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric5Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric5Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric5Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric6') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric6Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 106 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric6Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric6Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric6Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric6Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric6Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric7') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric7Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 107 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric7Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric7Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric7Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric7Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric7Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric8') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric8Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 108 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric8Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric8Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric8Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric8Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric8Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric9') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric9Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 109 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric9Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric9Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric9Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric9Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric9Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
+                    }
+
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric10') !== 0) {
+                        $this->arrIdsCategoriesFiltersGeneric10Binding = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) {
+                            $arr = json_decode(json_encode($arr), true);
+                            return $arr['id_filter_index'] === 110 && isset($arr['id_filter_index']);
+                        });
+                        $this->arrIdsCategoriesFiltersGeneric10Binding = json_decode(json_encode($this->arrIdsCategoriesFiltersGeneric10Binding), true);
+
+                        if (count($this->arrIdsCategoriesFiltersGeneric10Binding)) {
+                            array_walk($this->arrIdsCategoriesFiltersGeneric10Binding, function ($item, $key, $resultsFiltersGenericListing) {
+                                $idTblfiltersGenericKeyMatch = array_search($item['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                                $this->arrCategoriesFiltersGeneric10Binding_print[$item['id_filters_generic']] = $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
+                            }, $resultsFiltersGenericListing);
+                        }
                     }
                 } else {
                     // Condition for error.
                 }
 
-
                 // Debug.
-                $arrReturn['arrIdsCategoriesFiltersGenericBinding'] = $this->arrIdsCategoriesFiltersGenericBinding;
-
-                $arrReturn['ofglRecordsDebug'] = $this->ofglRecords;
-                $arrReturn['resultsFiltersGenericListing'] = $resultsFiltersGenericListing;
-
+                // $arrReturn['arrIdsCategoriesFiltersGenericBinding'] = $this->arrIdsCategoriesFiltersGenericBinding;
+                // $arrReturn['ofglRecordsDebug'] = $this->ofglRecords;
+                // $arrReturn['resultsFiltersGenericListing'] = $resultsFiltersGenericListing;
                 // exit();
-
-
-
 
                 // Define values.
                 //$this->tblCategoriesID = $this->resultsCategoryDetails[0]['id'];
@@ -1017,6 +1169,24 @@ class ObjectCategoriesDetails
 
                 $arrReturn['arrIdsCategoriesFiltersGeneric1Binding'] = $this->arrIdsCategoriesFiltersGeneric1Binding;
                 $arrReturn['arrCategoriesFiltersGeneric1Binding_print'] = $this->arrCategoriesFiltersGeneric1Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric2Binding'] = $this->arrIdsCategoriesFiltersGeneric2Binding;
+                $arrReturn['arrCategoriesFiltersGeneric2Binding_print'] = $this->arrCategoriesFiltersGeneric2Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric3Binding'] = $this->arrIdsCategoriesFiltersGeneric3Binding;
+                $arrReturn['arrCategoriesFiltersGeneric3Binding_print'] = $this->arrCategoriesFiltersGeneric3Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric4Binding'] = $this->arrIdsCategoriesFiltersGeneric4Binding;
+                $arrReturn['arrCategoriesFiltersGeneric4Binding_print'] = $this->arrCategoriesFiltersGeneric4Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric5Binding'] = $this->arrIdsCategoriesFiltersGeneric5Binding;
+                $arrReturn['arrCategoriesFiltersGeneric5Binding_print'] = $this->arrCategoriesFiltersGeneric5Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric6Binding'] = $this->arrIdsCategoriesFiltersGeneric6Binding;
+                $arrReturn['arrCategoriesFiltersGeneric6Binding_print'] = $this->arrCategoriesFiltersGeneric6Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric7Binding'] = $this->arrIdsCategoriesFiltersGeneric7Binding;
+                $arrReturn['arrCategoriesFiltersGeneric7Binding_print'] = $this->arrCategoriesFiltersGeneric7Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric8Binding'] = $this->arrIdsCategoriesFiltersGeneric8Binding;
+                $arrReturn['arrCategoriesFiltersGeneric8Binding_print'] = $this->arrCategoriesFiltersGeneric8Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric9Binding'] = $this->arrIdsCategoriesFiltersGeneric9Binding;
+                $arrReturn['arrCategoriesFiltersGeneric9Binding_print'] = $this->arrCategoriesFiltersGeneric9Binding_print;
+                $arrReturn['arrIdsCategoriesFiltersGeneric10Binding'] = $this->arrIdsCategoriesFiltersGeneric10Binding;
+                $arrReturn['arrCategoriesFiltersGeneric10Binding_print'] = $this->arrCategoriesFiltersGeneric10Binding_print;
             }
 
             // Debug.

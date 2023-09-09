@@ -660,6 +660,7 @@ class AdminCategoriesController extends AdminBaseController
                 if ($arrFiltersGenericListingJson['returnStatus'] === true) {
                     $this->templateData['cphBody']['ofglRecords'] = $arrFiltersGenericListingJson['ofglRecords'];
                     unset($this->templateData['cphBody']['ofglRecords']['returnStatus']); // Clean extra data.
+                    // TODO: optimize - this array can come from the ObjectCategoriesDetails.
                 } else {
                     $this->templateData['cphBody']['ofglRecords'] = [];
                     // TODO: test with empty results and optimize (deleting the else condition if returns empty array).

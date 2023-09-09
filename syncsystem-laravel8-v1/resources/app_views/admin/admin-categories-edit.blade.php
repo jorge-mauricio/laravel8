@@ -354,7 +354,19 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric1Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric1[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric1[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{-- {{ (string) array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric1Binding'], 'id_filters_generic')) !== '' ? ' checked' : '' }} --}}
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric1Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+
+                                                {{-- Debug. --}}
+                                                {{-- {{ 'array_search=' . array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric1Binding'], 'id_filters_generic')) }} --}}
+                                                {{-- {{ 'categoriesFiltersGenericRow.id=' . $categoriesFiltersGenericRow['id'] }} --}}
                                             </label>
                                         @endforeach
                                     @endif
@@ -363,7 +375,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') === 2)
                                         <select id="idsCategoriesFiltersGeneric1" name="idsCategoriesFiltersGeneric1[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric1Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric1Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -371,9 +388,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') === 3)
                                         <select id="idsCategoriesFiltersGeneric1" name="idsCategoriesFiltersGeneric1[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric1Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric1Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric1Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -382,7 +409,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric1Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric1[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric1[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric1Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -400,7 +434,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric2') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric2Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric2[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric2[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric2Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -409,7 +450,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric2') === 2)
                                         <select id="idsCategoriesFiltersGeneric2" name="idsCategoriesFiltersGeneric2[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric2Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric2Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -417,9 +463,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric2') === 3)
                                         <select id="idsCategoriesFiltersGeneric2" name="idsCategoriesFiltersGeneric2[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric2Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric2Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric2Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -428,7 +484,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric2') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric2Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric2[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric2[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric2Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -446,7 +509,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric3') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric3Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric3[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric3[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric3Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -455,7 +525,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric3') === 2)
                                         <select id="idsCategoriesFiltersGeneric3" name="idsCategoriesFiltersGeneric3[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric3Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric3Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -463,9 +538,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric3') === 3)
                                         <select id="idsCategoriesFiltersGeneric3" name="idsCategoriesFiltersGeneric3[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric3Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric3Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric3Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -474,7 +559,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric3') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric3Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric3[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric3[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric3Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -492,7 +584,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric4') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric4Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric4[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric4[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric4Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -501,7 +600,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric4') === 2)
                                         <select id="idsCategoriesFiltersGeneric4" name="idsCategoriesFiltersGeneric4[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric4Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric4Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -509,9 +613,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric4') === 3)
                                         <select id="idsCategoriesFiltersGeneric4" name="idsCategoriesFiltersGeneric4[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric4Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric4Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric4Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -520,7 +634,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric4') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric4Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric4[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric4[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric4Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -538,7 +659,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric5') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric5Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric5[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric5[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric5Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -547,7 +675,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric5') === 2)
                                         <select id="idsCategoriesFiltersGeneric5" name="idsCategoriesFiltersGeneric5[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric5Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric5Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -555,9 +688,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric5') === 3)
                                         <select id="idsCategoriesFiltersGeneric5" name="idsCategoriesFiltersGeneric5[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric5Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric5Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric5Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -566,7 +709,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric5') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric5Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric5[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric5[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric5Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -584,7 +734,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric6') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric6Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric6[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric6[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric6Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -593,7 +750,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric6') === 2)
                                         <select id="idsCategoriesFiltersGeneric6" name="idsCategoriesFiltersGeneric6[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric6Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric6Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -601,9 +763,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric6') === 3)
                                         <select id="idsCategoriesFiltersGeneric6" name="idsCategoriesFiltersGeneric6[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric6Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric6Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric6Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -612,7 +784,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric6') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric6Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric6[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric6[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric6Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -630,7 +809,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric7') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric7Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric7[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric7[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric7Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -639,7 +825,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric7') === 2)
                                         <select id="idsCategoriesFiltersGeneric7" name="idsCategoriesFiltersGeneric7[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric7Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric7Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -647,9 +838,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric7') === 3)
                                         <select id="idsCategoriesFiltersGeneric7" name="idsCategoriesFiltersGeneric7[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric7Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric7Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric7Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -658,7 +859,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric7') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric7Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric7[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric7[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric7Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -676,7 +884,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric8') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric8Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric8[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric8[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric8Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -685,7 +900,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric8') === 2)
                                         <select id="idsCategoriesFiltersGeneric8" name="idsCategoriesFiltersGeneric8[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric8Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric8Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -693,9 +913,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric8') === 3)
                                         <select id="idsCategoriesFiltersGeneric8" name="idsCategoriesFiltersGeneric8[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric8Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric8Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric8Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -704,7 +934,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric8') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric8Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric8[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric8[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric8Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -722,7 +959,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric9') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric9Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric9[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric9[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric9Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -731,7 +975,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric9') === 2)
                                         <select id="idsCategoriesFiltersGeneric9" name="idsCategoriesFiltersGeneric9[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric9Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric9Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -739,9 +988,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric9') === 3)
                                         <select id="idsCategoriesFiltersGeneric9" name="idsCategoriesFiltersGeneric9[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric9Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric9Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric9Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -750,7 +1009,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric9') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric9Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric9[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric9[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric9Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -768,7 +1034,14 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric10') === 1)
                                         @foreach ($resultsCategoriesFiltersGeneric10Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-checkbox-label">
-                                                <input type="checkbox" name="idsCategoriesFiltersGeneric10[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-checkbox" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="checkbox"
+                                                    name="idsCategoriesFiltersGeneric10[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric10Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                    class="ss-backend-field-checkbox"
+                                                />
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
@@ -777,7 +1050,12 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric10') === 2)
                                         <select id="idsCategoriesFiltersGeneric10" name="idsCategoriesFiltersGeneric10[]" class="ss-backend-field-listbox01" size="5" multiple="multiple">
                                             @foreach ($resultsCategoriesFiltersGeneric10Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric10Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -785,9 +1063,19 @@
                                     {{-- Dropdown. --}}
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric10') === 3)
                                         <select id="idsCategoriesFiltersGeneric10" name="idsCategoriesFiltersGeneric10[]" class="ss-backend-field-dropdown01">
-                                            <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
+                                            <option
+                                                value="0"
+                                                {{ array_search(0, array_column($ocdRecord['arrIdsCategoriesFiltersGeneric10Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
                                             @foreach ($resultsCategoriesFiltersGeneric10Listing as $categoriesFiltersGenericRow)
-                                                <option value="{{ $categoriesFiltersGenericRow['id'] }}">{{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}</option>
+                                                <option
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric10Binding'], 'id_filters_generic')) !== false ? ' selected' : '' }}
+                                                >
+                                                    {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     @endif
@@ -796,14 +1084,20 @@
                                     @if (config('app.gSystemConfig.enableCategoriesFilterGeneric10') === 4)
                                         @foreach ($resultsCategoriesFiltersGeneric10Listing as $categoriesFiltersGenericRow)
                                             <label class="ss-backend-field-radio-label">
-                                                <input type="radio" name="idsCategoriesFiltersGeneric10[]" value="{{ $categoriesFiltersGenericRow['id'] }}" class="ss-backend-field-radio" /> {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
+                                                <input
+                                                    type="radio"
+                                                    name="idsCategoriesFiltersGeneric10[]"
+                                                    value="{{ $categoriesFiltersGenericRow['id'] }}"
+                                                    class="ss-backend-field-radio"
+                                                    {{ array_search($categoriesFiltersGenericRow['id'], array_column($ocdRecord['arrIdsCategoriesFiltersGeneric10Binding'], 'id_filters_generic')) !== false ? ' checked' : '' }}
+                                                />
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($categoriesFiltersGenericRow['title'], 'db') }}
                                             </label>
                                         @endforeach
                                     @endif
                                 </td>
                             </tr>
                         @endif
-
 
                         @if (config('app.gSystemConfig.enableCategoriesInfo1') === 1)
                             <tr id="inputRowCategories_info1" class="ss-backend-table-bg-light">
@@ -2886,15 +3180,19 @@
                                 </td>
                                 <td>
                                     <select id="categories_id_status" name="id_status" class="ss-backend-field-dropdown01">
-                                        <option value="0" selected>{{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}</option>
-
-                                        {{--${resultsCategoriesStatusListing
-                                            .map((statusRow) => {
-                                            return `
-                                                <option value="${statusRow.id}">${SyncSystemNS.FunctionsGeneric.contentMaskRead(statusRow.title, 'db')}</option>
-                                            `;
-                                            })
-                                            .join('')}--}}
+                                        <option
+                                            value="0"{{$ocdRecord['tblCategoriesIdStatus'] == 0 ? ' selected' : ''}}
+                                        >
+                                            {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                        </option>
+                                        @foreach ($resultsCategoriesStatusListing as $statusRow)
+                                            <option
+                                                value="{{ $statusRow['id'] }}"
+                                                {{ $ocdRecord['tblCategoriesIdStatus'] === $statusRow['id'] ? ' selected' : '' }}
+                                            >
+                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </td>
                             </tr>
