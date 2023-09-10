@@ -536,73 +536,511 @@ class CategoriesUpdate extends Model
                     }
                     // $this->resultsCategoriesFiltersGeneric10Listing = json_decode(json_encode($this->resultsCategoriesFiltersGeneric10Listing), true); // Force converting to array.
 
-                    // Filters generic 1 - record.
-                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric1')) {
-                        if (count($this->arrIdsCategoriesFiltersGeneric1)) {
-                            // foreach ($this->arrIdsCategoriesFiltersGeneric1 as $indexArrFiltersGeneric => $idFiltersGeneric) {
-                            foreach ($this->resultsCategoriesFiltersGeneric1Listing as $indexArrFiltersGeneric => $filtersGenericItem) {
-                                // // Variables.
-                                $categoriesFiltersGenericCheck = null;
-                                $flagCategoriesFiltersGenericInsert = true;
+                    // Filters generic 1 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') !== 0) {
+                        //if (count($this->arrIdsCategoriesFiltersGeneric1)) { // Maybe delete this check.
+                        // foreach ($this->arrIdsCategoriesFiltersGeneric1 as $indexFiltersGeneric => $idFiltersGeneric) {
+                        foreach ($this->resultsCategoriesFiltersGeneric1Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
 
-                                // Check records already selected.
-                                //$categoriesFiltersGenericCheck = array_search($item['id'], $this->arrIdsCategoriesFiltersGeneric1)
-                                // $categoriesFiltersGenericCheck = in_array($filtersGenericItem['id'], $this->arrIdsCategoriesFiltersGeneric1);
-                                // categoriesFiltersGenericCheck = objIdsCategoriesFiltersGenericBinding.filter((obj) => {
-                                //     return obj.id_filters_generic == resultsCategoriesFiltersGeneric1Listing[countArray].id.toString() && obj.id_filter_index == 101;
-                                // });
-                                // $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($filtersGenericItem) {
-                                $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($filtersGenericItem) {
-                                    // Debug.
-                                    // \SyncSystemNS\FunctionsLog::logLaravel('arr=');
-                                    // \SyncSystemNS\FunctionsLog::logLaravel($arr);
-                                    // \SyncSystemNS\FunctionsLog::logLaravel('id_filters_generic=' . $arr['id_filters_generic']); // offset error
-                                    // \SyncSystemNS\FunctionsLog::logLaravel('id_filter_index' . $arr['id_filter_index']);
-                                    // \SyncSystemNS\FunctionsLog::logLaravel('filtersGenericItem=' . $filtersGenericItem['id']);
-
-                                    return ($arr['id_filters_generic'] === $filtersGenericItem['id'] && $arr['id_filter_index'] === 101);
-                                });
+                            // Check records already selected.
+                            //$categoriesFiltersGenericCheck = array_search($item['id'], $this->arrIdsCategoriesFiltersGeneric1)
+                            // $categoriesFiltersGenericCheck = in_array($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric1);
+                            // categoriesFiltersGenericCheck = objIdsCategoriesFiltersGenericBinding.filter((obj) => {
+                            //     return obj.id_filters_generic == resultsCategoriesFiltersGeneric1Listing[countArray].id.toString() && obj.id_filter_index == 101;
+                            // });
+                            // $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
                                 // Debug.
-                                // \SyncSystemNS\FunctionsLog::logLaravel('categoriesFiltersGenericCheck=');
-                                // \SyncSystemNS\FunctionsLog::logLaravel($categoriesFiltersGenericCheck);
+                                // \SyncSystemNS\FunctionsLog::logLaravel('arr=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel($arr);
+                                // \SyncSystemNS\FunctionsLog::logLaravel('id_filters_generic=' . $arr['id_filters_generic']); // offset error
+                                // \SyncSystemNS\FunctionsLog::logLaravel('id_filter_index' . $arr['id_filter_index']);
+                                // \SyncSystemNS\FunctionsLog::logLaravel('itemFiltersGeneric=' . $itemFiltersGeneric['id']);
 
-                                // TODO: logic not working from here on - fix.
-                                if ($categoriesFiltersGenericCheck) {
-                                    $categoriesFiltersGenericCheckKeyMatch = array_search($filtersGenericItem['id'], array_column($categoriesFiltersGenericCheck, 'id_filters_generic'));
-                                    if ($categoriesFiltersGenericCheckKeyMatch !== false) {
-                                        // check if selected filters has registered bindings
-                                        // Update record with additional information or leave as it is.
-                                        // TODO: update.
-                                        $flagCategoriesFiltersGenericInsert === false;
-                                    } else {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 101);
+                            });
+                            // Debug.
+                            // \SyncSystemNS\FunctionsLog::logLaravel('categoriesFiltersGenericCheck=');
+                            // \SyncSystemNS\FunctionsLog::logLaravel($categoriesFiltersGenericCheck);
+
+                            // if ($categoriesFiltersGenericCheck) {
+                            if (count($categoriesFiltersGenericCheck)) {
+                                // Debug.
+                                // \SyncSystemNS\FunctionsLog::logLaravel('itemFiltersGeneric=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel($itemFiltersGeneric['id']);
+
+                                // \SyncSystemNS\FunctionsLog::logLaravel('this->arrIdsCategoriesFiltersGeneric1=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel($this->arrIdsCategoriesFiltersGeneric1);
+
+                                // \SyncSystemNS\FunctionsLog::logLaravel('array_search=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric1));
+                                // \SyncSystemNS\FunctionsLog::logLaravel('array_search (condition)=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric1) !== false);
+                                // \SyncSystemNS\FunctionsLog::logLaravel('is_numeric (condition)=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel(is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric1)));
+                                // \SyncSystemNS\FunctionsLog::logLaravel('END OF LOOP');
+
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric1) !== false) {
+                                // if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric1))) {
+                                    // check if selected filters has registered bindings
+                                    // Update record with additional information or leave as it is.
+                                    // TODO: update.
+                                    //if (count($categoriesFiltersGenericCheck)) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                    //}
+                                } else {
+                                    // if (count($categoriesFiltersGenericCheck)) {
                                         \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
                                             config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
-                                            ['id;' . $categoriesFiltersGenericCheck[$categoriesFiltersGenericCheckKeyMatch]['id'] . ';i']
+                                            ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
                                         );
-                                    }
-
-                                    // if (in_array($categoriesFiltersGenericCheck[0]['id_filters_generic'], $this->arrIdsCategoriesFiltersGeneric1) === true) {
-                                    //     // check if selected filters has registered bindings
-                                    //     // Update record with additional information or leave as it is.
-                                    //     // TODO: update.
-                                    //     $flagCategoriesFiltersGenericInsert === false;
-                                    // } else {
-                                    //     \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
-                                    //         config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
-                                    //         ['id;' . $categoriesFiltersGenericCheck[0]['id'] . ';i']
-                                    //     );
                                     // }
                                 }
 
-                                // Insert new binding.
+                                // Debug.
+                                // \SyncSystemNS\FunctionsLog::logLaravel('flagCategoriesFiltersGenericInsert=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel($flagCategoriesFiltersGenericInsert);
+
+
+                                // $categoriesFiltersGenericCheckKeyMatch = array_search($itemFiltersGeneric['id'], array_column($categoriesFiltersGenericCheck, 'id_filters_generic'));
+                                //     // Not outputing the correct array key.
+
+                                // // Debug.
+                                // \SyncSystemNS\FunctionsLog::logLaravel('itemFiltersGeneric=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel($itemFiltersGeneric['id']);
+
+                                // \SyncSystemNS\FunctionsLog::logLaravel('array_column(categoriesFiltersGenericCheck=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel(array_column($categoriesFiltersGenericCheck, 'id_filters_generic'));
+
+                                // \SyncSystemNS\FunctionsLog::logLaravel('categoriesFiltersGenericCheckKeyMatch=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel($categoriesFiltersGenericCheckKeyMatch);
+                                // //exit();
+
+                                // // if ($categoriesFiltersGenericCheckKeyMatch !== false) {
+                                // if ($categoriesFiltersGenericCheckKeyMatch !== null) {
+                                //     if (in_array($categoriesFiltersGenericCheck[$categoriesFiltersGenericCheckKeyMatch]['id_filters_generic'], $this->arrIdsCategoriesFiltersGeneric1)) {
+                                //         // check if selected filters has registered bindings
+                                //         // Update record with additional information or leave as it is.
+                                //         // TODO: update.
+                                //         $flagCategoriesFiltersGenericInsert === false;
+                                //     } else {
+                                //         \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                //             config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                //             ['id;' . $categoriesFiltersGenericCheck[$categoriesFiltersGenericCheckKeyMatch]['id'] . ';i']
+                                //         );
+                                //     }
+                                // }
+
+                                // // Debug.
+                                // \SyncSystemNS\FunctionsLog::logLaravel('flagCategoriesFiltersGenericInsert=');
+                                // \SyncSystemNS\FunctionsLog::logLaravel($flagCategoriesFiltersGenericInsert);
+
+                                // if (in_array($categoriesFiltersGenericCheck[0]['id_filters_generic'], $this->arrIdsCategoriesFiltersGeneric1) === true) {
+                                //     // check if selected filters has registered bindings
+                                //     // Update record with additional information or leave as it is.
+                                //     // TODO: update.
+                                //     $flagCategoriesFiltersGenericInsert === false; // Error causing problem in logic.
+                                //     $flagCategoriesFiltersGenericInsert = false; // Correct statement.
+                                // } else {
+                                //     \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                //         config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                //         ['id;' . $categoriesFiltersGenericCheck[0]['id'] . ';i']
+                                //     );
+                                // }
+                            // } else {
+                            //     \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                            //         config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                            //         ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                            //     );
+                            }
+                            // Debug.
+                            // \SyncSystemNS\FunctionsLog::logLaravel('flagCategoriesFiltersGenericInsert=');
+                            // \SyncSystemNS\FunctionsLog::logLaravel($flagCategoriesFiltersGenericInsert);
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric1))) {
                                 if ($flagCategoriesFiltersGenericInsert === true) {
                                     \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
                                         '_tblFiltersGenericBindingID' => '',
                                         '_tblFiltersGenericBindingSortOrder' => '',
                                         '_tblFiltersGenericBindingDateCreation' => '',
                                         '_tblFiltersGenericBindingDateEdit' => '',
-                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $filtersGenericItem['id'],
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
                                         '_tblFiltersGenericBindingIdFilterIndex' => 101,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                        //}
+                    }
+
+                    // Filters generic 2 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric2') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric2Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 102);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric2) !== false) {
+                                //if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric2))) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric2))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 102,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 3 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric3') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric3Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 103);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric3) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric3))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 103,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 4 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric4') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric4Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 104);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric4) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric4))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 104,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 5 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric5') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric5Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 105);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric5) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric5))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 105,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 6 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric6') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric6Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 106);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric6) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric6))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 106,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 7 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric7') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric7Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 107);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric7) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric7))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 107,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 8 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric8') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric8Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 108);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric8) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric8))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 108,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 9 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric9') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric9Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 109);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric9) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric9))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 109,
+                                        '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
+                                        '_tblFiltersGenericBindingNotes' => ''
+                                    ]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Filters generic 10 - update.
+                    if (config('app.gSystemConfig.enableCategoriesFilterGeneric10') !== 0) {
+                        foreach ($this->resultsCategoriesFiltersGeneric10Listing as $indexFiltersGeneric => $itemFiltersGeneric) {
+                            // Variables.
+                            $categoriesFiltersGenericCheck = null;
+                            $flagCategoriesFiltersGenericInsert = true;
+
+                            // Check records already selected.
+                            $categoriesFiltersGenericCheck = array_filter($this->arrIdsCategoriesFiltersGenericBinding, function ($arr) use ($itemFiltersGeneric) {
+                                return ($arr['id_filters_generic'] === $itemFiltersGeneric['id'] && $arr['id_filter_index'] === 104);
+                            });
+
+                            if (count($categoriesFiltersGenericCheck)) {
+                                if (array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric10) !== false) {
+                                        $flagCategoriesFiltersGenericInsert = false;
+                                } else {
+                                    \SyncSystemNS\FunctionsDBDelete::deleteRecordsGeneric10(
+                                        config('app.gSystemConfig.configSystemDBTableFiltersGenericBinding'),
+                                        ['id;' . $categoriesFiltersGenericCheck[array_key_first($categoriesFiltersGenericCheck)]['id'] . ';i']
+                                    );
+                                }
+                            }
+
+                            // Insert new binding.
+                            if (is_numeric(array_search($itemFiltersGeneric['id'], $this->arrIdsCategoriesFiltersGeneric10))) {
+                                if ($flagCategoriesFiltersGenericInsert === true) {
+                                    \SyncSystemNS\FunctionsDBInsert::filtersGenericBindingInsert([
+                                        '_tblFiltersGenericBindingID' => '',
+                                        '_tblFiltersGenericBindingSortOrder' => '',
+                                        '_tblFiltersGenericBindingDateCreation' => '',
+                                        '_tblFiltersGenericBindingDateEdit' => '',
+                                        '_tblFiltersGenericBindingIdFiltersGeneric' => $itemFiltersGeneric['id'],
+                                        '_tblFiltersGenericBindingIdFilterIndex' => 104,
                                         '_tblFiltersGenericBindingIdRecord' => $this->tblCategoriesID,
                                         '_tblFiltersGenericBindingNotes' => ''
                                     ]);
@@ -613,10 +1051,10 @@ class CategoriesUpdate extends Model
                 }
 
                 $arrReturn = [
-                    'debug' => [
-                        'resultsFiltersGenericListing' => $resultsFiltersGenericListing,
-                        'resultsCategoriesFiltersGeneric1Listing' => $this->resultsCategoriesFiltersGeneric1Listing
-                    ],
+                    // 'debug' => [
+                    //     'resultsFiltersGenericListing' => $resultsFiltersGenericListing,
+                    //     'resultsCategoriesFiltersGeneric1Listing' => $this->resultsCategoriesFiltersGeneric1Listing
+                    // ],
                     'returnStatus' => true,
                     // 'nRecords' => 1,
                     'nRecords' => $this->resultsSQLCategoriesUpdate,

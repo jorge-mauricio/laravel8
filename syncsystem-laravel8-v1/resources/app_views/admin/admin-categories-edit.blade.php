@@ -129,7 +129,11 @@
 @section('cphBody')
     @include('admin.partials.messages-status')
 
-    @dump($templateData['cphBody'])
+    {{-- @dump($categoriesFiltersGenericCheck)
+    @dump($categoriesFiltersGenericCheckKeyMatch)
+    @dump(array_key_first($categoriesFiltersGenericCheck))
+
+    @dump($templateData['cphBody']) --}}
 
     {{-- Form. --}}
     <section class="ss-backend-layout-section-form01">
