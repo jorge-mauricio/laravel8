@@ -68,8 +68,8 @@ Note: leave it as is if you don't wish to change anything.
 
 ### Run locally
 - Open 2 terminals;
-- Terminal 1, run: `php -S localhost:8000 -t public/`;
-- Terminal 2, run: `php -S localhost:8001 -t public/`;
+- Terminal 1, run: `php -S localhost:8000 -t public/`
+- Terminal 2, run: `php -S localhost:8001 -t public/`
 
 ### Production Deploy
 - Server setup;
