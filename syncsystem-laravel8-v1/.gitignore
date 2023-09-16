@@ -23,3 +23,7 @@ yarn-error.log
 
 # Log files.
 /public/php_errors.log
+
+# Notes files.
+notes.txt
+todo.txt

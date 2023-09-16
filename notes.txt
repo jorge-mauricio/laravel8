@@ -37,7 +37,7 @@
 		- terminal: php artisan config:clear
 
 	- execute symlinks defined on configuration:
-	TODO: create a composer setup script.
+	TODO: create a composer setup script (ex: syncsystem-setup) to run the script below and b setup the database.
 		- update new simlinks: syncsystem-laravel8-v1\config\filesystems.php
 		- terminal (root): php artisan storage:link
 

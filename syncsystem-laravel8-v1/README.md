@@ -1,69 +1,91 @@
-<!--
-TODO:
-- setup instruction
-    - be sure to generate keys before creating the database with the default user
-    - the default user must have the password set with the final salt and key generated
--->
+## SyncSystem - less code, more logic
+A product owned by the company Planejamento Visual – Arte, Tecnologia e Comunicação – all rights reserved.
 
+Development and conception carried out by [Jorge Mauricio (JM) – Full Stack Web Developer / Designer](https://www.fullstackwebdesigner.com) and company's head partner.
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Any modification or implementation in the github code must be informed / consulted and approved with the company or the author.
+The code is free for commercial and personal use, without the need of written or verbal authorization.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+The developer provides professional training for better understanding of its architecture and use of the code.
+Price quotes can be requested through the website: [SyncSystem - less code, more logic](https://www.syncsystem.com)
 
-## About Laravel
+## SyncSystem Multiplatform
+The goal of SyncSystem Multiplatform is to provide a robust boiler plate CMS framework to build MVP concepts in a variety of popular programming languages and technologies so it can be hosted on a different server setup, according to the developer's preference, while maintaining the basic architecture and design patterns.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+At the moment, there are 2 main versions:
+- Node / React SSR
+- Laravel
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Brief History
+SyncSystem is a modernization of a framework that had it's development started in the year of 2007, by the name of Sistema Dinâmico (Dynamic System) in a monolithic styled coding in Classic ASP.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The main trait was the aspect of being built with such an architecture that the developer could choose what type of content would be displayed in each link and had the ability to pivot whenever the project owner would request, with a relatively low effort. The links were characterized byt categories, which could have it's "type" switched. At the time, this feature was a game changer, as there were no CMS framework available yet and WordPress was barely being used.
 
-## Learning Laravel
+Over the years, as the framework was used in over 50 real world project and exceeded most of the expectations on how fast the updates and new features were carried out, in 2012 it was time to update to modern languages at the time: .NET (VB.NET) and vanilla PHP, but still following the monolithic architecture paradigm.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+After developing more then 100 real world projects, including e-commerce and social media platforms and adopting the new brand - SyncSystem, the industry had changed dramatically how applications were being built and the time had come to upgrade the framework intensely: distributed architecture in modern languages being used - Node / JavasCript / React.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+In 2019, the transcription and re-structure began, along with internationalizing the code base and main language to english as up till that point, the architecture had been built in Brazilian portuguese. So, in reality, there are even more versions of SyncSystem available, as a few clients still asks for monolithic architecture application because of the low cost for implementation and maintenance:
+- Classi ASP (monolithic, code base in PT-BR - deprecated)
+- .NET / VB.NET (monolithic, code base in PT-BR)
+- PHP - Vanilla (monolithic, code base in PT-BR)
+- Node / React SSR (distributed backend / frontend, code base in EN-US)
+- PHP - Laravel (distributed backend / frontend, code base in EN-US)
 
-## Laravel Sponsors
+## PHP - Laravel Version
+For the PHP version of SyncSystem, Laravel  was used as the architectural coding framework, to provide an industry preference for modern PHP applications.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Helper functions were built very similarly to the original concept so that heavy code translation can roll out smoothly.
 
-### Premium Partners
+### Tech Stack
+- PHP 8
+- MySQL
+- Laravel 8
+- JavaScript
+- HTML5
+- CSS3
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+## Setup
+- Clone the repository to your local development environment;
+
+### Server Variables File Setup (.env)
+- Make a copy of .env.example with the name of .env;
+- Update .env file, directories configuration section according to your preferences;
+Note: leave it as is if you don't wish to change anything.
+- Update .env file, cryptography section;
+- Update .env file, API keys section;
+
+### Aplication Config File Setup
+- Edit config-application.php file according to your preferences;
+
+### MySQL setup
+- Create MySQL database instance;
+- Store DB credential somewhere safe;
+- Update .env file, in DB System section with the DB host, DB name, DB user and DB password;
+
+### Local setup
+- Terminal, run: `composer syncsystem:setup`
+
+### Run locally
+- Open 2 terminals;
+- Terminal 1, run: `php -S localhost:8000 -t public/`;
+- Terminal 2, run: `php -S localhost:8001 -t public/`;
+
+### Production Deploy
+- Server setup;
+
+## Resources
+- SyncSystem - less code, more logic [Website](https://www.syncsystem.com.br)
+- Jorge Mauricio (JM) – Full Stack Web Developer / Designer [Website](https://www.fullstackwebdesigner.com)
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+For contribution, open a pull request.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within SyncSystem, please send an e-mail to JM via [contact@fullstackwebdesigner.com](mailto:contact@fullstackwebdesigner.com).
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The SyncSystem Multiplatform framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
