@@ -129,11 +129,8 @@
 @section('cphBody')
     @include('admin.partials.messages-status')
 
-    {{-- @dump($categoriesFiltersGenericCheck)
-    @dump($categoriesFiltersGenericCheckKeyMatch)
-    @dump(array_key_first($categoriesFiltersGenericCheck))
-
-    @dump($templateData['cphBody']) --}}
+    {{-- Debug. --}}
+    {{-- @dump($templateData['cphBody']) --}}
 
     {{-- Form. --}}
     <section class="ss-backend-layout-section-form01">
@@ -3194,7 +3191,7 @@
                                                 value="{{ $statusRow['id'] }}"
                                                 {{ $ocdRecord['tblCategoriesIdStatus'] === $statusRow['id'] ? ' selected' : '' }}
                                             >
-                                                {{ \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone') }}
+                                                {{ \SyncSystemNS\FunctionsGeneric::contentMaskRead($statusRow['title'], 'db')}}
                                             </option>
                                         @endforeach
                                     </select>

@@ -52,6 +52,7 @@
             return $arr['filter_index'] === 2;
         });
     }
+    // TODO: optimeze for refactor - make the array index match the filters generic ID.
 
     // Filter results according to filter_index.
     if (config('app.gSystemConfig.enableCategoriesFilterGeneric1') !== 0) {
@@ -150,6 +151,9 @@
 
 @section('cphBody')
     @include('admin.partials.messages-status')
+
+    {{-- Debug. --}}
+    {{-- @dump($resultsCategoriesStatusListing) --}}
 
     <script>
         // Debug.
@@ -1049,19 +1053,17 @@
                                             {{
                                                 $categoriesRow['id_status'] === 0 ?
                                                     \SyncSystemNS\FunctionsGeneric::appLabelsGet(config('app.gSystemConfig.configLanguageBackend')->appLabels, 'backendItemDropDownSelectNone')
-                                                : `
-                                                    {ofglRecords.resultsFiltersGenericListing
-                                                    .filter(function (objFiltered) {
-                                                        return objFiltered.id == categoriesRow.id_status;
-                                                    })
-                                                    .map(function (objMapped) {
-                                                        // return objMapped.title
-                                                        return SyncSystemNS.FunctionsGeneric.contentMaskRead(objMapped.title, 'db');
-                                                    })}
+                                                :
 
-                                                    {/* categoriesRow.id_status */ ''}
-                                                `
+                                                \SyncSystemNS\FunctionsGeneric::contentMaskRead(
+                                                    $resultsCategoriesStatusListing[
+                                                        array_search($categoriesRow['id_status'], array_diff(array_combine(array_keys($resultsCategoriesStatusListing), array_column($resultsCategoriesStatusListing, 'id')), [null]))
+                                                    ]['title'],
+                                                    'db'
+                                                )
                                             }}
+                                            {{-- Debug. --}}
+                                            {{-- {{ $categoriesRow['id_status'] }} --}}
                                         </td>
                                     @endif
 

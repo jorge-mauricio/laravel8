@@ -404,6 +404,9 @@ class ObjectCategoriesDetails
                             // $this->arrCategoriesFiltersGeneric1Binding_print = '';
                             // $this->arrCategoriesFiltersGeneric1Binding_print = array_map(function ($arr) use ($resultsFiltersGenericListing) {
                             //     $idTblfiltersGenericKeyMatch = array_search($arr['id_filters_generic'], array_column($resultsFiltersGenericListing, 'id'));
+                            //            // error - returning 0 from the new array created by array_column
+                            //     $idTblfiltersGenericKeyMatch = array_search($arr['id_filters_generic'], array_diff(array_combine(array_keys($categoriesFiltersGenericCheck), array_column($categoriesFiltersGenericCheck, 'id_filters_generic')), [null]));
+                            //            // optimized solution working - ref: https://stackoverflow.com/questions/77076652/multidimensional-array-search-combined-with-array-column-not-returning-expected
                             //     return $resultsFiltersGenericListing[$idTblfiltersGenericKeyMatch]['title'];
 
                             //     // Debug.

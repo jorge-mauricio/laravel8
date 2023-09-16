@@ -70,6 +70,9 @@
 		http://localhost:8000/system/login-users/
 			- root
 			- system
+
+		http://localhost:8000/system/categories/2081?masterPageSelect=layout-admin-main
+			- subcategories
 		http://localhost:8000/system/categories/edit/2011/?masterPageSelect=layout-admin-main&pageNumber=20
 			- filters generic
 
