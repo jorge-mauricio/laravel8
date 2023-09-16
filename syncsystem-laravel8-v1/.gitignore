@@ -5,6 +5,8 @@
 /storage/*.key
 /vendor
 .env
+.env_export
+.env.prod
 .env.backup
 .phpunit.result.cache
 
@@ -15,6 +17,7 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+.vscode
 
 Homestead.json
 Homestead.yaml
