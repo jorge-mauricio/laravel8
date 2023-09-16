@@ -322,8 +322,8 @@ class CategoriesInsert extends Model
 
         // Build insert parameters.
         // ----------------------
-        //$this->arrSQLCategoriesInsertParams['id'] = 123123123;
-        //$this->tblCategoriesID ? $this->arrSQLCategoriesInsertParams['id'] = $this->tblCategoriesID : $this->arrSQLCategoriesInsertParams['id'] = \SyncSystemNS\FunctionsDB::counterUniversalUpdate();
+        // $this->arrSQLCategoriesInsertParams['id'] = 123123123;
+        // $this->tblCategoriesID ? $this->arrSQLCategoriesInsertParams['id'] = $this->tblCategoriesID : $this->arrSQLCategoriesInsertParams['id'] = \SyncSystemNS\FunctionsDB::counterUniversalUpdate();
         $this->arrSQLCategoriesInsertParams['id'] = $this->tblCategoriesID;
         $this->arrSQLCategoriesInsertParams['id_parent'] = $this->tblCategoriesIdParent;
         $this->arrSQLCategoriesInsertParams['sort_order'] = $this->tblCategoriesSortOrder;
