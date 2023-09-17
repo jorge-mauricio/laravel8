@@ -16,9 +16,15 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
+// Local dev environment.
 if (file_exists(__DIR__ . '/../storage/framework/maintenance.php')) {
     require __DIR__ . '/../storage/framework/maintenance.php';
 }
+
+// Sectorlink.
+// if (file_exists(__DIR__ . '/laravel8/storage/framework/maintenance.php')) {
+//     require __DIR__ . '/laravel8/storage/framework/maintenance.php';
+// }
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +37,12 @@ if (file_exists(__DIR__ . '/../storage/framework/maintenance.php')) {
 |
 */
 
+// Local dev environment.
 require __DIR__ . '/../vendor/autoload.php';
 //require __DIR__.'/../php_modules/vendor/autoload.php';
+
+// Sectorlink.
+// require __DIR__ . '/laravel8/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +55,11 @@ require __DIR__ . '/../vendor/autoload.php';
 |
 */
 
+// Local dev environment.
 $app = require_once __DIR__ . '/../bootstrap/app.php';
+
+// Sectorlink.
+// $app = require_once __DIR__ . '/laravel8/bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
