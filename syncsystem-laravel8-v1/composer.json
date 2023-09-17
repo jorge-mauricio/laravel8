@@ -70,10 +70,21 @@
             "research parallel"
         ],
         "start-frontend": [
-            "php -S localhost:8000 -t public/"
+            "@php -S localhost:8000 -t public/"
         ],
         "start-backend": [
-            "php -S localhost:8001 -t public/"
+            "@php -S localhost:8001 -t public/"
+        ],
+        "laravel-cleanup-full": [
+            "@composer dump-autoload",
+            "@composer dump-autoload -o",
+            "@php artisan clear-compiled",
+            "@php artisan optimize",
+            "@php artisan route:clear",
+            "@php artisan view:clear",
+            "@php artisan cache:clear",
+            "@php artisan config:cache",
+            "php artisan config:clear"
         ]
     }
 }

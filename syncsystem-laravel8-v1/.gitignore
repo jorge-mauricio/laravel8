@@ -7,6 +7,8 @@
 .env
 .env_export
 .env.prod
+.env.prod.backend
+.env.prod.frontend
 .env.backup
 .phpunit.result.cache
 
@@ -26,6 +28,12 @@ yarn-error.log
 
 # Log files.
 /public/php_errors.log
+
+# Reference public index files.
+/public/index.*.php
+
+# Zip files in root.
+/*.zip
 
 # Notes files.
 notes.txt
