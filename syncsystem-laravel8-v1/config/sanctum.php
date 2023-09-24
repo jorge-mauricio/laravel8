@@ -21,6 +21,14 @@ return [
         Sanctum::currentApplicationUrlWithPort()
     ))),
 
+    // 'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
+    //     '%s%s',
+    //     'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1,
+    //     192.96.210.51,192.96.210.51:34512,multiplatformphplaravel8v1-syncsystem-com-br.apache4.cloudsector.net,
+    //     192.96.210.16,backendphplaravel8v1-syncsystem-com-br.apache2.cloudsector.net',
+    //     Sanctum::currentApplicationUrlWithPort()
+    // ))),
+
     /*
     |--------------------------------------------------------------------------
     | Sanctum Guards
