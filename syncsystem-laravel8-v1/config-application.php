@@ -36,6 +36,7 @@ $gSystemConfig = [];
 // $gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
 $gSystemConfig['configDebug'] = env('APP_DEBUG'); // true (debug mode) | false (production mode)
     // condition to APP_ENV
+$gSystemConfig['configSystemEnv'] = env('APP_ENV');
 $gSystemConfig['configCache'] = true; // false (no chache) | true (cache)
     // TODO: research if can disable bfcache also.
 $gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
@@ -203,6 +204,14 @@ $gSystemConfig['configImagePopupH'] = '530';
 // Directories configuration.
 // ----------------------
 $gSystemConfig['configPhysicalPathRoot'] = dirname(__FILE__);
+$gSystemConfig['configPhysicalPathRootPublicWeb'] = realpath(
+    __DIR__ .
+    // dirname(__FILE__) .
+    // DIRECTORY_SEPARATOR . '..' .
+    DIRECTORY_SEPARATOR . '..' .
+    DIRECTORY_SEPARATOR
+); // Map the public web html root directory (Laravel local: public).
+// TODO: condition to local / production and optimize \config\filesystems.php.
 
 // $configDirectoryRootPhysical = __dirname;
 /**/

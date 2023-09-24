@@ -80,6 +80,8 @@ class AdminLoginController extends AdminBaseController
         // Variables.
         // ----------------------
         $returnURL = '/' . config('app.gSystemConfig.configRouteBackend') . '/';
+        // $apiAuthenticationCheckURL = config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/';
+        // $apiAuthenticationCheckURL = config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication');
         $apiAuthenticationCheckResponse = null;
         $arrAuthenticationCheckJson = null;
 
@@ -98,6 +100,7 @@ class AdminLoginController extends AdminBaseController
                 ->post(
                     // env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+                    // $apiAuthenticationCheckURL,
                     array_merge(
                         [
                             'verificationType' => 'user_admin', // Changed from user_backend
@@ -108,9 +111,17 @@ class AdminLoginController extends AdminBaseController
                     )
                 );
             $arrAuthenticationCheckJson = $apiAuthenticationCheckResponse->json();
-            //dd($arrAuthenticationCheckJson);
+            // Debug.
+            // echo 'update=<pre>';
+            // var_dump('2');
+            // echo '</pre><br />';
+            // echo 'apiAuthenticationCheckURL=<pre>';
+            // var_dump($apiAuthenticationCheckURL);
+            // echo '</pre><br />';
+            // dd($arrAuthenticationCheckJson);
 
             // TODO: Use FunctionsAuthentication to store id crypt cookie, token, etc.
+            // TODO: null check / api error
             if ($arrAuthenticationCheckJson['returnStatus'] === true && $arrAuthenticationCheckJson['loginVerification'] === true) {
                 $returnURL .= config('app.gSystemConfig.configRouteBackendDashboard') . '/';
 

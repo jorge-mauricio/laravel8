@@ -27,6 +27,7 @@
     // Debug
     // dump($templateData);
     // dump($masterPageFrontendSelect);
+    // dd(base_path());
 @endphp
 
 @extends('frontend.' . $masterPageFrontendSelect)

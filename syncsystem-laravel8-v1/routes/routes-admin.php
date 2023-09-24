@@ -3,9 +3,32 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 // Controllers.
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDashboardController;
+
+// Admin - Setup (for non-automated pipelines).
+// **************************************************************************************
+// ref: https://stackoverflow.com/questions/50730143/laravel-storage-link-wont-work-on-production
+// TODO: protect the route.
+// TODO: create route for generating keys, encrypt, salt, etc, paths, etc.
+Route::get(
+    '/' . config('app.gSystemConfig.configRouteBackend') . '/setup/',
+    function () {
+        // Check for API key.
+
+        // TODO: DB build.
+
+        // Setup symlinks.
+        // ref: https://stackoverflow.com/questions/50730143/laravel-storage-link-wont-work-on-production
+        // ref: https://stackoverflow.com/a/76757419/2510785
+        Artisan::call('storage:link');
+        return 'Symlinks configuration complete.';
+    }
+)
+    ->name(config('app.gSystemConfig.configRouteBackend') . '.' . 'setup');
+// **************************************************************************************
 
 // Admin - Home - Login.
 // **************************************************************************************
