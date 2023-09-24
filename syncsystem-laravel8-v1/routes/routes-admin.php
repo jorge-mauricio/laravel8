@@ -30,6 +30,28 @@ Route::get(
     ->name(config('app.gSystemConfig.configRouteBackend') . '.' . 'setup');
 // **************************************************************************************
 
+// Admin - Clear Laravel Cache, Routes, Config and Views.
+// **************************************************************************************
+Route::get(
+    '/' . config('app.gSystemConfig.configRouteBackend') . '/setup-clear/',
+    function () {
+        // Check for API key.
+        // dump('edit=8 cache:clear view:clear optimize:clear');
+
+        // Artisan::call('route:cache'); // error Uncaught ReflectionException: Class "view" does not exist in
+        // Artisan::call('config:cache'); // error Uncaught ReflectionException: Class "view" does not exist in
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('optimize:clear');
+
+        // Debug.
+        // dump('edit=2 route:cache');
+        return 'Clear Laravel cache, routes, config and views complete.';
+    }
+)
+    ->name(config('app.gSystemConfig.configRouteBackend') . '.' . 'setup-clear');
+// **************************************************************************************
+
 // Admin - Home - Login.
 // **************************************************************************************
 // Route::get('/system/',[AdminLoginController::class, 'adminLogin'])->name('admin.login');
