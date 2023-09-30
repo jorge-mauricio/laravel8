@@ -91,7 +91,14 @@ class AdminCategoriesController extends AdminBaseController
                 'apiKey' => env('CONFIG_API_KEY_SYSTEM')
             ]);
             */
-            $apiCategoriesListingCurrentResponse = Http::withOptions(['verify' => false])
+            $apiCategoriesListingCurrentResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . $this->idParentCategories . '/', // phpcs:ignore
                     array_merge(
@@ -100,12 +107,18 @@ class AdminCategoriesController extends AdminBaseController
                     )
                 );
 
-            // Note / TODO: On production, set verify to true.
             //return $apiCategoriesDetailsCurrentResponse->json();
             $arrCategoriesListingJson = $apiCategoriesListingCurrentResponse->json();
 
             // Filters generic API call.
-            $apiFiltersGenericListingResponse = Http::withOptions(['verify' => false])
+            $apiFiltersGenericListingResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' .
                     config('app.gSystemConfig.configRouteAPI') . '/' .
@@ -120,7 +133,6 @@ class AdminCategoriesController extends AdminBaseController
                     )
                 );
 
-            // Note / TODO: On production, set verify to true.
             $arrFiltersGenericListingJson = $apiFiltersGenericListingResponse->json();
 
             // Debug.
@@ -297,7 +309,14 @@ class AdminCategoriesController extends AdminBaseController
                 ->
             */
             // TODO: evaluate moving file upload before insert records (to eliminate update later).
-            $apiCategoriesInsertResponse = Http::withOptions(['verify' => false])
+            $apiCategoriesInsertResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 //->attach('image_main', $req->file('image_main'))
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
                 //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
@@ -463,7 +482,14 @@ class AdminCategoriesController extends AdminBaseController
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
-                $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
+                $apiCategoriesFilesUpdateResponse = Http::withOptions(
+                    [
+                        'verify' => (
+                            config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                            config('app.gSystemConfig.configDebug') === false
+                        )
+                    ]
+                )
                     ->put(
                         config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [
@@ -613,7 +639,14 @@ class AdminCategoriesController extends AdminBaseController
         // Logic.
         try {
             // Categories details API call.
-            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])
+            $apiCategoriesDetailsCurrentResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPICategories') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbCategories . '/',
                     [
@@ -623,7 +656,14 @@ class AdminCategoriesController extends AdminBaseController
             $arrCategoriesDetailsJson = $apiCategoriesDetailsCurrentResponse->json();
 
             // Filters generic API call.
-            $apiFiltersGenericListingResponse = Http::withOptions(['verify' => false])
+            $apiFiltersGenericListingResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' .
                     config('app.gSystemConfig.configRouteAPI') . '/' .
@@ -638,7 +678,6 @@ class AdminCategoriesController extends AdminBaseController
                     )
                 );
 
-            // Note / TODO: On production, set verify to true.
             $arrFiltersGenericListingJson = $apiFiltersGenericListingResponse->json();
 
             if ($arrCategoriesDetailsJson['returnStatus'] === true) {
@@ -744,7 +783,14 @@ class AdminCategoriesController extends AdminBaseController
         try {
             // API call.
             // TODO: evaluate moving file upload before insert records (to eliminate update later).
-            $apiCategoriesUpdateResponse = Http::withOptions(['verify' => false])
+            $apiCategoriesUpdateResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 //->attach('image_main', $req->file('image_main'))
                 //->attach('image_main', file_get_contents($req->file('image_main')), 'image.jpg') // working.
                 //->attach('image_main', file_get_contents($req->file('image_main')), $req->file('image_main')['originalName'])
@@ -875,7 +921,14 @@ class AdminCategoriesController extends AdminBaseController
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
-                $apiCategoriesFilesUpdateResponse = Http::withOptions(['verify' => false])
+                $apiCategoriesFilesUpdateResponse = Http::withOptions(
+                    [
+                        'verify' => (
+                            config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                            config('app.gSystemConfig.configDebug') === false
+                        )
+                    ]
+                )
                     ->put(
                         config('app.gSystemConfig.configAPIURL')  . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [

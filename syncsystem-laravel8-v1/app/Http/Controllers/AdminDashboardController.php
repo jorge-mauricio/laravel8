@@ -64,7 +64,14 @@ class AdminDashboardController extends AdminBaseController
         // Logic.
         try {
             // Call user details API.
-            $apiUsersLoggedDetailsCurrentResponse = Http::withOptions(['verify' => false])
+            $apiUsersLoggedDetailsCurrentResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbUsersLogged . '/',
                     [

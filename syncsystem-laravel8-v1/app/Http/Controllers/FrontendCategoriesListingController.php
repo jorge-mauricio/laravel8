@@ -41,9 +41,15 @@ class FrontendCategoriesListingController extends Controller
         try {
             // Debug: https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008
             //$apiCategoriesDetailsCurrentResponse = Http::get('https://backendnode.fullstackwebdesigner.com/api/categories/0/?apiKey=fswd@2008');
-            $apiCategoriesDetailsCurrentResponse = Http::withOptions(['verify' => false])->get('https://backendnode.fullstackwebdesigner.com/api/categories/' . $this->_idParentCategories . '/?apiKey=fswd@2008');
-            // Note / TODO: On production, set verify to true.
-
+            $apiCategoriesDetailsCurrentResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
+                ->get('https://backendnode.fullstackwebdesigner.com/api/categories/' . $this->_idParentCategories . '/?apiKey=' . config('app.gSystemConfig.configAPIKeySystem'));
 
             return $apiCategoriesDetailsCurrentResponse->json();
         } catch (\Exception $apiError) {

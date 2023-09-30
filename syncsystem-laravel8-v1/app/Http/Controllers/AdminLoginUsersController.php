@@ -94,7 +94,14 @@ class AdminLoginUsersController extends AdminBaseController
         // Logic.
         try {
             // API call.
-            $apiAuthenticationCheckResponse = Http::withOptions(['verify' => false])
+            $apiAuthenticationCheckResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->post(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
                     array_merge(
@@ -269,7 +276,14 @@ class AdminLoginUsersController extends AdminBaseController
 
             // API call.
             // TODO: evaluate getting token data from header
-            $apiAuthenticationDeleteResponse = Http::withOptions(['verify' => false])
+            $apiAuthenticationDeleteResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->delete(
                     // env('CONFIG_API_URL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',

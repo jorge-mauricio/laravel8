@@ -35,9 +35,10 @@ $gSystemConfig = [];
 
 // $gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
 $gSystemConfig['configDebug'] = env('APP_DEBUG'); // true (debug mode) | false (production mode)
+    // true turns off ssl/https verification
     // condition to APP_ENV
 $gSystemConfig['configSystemEnv'] = env('APP_ENV');
-$gSystemConfig['configCache'] = true; // false (no chache) | true (cache)
+$gSystemConfig['configCache'] = true; // false (no cache) | true (cache)
     // TODO: research if can disable bfcache also.
 $gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
 

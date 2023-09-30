@@ -63,7 +63,14 @@ class AdminUsersController extends AdminBaseController
 
         // Logic.
         try {
-            $apiUsersListingResponse = Http::withOptions(['verify' => false])
+            $apiUsersListingResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . $this->idParent . '/', // phpcs:ignore
                     array_merge(
@@ -72,7 +79,6 @@ class AdminUsersController extends AdminBaseController
                     )
                 );
 
-            // Note / TODO: On production, set verify to true.
             $this->arrUsersListingJson = $apiUsersListingResponse->json();
 
             // Debug.
@@ -187,7 +193,14 @@ class AdminUsersController extends AdminBaseController
         // Logic.
         try {
             // API call.
-            $apiUsersInsertResponse = Http::withOptions(['verify' => false])
+            $apiUsersInsertResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->post(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/',
                     array_merge(
@@ -256,7 +269,14 @@ class AdminUsersController extends AdminBaseController
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
-                $apiUsersFilesUpdateResponse = Http::withOptions(['verify' => false])
+                $apiUsersFilesUpdateResponse = Http::withOptions(
+                    [
+                        'verify' => (
+                            config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                            config('app.gSystemConfig.configDebug') === false
+                        )
+                    ]
+                )
                     ->put(
                         config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [
@@ -325,7 +345,14 @@ class AdminUsersController extends AdminBaseController
 
         // Logic.
         try {
-            $apiUsersDetailsCurrentResponse = Http::withOptions(['verify' => false])
+            $apiUsersDetailsCurrentResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbUsers . '/',
                     [
@@ -409,7 +436,14 @@ class AdminUsersController extends AdminBaseController
         try {
             // API call.
             // TODO: evaluate moving file upload before insert records (to eliminate update later).
-            $apiUsersUpdateResponse = Http::withOptions(['verify' => false])
+            $apiUsersUpdateResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->put(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIUsers') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
                     array_merge(
@@ -466,7 +500,14 @@ class AdminUsersController extends AdminBaseController
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
-                $apiUsersFilesUpdateResponse = Http::withOptions(['verify' => false])
+                $apiUsersFilesUpdateResponse = Http::withOptions(
+                    [
+                        'verify' => (
+                            config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                            config('app.gSystemConfig.configDebug') === false
+                        )
+                    ]
+                )
                     ->put(
                         config('app.gSystemConfig.configAPIURL')  . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [

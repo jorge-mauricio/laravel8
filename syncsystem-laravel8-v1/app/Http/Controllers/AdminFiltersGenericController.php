@@ -70,7 +70,14 @@ class AdminFiltersGenericController extends AdminBaseController
         // Logic.
         try {
             /**/
-            $apiFiltersGenericListingResponse = Http::withOptions(['verify' => false])
+            $apiFiltersGenericListingResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' .
                     config('app.gSystemConfig.configRouteAPI') . '/' .
@@ -85,7 +92,6 @@ class AdminFiltersGenericController extends AdminBaseController
                     )
                 );
 
-            // Note / TODO: On production, set verify to true.
             $this->arrFiltersGenericListingJson = $apiFiltersGenericListingResponse->json();
 
             // Debug.
@@ -207,7 +213,14 @@ class AdminFiltersGenericController extends AdminBaseController
         try {
             // API call.
             // TODO: evaluate moving file upload before insert records (to eliminate update later).
-            $apiFiltersGenericInsertResponse = Http::withOptions(['verify' => false])
+            $apiFiltersGenericInsertResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->post(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/',
                     array_merge(
@@ -282,7 +295,14 @@ class AdminFiltersGenericController extends AdminBaseController
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
-                $apiFiltersGenericFilesUpdateResponse = Http::withOptions(['verify' => false])
+                $apiFiltersGenericFilesUpdateResponse = Http::withOptions(
+                    [
+                        'verify' => (
+                            config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                            config('app.gSystemConfig.configDebug') === false
+                        )
+                    ]
+                )
                     ->put(
                         config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [
@@ -365,7 +385,14 @@ class AdminFiltersGenericController extends AdminBaseController
 
         // Logic.
         try {
-            $apiFiltersGenericDetailsResponse = Http::withOptions(['verify' => false])
+            $apiFiltersGenericDetailsResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->get(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteAPIDetails') . '/' . $idTbFiltersGeneric . '/',
                     [
@@ -454,7 +481,14 @@ class AdminFiltersGenericController extends AdminBaseController
         // Logic.
         try {
             // API call.
-            $apiFiltersGenericUpdateResponse = Http::withOptions(['verify' => false])
+            $apiFiltersGenericUpdateResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->put(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIFiltersGeneric') . '/' . config('app.gSystemConfig.configRouteAPIActionEdit') . '/',
                     array_merge(
@@ -511,7 +545,14 @@ class AdminFiltersGenericController extends AdminBaseController
 
                 // TODO: error check for image upload and resize.
                 // API call (edit).
-                $apiFiltersGenericFilesUpdateResponse = Http::withOptions(['verify' => false])
+                $apiFiltersGenericFilesUpdateResponse = Http::withOptions(
+                    [
+                        'verify' => (
+                            config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                            config('app.gSystemConfig.configDebug') === false
+                        )
+                    ]
+                )
                     ->put(
                         config('app.gSystemConfig.configAPIURL')  . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                         [

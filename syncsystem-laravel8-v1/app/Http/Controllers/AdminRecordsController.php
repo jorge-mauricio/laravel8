@@ -135,7 +135,14 @@ class AdminRecordsController extends AdminBaseController
             /**/
             //array_push($arrData, 'apiKey' => env('CONFIG_API_KEY_SYSTEM');
             //$arrData = array_merge($arrData, $req->all());
-            $apiRecordsDeleteResponse = Http::withOptions(['verify' => false])
+            $apiRecordsDeleteResponse = Http::withOptions(
+                [
+                    'verify' => (
+                        config('app.gSystemConfig.configSystemEnv') === 'production' ||
+                        config('app.gSystemConfig.configDebug') === false
+                    )
+                ]
+            )
                 ->delete(
                     config('app.gSystemConfig.configAPIURL') . '/' . config('app.gSystemConfig.configRouteAPI') . '/' . config('app.gSystemConfig.configRouteAPIRecords') . '/',
                     array_merge(
