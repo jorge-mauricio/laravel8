@@ -1,3 +1,9 @@
+# Restrict access to the .htaccess file.
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
@@ -10,7 +16,7 @@
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     # Redirect Trailing Slashes If Not A Folder...
-    # Deactivated - causing problem
+    # Deactivated - causing problem in routes set with slash in the end (i.e.: /api/myroute/).
     # RewriteCond %{REQUEST_FILENAME} !-d
     # RewriteCond %{REQUEST_URI} (.+)/$
     # RewriteRule ^ %1 [L,R=301]
@@ -20,3 +26,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# If shared hosting, copy/set environment variables.
+# Reference .htaccess.env for further instructions.

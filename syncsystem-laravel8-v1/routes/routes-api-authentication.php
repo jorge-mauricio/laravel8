@@ -10,6 +10,8 @@ use App\Http\Controllers\ApiAuthenticationController;
 // **************************************************************************************
 Route::post(
     '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/',
+    // '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '{optionalSlash?}',
+    // '/' . config('app.gSystemConfig.configRouteAPIAuthentication') . '/{param?}',
     [
         ApiAuthenticationController::class, 'authenticationCheck'
     ],
@@ -21,6 +23,16 @@ Route::post(
         return response()->json($authenticationCheckResults);
     }
 )
+    // ->where(config('app.gSystemConfig.configRouteAPIAuthentication'), '.*') // Not working with .htaccess redirect rule.
+    // ->where(config('app.gSystemConfig.configRouteAPIAuthentication'), '.*\/') // Not working with .htaccess redirect rule.
+    // ->where('optionalSlash', '/?') // Not working with .htaccess redirect rule.
+    // ->where('optionalSlash', '\/?') // Not working with .htaccess redirect rule.
+    // ->where(
+    //     'param',
+    //     config('app.gSystemConfig.configRouteAPI') . '/' .
+    //     config('app.gSystemConfig.configRouteAPIAuthentication') .
+    //     '/?'
+    // ) // Not working with .htaccess redirect rule.
     ->name(config('app.gSystemConfig.configRouteAPI') . '.' . config('app.gSystemConfig.configRouteAPIAuthentication'));
     // ->name('api.authentication.authenticationCheck');
 // **************************************************************************************

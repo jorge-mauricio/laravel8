@@ -38,6 +38,12 @@ class ApiAuthenticationController extends Controller
      */
     public function authenticationCheck(Request $req): array
     {
+
+        // If a trailing slash is present, redirect to the route without the slash
+        // if ($req->filled('optionalSlash')) {
+        //     return redirect()->to(route('api.authorization'));
+        // }
+
         // Variables.
         // ----------------------
         /*

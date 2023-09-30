@@ -36,7 +36,7 @@ Route::get(
     '/' . config('app.gSystemConfig.configRouteBackend') . '/setup-clear/',
     function () {
         // Check for API key.
-        // dump('edit=8 cache:clear view:clear optimize:clear');
+        dump('edit=11 cache:clear view:clear optimize:clear');
 
         // Artisan::call('route:cache'); // error Uncaught ReflectionException: Class "view" does not exist in
         // Artisan::call('config:cache'); // error Uncaught ReflectionException: Class "view" does not exist in
@@ -46,6 +46,7 @@ Route::get(
 
         // Debug.
         // dump('edit=2 route:cache');
+        dump(env('APP_NAME_TEST'));
         return 'Clear Laravel cache, routes, config and views complete.';
     }
 )
