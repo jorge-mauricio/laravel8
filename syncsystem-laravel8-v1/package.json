@@ -1,5 +1,9 @@
-{
+{   "_comments": "engines: https://stackoverflow.com/questions/29349684/how-can-i-specify-the-required-node-js-version-in-package-json",
     "private": true,
+    "engines": {
+        "node": "^18.18.1",
+        "npm": "^9.8.1"
+    },
     "scripts": {
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -10,9 +14,11 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@octokit/rest": "^20.0.2",
         "axios": "^0.19",
         "cross-env": "^7.0.3",
         "laravel-mix": "^5.0.1",
+        "libsodium-wrappers": "^0.7.13",
         "lodash": "^4.17.19",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.52.1",

@@ -20,6 +20,10 @@ Route::get(
 
         // TODO: DB build.
 
+        // Composer install.
+
+        // Directories write configuration.
+
         // Setup symlinks.
         // ref: https://stackoverflow.com/questions/50730143/laravel-storage-link-wont-work-on-production
         // ref: https://stackoverflow.com/a/76757419/2510785
