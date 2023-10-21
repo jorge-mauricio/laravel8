@@ -246,16 +246,10 @@ const getEnvData = async (envFilePath, returnType = 1) => {
 };
 // **************************************************************************************
 
-
-// Replace these values with your own.
-// const GITHUB_USER = 'your-username';
-// const GITHUB_REPO_NAME = 'your-repo';
-// const GITHUB_TOKEN = 'your-personal-access-token';
-
 // GitHub repo settings.
-const GITHUB_USER = process.env.GITHUB_USER;
-const GITHUB_REPO_NAME = process.env.GITHUB_REPO_NAME;
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_USER = process.env.REPO_USER;
+const GITHUB_REPO_NAME = process.env.REPO_NAME;
+const GITHUB_TOKEN = process.env.REPO_TOKEN;
     // access_token-ftppipelinev1backendphplaravel8v1.ss.txt (restricted to repo)
 // const GITHUB_TOKEN = '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';
     // access_token-ftppipelinev1phplaravel8v1.ss_classic.txt
@@ -286,8 +280,16 @@ const octokit = new Octokit({
   // Import variables form .env file.
   // let getEnvironmentVariablesTest = getEnvData(path.resolve(__dirname, '../.env'));
   const arrSecrets = await getEnvData(path.resolve(__dirname, '../.env'));
+  // let envKeysParsed = '(' + arrSecrets.map(keyPair => `'${keyPair[0]}'`).join(' ') + ')'; // bash script array format
+  let envKeysParsed = arrSecrets
+    .filter(keyPair => keyPair[1] !== '')
+    .map((keyPair) => {
+      return `echo "SetEnv ${keyPair[0]} '\${{ secrets.${keyPair[0]} }}'" >> .htaccess;`;
+  })
+    .join(' \\\n'); // bash script .htaccess record format;
 
   // Loop through the key/value arrays.
+  // TODO: evaluate leaving some .env variables out. Example: repo, etc.
   arrSecrets.forEach(async ([secretKey, secretValue]) => {
     // Encrypt secret value.
     encryptValueForAPIResult = await encryptValueForAPI(
@@ -315,6 +317,14 @@ const octokit = new Octokit({
       }
     }
   });
+
+  // Output for GitHub actions workflow iteration.
+  // console.log('Array with the .env keys:');
+  // TODO: color warnings.
+  console.log('String with bash script for setting the .env keys:');
+  console.log(envKeysParsed);
+  console.log('Action: Update GitHub actions workflow file.');
+  // TODO: Evaluate writing the array output to the GitHub workflow file.
 })();
 
 // Debug.
