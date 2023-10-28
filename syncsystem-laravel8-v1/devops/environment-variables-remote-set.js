@@ -315,13 +315,19 @@ const octokit = new Octokit({
     .map((keyPair) => {
       switch (keyPair[0]) {
         case 'APP_ENV':
-          return `echo "SetEnv ${keyPair[0]} 'production'" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } 'production'" >> .htaccess;`;
         case 'APP_DEBUG':
-          return `echo "SetEnv ${keyPair[0]} false" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } false" >> .htaccess;`;
         case 'APP_URL':
-          return `echo "SetEnv ${keyPair[0]} '${ appURLFrontend }'" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLFrontend }'" >> .htaccess;`;
+        case 'CONFIG_SYSTEM_URL':
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLFrontend }'" >> .htaccess;`;
+        case 'CONFIG_API_URL':
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLBackend }'" >> .htaccess;`;
+        case 'CONFIG_URL_FRONTEND_LARAVEL':
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLFrontend }'" >> .htaccess;`;
         default:
-          return `echo "SetEnv ${keyPair[0]} '\${{ secrets.${keyPair[0]} }}'" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } '\${{ secrets.${ keyPair[0] } }}'" >> .htaccess;`;
       }
     })
     .join(' \\\n'); // bash script .htaccess record format;
@@ -330,20 +336,26 @@ const octokit = new Octokit({
     .map((keyPair) => {
       switch (keyPair[0]) {
         case 'APP_ENV':
-          return `echo "SetEnv ${keyPair[0]} 'production'" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } 'production'" >> .htaccess;`;
         case 'APP_DEBUG':
-          return `echo "SetEnv ${keyPair[0]} false" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } false" >> .htaccess;`;
         case 'APP_URL':
-          return `echo "SetEnv ${keyPair[0]} '${ appURLBackend }'" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLBackend }'" >> .htaccess;`;
+        case 'CONFIG_SYSTEM_URL':
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLFrontend }'" >> .htaccess;`;
+        case 'CONFIG_API_URL':
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLBackend }'" >> .htaccess;`;
+        case 'CONFIG_URL_FRONTEND_LARAVEL':
+          return `echo "SetEnv ${ keyPair[0] } '${ appURLFrontend }'" >> .htaccess;`;
         default:
-          return `echo "SetEnv ${keyPair[0]} '\${{ secrets.${keyPair[0]} }}'" >> .htaccess;`;
+          return `echo "SetEnv ${ keyPair[0] } '\${{ secrets.${ keyPair[0] } }}'" >> .htaccess;`;
       }
     })
     .join(' \\\n'); // bash script .htaccess record format;
 
   envKeysParsed.ymlFormat = arrSecrets.filter(keyPair => keyPair[1] !== '')
     .map((keyPair) => {
-      return `${keyPair[0]}: '\${{ secrets.${keyPair[0]} }}'`;
+      return `${ keyPair[0] }: '\${{ secrets.${ keyPair[0] } }}'`;
     })
     .join('\n'); // bash script .htaccess record format;
 
