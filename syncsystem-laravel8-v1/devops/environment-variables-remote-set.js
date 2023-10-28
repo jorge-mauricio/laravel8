@@ -30,6 +30,26 @@ const { Octokit } = require("@octokit/rest");
 const sodium = require('libsodium-wrappers');
 //const sodium = require('libsodium-wrappers-sumo');
 
+// Bash coloring flags.
+const logMessageColors = {
+  reset: '\x1b[0m',
+
+  // Text colors.
+  error: '\x1b[31m', // Red.
+  success: '\x1b[32m', // Green.
+  warning: '\x1b[33m', // Yellow.
+  info: '\x1b[34m', // Blue.
+
+  // Background colors.
+  errorBG: '\x1b[41m', // Red.
+  successBG: '\x1b[42m', // Green.
+  warningBG: '\x1b[43m', // Yellow.
+  infoBG: '\x1b[44m', // Blue.
+};
+
+// module.exports = { logMessageColors };
+// TODO: move to separate directory.
+
 // Function to encrypt value for APIs.
 // TODO: copy function to functions-crypto.
 // **************************************************************************************
@@ -260,6 +280,16 @@ let apiSetSecretResult = null;
 let secretValueEncrypted = null;
 let countKeysSuccessful = 0;
 
+const envKeysParsed = {
+  htaccessFormatFrontend: '',
+  htaccessFormatBackend: '',
+  ymlFormat: '',
+};
+
+const appURLFrontend = 'https://www.mydomain.com';
+const appURLBackend = 'https://backend.mydomain.com';
+// TODO: replace with .env or from github actions variables.
+
 // Secrets (debug data).
 // const arrSecrets = [];
 // arrSecrets.push(['KEY_NAME1', 'secretValue1']);
@@ -281,12 +311,41 @@ const octokit = new Octokit({
   // let getEnvironmentVariablesTest = getEnvData(path.resolve(__dirname, '../.env'));
   const arrSecrets = await getEnvData(path.resolve(__dirname, '../.env'));
   // let envKeysParsed = '(' + arrSecrets.map(keyPair => `'${keyPair[0]}'`).join(' ') + ')'; // bash script array format
-  let envKeysParsed = arrSecrets
-    .filter(keyPair => keyPair[1] !== '')
+  envKeysParsed.htaccessFormatFrontend = arrSecrets.filter(keyPair => keyPair[1] !== '')
     .map((keyPair) => {
-      return `echo "SetEnv ${keyPair[0]} '\${{ secrets.${keyPair[0]} }}'" >> .htaccess;`;
-  })
+      switch (keyPair[0]) {
+        case 'APP_ENV':
+          return `echo "SetEnv ${keyPair[0]} 'production'" >> .htaccess;`;
+        case 'APP_DEBUG':
+          return `echo "SetEnv ${keyPair[0]} false" >> .htaccess;`;
+        case 'APP_URL':
+          return `echo "SetEnv ${keyPair[0]} '${ appURLFrontend }'" >> .htaccess;`;
+        default:
+          return `echo "SetEnv ${keyPair[0]} '\${{ secrets.${keyPair[0]} }}'" >> .htaccess;`;
+      }
+    })
     .join(' \\\n'); // bash script .htaccess record format;
+
+  envKeysParsed.htaccessFormatBackend = arrSecrets.filter(keyPair => keyPair[1] !== '')
+    .map((keyPair) => {
+      switch (keyPair[0]) {
+        case 'APP_ENV':
+          return `echo "SetEnv ${keyPair[0]} 'production'" >> .htaccess;`;
+        case 'APP_DEBUG':
+          return `echo "SetEnv ${keyPair[0]} false" >> .htaccess;`;
+        case 'APP_URL':
+          return `echo "SetEnv ${keyPair[0]} '${ appURLBackend }'" >> .htaccess;`;
+        default:
+          return `echo "SetEnv ${keyPair[0]} '\${{ secrets.${keyPair[0]} }}'" >> .htaccess;`;
+      }
+    })
+    .join(' \\\n'); // bash script .htaccess record format;
+
+  envKeysParsed.ymlFormat = arrSecrets.filter(keyPair => keyPair[1] !== '')
+    .map((keyPair) => {
+      return `${keyPair[0]}: '\${{ secrets.${keyPair[0]} }}'`;
+    })
+    .join('\n'); // bash script .htaccess record format;
 
   // Loop through the key/value arrays.
   // TODO: evaluate leaving some .env variables out. Example: repo, etc.
@@ -320,10 +379,14 @@ const octokit = new Octokit({
 
   // Output for GitHub actions workflow iteration.
   // console.log('Array with the .env keys:');
-  // TODO: color warnings.
-  console.log('String with bash script for setting the .env keys:');
-  console.log(envKeysParsed);
-  console.log('Action: Update GitHub actions workflow file.');
+  console.log(logMessageColors.warning, 'String with bash script for setting the .env keys (frontend):');
+  console.log(logMessageColors.reset, envKeysParsed.htaccessFormatFrontend, '\n');
+  console.log(logMessageColors.warning, 'String with bash script for setting the .env keys (backend):');
+  console.log(logMessageColors.reset, envKeysParsed.htaccessFormatBackend, '\n');
+  console.log(logMessageColors.warning, 'String with yml file for setting the .env keys:');
+  console.log(logMessageColors.reset, envKeysParsed.ymlFormat, '\n');
+  // console.log(logMessageColors.warning,'Action: ',logMessageColors.reset,'Update GitHub actions workflow file.');
+  console.log(`${ logMessageColors.warning }Action: ${ logMessageColors.reset }Update GitHub actions workflow files.`);
   // TODO: Evaluate writing the array output to the GitHub workflow file.
 })();
 
