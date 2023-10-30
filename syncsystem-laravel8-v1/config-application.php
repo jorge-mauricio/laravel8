@@ -21,42 +21,6 @@ http://fullstackwebdesigner.com
 // ************************************************************************************************************************
 // TODO: update separators based on maximum character limit standard.
 
-// PHP configuration.
-// **************************************************************************************
-//Coding style reference: https://www.php-fig.org/psr/psr-12/
-//declare(strict_types=1); //causing error somewhere in this code
-
-// Type hinting.
-//declare(strict_types=1);
-
-// Create an object to work as a "namespace" to help export all variables / properties.
-$gSystemConfig = [];
-
-
-// $gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
-$gSystemConfig['configDebug'] = env('APP_DEBUG'); // true (debug mode) | false (production mode)
-    // true turns off ssl/https verification
-    // condition to APP_ENV
-$gSystemConfig['configSystemEnv'] = env('APP_ENV');
-$gSystemConfig['configCache'] = true; // false (no cache) | true (cache)
-    // TODO: research if can disable bfcache also.
-$gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
-
-// Error handling / displaying.
-// ----------------------
-ini_set('display_errors', 1); // Show all errors.
-//error_reporting(0); // Hide all errors.
-//error_reporting(E_ALL); // alpshost
-//error_reporting(E_STRICT & ~E_STRICT); // Locaweb Linux 5.4 | HostGator Linux 5.5 | e 1 (windows)
-//error_reporting(E_ALL | E_STRICT);
-//error_reporting(error_reporting() & ~E_NOTICE);
-// ----------------------
-
-
-// Timezone configuration.
-date_default_timezone_set('America/Sao_Paulo'); // not wired // double check
-// **************************************************************************************
-
 // General constants.
 // **************************************************************************************
 /**/
@@ -98,6 +62,42 @@ define('SS_ENCRYPT_METHOD_DATA_CRYPTO_MODULE_AES_256_CBC_COMPLEX_32_16', 26);
 define('SS_AUTHENTICATION_STORE_COOKIE', 1);
 define('SS_AUTHENTICATION_STORE_SESSION', 2);
 define('SS_AUTHENTICATION_STORE_HEADER', 3);
+// **************************************************************************************
+
+// PHP configuration.
+// **************************************************************************************
+//Coding style reference: https://www.php-fig.org/psr/psr-12/
+//declare(strict_types=1); //causing error somewhere in this code
+
+// Type hinting.
+//declare(strict_types=1);
+
+// Create an object to work as a "namespace" to help export all variables / properties.
+$gSystemConfig = [];
+
+
+// $gSystemConfig['configDebug'] = true; // true (debug mode) | false (production mode)
+$gSystemConfig['configDebug'] = env('APP_DEBUG'); // true (debug mode) | false (production mode)
+    // true turns off ssl/https verification
+    // condition to APP_ENV
+$gSystemConfig['configSystemEnv'] = env('APP_ENV');
+$gSystemConfig['configCache'] = true; // false (no cache) | true (cache)
+    // TODO: research if can disable bfcache also.
+$gSystemConfig['configCacheForce'] = true; // false (no reload - enable cache use) | true (force files reload) // TODO: implement in logic.
+
+// Error handling / displaying.
+// ----------------------
+ini_set('display_errors', 1); // Show all errors.
+//error_reporting(0); // Hide all errors.
+//error_reporting(E_ALL); // alpshost
+//error_reporting(E_STRICT & ~E_STRICT); // Locaweb Linux 5.4 | HostGator Linux 5.5 | e 1 (windows)
+//error_reporting(E_ALL | E_STRICT);
+//error_reporting(error_reporting() & ~E_NOTICE);
+// ----------------------
+
+
+// Timezone configuration.
+date_default_timezone_set('America/Sao_Paulo'); // not wired // double check
 // **************************************************************************************
 
 // General configuration.
@@ -2477,7 +2477,7 @@ $gSystemConfig['enableUsersUsername'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersEmail'] = 1; // 0 - disable | 1 - enable
 
 $gSystemConfig['configUsersPassword'] = 1; // 0 - don´t display | 1 - display
-$gSystemConfig['configUsersPasswordMethod'] = 26; // 21 - MCrypt PHP library (PHP) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv | 31 - hash
+$gSystemConfig['configUsersPasswordMethod'] = 22; // 21 - MCrypt PHP library (PHP) | 22 - Defuse php-encryption (PHP) (ideal for php 7.2) | 23 - Crypto Module algorithm: aes-128-cbc and simple key password | 24 - Crypto Module algorithm: aes-128-cbc - 16 byte key and 16 byte iv | 26 - Crypto Module algorithm: aes-256-cbc - 32 byte key and 16 byte iv | 31 - hash
 
 $gSystemConfig['enableUsersImageMain'] = 1; // 0 - disable | 1 - enable
 $gSystemConfig['enableUsersStatus'] = 1; // 0 - disable | 1 - enable

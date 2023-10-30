@@ -16,19 +16,55 @@ use App\Http\Controllers\AdminDashboardController;
 Route::get(
     '/' . config('app.gSystemConfig.configRouteBackend') . '/setup/',
     function () {
+        $arrReturn = [
+            'arrReturn' => true,
+        ];
+
         // Check for API key.
 
-        // TODO: DB build.
+        // DB build script.
+        // TODO: condition to run only once and rebuild.
+        require_once base_path('setup/setup-db-build.php');
 
         // Composer install.
 
+        // Sanctum configuration/migration.
+        // Artisan::call('vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"');
+        // Artisan::call('migrate');
+            // Error: Undefined constant "STDIN"
+        // shell_exec('php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"');
+        // shell_exec('php artisan migrate');
+            // Not supported by the server
+        // exec('php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"', $output, $returnCode);
+        // if ($returnCode !== 0) {
+        //     // Handle the error
+        //     echo "Error executing command\n";
+        //     print_r($output);
+        // }
+
+        // exec('php artisan migrate', $output, $returnCode);
+        // if ($returnCode !== 0) {
+        //     // Handle the error
+        //     echo "Error executing command\n";
+        //     print_r($output);
+        // }
+            // Not supported by the server
+
+
         // Directories write configuration.
+        // TODO: delete public directories alias from github
 
         // Setup symlinks.
         // ref: https://stackoverflow.com/questions/50730143/laravel-storage-link-wont-work-on-production
         // ref: https://stackoverflow.com/a/76757419/2510785
         Artisan::call('storage:link');
-        return 'Symlinks configuration complete.';
+        // Artisan::call('storage:link --relative');
+
+        // Run laravel mix.
+
+
+        // return 'Symlinks configuration complete.';
+        return response()->json(['arrReturn' => true]);
     }
 )
     ->name(config('app.gSystemConfig.configRouteBackend') . '.' . 'setup');
@@ -40,7 +76,7 @@ Route::get(
     '/' . config('app.gSystemConfig.configRouteBackend') . '/setup-clear/',
     function () {
         // Check for API key.
-        dump('edit=11 cache:clear view:clear optimize:clear');
+        // dump('edit=11 cache:clear view:clear optimize:clear');
 
         // Artisan::call('route:cache'); // error Uncaught ReflectionException: Class "view" does not exist in
         // Artisan::call('config:cache'); // error Uncaught ReflectionException: Class "view" does not exist in
@@ -50,7 +86,7 @@ Route::get(
 
         // Debug.
         // dump('edit=2 route:cache');
-        dump(env('APP_NAME_TEST'));
+        // dump(env('APP_NAME_TEST'));
         return 'Clear Laravel cache, routes, config and views complete.';
     }
 )

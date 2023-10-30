@@ -262,8 +262,14 @@ class ApiAuthenticationController extends Controller
                 // Parameters build.
                 array_push($arrSearchParameters, 'username;' . $username . ';s');
                 // TODO: condition based on the config file.
-                // array_push($arrSearchParameters, 'id;12;i'); // exclude user - root (backend PHP Laravel - Data - MCrypt PHP)
-                array_push($arrSearchParameters, 'id;14;i'); // exclude user - root (backend PHP Laravel - Data - Defuse php-encryption)
+                if (config('app.gSystemConfig.configUsersSort') === SS_ENCRYPT_METHOD_DATA_MCRYPT) { // TODO: not implemented/not tested
+                    // user - root (backend PHP Laravel - Data - MCrypt PHP)
+                    array_push($arrSearchParameters, 'id;12;i');
+                }
+                if (config('app.gSystemConfig.configUsersSort') === SS_ENCRYPT_METHOD_DATA_DEFUSE) {
+                    // user - root (backend PHP Laravel - Data - Defuse php-encryption)
+                    array_push($arrSearchParameters, 'id;14;i');
+                }
                 array_push($arrSearchParameters, 'activation;1;i');
 
                 $arrUsersLoginParameters = [
