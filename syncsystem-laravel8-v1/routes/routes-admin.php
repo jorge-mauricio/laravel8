@@ -24,6 +24,7 @@ Route::get(
 
         // DB build script.
         // TODO: condition to run only once and rebuild.
+        // TODO: condition to run only in backend URL.
         require_once base_path('setup/setup-db-build.php');
 
         // Composer install.

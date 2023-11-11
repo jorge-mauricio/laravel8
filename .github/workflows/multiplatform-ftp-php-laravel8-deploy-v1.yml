@@ -498,8 +498,6 @@ jobs:
         # Note: last line is condition for pull request to contain a label called 'deploy-full'.
         # TODO: test it.
 
-
         # Evaluate if it's necessary to set directories write permissions.
             
         # Access setup URL to complete deploy configuration (DB, symlinks).
-
