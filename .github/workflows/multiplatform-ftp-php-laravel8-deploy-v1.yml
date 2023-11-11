@@ -1,0 +1,505 @@
+# TODO: maybe make one for update (only copy the files).
+# TODO: condition to secrets.FRONTEND_FTP_ADDRESS existing.
+name: SyncSystem - Multiplatform - FTP Pipeline For PHP/Laravel 8 - Deploy
+
+on:
+    push:
+        branches:
+            - main
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+            # TODO: evaluate replacing with variable.
+
+        # Set minimum environment variables for composer install to execute - Shared (Frontend/Backend)
+        env: 
+            APP_NAME: '${{ secrets.APP_NAME }}'
+            APP_ENV: '${{ secrets.APP_ENV }}'
+            APP_KEY: '${{ secrets.APP_KEY }}'
+            APP_DEBUG: '${{ secrets.APP_DEBUG }}'
+            APP_URL: '${{ secrets.APP_URL }}'
+            LOG_CHANNEL: '${{ secrets.LOG_CHANNEL }}'
+            BROADCAST_DRIVER: '${{ secrets.BROADCAST_DRIVER }}'
+            CACHE_DRIVER: '${{ secrets.CACHE_DRIVER }}'
+            QUEUE_CONNECTION: '${{ secrets.QUEUE_CONNECTION }}'
+            SESSION_DRIVER: '${{ secrets.SESSION_DRIVER }}'
+            SESSION_LIFETIME: '${{ secrets.SESSION_LIFETIME }}'
+            REDIS_HOST: '${{ secrets.REDIS_HOST }}'
+            REDIS_PASSWORD: '${{ secrets.REDIS_PASSWORD }}'
+            REDIS_PORT: '${{ secrets.REDIS_PORT }}'
+            MAIL_MAILER: '${{ secrets.MAIL_MAILER }}'
+            MAIL_HOST: '${{ secrets.MAIL_HOST }}'
+            MAIL_PORT: '${{ secrets.MAIL_PORT }}'
+            MAIL_USERNAME: '${{ secrets.MAIL_USERNAME }}'
+            MAIL_PASSWORD: '${{ secrets.MAIL_PASSWORD }}'
+            MAIL_ENCRYPTION: '${{ secrets.MAIL_ENCRYPTION }}'
+            MAIL_FROM_ADDRESS: '${{ secrets.MAIL_FROM_ADDRESS }}'
+            MAIL_FROM_NAME: '${{ secrets.MAIL_FROM_NAME }}'
+            AWS_DEFAULT_REGION: '${{ secrets.AWS_DEFAULT_REGION }}'
+            PUSHER_APP_CLUSTER: '${{ secrets.PUSHER_APP_CLUSTER }}'
+            MIX_PUSHER_APP_KEY: '${{ secrets.MIX_PUSHER_APP_KEY }}'
+            MIX_PUSHER_APP_CLUSTER: '${{ secrets.MIX_PUSHER_APP_CLUSTER }}'
+            CONFIG_SYSTEM_URL: '${{ secrets.CONFIG_SYSTEM_URL }}'
+            CONFIG_API_URL: '${{ secrets.CONFIG_API_URL }}'
+            CONFIG_URL_FRONTEND_REACT: '${{ secrets.CONFIG_URL_FRONTEND_REACT }}'
+            CONFIG_URL_FRONTEND_LARAVEL: '${{ secrets.CONFIG_URL_FRONTEND_LARAVEL }}'
+            DB_CONNECTION: '${{ secrets.DB_CONNECTION }}'
+            DB_SYSTEM_HOST: '${{ secrets.DB_SYSTEM_HOST }}'
+            DB_SYSTEM_PORT: '${{ secrets.DB_SYSTEM_PORT }}'
+            DB_SYSTEM_DATABASE: '${{ secrets.DB_SYSTEM_DATABASE }}'
+            DB_SYSTEM_USER: '${{ secrets.DB_SYSTEM_USER }}'
+            DB_SYSTEM_PASSWORD: '${{ secrets.DB_SYSTEM_PASSWORD }}'
+            CONFIG_SYSTEM_DB_TABLE_PREFIX: '${{ secrets.CONFIG_SYSTEM_DB_TABLE_PREFIX }}'
+            CONFIG_SYSTEM_DB_TYPE: '${{ secrets.CONFIG_SYSTEM_DB_TYPE }}'
+            ENABLE_SYSTEM_DB_SIZE_OPTIMIZE: '${{ secrets.ENABLE_SYSTEM_DB_SIZE_OPTIMIZE }}'
+            CONFIG_API_KEY_SYSTEM: '${{ secrets.CONFIG_API_KEY_SYSTEM }}'
+            CONFIG_API_GOOGLE_KEY: '${{ secrets.CONFIG_API_GOOGLE_KEY }}'
+            CONFIG_API_AWS_S3_ID: '${{ secrets.CONFIG_API_AWS_S3_ID }}'
+            CONFIG_API_AWS_S3_KEY: '${{ secrets.CONFIG_API_AWS_S3_KEY }}'
+            CONFIG_API_AWS_S3_BUCKET: '${{ secrets.CONFIG_API_AWS_S3_BUCKET }}'
+            CONFIG_CRYPT_KEY: '${{ secrets.CONFIG_CRYPT_KEY }}'
+            CONFIG_CRYPT_KEY_16BYTE: '${{ secrets.CONFIG_CRYPT_KEY_16BYTE }}'
+            CONFIG_CRYPT_KEY_32BYTE: '${{ secrets.CONFIG_CRYPT_KEY_32BYTE }}'
+            CONFIG_CRYPT_IV16BYTE: '${{ secrets.CONFIG_CRYPT_IV16BYTE }}'
+            CONFIG_CRYPT_IV32BYTE: '${{ secrets.CONFIG_CRYPT_IV32BYTE }}'
+            CONFIG_CRYPT_KEY_DEFUSE_PHP_ENCRYPTION_RANDOM_KEY: '${{ secrets.CONFIG_CRYPT_KEY_DEFUSE_PHP_ENCRYPTION_RANDOM_KEY }}'
+            CONFIG_CRYPT_SALT: '${{ secrets.CONFIG_CRYPT_SALT }}'
+            CONFIG_DIRECTORY_FILES: '${{ secrets.CONFIG_DIRECTORY_FILES }}'
+            CONFIG_DIRECTORY_FILES_LAYOUT: '${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT }}'
+            CONFIG_DIRECTORY_FONTS: '${{ secrets.CONFIG_DIRECTORY_FONTS }}'
+            CONFIG_DIRECTORY_RESOURCES: '${{ secrets.CONFIG_DIRECTORY_RESOURCES }}'
+            CONFIG_DIRECTORY_STYLES: '${{ secrets.CONFIG_DIRECTORY_STYLES }}'
+            CONFIG_DIRECTORY_JS: '${{ secrets.CONFIG_DIRECTORY_JS }}'
+            CONFIG_DIRECTORY_VIEWS: '${{ secrets.CONFIG_DIRECTORY_VIEWS }}'
+            CONFIG_DIRECTORY_BUILD_LARAVEL: '${{ secrets.CONFIG_DIRECTORY_BUILD_LARAVEL }}'
+            CONFIG_DIRECTORY_FILES_SD: '${{ secrets.CONFIG_DIRECTORY_FILES_SD }}'
+            CONFIG_DIRECTORY_FILES_LAYOUT_SD: '${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT_SD }}'
+            CONFIG_DIRECTORY_FONTS_SD: '${{ secrets.CONFIG_DIRECTORY_FONTS_SD }}'
+            CONFIG_DIRECTORY_STYLES_SD: '${{ secrets.CONFIG_DIRECTORY_STYLES_SD }}'
+            CONFIG_DIRECTORY_JS_SD: '${{ secrets.CONFIG_DIRECTORY_JS_SD }}'
+            REPO_USER: '${{ secrets.REPO_USER }}'
+            REPO_NAME: '${{ secrets.REPO_NAME }}'
+            REPO_TOKEN: '${{ secrets.REPO_TOKEN }}'
+            FRONTEND_FTP_ADDRESS: '${{ secrets.FRONTEND_FTP_ADDRESS }}'
+            FRONTEND_FTP_USERNAME: '${{ secrets.FRONTEND_FTP_USERNAME }}'
+            FRONTEND_FTP_PASSWORD: '${{ secrets.FRONTEND_FTP_PASSWORD }}'
+            BACKEND_FTP_ADDRESS: '${{ secrets.BACKEND_FTP_ADDRESS }}'
+            BACKEND_FTP_USERNAME: '${{ secrets.BACKEND_FTP_USERNAME }}'
+            BACKEND_FTP_PASSWORD: '${{ secrets.BACKEND_FTP_PASSWORD }}'
+            
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v2
+
+            - name: Set up PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '8.0'
+
+            - name: Install lftp
+              # lftp command is not available in the GitHub Actions runner environment by default.
+              run: sudo apt-get install lftp -y
+              shell: bash
+
+            # - name: Install/setup nvm, node, npm 
+            #   run: sudo apt-get install lftp -y
+
+            # TODO: test npm install for laravel dependencies.
+            # Note: must be in the directory from the package.json
+            # - name: Setup Node.js
+            #   uses: actions/setup-node@v3
+            #   with:
+            #     node-version: 18
+
+            # - name: Install npm
+            #   run: npm install -g npm@latest
+
+            # - name: Install project dependencies
+            #   run: npm install
+
+            # - name: Switch Directory
+            #  run: cd syncsystem-laravel8-v1
+
+            # - name: Set Environment Variables - Shared (Frontend/Backend)
+            #   working-directory: ./syncsystem-laravel8-v1
+            #   env: 
+            #     CONFIG_DIRECTORY_FILES: ${{ secrets.CONFIG_DIRECTORY_FILES }}
+            #     CONFIG_DIRECTORY_FILES_LAYOUT: ${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT }}
+            #     CONFIG_DIRECTORY_FONTS: ${{ secrets.CONFIG_DIRECTORY_FONTS }}
+            #     CONFIG_DIRECTORY_RESOURCES: ${{ secrets.CONFIG_DIRECTORY_RESOURCES }}
+            #     CONFIG_DIRECTORY_STYLES: ${{ secrets.CONFIG_DIRECTORY_STYLES }}
+            #     CONFIG_DIRECTORY_JS: ${{ secrets.CONFIG_DIRECTORY_JS }}
+            #     CONFIG_DIRECTORY_VIEWS: ${{ secrets.CONFIG_DIRECTORY_VIEWS }}
+            #     CONFIG_DIRECTORY_BUILD_LARAVEL: ${{ secrets.CONFIG_DIRECTORY_BUILD_LARAVEL }}
+      
+            #     CONFIG_DIRECTORY_FILES_SD: ${{ secrets.CONFIG_DIRECTORY_FILES_SD }}
+            #     CONFIG_DIRECTORY_FILES_LAYOUT_SD: ${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT_SD }}
+            #     CONFIG_DIRECTORY_FONTS_SD: ${{ secrets.CONFIG_DIRECTORY_FONTS_SD }}
+            #     CONFIG_DIRECTORY_STYLES_SD: ${{ secrets.CONFIG_DIRECTORY_STYLES_SD }}
+            #     CONFIG_DIRECTORY_JS_SD: ${{ secrets.CONFIG_DIRECTORY_JS_SD }}
+            #   run: |
+
+            # - name: Debug - check environment variables
+            #   working-directory: ./syncsystem-laravel8-v1
+            #   run: printenv
+              # run: | 
+              #   printenv CONFIG_DIRECTORY_FILES
+              #   printenv CONFIG_DIRECTORY_FILES_LAYOUT
+              #   printenv CONFIG_DIRECTORY_FONTS
+              #   printenv CONFIG_DIRECTORY_RESOURCES
+              #   printenv CONFIG_DIRECTORY_STYLES
+              #   printenv CONFIG_DIRECTORY_JS
+              #   printenv CONFIG_DIRECTORY_VIEWS
+              #   printenv CONFIG_DIRECTORY_BUILD_LARAVEL
+
+              #   printenv CONFIG_DIRECTORY_FILES_SD
+              #   printenv CONFIG_DIRECTORY_FILES_LAYOUT_SD
+              #   printenv CONFIG_DIRECTORY_FONTS_SD
+              #   printenv CONFIG_DIRECTORY_STYLES_SD
+              #   printenv CONFIG_DIRECTORY_JS_SD
+
+            - name: Install Composer Dependencies
+              working-directory: ./syncsystem-laravel8-v1
+              run: |
+                composer install
+              shell: bash
+            # php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+            # php artisan migrate
+
+            - name: Sanctum Register Package and Migrate
+              working-directory: ./syncsystem-laravel8-v1
+              run: |
+                php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+                php artisan migrate
+              shell: bash
+
+            # Run node scrips.
+            # TODO: generate CSS / javascript files
+
+            # Laravel framework deploy.
+            # TODO: delete this directory syncsystem-laravel8-v1 that is also uploading to the server (double check - maybe was in the poc phase).
+            - name: Deploy FTP - Backend
+              working-directory: ./syncsystem-laravel8-v1
+              # run: |
+              #   lftp -c "
+              #     set ftp:ssl-allow no;
+              #     open -u ${{ secrets.BACKEND_FTP_USERNAME }},${{ secrets.BACKEND_FTP_PASSWORD }} ${{ secrets.BACKEND_FTP_ADDRESS }};
+              #     mirror -R -e -x .git/ --ignore-time --parallel=10 --exclude-glob .git* --exclude .github/ ./ /www/html/laravel8
+              #   "
+              #   # replace path with variable
+              #   # TODO: evaluate creating special FTP user for automated deploy
+              #   # Note: //www/html/laravel8 was updated to /www/html/laravel8
+
+              run: |
+                lftp -c "
+                  set ftp:ssl-allow no;
+                  open -u ${{ secrets.BACKEND_FTP_USERNAME }},${{ secrets.BACKEND_FTP_PASSWORD }} ${{ secrets.BACKEND_FTP_ADDRESS }};
+                  mirror -R -e -x .git/ --ignore-time --parallel=10 \
+                    --exclude-glob .git* \
+                    --exclude .git/ \
+                    --exclude .github/ \
+                    --exclude public/ \
+                    ./ /www/html/laravel8
+                "
+              shell: bash
+
+            - name: Deploy FTP - Frontend
+              working-directory: ./syncsystem-laravel8-v1
+              run: |
+                lftp -c "
+                  set ftp:ssl-allow no;
+                  open -u ${{ secrets.FRONTEND_FTP_USERNAME }},${{ secrets.FRONTEND_FTP_PASSWORD }} ${{ secrets.FRONTEND_FTP_ADDRESS }};
+                  mirror -R -e -x .git/ --ignore-time --parallel=10 \
+                    --exclude-glob .git* \
+                    --exclude .git/ \
+                    --exclude .github/ \
+                    --exclude public/ \
+                    ./ /www/html/laravel8
+                "
+              shell: bash
+            # Public directory deploy.
+            # TODO: check why .git is being uploaded.
+            # Exclude directories that will be created by symlinks.
+            - name: Deploy FTP - Backend - Public
+              working-directory: ./syncsystem-laravel8-v1/public
+              run: |
+                    lftp -c "
+                    set ftp:ssl-allow no;
+                    open -u ${{ secrets.BACKEND_FTP_USERNAME }},${{ secrets.BACKEND_FTP_PASSWORD }} ${{ secrets.BACKEND_FTP_ADDRESS }};
+                    mirror -R --reverse --only-newer --parallel=10 \
+                    --exclude-glob .git* \
+                    --exclude .github/ \
+                    --exclude ${{ secrets.CONFIG_DIRECTORY_FILES_SD }}/ \
+                    --exclude ${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT_SD }}/ \
+                    --exclude ${{ secrets.CONFIG_DIRECTORY_FONTS_SD }}/ \
+                    ./ /www/html
+                    "
+              shell: bash
+            # --parallel=10
+
+            - name: Deploy FTP - Frontend - Public
+              working-directory: ./syncsystem-laravel8-v1/public
+              run: |
+                    lftp -c "
+                    set ftp:ssl-allow no;
+                    open -u ${{ secrets.FRONTEND_FTP_USERNAME }},${{ secrets.FRONTEND_FTP_PASSWORD }} ${{ secrets.FRONTEND_FTP_ADDRESS }};
+                    mirror -R --reverse --only-newer --parallel=10 \
+                    --exclude-glob .git* \
+                    --exclude .github/ \
+                    --exclude ${{ secrets.CONFIG_DIRECTORY_FILES_SD }}/ \
+                    --exclude ${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT_SD }}/ \
+                    --exclude ${{ secrets.CONFIG_DIRECTORY_FONTS_SD }}/ \
+                    ./ /www/html
+                    "
+              shell: bash
+
+            - name: Access server and download .htaccess and index.php (Backend)
+              run: |
+                lftp -e "set ssl:verify-certificate no; \
+                open -u ${{ secrets.BACKEND_FTP_USERNAME }},${{ secrets.BACKEND_FTP_PASSWORD }} ${{ secrets.BACKEND_FTP_ADDRESS }}; \
+                cd /www/html; \
+                get .htaccess; \
+                get index.php; \
+                set xfer:clobber true; \
+                quit"
+              shell: bash
+            # TODO: test and evaluate if need to change local runner directory so there's no mix up.
+
+            - name: Delete SetEnv lines from .htaccess (Backend)
+              run: |
+                htaccessFile=".htaccess"
+                sed -i '/^SetEnv/d' "$htaccessFile"
+              shell: bash
+
+            # Note: double check spaces after each line. Might cause error in GitHub actions.
+            - name: Upate .htaccess locally (Backend)
+              run: |
+                echo "SetEnv APP_NAME '${{ secrets.APP_NAME }}'" >> .htaccess; \
+                echo "SetEnv APP_ENV 'production'" >> .htaccess; \
+                echo "SetEnv APP_KEY '${{ secrets.APP_KEY }}'" >> .htaccess; \
+                echo "SetEnv APP_DEBUG false" >> .htaccess; \
+                echo "SetEnv APP_URL 'https://ftppipelinev1backendphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv LOG_CHANNEL '${{ secrets.LOG_CHANNEL }}'" >> .htaccess; \
+                echo "SetEnv BROADCAST_DRIVER '${{ secrets.BROADCAST_DRIVER }}'" >> .htaccess; \
+                echo "SetEnv CACHE_DRIVER '${{ secrets.CACHE_DRIVER }}'" >> .htaccess; \
+                echo "SetEnv QUEUE_CONNECTION '${{ secrets.QUEUE_CONNECTION }}'" >> .htaccess; \
+                echo "SetEnv SESSION_DRIVER '${{ secrets.SESSION_DRIVER }}'" >> .htaccess; \
+                echo "SetEnv SESSION_LIFETIME '${{ secrets.SESSION_LIFETIME }}'" >> .htaccess; \
+                echo "SetEnv REDIS_HOST '${{ secrets.REDIS_HOST }}'" >> .htaccess; \
+                echo "SetEnv REDIS_PASSWORD '${{ secrets.REDIS_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv REDIS_PORT '${{ secrets.REDIS_PORT }}'" >> .htaccess; \
+                echo "SetEnv MAIL_MAILER '${{ secrets.MAIL_MAILER }}'" >> .htaccess; \
+                echo "SetEnv MAIL_HOST '${{ secrets.MAIL_HOST }}'" >> .htaccess; \
+                echo "SetEnv MAIL_PORT '${{ secrets.MAIL_PORT }}'" >> .htaccess; \
+                echo "SetEnv MAIL_USERNAME '${{ secrets.MAIL_USERNAME }}'" >> .htaccess; \
+                echo "SetEnv MAIL_PASSWORD '${{ secrets.MAIL_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv MAIL_ENCRYPTION '${{ secrets.MAIL_ENCRYPTION }}'" >> .htaccess; \
+                echo "SetEnv MAIL_FROM_ADDRESS '${{ secrets.MAIL_FROM_ADDRESS }}'" >> .htaccess; \
+                echo "SetEnv MAIL_FROM_NAME '${{ secrets.MAIL_FROM_NAME }}'" >> .htaccess; \
+                echo "SetEnv AWS_DEFAULT_REGION '${{ secrets.AWS_DEFAULT_REGION }}'" >> .htaccess; \
+                echo "SetEnv PUSHER_APP_CLUSTER '${{ secrets.PUSHER_APP_CLUSTER }}'" >> .htaccess; \
+                echo "SetEnv MIX_PUSHER_APP_KEY '${{ secrets.MIX_PUSHER_APP_KEY }}'" >> .htaccess; \
+                echo "SetEnv MIX_PUSHER_APP_CLUSTER '${{ secrets.MIX_PUSHER_APP_CLUSTER }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_SYSTEM_URL 'https://ftppipelinev1multiplatformphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_URL 'https://ftppipelinev1backendphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv CONFIG_URL_FRONTEND_REACT '${{ secrets.CONFIG_URL_FRONTEND_REACT }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_URL_FRONTEND_LARAVEL 'https://ftppipelinev1multiplatformphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv DB_CONNECTION '${{ secrets.DB_CONNECTION }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_HOST '${{ secrets.DB_SYSTEM_HOST }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_PORT '${{ secrets.DB_SYSTEM_PORT }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_DATABASE '${{ secrets.DB_SYSTEM_DATABASE }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_USER '${{ secrets.DB_SYSTEM_USER }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_PASSWORD '${{ secrets.DB_SYSTEM_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_SYSTEM_DB_TABLE_PREFIX '${{ secrets.CONFIG_SYSTEM_DB_TABLE_PREFIX }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_SYSTEM_DB_TYPE '${{ secrets.CONFIG_SYSTEM_DB_TYPE }}'" >> .htaccess; \
+                echo "SetEnv ENABLE_SYSTEM_DB_SIZE_OPTIMIZE '${{ secrets.ENABLE_SYSTEM_DB_SIZE_OPTIMIZE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_KEY_SYSTEM '${{ secrets.CONFIG_API_KEY_SYSTEM }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_GOOGLE_KEY '${{ secrets.CONFIG_API_GOOGLE_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_AWS_S3_ID '${{ secrets.CONFIG_API_AWS_S3_ID }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_AWS_S3_KEY '${{ secrets.CONFIG_API_AWS_S3_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_AWS_S3_BUCKET '${{ secrets.CONFIG_API_AWS_S3_BUCKET }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY '${{ secrets.CONFIG_CRYPT_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY_16BYTE '${{ secrets.CONFIG_CRYPT_KEY_16BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY_32BYTE '${{ secrets.CONFIG_CRYPT_KEY_32BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_IV16BYTE '${{ secrets.CONFIG_CRYPT_IV16BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_IV32BYTE '${{ secrets.CONFIG_CRYPT_IV32BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY_DEFUSE_PHP_ENCRYPTION_RANDOM_KEY '${{ secrets.CONFIG_CRYPT_KEY_DEFUSE_PHP_ENCRYPTION_RANDOM_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_SALT '${{ secrets.CONFIG_CRYPT_SALT }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES '${{ secrets.CONFIG_DIRECTORY_FILES }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES_LAYOUT '${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FONTS '${{ secrets.CONFIG_DIRECTORY_FONTS }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_RESOURCES '${{ secrets.CONFIG_DIRECTORY_RESOURCES }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_STYLES '${{ secrets.CONFIG_DIRECTORY_STYLES }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_JS '${{ secrets.CONFIG_DIRECTORY_JS }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_VIEWS '${{ secrets.CONFIG_DIRECTORY_VIEWS }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_BUILD_LARAVEL '${{ secrets.CONFIG_DIRECTORY_BUILD_LARAVEL }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES_SD '${{ secrets.CONFIG_DIRECTORY_FILES_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES_LAYOUT_SD '${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FONTS_SD '${{ secrets.CONFIG_DIRECTORY_FONTS_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_STYLES_SD '${{ secrets.CONFIG_DIRECTORY_STYLES_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_JS_SD '${{ secrets.CONFIG_DIRECTORY_JS_SD }}'" >> .htaccess; \
+                echo "SetEnv REPO_USER '${{ secrets.REPO_USER }}'" >> .htaccess; \
+                echo "SetEnv REPO_NAME '${{ secrets.REPO_NAME }}'" >> .htaccess; \
+                echo "SetEnv REPO_TOKEN '${{ secrets.REPO_TOKEN }}'" >> .htaccess; \
+                echo "SetEnv LARAVEL_PUBLIC_INDEX_PATH_STORAGE_MAINTENANCE '${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_STORAGE_MAINTENANCE }}'" >> .htaccess; \
+                echo "SetEnv LARAVEL_PUBLIC_INDEX_PATH_AUTOLOAD '${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_AUTOLOAD }}'" >> .htaccess; \
+                echo "SetEnv LARAVEL_PUBLIC_INDEX_PATH_BOOTSTRAP '${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_BOOTSTRAP }}'" >> .htaccess; \
+                echo "SetEnv FRONTEND_FTP_ADDRESS '${{ secrets.FRONTEND_FTP_ADDRESS }}'" >> .htaccess; \
+                echo "SetEnv FRONTEND_FTP_USERNAME '${{ secrets.FRONTEND_FTP_USERNAME }}'" >> .htaccess; \
+                echo "SetEnv FRONTEND_FTP_PASSWORD '${{ secrets.FRONTEND_FTP_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv BACKEND_FTP_ADDRESS '${{ secrets.BACKEND_FTP_ADDRESS }}'" >> .htaccess; \
+                echo "SetEnv BACKEND_FTP_USERNAME '${{ secrets.BACKEND_FTP_USERNAME }}'" >> .htaccess; \
+                echo "SetEnv BACKEND_FTP_PASSWORD '${{ secrets.BACKEND_FTP_PASSWORD }}'" >> .htaccess;
+              shell: bash
+
+            - name: Update public index.php locally (Backend)
+              run: |
+                sed -i -e 's|/../storage/framework/maintenance.php|${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_STORAGE_MAINTENANCE }}|' \
+                       -e 's|/../vendor/autoload.php|${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_AUTOLOAD }}|' \
+                       -e 's|/../bootstrap/app.php|${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_BOOTSTRAP }}|' index.php
+              shell: bash
+
+            - name: Upload modified .htaccess and index.php (Backend)
+              run: |
+                lftp -c "
+                  set ftp:ssl-allow no; \
+                  open -u ${{ secrets.BACKEND_FTP_USERNAME }},${{ secrets.BACKEND_FTP_PASSWORD }} ${{ secrets.BACKEND_FTP_ADDRESS }}; \
+                  mirror -R --reverse --only-newer --parallel=10 --exclude-glob .git* \
+                  --exclude .github/ \
+                  ./ /www/html
+                  quit
+                "
+              shell: bash
+            # mirror -R --reverse --only-newer --parallel=10 --exclude-glob .git* --exclude .github/ ./ /www/html
+            
+            - name: Access server and download .htaccess and index.php (Frontend)
+              run: |
+                lftp -e "set ssl:verify-certificate no; \
+                open -u ${{ secrets.FRONTEND_FTP_USERNAME }},${{ secrets.FRONTEND_FTP_PASSWORD }} ${{ secrets.FRONTEND_FTP_ADDRESS }}; \
+                cd /www/html; \
+                set xfer:clobber true; \
+                get .htaccess; \
+                get index.php; \
+                quit"
+              shell: bash
+
+            - name: Delete SetEnv lines from .htaccess (Frontend)
+              run: |
+                htaccessFile=".htaccess"
+                sed -i '/^SetEnv/d' "$htaccessFile"
+              shell: bash
+
+            # Note: double check spaces after each line. Might cause error in GitHub actions.
+            - name: Update .htaccess locally (Frontend)
+              run: |
+                echo "SetEnv APP_NAME '${{ secrets.APP_NAME }}'" >> .htaccess; \
+                echo "SetEnv APP_ENV 'production'" >> .htaccess; \
+                echo "SetEnv APP_KEY '${{ secrets.APP_KEY }}'" >> .htaccess; \
+                echo "SetEnv APP_DEBUG false" >> .htaccess; \
+                echo "SetEnv APP_URL 'https://ftppipelinev1multiplatformphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv LOG_CHANNEL '${{ secrets.LOG_CHANNEL }}'" >> .htaccess; \
+                echo "SetEnv BROADCAST_DRIVER '${{ secrets.BROADCAST_DRIVER }}'" >> .htaccess; \
+                echo "SetEnv CACHE_DRIVER '${{ secrets.CACHE_DRIVER }}'" >> .htaccess; \
+                echo "SetEnv QUEUE_CONNECTION '${{ secrets.QUEUE_CONNECTION }}'" >> .htaccess; \
+                echo "SetEnv SESSION_DRIVER '${{ secrets.SESSION_DRIVER }}'" >> .htaccess; \
+                echo "SetEnv SESSION_LIFETIME '${{ secrets.SESSION_LIFETIME }}'" >> .htaccess; \
+                echo "SetEnv REDIS_HOST '${{ secrets.REDIS_HOST }}'" >> .htaccess; \
+                echo "SetEnv REDIS_PASSWORD '${{ secrets.REDIS_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv REDIS_PORT '${{ secrets.REDIS_PORT }}'" >> .htaccess; \
+                echo "SetEnv MAIL_MAILER '${{ secrets.MAIL_MAILER }}'" >> .htaccess; \
+                echo "SetEnv MAIL_HOST '${{ secrets.MAIL_HOST }}'" >> .htaccess; \
+                echo "SetEnv MAIL_PORT '${{ secrets.MAIL_PORT }}'" >> .htaccess; \
+                echo "SetEnv MAIL_USERNAME '${{ secrets.MAIL_USERNAME }}'" >> .htaccess; \
+                echo "SetEnv MAIL_PASSWORD '${{ secrets.MAIL_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv MAIL_ENCRYPTION '${{ secrets.MAIL_ENCRYPTION }}'" >> .htaccess; \
+                echo "SetEnv MAIL_FROM_ADDRESS '${{ secrets.MAIL_FROM_ADDRESS }}'" >> .htaccess; \
+                echo "SetEnv MAIL_FROM_NAME '${{ secrets.MAIL_FROM_NAME }}'" >> .htaccess; \
+                echo "SetEnv AWS_DEFAULT_REGION '${{ secrets.AWS_DEFAULT_REGION }}'" >> .htaccess; \
+                echo "SetEnv PUSHER_APP_CLUSTER '${{ secrets.PUSHER_APP_CLUSTER }}'" >> .htaccess; \
+                echo "SetEnv MIX_PUSHER_APP_KEY '${{ secrets.MIX_PUSHER_APP_KEY }}'" >> .htaccess; \
+                echo "SetEnv MIX_PUSHER_APP_CLUSTER '${{ secrets.MIX_PUSHER_APP_CLUSTER }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_SYSTEM_URL 'https://ftppipelinev1multiplatformphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_URL 'https://ftppipelinev1backendphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv CONFIG_URL_FRONTEND_REACT '${{ secrets.CONFIG_URL_FRONTEND_REACT }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_URL_FRONTEND_LARAVEL 'https://ftppipelinev1multiplatformphplaravel8v1.syncsystem.com.br'" >> .htaccess; \
+                echo "SetEnv DB_CONNECTION '${{ secrets.DB_CONNECTION }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_HOST '${{ secrets.DB_SYSTEM_HOST }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_PORT '${{ secrets.DB_SYSTEM_PORT }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_DATABASE '${{ secrets.DB_SYSTEM_DATABASE }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_USER '${{ secrets.DB_SYSTEM_USER }}'" >> .htaccess; \
+                echo "SetEnv DB_SYSTEM_PASSWORD '${{ secrets.DB_SYSTEM_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_SYSTEM_DB_TABLE_PREFIX '${{ secrets.CONFIG_SYSTEM_DB_TABLE_PREFIX }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_SYSTEM_DB_TYPE '${{ secrets.CONFIG_SYSTEM_DB_TYPE }}'" >> .htaccess; \
+                echo "SetEnv ENABLE_SYSTEM_DB_SIZE_OPTIMIZE '${{ secrets.ENABLE_SYSTEM_DB_SIZE_OPTIMIZE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_KEY_SYSTEM '${{ secrets.CONFIG_API_KEY_SYSTEM }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_GOOGLE_KEY '${{ secrets.CONFIG_API_GOOGLE_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_AWS_S3_ID '${{ secrets.CONFIG_API_AWS_S3_ID }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_AWS_S3_KEY '${{ secrets.CONFIG_API_AWS_S3_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_API_AWS_S3_BUCKET '${{ secrets.CONFIG_API_AWS_S3_BUCKET }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY '${{ secrets.CONFIG_CRYPT_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY_16BYTE '${{ secrets.CONFIG_CRYPT_KEY_16BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY_32BYTE '${{ secrets.CONFIG_CRYPT_KEY_32BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_IV16BYTE '${{ secrets.CONFIG_CRYPT_IV16BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_IV32BYTE '${{ secrets.CONFIG_CRYPT_IV32BYTE }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_KEY_DEFUSE_PHP_ENCRYPTION_RANDOM_KEY '${{ secrets.CONFIG_CRYPT_KEY_DEFUSE_PHP_ENCRYPTION_RANDOM_KEY }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_CRYPT_SALT '${{ secrets.CONFIG_CRYPT_SALT }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES '${{ secrets.CONFIG_DIRECTORY_FILES }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES_LAYOUT '${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FONTS '${{ secrets.CONFIG_DIRECTORY_FONTS }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_RESOURCES '${{ secrets.CONFIG_DIRECTORY_RESOURCES }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_STYLES '${{ secrets.CONFIG_DIRECTORY_STYLES }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_JS '${{ secrets.CONFIG_DIRECTORY_JS }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_VIEWS '${{ secrets.CONFIG_DIRECTORY_VIEWS }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_BUILD_LARAVEL '${{ secrets.CONFIG_DIRECTORY_BUILD_LARAVEL }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES_SD '${{ secrets.CONFIG_DIRECTORY_FILES_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FILES_LAYOUT_SD '${{ secrets.CONFIG_DIRECTORY_FILES_LAYOUT_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_FONTS_SD '${{ secrets.CONFIG_DIRECTORY_FONTS_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_STYLES_SD '${{ secrets.CONFIG_DIRECTORY_STYLES_SD }}'" >> .htaccess; \
+                echo "SetEnv CONFIG_DIRECTORY_JS_SD '${{ secrets.CONFIG_DIRECTORY_JS_SD }}'" >> .htaccess; \
+                echo "SetEnv REPO_USER '${{ secrets.REPO_USER }}'" >> .htaccess; \
+                echo "SetEnv REPO_NAME '${{ secrets.REPO_NAME }}'" >> .htaccess; \
+                echo "SetEnv REPO_TOKEN '${{ secrets.REPO_TOKEN }}'" >> .htaccess; \
+                echo "SetEnv LARAVEL_PUBLIC_INDEX_PATH_STORAGE_MAINTENANCE '${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_STORAGE_MAINTENANCE }}'" >> .htaccess; \
+                echo "SetEnv LARAVEL_PUBLIC_INDEX_PATH_AUTOLOAD '${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_AUTOLOAD }}'" >> .htaccess; \
+                echo "SetEnv LARAVEL_PUBLIC_INDEX_PATH_BOOTSTRAP '${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_BOOTSTRAP }}'" >> .htaccess; \
+                echo "SetEnv FRONTEND_FTP_ADDRESS '${{ secrets.FRONTEND_FTP_ADDRESS }}'" >> .htaccess; \
+                echo "SetEnv FRONTEND_FTP_USERNAME '${{ secrets.FRONTEND_FTP_USERNAME }}'" >> .htaccess; \
+                echo "SetEnv FRONTEND_FTP_PASSWORD '${{ secrets.FRONTEND_FTP_PASSWORD }}'" >> .htaccess; \
+                echo "SetEnv BACKEND_FTP_ADDRESS '${{ secrets.BACKEND_FTP_ADDRESS }}'" >> .htaccess; \
+                echo "SetEnv BACKEND_FTP_USERNAME '${{ secrets.BACKEND_FTP_USERNAME }}'" >> .htaccess; \
+                echo "SetEnv BACKEND_FTP_PASSWORD '${{ secrets.BACKEND_FTP_PASSWORD }}'" >> .htaccess;
+              shell: bash
+
+            - name: Update public index.php locally (Frontend)
+              run: |
+                sed -i -e 's|/../storage/framework/maintenance.php|${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_STORAGE_MAINTENANCE }}|' \
+                       -e 's|/../vendor/autoload.php|${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_AUTOLOAD }}|' \
+                       -e 's|/../bootstrap/app.php|${{ secrets.LARAVEL_PUBLIC_INDEX_PATH_BOOTSTRAP }}|' index.php
+              shell: bash
+
+            - name: Upload modified .htaccess and index.php (Frontend)
+              run: |
+                lftp -c "
+                  set ftp:ssl-allow no; \
+                  open -u ${{ secrets.FRONTEND_FTP_USERNAME }},${{ secrets.FRONTEND_FTP_PASSWORD }} ${{ secrets.FRONTEND_FTP_ADDRESS }}; \
+                  mirror -R --reverse --only-newer --parallel=10 --exclude-glob .git* \
+                  --exclude .github/ \
+                  ./ /www/html
+                  quit
+                "
+              shell: bash
+
+        # Add a conditional statement to run only on merged pull requests
+        if: |
+          github.event_name == 'pull_request' && 
+          github.event.action == 'closed' && 
+          github.event.pull_request.merged == true &&
+          contains(github.event.pull_request.labels.*.name, 'deploy-full')
+        # Note: last line is condition for pull request to contain a label called 'deploy-full'.
+        # TODO: test it.
+
+
+        # Evaluate if it's necessary to set directories write permissions.
+            
+        # Access setup URL to complete deploy configuration (DB, symlinks).
+
