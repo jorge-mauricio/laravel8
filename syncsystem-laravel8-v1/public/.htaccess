@@ -3,6 +3,7 @@
     Order allow,deny
     Deny from all
 </Files>
+# TODO: restrict access to laravel8 folder if shared host demands it should be placed in the public directory.
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
