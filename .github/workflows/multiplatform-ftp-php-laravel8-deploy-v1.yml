@@ -491,6 +491,10 @@ jobs:
                 "
               shell: bash
 
+        # TODO: access the setup routes.
+
+
+
         # Add a conditional statement to run only on merged pull requests
         if: |
           github.event_name == 'pull_request' && 
