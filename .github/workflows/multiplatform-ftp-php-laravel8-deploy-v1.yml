@@ -283,7 +283,7 @@ jobs:
                     echo "Deploy Follow-up Actions Successful"
                     echo "Content:"
                     curl --silent https://${{ secrets.BACKEND_FTP_ADDRESS }}/system/setup/
-                fi                
+                fi
 
             - name: Deploy Follow-up Actions (frontend)
               run: |
@@ -295,7 +295,7 @@ jobs:
                     echo "Deploy Follow-up Actions Successful"
                     echo "Content:"
                     curl --silent https://${{ secrets.FRONTEND_FTP_ADDRESS }}/system/setup/
-                fi                               
+                fi
 
 
 
