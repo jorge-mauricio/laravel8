@@ -168,6 +168,7 @@ jobs:
                     "
               shell: bash
             # --parallel=10
+            # TODO: investigate if this step is copying the syncsystem-laravel8-v1 folder
 
             - name: Deploy FTP - Frontend - Public
               working-directory: ./syncsystem-laravel8-v1/public
@@ -224,11 +225,16 @@ jobs:
                   open -u ${{ secrets.BACKEND_FTP_USERNAME }},${{ secrets.BACKEND_FTP_PASSWORD }} ${{ secrets.BACKEND_FTP_ADDRESS }}; \
                   mirror -R --reverse --only-newer --parallel=10 --exclude-glob .git* \
                   --exclude .github/ \
+                  --exclude syncsystem-laravel8-v1/ \
+                  --exclude LICENSE \
+                  --exclude README.md \
                   ./ /www/html
                   quit
                 "
               shell: bash
             # mirror -R --reverse --only-newer --parallel=10 --exclude-glob .git* --exclude .github/ ./ /www/html
+            # TODO: I added this line: --exclude syncsystem-laravel8-v1/ \, etc. Test if it fixed not uploading the syncsystem-laravel8-v1 anymore
+            # TODO: Or modify this section to just send .htaccess and index.php files (replicate for frontend). 
             
             - name: Access server and download .htaccess and index.php (Frontend)
               run: |
@@ -268,6 +274,9 @@ jobs:
                   open -u ${{ secrets.FRONTEND_FTP_USERNAME }},${{ secrets.FRONTEND_FTP_PASSWORD }} ${{ secrets.FRONTEND_FTP_ADDRESS }}; \
                   mirror -R --reverse --only-newer --parallel=10 --exclude-glob .git* \
                   --exclude .github/ \
+                  --exclude syncsystem-laravel8-v1/ \
+                  --exclude LICENSE \
+                  --exclude README.md \
                   ./ /www/html
                   quit
                 "
@@ -296,8 +305,6 @@ jobs:
                     echo "Content:"
                     curl --silent https://${{ secrets.FRONTEND_FTP_ADDRESS }}/system/setup/
                 fi
-
-
 
         # Add a conditional statement to run only on merged pull requests
         if: |
