@@ -74,6 +74,9 @@ Note: leave it as is if you don't wish to change anything.
 ### Production Deploy
 - Server setup;
 
+### Production Deploy (FTP - Automated Pipeline)
+- [Instructions for creating a simple automated pipeline](https://github.com/jorge-mauricio/ftppipelinev1phplaravel8v1.syncsystem.com.br/blob/main/README.md)
+
 ## Resources
 - SyncSystem - less code, more logic [Website](https://www.syncsystem.com.br)
 - Jorge Mauricio (JM) – Full Stack Web Developer / Designer [Website](https://www.fullstackwebdesigner.com)
